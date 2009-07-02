@@ -1,0 +1,9 @@
+syntax: glob
+
+*.pyc
+*~
+
+syntax: regexp
+
+^log/
+^db/db_
