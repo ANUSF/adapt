@@ -1,9 +1,12 @@
 syntax: glob
 
 *.pyc
+*.war
 *~
 
 syntax: regexp
 
 ^log/
 ^db/db_
+^tmp/
+^derby.log$

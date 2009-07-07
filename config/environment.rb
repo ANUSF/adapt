@@ -9,6 +9,7 @@ require File.join(File.dirname(__FILE__), 'boot')
 Rails::Initializer.run do |config|
   config.gem "haml"
   config.gem "authlogic"
+  #config.gem "activerecord-jdbcsqlite3-adapter" # -- must be set in warble.rb
 
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
