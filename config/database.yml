@@ -11,7 +11,12 @@ test:
   database: db/db_test.sqlite3
   timeout:  5000
   
-production: # FIXME!
+stage:
   adapter:  jdbcsqlite3
-  database: db/db_production.sqlite3
+  database: /home/olaf/db/Fedora-Ingest-stage.sqlite3
+  timeout:  5000
+  
+production:
+  adapter:  jdbcsqlite3
+  database: /home/900/oxd900/sqlite3/railstest.db
   timeout:  5000
