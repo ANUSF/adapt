@@ -6,7 +6,7 @@ development:
 # Warning: The database defined as 'test' will be erased and
 # re-generated from your development database when you run 'rake'.
 # Do not set this db to the same as development or production.
-test:
+test: &TEST
   adapter:  jdbcsqlite3
   database: db/db_test.sqlite3
   timeout:  5000
@@ -20,3 +20,6 @@ production:
   adapter:  jdbcsqlite3
   database: /home/900/oxd900/sqlite3/railstest.db
   timeout:  5000
+
+cucumber:
+  <<: *TEST
