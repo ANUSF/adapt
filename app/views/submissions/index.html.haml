@@ -1,0 +1,17 @@
+- title "Submissions"
+
+%table
+  %tr
+    %th User
+    %th Study identifier
+    %th Name
+  - for submission in @submissions
+    %tr
+      %td= h submission.user_id
+      %td= h submission.study_identifier
+      %td= h submission.name
+      %td= link_to 'Show', submission
+      %td= link_to 'Edit', edit_submission_path(submission)
+      %td= link_to 'Destroy', submission, :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New Submission", new_submission_path
