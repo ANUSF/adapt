@@ -1,0 +1,18 @@
+- title "Submission"
+
+%p
+  %strong User:
+  =h @submission.user_id
+%p
+  %strong Study Identifier:
+  =h @submission.study_identifier
+%p
+  %strong Name:
+  =h @submission.name
+
+%p
+  = link_to "Edit", edit_submission_path(@submission)
+  |
+  = link_to "Destroy", @submission, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", submissions_path
