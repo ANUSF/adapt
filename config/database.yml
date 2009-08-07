@@ -1,3 +1,25 @@
+<%
+  include Java
+  import java.lang.System
+
+  db_base = System.getProperty('RAILS_DB_PATH') ||
+            (System.getProperty('user.home') || ".") + "/db"
+  db_path = "#{db_base}/Fedora-Ingest-#{ENV["RAILS_ENV"] || "x"}.sqlite3"
+  
+  puts "db_path = #{db_path}"
+%>
+
+
+stage:
+  adapter:  jdbcsqlite3
+  database: <%= db_path %>
+  timeout:  5000
+  
+production:
+  adapter:  jdbcsqlite3
+  database: <%= db_path %>
+  timeout:  5000
+
 development:
   adapter:  jdbcsqlite3
   database: db/db_development.sqlite3
@@ -11,15 +33,5 @@ test: &TEST
   database: db/db_test.sqlite3
   timeout:  5000
   
-stage:
-  adapter:  jdbcsqlite3
-  database: /home/olaf/db/Fedora-Ingest-stage.sqlite3
-  timeout:  5000
-  
-production:
-  adapter:  jdbcsqlite3
-  database: /home/900/oxd900/sqlite3/railstest.db
-  timeout:  5000
-
 cucumber:
   <<: *TEST
