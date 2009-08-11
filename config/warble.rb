@@ -10,7 +10,7 @@ Warbler::Config.new do |config|
   config.dirs = %w(app config lib log vendor tmp)
 
   # Additional files/directories to include, above those in config.dirs
-  #config.includes = FileList["db/db_#{ENV["RAILS_ENV"]}.sqlite3"]
+  config.includes = FileList["db/db_bootstrap.sqlite3"]
 
   # Additional files/directories to exclude
   # config.excludes = FileList["lib/tasks/*"]

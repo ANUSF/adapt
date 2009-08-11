@@ -1,15 +1,23 @@
 <%
-  include Java
-  import java.lang.System
+    include Java
 
-  db_base = System.getProperty('RAILS_DB_PATH') ||
-            (System.getProperty('user.home') || ".") + "/db"
-  db_path = "#{db_base}/Fedora-Ingest-#{ENV["RAILS_ENV"] || "x"}.sqlite3"
-  
-  puts "db_path = #{db_path}"
+    env = ENV["RAILS_ENV"]
+    db_path = java.lang.System.getProperty('RAILS_DB_PATH')
+    unless db_path
+        if %w{stage production}.include? env
+            base = (java.lang.System.getProperty('user.home') || ".") + "/db"
+            db_name = "db_#{env}.sqlite3"
+            db_path = "#{db_base}/#{db_name}"
+        end
+    end
+    puts "db_path = #{db_path}"
 %>
 
-
+bootstrap:
+  adapter:  jdbcsqlite3
+  database: <%= db_path %>
+  timeout:  5000
+  
 stage:
   adapter:  jdbcsqlite3
   database: <%= db_path %>
@@ -22,7 +30,7 @@ production:
 
 development:
   adapter:  jdbcsqlite3
-  database: db/db_development.sqlite3
+  database: <%= db_path %>
   timeout:  5000
   
 # Warning: The database defined as 'test' will be erased and
