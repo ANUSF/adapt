@@ -4,5 +4,5 @@ class User < ActiveRecord::Base
     c.crypto_provider = Authlogic::CryptoProviders::BCrypt
   end
   
-  has_many :submissions
+  has_many :studies
 end

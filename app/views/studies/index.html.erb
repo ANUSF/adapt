@@ -1,0 +1,25 @@
+<% title "Studies" %>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Permanent Identifyer</th>
+    <th>Name</th>
+    <th>Status</th>
+    <th>Ddi</th>
+  </tr>
+  <% for study in @studies %>
+    <tr>
+      <td><%=h study.user_id %></td>
+      <td><%=h study.permanent_identifyer %></td>
+      <td><%=h study.name %></td>
+      <td><%=h study.status %></td>
+      <td><%=h study.ddi %></td>
+      <td><%= link_to "Show", study %></td>
+      <td><%= link_to "Edit", edit_study_path(study) %></td>
+      <td><%= link_to "Destroy", study, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Study", new_study_path %></p>

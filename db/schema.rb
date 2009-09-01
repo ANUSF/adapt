@@ -9,14 +9,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090723071817) do
+ActiveRecord::Schema.define(:version => 20090901062007) do
 
-  create_table "submissions", :force => true do |t|
-    t.integer  "user_id",          :null => false
-    t.string   "study_identifier", :null => false
-    t.string   "name",             :null => false
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+  create_table "studies", :force => true do |t|
+    t.integer  "user_id",                             :null => false
+    t.string   "permanent_identifyer",                :null => false
+    t.string   "name",                                :null => false
+    t.string   "status",                              :null => false
+    t.string   "ddi",                  :limit => nil, :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
   end
 
   create_table "users", :force => true do |t|
