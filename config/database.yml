@@ -7,7 +7,7 @@
         env = ENV["RAILS_ENV"]
         db_base = ((%w{stage production}.include?(env) &&
 		    System.getProperty('user.home')) || ".") + "/db"
-	db_name = "db_#{env || 'production'}.sqlite3"
+	db_name = "db_#{env || 'development'}.sqlite3"
         db_path = "#{db_base}/#{db_name}"
     end
     puts "db_path = #{db_path}"

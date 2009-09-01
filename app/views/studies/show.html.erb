@@ -1,0 +1,28 @@
+<% title "Study" %>
+
+<p>
+  <strong>User:</strong>
+  <%=h @study.user_id %>
+</p>
+<p>
+  <strong>Permanent Identifyer:</strong>
+  <%=h @study.permanent_identifyer %>
+</p>
+<p>
+  <strong>Name:</strong>
+  <%=h @study.name %>
+</p>
+<p>
+  <strong>Status:</strong>
+  <%=h @study.status %>
+</p>
+<p>
+  <strong>Ddi:</strong>
+  <%=h @study.ddi %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_study_path(@study) %> |
+  <%= link_to "Destroy", @study, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", studies_path %>
+</p>
