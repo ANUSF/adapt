@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env jruby
 begin
   load File.expand_path(File.dirname(__FILE__) + "/../vendor/plugins/cucumber/bin/cucumber")
 rescue LoadError => e
