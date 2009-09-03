@@ -3,24 +3,23 @@ Feature: Register
   As a depositor
   I want to register
 
-  Scenario: Correct Registration
+  Scenario Outline: Pass or fail registration
     When I am on the registration page
-    And I fill in "Username" with "olaf"
-    And I fill in "Email" with "olaf@gmail.com"
-    And I fill in "Password" with "geheim"
-    And I fill in "Password confirmation" with "geheim"
+    And I fill in "Username" with "<login>"
+    And I fill in "Email" with "<email>@gmail.com"
+    And I fill in "Password" with "<passwd>"
+    And I fill in "Password confirmation" with "<confirm>"
     And I press "Submit"
-    Then I should see "Registration successful."
+    Then I should see "Registration <status>"
+    And I should see "<cause>"
 
-  Scenario: Bad Username
-    When I am on the registration page
-    And I fill in "Username" with "$olaf$"
-    And I fill in "Email" with "olaf@gmail.com"
-    And I fill in "Password" with "secret"
-    And I fill in "Password confirmation" with "secret"
-    And I press "Submit"
-    Then I should see "Username should use only"
-    And I should see "Registration failed."
+  Examples:
+    | login | email | passwd | confirm | status  | cause                    |
+    | olaf  | olaf  | geheim | geheim  | success |                          |
+    | *l*f  | olaf  | geheim | geheim  | failed  | Username should use only |
+    | olaf  | olaf  | geheim | g3h31m  | failed  | Password doesn't match   |
+    | olaf  | olaf  | ge     | ge      | failed  | Password is too short    |
+    | olaf  | ol@f  | geheim | geheim  | failed  | Email should look like   |
 
   Scenario: Username exists
     Given I have an account as "olaf" with password "geheim"
@@ -31,34 +30,4 @@ Feature: Register
     And I fill in "Password confirmation" with "secret"
     And I press "Submit"
     Then I should see "Username is already taken"
-    And I should see "Registration failed."
-
-  Scenario: Password Confirmation Mismatch
-    When I am on the registration page
-    And I fill in "Username" with "olaf"
-    And I fill in "Email" with "olaf@gmail.com"
-    And I fill in "Password" with "geheim"
-    And I fill in "Password confirmation" with "g3h31m"
-    And I press "Submit"
-    Then I should see "Password doesn't match confirmation"
-    And I should see "Registration failed."
-
-  Scenario: Password Too Short
-    When I am on the registration page
-    And I fill in "Username" with "olaf"
-    And I fill in "Email" with "olaf@gmail.com"
-    And I fill in "Password" with "pw"
-    And I fill in "Password confirmation" with "pw"
-    And I press "Submit"
-    Then I should see "Password is too short"
-    And I should see "Registration failed."
-
-  Scenario: Bad Email Address
-    When I am on the registration page
-    And I fill in "Username" with "olaf"
-    And I fill in "Email" with "olaf%gmail.com"
-    And I fill in "Password" with "geheim"
-    And I fill in "Password confirmation" with "geheim"
-    And I press "Submit"
-    Then I should see "Email should look like an email address"
     And I should see "Registration failed."
