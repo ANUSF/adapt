@@ -3,8 +3,10 @@ Feature: Login
   As a user
   I want to login
 
-  Scenario: Correct Password
+  Background:
     Given I have an account as "olaf" with password "geheim"
+
+  Scenario: Correct Password
     When I go to the login page
     And I fill in "username" with "olaf"
     And I fill in "password" with "geheim"
@@ -12,7 +14,6 @@ Feature: Login
     Then I should see "Welcome olaf!"
 
   Scenario: Wrong Password
-    Given I have an account as "olaf" with password "geheim"
     When I go to the login page
     And I fill in "username" with "olaf"
     And I fill in "password" with "secret"
