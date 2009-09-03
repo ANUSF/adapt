@@ -10,7 +10,6 @@ Feature: Login
     And I fill in "password" with "geheim"
     And I press "Submit"
     Then I should see "Welcome olaf!"
-    And I should be on the start page
 
   Scenario: Wrong Password
     Given I have an account as "olaf" with password "geheim"

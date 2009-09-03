@@ -10,7 +10,7 @@
 	db_name = "db_#{env || 'development'}.sqlite3"
         db_path = "#{db_base}/#{db_name}"
     end
-    puts "db_path = #{db_path}"
+    #puts "db_path = #{db_path}"
 %>
 
 bootstrap:
