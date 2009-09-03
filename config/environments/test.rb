@@ -26,7 +26,7 @@ config.action_mailer.delivery_method = :test
 config.gem "faker"
 config.gem "thoughtbot-shoulda", :lib => "shoulda",
                                  :source => "http://gems.github.com"
-config.gem "rspec"
-config.gem "rspec-rails"
+#config.gem "rspec"
+#config.gem "rspec-rails"
 config.gem "webrat"
 config.gem "cucumber"

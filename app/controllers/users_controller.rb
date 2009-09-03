@@ -5,7 +5,11 @@ class UsersController < ApplicationController
   
   def create
     @user = User.new(params[:user])
-    if @user.save
+    if User.find_by_username(@user[:username])
+      # -- authlogic breaks validation within model
+      @user.errors.add(:username, "is already taken")
+      render :action => 'new'
+    elsif @user.save
       flash[:notice] = "Registration successful."
       redirect_to root_url
     else
