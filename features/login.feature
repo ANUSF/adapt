@@ -12,6 +12,7 @@ Feature: Login
     And I fill in "password" with "geheim"
     And I press "Submit"
     Then I should see "Welcome olaf!"
+    And I should not see "failed"
 
   Scenario: Wrong Password
     When I go to the login page
@@ -19,3 +20,4 @@ Feature: Login
     And I fill in "password" with "secret"
     And I press "Submit"
     Then I should see "Login failed."
+    And I should not see "Welcome"
