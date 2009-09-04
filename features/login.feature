@@ -1,7 +1,7 @@
 Feature: Login
-  In order to use the program
-  As a user
-  I want to login
+  In order to deposit a new study or add information to my earlier deposits
+  As a registered depositor
+  I want to log in
 
   Background:
     Given I have an account as "olaf" with password "geheim"

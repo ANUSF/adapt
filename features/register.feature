@@ -1,7 +1,8 @@
 Feature: Register
-  In order to obtain a user account
+  In order to save and revisit my submissions so that I can complete the deposit
+    form or add supplementary documents at a later point
   As a depositor
-  I want to register
+  I want to register a user name
 
   Scenario Outline: Pass or fail registration
     Given I have an account as "odf" with password "secret"
