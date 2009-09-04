@@ -5,7 +5,7 @@ Feature: Register
   I want to register a user name
 
   Scenario Outline: Pass or fail registration
-    Given I have an account as "odf" with password "secret"
+    Given there is an account "odf"
     When I am on the registration page
     And I fill in "Username" with "<login>"
     And I fill in "Email" with "<email>@gmail.com"
