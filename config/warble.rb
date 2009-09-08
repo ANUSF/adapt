@@ -13,7 +13,7 @@ Warbler::Config.new do |config|
   config.includes = FileList["db/db_bootstrap.sqlite3"]
 
   # Additional files/directories to exclude
-  # config.excludes = FileList["lib/tasks/*"]
+  config.excludes = FileList["lib/tasks"]
 
   # Additional Java .jar files to include.  Note that if .jar files are placed
   # in lib (and not otherwise excluded) then they need not be mentioned here.
@@ -22,13 +22,13 @@ Warbler::Config.new do |config|
   # config.java_libs += FileList["lib/java/*.jar"]
 
   # Loose Java classes and miscellaneous files to be placed in WEB-INF/classes.
-  # config.java_classes = FileList["target/classes/**.*"]
+  config.java_classes = FileList["java/bin/au/**/*"]
 
   # One or more pathmaps defining how the java classes should be copied into
   # WEB-INF/classes. The example pathmap below accompanies the java_classes
   # configuration above. See http://rake.rubyforge.org/classes/String.html#M000017
   # for details of how to specify a pathmap.
-  # config.pathmaps.java_classes << "%{target/classes/,}p"
+  config.pathmaps.java_classes << "%{java/bin/,}p"
 
   # Gems to be included. You need to tell Warbler which gems your application needs
   # so that they can be packaged in the war file.
