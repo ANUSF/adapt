@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Sealed: true
+Main-Class: au.edu.anu.anusf.asess.tatwraps.DeploymentWrapper

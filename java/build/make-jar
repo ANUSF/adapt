@@ -1,0 +1,6 @@
+#!/bin/sh
+DIR=`dirname $1`
+APP=`basename $1`
+echo $APP | sed 's/\.war$//' > appname.txt
+jar cmf DIST.MF dist.jar appname.txt \
+    -C $DIR $APP -C ../bin au -C jetty javax -C jetty org
