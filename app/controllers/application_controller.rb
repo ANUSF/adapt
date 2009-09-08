@@ -2,7 +2,8 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery
 
-  filter_parameter_logging :password, :password_confirmation
+  filter_parameter_logging(:password, :password_confirmation,
+                           :authenticity_token)
   
   before_filter :validate_ip
 
