@@ -12,10 +12,10 @@ class StudiesController < ApplicationController
   end
   
   def create
-    @study = Study.new(params[:study])
+    @study = current_user.studies.new(params[:study])
     if @study.save
       flash[:notice] = "Successfully created study."
-      redirect_to @study
+      redirect_to [current_user, @study]
     else
       render :action => 'new'
     end
@@ -29,7 +29,7 @@ class StudiesController < ApplicationController
     @study = Study.find(params[:id])
     if @study.update_attributes(params[:study])
       flash[:notice] = "Successfully updated study."
-      redirect_to @study
+      redirect_to [current_user, @study]
     else
       render :action => 'edit'
     end
@@ -39,6 +39,6 @@ class StudiesController < ApplicationController
     @study = Study.find(params[:id])
     @study.destroy
     flash[:notice] = "Successfully destroyed study."
-    redirect_to studies_url
+    redirect_to user_studies_url
   end
 end

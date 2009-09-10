@@ -1,0 +1,26 @@
+- title "Study"
+
+%p
+  %strong User:
+  =h @study.user.username
+%p
+  %strong Permanent Identifier:
+  =h @study.permanent_identifier
+%p
+  %strong Name:
+  =h @study.name
+%p
+  %strong>Status:
+  =h @study.status
+%p
+  %strong>Ddi:
+  =h @study.ddi
+
+%p>
+  = link_to "Edit", edit_user_study_path(current_user, @study)
+  |
+  = link_to "Destroy", [current_user, @study], :confirm => 'Are you sure?', |
+                               :method => :delete |
+  /
+  |
+  = link_to "View All", user_studies_path

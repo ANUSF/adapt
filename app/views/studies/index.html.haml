@@ -1,0 +1,21 @@
+- title "Studies"
+
+%table
+  %tr
+    %th User
+    %th Identifier
+    %th Name
+    %th Status
+  - for study in @studies
+    %tr
+      %td=h study.user.username
+      %td=h study.permanent_identifier
+      %td=h study.name
+      %td=h study.status
+      %td= link_to "Show", [current_user, study]
+      %td= link_to "Edit", edit_user_study_path(current_user, study)
+      %td= link_to "Destroy", [current_user, study], |
+                              :confirm => 'Are you sure?', |
+                              :method => :delete |
+
+%p= link_to "New Study", new_user_study_path
