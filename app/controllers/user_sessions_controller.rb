@@ -7,9 +7,9 @@ class UserSessionsController < ApplicationController
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
       flash[:notice] = "Welcome #{current_user[:username]}!"
-      redirect_to root_url
+      redirect_to user_studies_url(current_user)
     else
-      flash[:error] = "Login failed."
+      flash.now[:error] = "Login failed."
       render :action => 'new'
     end
   end
