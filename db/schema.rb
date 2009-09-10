@@ -9,9 +9,10 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090901062007) do
+ActiveRecord::Schema.define(:version => 20090910052708) do
 
-  create_table "studies", :force => true do |t|
+  create_table "studies", :id => false, :force => true do |t|
+    t.integer  "id",                   :limit => nil, :null => false
     t.integer  "user_id",                             :null => false
     t.string   "permanent_identifier",                :null => false
     t.string   "name",                                :null => false
@@ -19,16 +20,18 @@ ActiveRecord::Schema.define(:version => 20090901062007) do
     t.string   "ddi",                  :limit => nil, :null => false
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false
+    t.string   "title",                :limit => nil, :null => false
   end
 
-  create_table "users", :force => true do |t|
-    t.string   "username",          :null => false
-    t.string   "email",             :null => false
-    t.string   "crypted_password",  :null => false
-    t.string   "password_salt",     :null => false
-    t.string   "persistence_token", :null => false
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+  create_table "users", :id => false, :force => true do |t|
+    t.integer  "id",                :limit => nil, :null => false
+    t.string   "username",                         :null => false
+    t.string   "email",                            :null => false
+    t.string   "crypted_password",                 :null => false
+    t.string   "password_salt",                    :null => false
+    t.string   "persistence_token",                :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
   end
 
 end

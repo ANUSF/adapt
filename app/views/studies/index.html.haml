@@ -3,7 +3,8 @@
 %table
   %tr
     %th ASSDA_ID
-    %th Name
+    %th Short Name
+    %th Title
     %th Status
   - for study in @studies
     %tr
@@ -13,6 +14,12 @@
         - else
           =h study.permanent_identifier
       %td=h study.name
+      %td
+        - if study.title
+          - if study.title.size <= 40
+            =h study.title
+          - else
+            == #{h study.title[0,37]}...
       %td=h study.status
       %td= link_to "Show", study
       %td= link_to "Edit", edit_study_path(study)
