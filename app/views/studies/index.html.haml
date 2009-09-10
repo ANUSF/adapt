@@ -1,14 +1,12 @@
-- title "Studies"
+- title "Deposits by #{h current_user.username.capitalize}"
 
 %table
   %tr
-    %th User
-    %th Identifier
+    %th ASSDA_ID
     %th Name
     %th Status
   - for study in @studies
     %tr
-      %td=h study.user.username
       %td=h study.permanent_identifier
       %td=h study.name
       %td=h study.status
