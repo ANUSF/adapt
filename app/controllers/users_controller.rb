@@ -12,7 +12,7 @@ class UsersController < ApplicationController
       render :action => 'new'
     elsif @user.save
       flash[:notice] = "Registration successful."
-      redirect_to root_url
+      redirect_to studies_url
     else
       flash.now[:error] = "Registration failed."
       render :action => 'new'
