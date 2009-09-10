@@ -1,5 +1,5 @@
 class Study < ActiveRecord::Base
   belongs_to :user
 
-  attr_accessible :name, :title
+  attr_accessible :name, :title, :abstract
 end
