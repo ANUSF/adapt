@@ -1,11 +1,16 @@
 - form_for @study do |f|
   = f.error_messages
-  %p
-    = f.label "Study Label"
+  %p{ :title => "Use this to refer to study during submission and " + |
+                "approval stages" } |
+    = f.label "Short name"
     %br
     = f.text_field :name, :size => 20
   %p
-    = f.label "Study Full Title"
+    = f.label "Study Title"
     %br
-    = f.text_area :title, :cols => 80, :rows => 4
+    = f.text_area :title, :cols => 60, :rows => 4
+  %p
+    = f.label "Study Abstract"
+    %br
+    = f.text_area :abstract, :cols => 60, :rows => 16
   = f.submit "Submit"
