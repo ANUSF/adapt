@@ -1,0 +1,8 @@
+- title "Edit Study"
+
+= render :partial => 'form'
+
+%p
+  = link_to "Show", [current_user, @study]
+  |
+  = link_to "View All", user_studies_path(current_user)

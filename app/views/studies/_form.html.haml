@@ -1,0 +1,7 @@
+- form_for([ current_user, @study ]) do |f|
+  = f.error_messages
+  %p
+    = f.label :name
+    %br
+    = f.text_field :name
+  = f.submit "Submit"
