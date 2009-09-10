@@ -13,3 +13,4 @@ syntax: regexp
 ^java/bin/
 ^java/build/dist.jar$
 ^java/build/appname.txt$
+^java/.manager/
