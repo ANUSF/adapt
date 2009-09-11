@@ -11,8 +11,17 @@ class Study < ActiveRecord::Base
     when :name
       "Here you can assign an optional abbreviated name to refer to this " +
         "study by."
-    else
-      nil
+    end
+  end
+
+  def label_for(column)
+    case column.to_sym
+    when :name
+      "Short Name"
+    when :title
+      "Study Title"
+    when :abstract
+      "Study Abstract"
     end
   end
 end
