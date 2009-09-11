@@ -1,4 +1,5 @@
 class StudiesController < ApplicationController
+
   def index
     @studies = current_user.studies.all
   end
