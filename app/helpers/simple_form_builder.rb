@@ -2,10 +2,11 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
   def self.create_tagged_field(name, default_options = {})
     define_method(name) do |column, *args|
       options = default_options.merge(args.last.is_a?(Hash) ? args.pop : {})
-      label = options.delete(:label) || column
-      title = options.delete(:title) || if @object.respond_to? :help_on
-                                          @object.help_on column
-                                        end
+      label = options.delete(:label) || 
+        if @object.respond_to? :label_for then @object.label_for column end ||
+        column
+      title = options.delete(:title) ||
+        if @object.respond_to? :help_on then @object.help_on column end
       args = args + [options] unless options.empty?
       
       content =
