@@ -11,7 +11,7 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
       
       content =
         @template.content_tag("label",
-                              label.to_s.humanize + indicate_required(options),
+                              label.to_s.titleize + indicate_required(options),
                               :for => "#{@object_name}_#{column}") +
         @template.content_tag("br") +
         @template.content_tag("span", super(column, *args), :class => "input")
@@ -31,7 +31,7 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
       args = args + [options] unless options.empty?
       @template.content_tag("p",
         @template.content_tag("label",
-                              label.to_s.humanize + indicate_required(options),
+                              label.to_s.titleize + indicate_required(options),
                               :for => "#{column}") +
         @template.content_tag("span",
                               self.class.send("#{name}_tag", column, "", *args),
