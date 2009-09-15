@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090910064245) do
+ActiveRecord::Schema.define(:version => 20090915074543) do
 
   create_table "studies", :id => false, :force => true do |t|
     t.integer  "id",                   :limit => nil, :null => false
@@ -22,6 +22,16 @@ ActiveRecord::Schema.define(:version => 20090910064245) do
     t.datetime "updated_at",                          :null => false
     t.string   "title",                :limit => nil, :null => false
     t.string   "abstract",             :limit => nil, :null => false
+    t.string   "data_kind",                           :null => false
+    t.string   "time_method",                         :null => false
+    t.string   "sample_population",    :limit => nil, :null => false
+    t.string   "sampling_procedure",                  :null => false
+    t.string   "collection_mode",                     :null => false
+    t.datetime "collection_start",                    :null => false
+    t.datetime "collection_end",                      :null => false
+    t.datetime "period_start",                        :null => false
+    t.datetime "period_end",                          :null => false
+    t.string   "loss_prevention",      :limit => nil, :null => false
   end
 
   create_table "users", :id => false, :force => true do |t|

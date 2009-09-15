@@ -1,0 +1,10 @@
+- title "Edit Data Description for Study #{@study.name||""}"
+
+%strong Study title:
+%br
+%em=h @study.title
+
+- make_form_for @study do |f|
+  = f.error_messages
+  %hr
+  = f.result_buttons %w{Back Next}
