@@ -8,20 +8,17 @@ class Study < ActiveRecord::Base
 
   def help_on(column)
     case column.to_sym
-    when :name
-      "Here you can assign an optional abbreviated name to refer to this " +
-        "study by."
+    when :name     then "Short name to use for later reference."
+    when :title    then "The full title of this study."
+    when :abstract then "The study abstract. Please use only plain text."
     end
   end
 
   def label_for(column)
     case column.to_sym
-    when :name
-      "Short Name"
-    when :title
-      "Study Title"
-    when :abstract
-      "Study Abstract"
+    when :name     then "Short Name"
+    when :title    then "Study Title"
+    when :abstract then "Study Abstract"
     end
   end
 end
