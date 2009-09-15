@@ -10,15 +10,18 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
       args = args + [options] unless options.empty?
       
       content =
-        @template.content_tag("label", label.to_s.humanize + ":" +
-                              indicate_required(options),
+        @template.content_tag("label",
+                              label.to_s.humanize + indicate_required(options),
                               :for => "#{@object_name}_#{column}") +
         @template.content_tag("br") +
         @template.content_tag("span", super(column, *args), :class => "input")
      
-      msg = error_message_on(@object_name, column)
-      content += @template.content_tag("span", msg) unless msg.blank?
-      @template.content_tag("p", content, :title => title)
+      msg = @object.errors.on(column)
+      unless msg.blank?
+        content += @template.content_tag("span", msg, :class => "formError")
+      end
+      @template.content_tag("p", content, :title => title) +
+        @template.content_tag("div", nil, :class => "clear")
     end
 
     define_method("#{name}_tag") do |column, *args|
@@ -28,8 +31,7 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
       args = args + [options] unless options.empty?
       @template.content_tag("p",
         @template.content_tag("label",
-                              label.to_s.humanize + ":" +
-                              indicate_required(options),
+                              label.to_s.humanize + indicate_required(options),
                               :for => "#{column}") +
         @template.content_tag("span",
                               self.class.send("#{name}_tag", column, "", *args),
@@ -42,7 +44,7 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
   extend ActionView::Helpers::FormTagHelper
 
   for name in field_helpers - ["text_area", "hidden_field"]
-    create_tagged_field(name, :size => 60)
+    create_tagged_field(name, :size => 40)
   end
   
   create_tagged_field("date_select")

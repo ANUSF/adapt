@@ -10,6 +10,13 @@
   
   %body
     #container
+      #header
+        %img{ :src => "/images/assda-logo.png" }
+        %div
+          ASSDA Self Deposit (Demo)
+      .clear
+      %hr
+
       #user-nav
         - if current_user
           = link_to "Edit profile", edit_user_path(:current)

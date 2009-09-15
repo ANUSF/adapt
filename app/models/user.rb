@@ -13,14 +13,14 @@ class User < ActiveRecord::Base
   AREA  = / \d{2,6} | \(\d{2,6}\) /xo
   LINE  = / \d{2,4} #{SEP} \d{4} /xo
   EXT   = /#{SEP}(ext|x)#{SEP}\d{1,5}/xo
-  PHONE = /\A (#{WORLD}|#{AREA}) #{SEP} #{LINE} #{EXT}? \Z/xo
+  PHONE = /\A ((#{WORLD}|#{AREA}) #{SEP} #{LINE} #{EXT}?)? \Z/xo
 
-  validates_presence_of :name
+  validates_presence_of :name, :message => "Please enter your name."
   validates_presence_of :address
   validates_format_of   :telephone, :with => PHONE,
-                        :message => "should look like a phone number"
+                        :message => "Does not look like a phone number."
   validates_format_of   :fax, :with => PHONE,
-                        :message => "should look like a phone number"
+                        :message => "Does not look like a phone number."
 
   has_many :studies
 end

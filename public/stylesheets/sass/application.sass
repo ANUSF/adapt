@@ -1,13 +1,37 @@
-!primary_color = #4B7399
+!primary_color = #994779
+!link_color = !primary_color
+!signal_color = red
 
 body
   :background-color = !primary_color
+  :background url(../images/matrixRule.jpg)
   :font
-    :family Verdana, Helvetica, Arial
-    :size 14px
+    :family Arial, Helvetica, sans-serif
+    :size 10pt
+
+#header
+  :text
+    :align center
+  :color = !primary_color
+  :font
+    :size 160%
+    :weight bold
+  img
+    :float right
+  div
+    :float right
+    :margin 20px 150px 20px 0px
+
+h1
+  :font
+    :size 140%
+
+h2
+  :font
+    :size 130%
 
 a
-  :color #0000FF
+  :color = !link_color
   img
     :border none
 
@@ -31,15 +55,28 @@ a
   :margin 10px 0
 
 #flash_notice
-  :background-color #CFC
-  :border solid 1px #6C6
+  :background-color #FFC
+  :border solid 1px #CC6
 
 #flash_error
   :background-color #FCC
   :border solid 1px #C66
 
+.input
+  :float left
+
+.required
+  :padding-left 1ex
+  :color = !signal_color
+
+.formError
+  :padding-left 1em
+  :color = !signal_color
+
 .fieldWithErrors
-  :display inline
+  input
+    :border-style solid
+    :border-color = !signal_color
 
 #errorExplanation
   :width 400px
