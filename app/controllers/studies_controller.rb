@@ -14,7 +14,7 @@ class StudiesController < ApplicationController
   
   def create
     @study = current_user.studies.new(params[:study])
-    @study.status = "unsubmitted"
+    @study.status = "incomplete"
     if @study.save
       flash[:notice] = "Successfully created study."
       redirect_to @study

@@ -1,10 +1,12 @@
+/@import reset
+
 !primary_color = #994779
 !link_color = !primary_color
 !signal_color = red
 
 body
-  :background-color = !primary_color
   :background url(../images/matrixRule.jpg)
+    :color = !primary_color
   :font
     :family Arial, Helvetica, sans-serif
     :size 10pt
@@ -35,6 +37,14 @@ a
   img
     :border none
 
+hr
+  :height 1px
+  :border none
+  :margin
+    :top 1.5em
+  :background
+    :color = !primary_color
+
 .clear
   :clear both
   :height 0
@@ -55,54 +65,66 @@ a
   :margin 10px 0
 
 #flash_notice
-  :background-color #FFC
+  :background
+    :color #FFC
   :border solid 1px #CC6
 
 #flash_error
-  :background-color #FCC
+  :background
+    :color #FCC
   :border solid 1px #C66
 
 .input
   :float left
 
 .required
-  :padding-left 1ex
+  :padding
+    :left 1ex
   :color = !signal_color
 
 .formError
-  :padding-left 1em
+  :padding
+    :left 1em
   :color = !signal_color
 
 .fieldWithErrors
   input
-    :border-style solid
-    :border-color = !signal_color
+    :border
+      :style solid
+      :color = !signal_color
 
 #errorExplanation
   :width 400px
   :border 2px solid #CF0000
   :padding 0
-  :padding-bottom 12px
-  :margin-bottom 20px
-  :background-color #f0f0f0
+    :bottom 12px
+  :margin
+    :bottom 20px
+  :background
+    :color #f0f0f0
   h2
-    :text-align left
+    :text
+      :align left
     :padding 5px 5px 5px 15px
     :margin 0
     :font
       :weight bold
       :size 12px
-    :background-color #c00
+    :background
+      :color #c00
     :color #fff
   p
     :color #333
-    :margin-bottom 0
+    :margin
+      :bottom 0
     :padding 8px
   ul
     :margin 2px 24px
     li
-      :font-size 12px
-      :list-style disc
+      :font
+        :size 12px
+      :list
+        :style disc
 
 #user-nav
   :float right
