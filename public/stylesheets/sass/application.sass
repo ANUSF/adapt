@@ -1,8 +1,51 @@
-/@import reset
+@import reset
 
 !primary_color = #994779
 !link_color = !primary_color
 !signal_color = red
+
+p
+  :margin 0.5em 0
+
+em
+  :font-style italic
+
+strong
+  :font-weight bolder
+
+small
+  :font-size smaller
+
+big
+  :font-size larger
+
+li
+  :margin 0.3em 3em
+  ul
+    :list-style circle
+
+ul
+  :list-style disc
+
+dt
+  :font-weight bold
+  :margin 1em 0 0.5em 0
+
+dd
+  :margin-left 1em
+
+blockquote
+  :margin 0.3em 3em
+
+sup
+  :font-size smaller
+  :position relative
+  :bottom 0.5em
+
+sub
+  :font-size smaller
+  :position relative
+  :bottom -0.5em
 
 body
   :background url(../images/matrixRule.jpg)
@@ -24,13 +67,31 @@ body
     :float right
     :margin 20px 150px 20px 0px
 
+h1, h2, h3
+  :font
+    :weight bolder
+  :float clear
+
 h1
   :font
     :size 140%
+  :margin
+    :top 1.2em
+    :bottom 0.8em
 
 h2
   :font
     :size 130%
+  :margin
+    :top 0.9em
+    :bottom 0.6em
+
+h3
+  :font
+    :size 130%
+  :margin
+    :top 0.6em
+    :bottom 0.4em
 
 a
   :color = !link_color
@@ -45,10 +106,26 @@ hr
   :background
     :color = !primary_color
 
+dfn
+  :font-style italic
+
+tt
+  :font-family courier
+
+del
+  :text-decoration line-through
+  :color #800000
+
+ins
+  :text-decoration none
+  :background-color lightgreen
+
 .clear
-  :clear both
+  :content "."
+  :display block
   :height 0
-  :overflow hidden
+  :clear both
+  :visibility hidden
 
 #container
   :width 75%
