@@ -1,7 +1,5 @@
 syntax: glob
 
-*.css
-*.pyc
 *.war
 *~
 
@@ -15,3 +13,4 @@ syntax: regexp
 ^java/build/dist.jar$
 ^java/build/appname.txt$
 ^java/.manager/
+^public/stylesheets/application\.css$
