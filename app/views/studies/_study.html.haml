@@ -1,0 +1,29 @@
+- unless study.nil?
+  %p
+    %strong Depositor:
+    =h study.user.name
+  - unless study.name.blank?
+    %p
+      %strong Short Name:
+      =h study.name
+  %p
+    %strong Status:
+    =h study.status
+  %p
+    %strong ASSDA ID:
+    - if study.permanent_identifier.blank?
+      %em &mdash;pending&mdash
+    - else
+      =h study.permanent_identifier
+  %p
+    %strong Study Title:
+    =h study.title
+  %p
+    %strong Abstract:
+    =h study.abstract
+
+  %p>
+    = link_to "Edit", edit_study_path(study)
+    |
+    = link_to "Destroy", study, :confirm => 'Are you sure?', :method => :delete
+  %hr
