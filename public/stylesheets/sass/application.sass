@@ -77,7 +77,8 @@ body
 
 #header
   :height 65px
-  :margin 8px 12px
+  :padding
+    :right 12px
   :background
     :color white
   :text
@@ -88,10 +89,18 @@ body
     :size 160%
     :weight bold
   img
+    :margin
+      :bottom -2px
+    :float left
+  img.logo
+    :padding
+      :top 8px
     :float right
   div
     :float right
-    :margin 20px 150px 20px 0px
+    :margin
+      :top 30px
+      :right 150px
 
 #divider
   :position relative
@@ -100,7 +109,12 @@ body
     :color = !primary_color
 
 #content
-  :margin 0 20px
+  :margin 0
+  :padding 0 20px
+  :background url(../images/house.jpg) no-repeat right bottom
+  :border
+    :bottom 1px solid
+      :color = !primary_color
 
 #navigation
   :width 20%
@@ -128,14 +142,18 @@ body
       :font
         :family Arial, Verdana, Helvetica, sans-serif
         :weight bolder
+  img
+    :float right
+    :margin
+      :right 0
+      :top 0
 
 #footer
-  :border
-    :top 1px solid
-      :color = !primary_color
   :padding 10px
   :text
     :align center
+  img
+    :float right
 
 h1, h2, h3
   :font
@@ -175,7 +193,7 @@ hr
   :margin
     :top 1.5em
   :background
-    :color = !primary_color
+    :color = gray
 
 dfn
   :font
