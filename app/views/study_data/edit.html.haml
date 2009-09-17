@@ -1,10 +1,25 @@
-- title "Edit Data Description for Study #{@study.name||""}"
+- title "Edit Study #{@study.name||""} (Page 2)"
+- start_year = Time.now.year - 100
 
-%strong Study title:
-%br
 %em=h @study.title
+%hr
 
-- make_form_for @study do |f|
+- make_form_for @study, :url => study_datum_url(@study) do |f|
   = f.error_messages
+  = f.text_field  :data_kind
+  = f.text_field  :time_method
+  = f.text_area   :sample_population
+  = f.text_field  :sampling_procedure
+  = f.text_field  :collection_mode
+  = f.date_select :collection_start, :start_year => start_year
+  = f.date_select :collection_end, :start_year => start_year
+  = f.date_select :period_start, :start_year => start_year
+  = f.date_select :period_end, :start_year => start_year
+  = f.text_area   :loss_prevention
   %hr
   = f.result_buttons %w{Back Next}
+
+%p
+  = link_to "Show", @study
+  |
+  = link_to "View All", studies_path
