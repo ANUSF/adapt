@@ -11,6 +11,8 @@
   %body
     #top
       #navigation
+        %img{ :src => "/images/minifantopleft.png" }
+        .clear
         %ul
           - if current_user
             %li= link_to "Edit profile", edit_user_path(:current)
@@ -21,8 +23,9 @@
     
       #main
         #header
-          %img{ :src => "/images/assda-logo.png" }
-          %div ASSDA Self Deposit (Demo)
+          %img{ :src => "/images/minifantop.png" }
+          %img{ :class => "logo", :src => "/images/assda-logo.png" }
+          %div ASSDA Self Deposit (Prototype)
         .clear
         #divider
         .clear
@@ -38,4 +41,9 @@
   
     .clear
     #footer
-      Copyright ANUSF
+      %img{ :src => "/images/rails.png" }
+      Copyright 2009 ANUSF
+      %br
+      &mdash;
+      %br
+      Powered by Ruby on Rails
