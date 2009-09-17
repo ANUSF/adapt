@@ -2,6 +2,12 @@
 
 - make_form_for @study, :url => study_acknowledgement_url(@study) do |f|
   = f.error_messages
+  = f.text_area :depositors
+  = f.text_area :principal_investigators
+  = f.text_area :data_collectors
+  = f.text_area :research_initiators
+  = f.text_area :funding_agency
+  = f.text_area :other_acknowledgements
   %hr
   = f.result_buttons %w{Back Next}
 
