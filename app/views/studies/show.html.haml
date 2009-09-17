@@ -1,29 +1,6 @@
 - title "Study"
 
-%p
-  %strong User:
-  =h @study.user.username
-%p
-  %strong ASSDA ID:
-  =h @study.permanent_identifier
-%p
-  %strong Short Name:
-  =h @study.name
-%p
-  %strong Study Title:
-  =h @study.title
-%p
-  %strong Abstract:
-  =h @study.abstract
-%p
-  %strong Status:
-  =h @study.status
+%hr
+= render "study"
 
-%p>
-  = link_to "Edit", edit_study_path(@study)
-  |
-  = link_to "Destroy", @study, :confirm => 'Are you sure?', |
-                               :method => :delete |
-  /
-  |
-  = link_to "View All", studies_path
+%p= link_to "View All", studies_path

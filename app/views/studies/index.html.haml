@@ -1,29 +1,6 @@
 - title "Deposits by #{h current_user.name}"
 
-%table
-  %tr
-    %th ASSDA_ID
-    %th Short Name
-    %th Title
-    %th Status
-  - for study in @studies
-    %tr
-      %td
-        - if study.permanent_identifier.blank?
-          &nbsp;&nbsp;&mdash;
-        - else
-          =h study.permanent_identifier
-      %td=h study.name
-      %td
-        - if study.title
-          - if study.title.size <= 40
-            =h study.title
-          - else
-            == #{h study.title[0,37]}...
-      %td=h study.status
-      %td= link_to "Show", study
-      %td= link_to "Edit", edit_study_path(study)
-      %td= link_to "Destroy", study, |
-                   :confirm => 'Are you sure?', :method => :delete |
+%hr
+= render @studies
 
 %p= link_to "New Study", new_study_path
