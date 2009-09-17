@@ -8,53 +8,78 @@ p
   :margin 0.5em 0
 
 em
-  :font-style italic
+  :font
+    :style italic
 
 strong
-  :font-weight bolder
+  :font
+    :weight bolder
 
 small
-  :font-size smaller
+  :font
+    :size smaller
 
 big
-  :font-size larger
+  :font
+    :size larger
 
 li
   :margin 0.3em 3em
   ul
-    :list-style circle
+    :list
+      :style circle
 
 ul
-  :list-style disc
+  :list
+    :style disc
 
 dt
-  :font-weight bold
+  :font
+    :weight bold
   :margin 1em 0 0.5em 0
 
 dd
-  :margin-left 1em
+  :margin
+    :left 1em
 
 blockquote
   :margin 0.3em 3em
 
 sup
-  :font-size smaller
+  :font
+    :size smaller
   :position relative
   :bottom 0.5em
 
 sub
-  :font-size smaller
+  :font
+    :size smaller
   :position relative
   :bottom -0.5em
 
 body
-  :background url(../images/matrixRule.jpg)
-    :color = !primary_color
   :font
     :family Verdana, Arial, Helvetica, sans-serif
     :size 10pt
 
+#top
+  :overflow hidden
+
+#main
+  :width 80%
+  :float left
+  :margin
+    :bottom -2000px
+  :padding
+    :bottom 2000px
+  :overflow hidden
+  :display block
+
 #header
+  :height 65px
+  :margin 8px 12px
+  :background
+    :color white
   :text
     :align center
   :color = !primary_color
@@ -67,6 +92,50 @@ body
   div
     :float right
     :margin 20px 150px 20px 0px
+
+#divider
+  :position relative
+  :height 10px
+  :background url(../images/matrixRule.jpg)
+    :color = !primary_color
+
+#content
+  :margin 0 20px
+
+#navigation
+  :width 20%
+  :float left
+  :margin
+    :bottom -2000px
+  :padding
+    :bottom 2000px
+  :overflow hidden
+  :display block
+  :background url(../images/matrixRule.jpg)
+    :color = !primary_color
+  ul
+    :list
+      :style none
+  li
+    :border 1px solid white
+    :padding 3px
+    :margin
+      :top 5px
+    a
+      :color white
+      :text
+        :decoration none
+      :font
+        :family Arial, Verdana, Helvetica, sans-serif
+        :weight bolder
+
+#footer
+  :border
+    :top 1px solid
+      :color = !primary_color
+  :padding 10px
+  :text
+    :align center
 
 h1, h2, h3
   :font
@@ -109,18 +178,23 @@ hr
     :color = !primary_color
 
 dfn
-  :font-style italic
+  :font
+    :style italic
 
 tt
-  :font-family courier
+  :font
+    :family courier
 
 del
-  :text-decoration line-through
+  :text
+    :decoration line-through
   :color #800000
 
 ins
-  :text-decoration none
-  :background-color lightgreen
+  :text
+    :decoration none
+  :background
+    :color lightgreen
 
 .clear
   :content "."
@@ -128,14 +202,6 @@ ins
   :height 0
   :clear both
   :visibility hidden
-
-#container
-  :width 75%
-  :margin 0 auto
-  :background #fff
-  :padding 20px 40px
-  :border solid 1px black
-  :margin-top 20px
 
 #flash_notice,
 #flash_error
@@ -208,6 +274,3 @@ label
         :size 12px
       :list
         :style disc
-
-#user-nav
-  :float right

@@ -9,28 +9,33 @@
     = yield(:head)
   
   %body
-    #container
-      #header
-        %img{ :src => "/images/assda-logo.png" }
-        %div
-          ASSDA Self Deposit (Demo)
-      .clear
-      %hr
+    #top
+      #navigation
+        %ul
+          - if current_user
+            %li= link_to "Edit profile", edit_user_path(:current)
+            %li= link_to "Logout", logout_path
+          - else
+            %li= link_to "Register", new_user_path
+            %li= link_to "Login", login_path
+    
+      #main
+        #header
+          %img{ :src => "/images/assda-logo.png" }
+          %div ASSDA Self Deposit (Demo)
+        .clear
+        #divider
+        .clear
 
-      #user-nav
-        - if current_user
-          = link_to "Edit profile", edit_user_path(:current)
-          |
-          = link_to "Logout", logout_path
-        - else
-          = link_to "Register", new_user_path
-          |
-          = link_to "Login", login_path
+        #content
+          - flash.each do |name, msg|
+            = content_tag :div, msg, :id => "flash_#{name}"
       
-      - flash.each do |name, msg|
-        = content_tag :div, msg, :id => "flash_#{name}"
+          - if show_title?
+            %h1=h yield(:title)
       
-      - if show_title?
-        %h1=h yield(:title)
-      
-      = yield
+          = yield
+  
+    .clear
+    #footer
+      Copyright ANUSF
