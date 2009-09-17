@@ -1,0 +1,11 @@
+- title "Edit Study #{@study.name||""} (Page 3)"
+
+- make_form_for @study, :url => study_acknowledgement_url(@study) do |f|
+  = f.error_messages
+  %hr
+  = f.result_buttons %w{Back Next}
+
+%p
+  = link_to "Show", @study
+  |
+  = link_to "View All", studies_path
