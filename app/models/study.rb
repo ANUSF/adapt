@@ -2,9 +2,11 @@ class Study < ActiveRecord::Base
   belongs_to :user
 
   validates_presence_of :title
-  validates_presence_of :abstract
 
-  attr_accessible :name, :title, :abstract
+  attr_accessible (:name, :title, :abstract, :data_kind, :time_method,
+                   :sample_population, :sampling_procedure, :collection_mode,
+                   :collection_start, :collection_end, :period_start,
+                   :period_end, :loss_prevention)
 
   def help_on(column)
     case column.to_sym

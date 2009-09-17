@@ -5,9 +5,18 @@ class StudyDataController < ApplicationController
   
   def update
     @study = Study.find(params[:id])
-    if @study.update_attributes(params[:study])
-      flash[:notice] = "Successfully updated study data."
-      redirect_to root_url
+
+    current = @study.attributes
+    @study.attributes = params[:study]
+    update_needed = @study.attributes != current
+
+    if not update_needed or @study.save
+      flash[:notice] = "Edits for page 2 were saved." if update_needed
+      if params[:result] == "Back"
+        redirect_to edit_study_url(@study)
+      else
+        redirect_to @study
+      end
     else
       render :action => 'edit'
     end

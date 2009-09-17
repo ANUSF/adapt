@@ -16,8 +16,8 @@ class StudiesController < ApplicationController
     @study = current_user.studies.new(params[:study])
     @study.status = "incomplete"
     if @study.save
-      flash[:notice] = "Successfully created study."
-      redirect_to @study
+      flash[:notice] = "Study entry created. Further input required."
+      redirect_to edit_study_datum_url(@study)
     else
       render :action => 'new'
     end
@@ -29,9 +29,14 @@ class StudiesController < ApplicationController
   
   def update
     @study = Study.find(params[:id])
-    if @study.update_attributes(params[:study])
-      flash[:notice] = "Successfully updated study."
-      redirect_to @study
+
+    current = @study.attributes
+    @study.attributes = params[:study]
+    update_needed = @study.attributes != current
+
+    if not update_needed or @study.save
+      flash[:notice] = "Edits for page 1 were saved." if update_needed
+      redirect_to edit_study_datum_url(@study)
     else
       render :action => 'edit'
     end
