@@ -1,4 +1,4 @@
-class StudyDataController < ApplicationController
+class StudyAcknowledgementsController < ApplicationController
   def edit
     @study = Study.find(params[:id])
   end
@@ -11,11 +11,11 @@ class StudyDataController < ApplicationController
     update_needed = @study.attributes != current
 
     if not update_needed or @study.save
-      flash[:notice] = "Edits for page 2 were saved." if update_needed
+      flash[:notice] = "Edits for page 3 were saved." if update_needed
       if params[:result] == "Back"
-        redirect_to edit_study_url(@study)
+        redirect_to edit_study_datum_url(@study)
       else
-        redirect_to edit_study_acknowledgement_url(@study)
+        redirect_to @study
       end
     else
       render :action => 'edit'
