@@ -9,29 +9,35 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090915074543) do
+ActiveRecord::Schema.define(:version => 20090917025101) do
 
   create_table "studies", :id => false, :force => true do |t|
-    t.integer  "id",                   :limit => nil, :null => false
-    t.integer  "user_id",                             :null => false
-    t.string   "permanent_identifier",                :null => false
-    t.string   "name",                                :null => false
-    t.string   "status",                              :null => false
-    t.string   "ddi",                  :limit => nil, :null => false
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
-    t.string   "title",                :limit => nil, :null => false
-    t.string   "abstract",             :limit => nil, :null => false
-    t.string   "data_kind",                           :null => false
-    t.string   "time_method",                         :null => false
-    t.string   "sample_population",    :limit => nil, :null => false
-    t.string   "sampling_procedure",                  :null => false
-    t.string   "collection_mode",                     :null => false
-    t.datetime "collection_start",                    :null => false
-    t.datetime "collection_end",                      :null => false
-    t.datetime "period_start",                        :null => false
-    t.datetime "period_end",                          :null => false
-    t.string   "loss_prevention",      :limit => nil, :null => false
+    t.integer  "id",                      :limit => nil, :null => false
+    t.integer  "user_id",                                :null => false
+    t.string   "permanent_identifier",                   :null => false
+    t.string   "name",                                   :null => false
+    t.string   "status",                                 :null => false
+    t.string   "ddi",                     :limit => nil, :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+    t.string   "title",                   :limit => nil, :null => false
+    t.string   "abstract",                :limit => nil, :null => false
+    t.string   "data_kind",                              :null => false
+    t.string   "time_method",                            :null => false
+    t.string   "sample_population",       :limit => nil, :null => false
+    t.string   "sampling_procedure",                     :null => false
+    t.string   "collection_mode",                        :null => false
+    t.datetime "collection_start",                       :null => false
+    t.datetime "collection_end",                         :null => false
+    t.datetime "period_start",                           :null => false
+    t.datetime "period_end",                             :null => false
+    t.string   "loss_prevention",         :limit => nil, :null => false
+    t.string   "depositors",              :limit => nil, :null => false
+    t.string   "principal_investigators", :limit => nil, :null => false
+    t.string   "data_collectors",         :limit => nil, :null => false
+    t.string   "research_initiators",     :limit => nil, :null => false
+    t.string   "funding_agency",          :limit => nil, :null => false
+    t.string   "other_acknowledgements",  :limit => nil, :null => false
   end
 
   create_table "users", :id => false, :force => true do |t|
