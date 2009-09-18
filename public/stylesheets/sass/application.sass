@@ -116,6 +116,10 @@ body
     :bottom 1px solid
       :color = !primary_color
 
+#page
+  p
+    :max-width 40em
+
 #navigation
   :width 20%
   :float left
@@ -132,16 +136,25 @@ body
       :style none
   li
     :border 1px solid white
-    :padding 3px
+    :padding 3px 6px
     :margin
       :top 5px
     a
       :color white
       :text
         :decoration none
+        :transform uppercase
       :font
         :family Arial, Verdana, Helvetica, sans-serif
         :weight bolder
+      :display block
+      :width 100%
+  li:hover
+    :color = !primary_color
+    :background
+      :color white
+    a
+      :color = !primary_color
   img
     :float right
     :margin
@@ -189,6 +202,7 @@ a
 
 hr
   :height 1px
+  :width 80%
   :border none
   :margin
     :top 1.5em
