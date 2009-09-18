@@ -1,4 +1,5 @@
 - unless study.nil?
+  %hr
   %p
     %strong Depositor:
     =h study.user.name
@@ -26,4 +27,3 @@
     = link_to "Edit", edit_study_path(study)
     |
     = link_to "Destroy", study, :confirm => 'Are you sure?', :method => :delete
-  %hr

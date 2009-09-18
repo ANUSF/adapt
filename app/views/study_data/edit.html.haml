@@ -1,7 +1,8 @@
 - title "Edit Study #{@study.name||""} (Page 2)"
 - start_year = Time.now.year - 100
 
-%em=h @study.title
+%p
+  %em=h @study.title
 %hr
 
 - make_form_for @study, :url => study_datum_url(@study) do |f|
@@ -18,8 +19,3 @@
   = f.text_area   :loss_prevention
   %hr
   = f.result_buttons %w{Back Next}
-
-%p
-  = link_to "Show", @study
-  |
-  = link_to "View All", studies_path
