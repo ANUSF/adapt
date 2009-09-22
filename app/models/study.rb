@@ -19,6 +19,10 @@ class Study < ActiveRecord::Base
     Study.field_properties(column)[:help] || label_for(column)
   end
 
+  def selections(column)
+    Study.field_properties(column)[:selections] || []
+  end
+
   protected
 
   def self.field_properties(column)
@@ -48,7 +52,12 @@ tests)"
       }
     when :time_method
       {
-        :label => "Time dimensions"
+        :label => "Time dimensions",
+        :selections => ["one-time cross-sectional study",
+                        "follow-up cross-sectional study",
+                        "repeated cross-sectional study",
+                        "longitudinal/panel/cohort study",
+                        "time series", "trend study", "other"]
       }
     when :sample_population
       {

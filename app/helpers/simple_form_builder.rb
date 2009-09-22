@@ -7,7 +7,11 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
         column
       title = options.delete(:title) ||
         if @object.respond_to? :help_on then @object.help_on column end
-      args = args + [options] unless options.empty?
+
+      if name.to_str == "select" and @object.respond_to? :selections
+        args[0] = @object.selections(column).map { |x| [x,x] }
+      end
+      args << options unless options.empty?
       
       content =
         @template.content_tag("label",
@@ -28,7 +32,7 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
       options = default_options.merge(args.last.is_a?(Hash) ? args.pop : {})
       label = options.delete(:label) || column
       title = options.delete(:title)
-      args = args + [options] unless options.empty?
+      args << options unless options.empty?
       @template.content_tag("p",
         @template.content_tag("label",
                               label.to_s.humanize + indicate_required(options),
