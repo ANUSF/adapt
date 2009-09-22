@@ -69,11 +69,40 @@ population"
       }
     when :sampling_procedure
       {
-        :label => "Sampling procedures"
+        :label => "Sampling procedures",
+        :selections => ["no sampling (total universe)",
+                        "simple random sample",
+                        "one-stage stratified or systematic random sample",
+                        "multi-stage sample",
+                        "multi-stage stratified random sample",
+                        "one-stage cluster sample",
+                        "area-cluster sample",
+                        "quota sample",
+                        "quasi-random (e.g. random walk) sample",
+                        "purposive selection/case studies",
+                        "volunteer sample",
+                        "convenience sample",
+                        "other"]
       }
     when :collection_mode
       {
-        :label => "Method of data collection"
+        :label => "Method of data collection",
+        :selections => ["clinical measurements",
+                        "compilation or synthesis of existing material",
+                        "diaries",
+                        "educational measurements",
+                        "email survey",
+                        "face-to-face interview",
+                        "observation",
+                        "physical measurements",
+                        "postal survey",
+                        "psychological measurements",
+                        "self-completion",
+                        "simulation",
+                        "telephone interview",
+                        "transcription of existing materials",
+                        "web-based self-completion",
+                        "other"]
       }
     when :collection_start
       {
