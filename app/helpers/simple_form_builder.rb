@@ -1,3 +1,5 @@
+require 'haml'
+
 class SimpleFormBuilder < ActionView::Helpers::FormBuilder
   def self.create_tagged_field(name, default_options = {})
     define_method(name) do |column, *args|
@@ -52,20 +54,18 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
   end
   
   def result_buttons(values = %w{Submit Cancel})
-    if values.is_a? String
-      values = [values]
-    end
-    "<p class = \"submit\">" +
-    values.inject("") do |text, val|
-      text += '<span><input name="result" type="submit" ' +
-              "value=\"#{val}\" /></span>"
-    end +
-    "</p>"
+    values = [values] if values.is_a? String
+    haml { '
+%p.submit
+  - for val in values
+    %span
+      %input{ :name => "result", :type => "submit", :value => "#{val}" }
+'   }
   end
   
   private
   def indicate_required(options)
-    options.delete(:required) ? '<span class="required">*</span>' : ""
+    options.delete(:required) ? haml { '%span.required *' } : ""
   end
   
   def error_message_on(object, column)
@@ -73,5 +73,9 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
       @template.error_message_on(object, column)
     rescue NameError
     end
+  end
+
+  def haml(&block)
+    Haml::Engine.new(block.call).render(block.binding)
   end
 end
