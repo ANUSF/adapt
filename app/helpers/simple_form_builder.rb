@@ -9,7 +9,8 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
         if @object.respond_to? :help_on then @object.help_on column end
 
       if name.to_str == "select" and @object.respond_to? :selections
-        args[0] = @object.selections(column).map { |x| [x,x] }
+        args[0] = [ ["-- please select --", ""] ] +
+          @object.selections(column).map { |x| [x,x] }
       end
       args << options unless options.empty?
       
@@ -26,21 +27,6 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
       end
       @template.content_tag("p", content, :title => title) +
         @template.content_tag("div", nil, :class => "clear")
-    end
-
-    define_method("#{name}_tag") do |column, *args|
-      options = default_options.merge(args.last.is_a?(Hash) ? args.pop : {})
-      label = options.delete(:label) || column
-      title = options.delete(:title)
-      args << options unless options.empty?
-      @template.content_tag("p",
-        @template.content_tag("label",
-                              label.to_s.humanize + indicate_required(options),
-                              :for => "#{column}") +
-        @template.content_tag("span",
-                              self.class.send("#{name}_tag", column, "", *args),
-                              :class => "input"),
-        :title => title)
     end
   end
 
