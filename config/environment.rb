@@ -11,4 +11,10 @@ Rails::Initializer.run do |config|
   #config.gem "bcrypt-ruby"
 
   config.time_zone = 'Canberra'
+
+  config.after_initialize do
+    migration_path = RAILS_ROOT + "/db/migrate"
+    #puts "Running migrations from #{migration_path}..."
+    ActiveRecord::Migrator.migrate(migration_path)
+  end
 end
