@@ -13,6 +13,7 @@ class Study < ActiveRecord::Base
                   :research_initiators, :funding_agency,
                   :other_acknowledgements)
 
+  multi_select :data_kind
   multi_select :time_method
   multi_select :sampling_procedure
   multi_select :collection_mode
@@ -51,10 +52,39 @@ class Study < ActiveRecord::Base
     when :data_kind
       {
         :label => "Kind of data",
-        :help =>
-"Please indicate the kind of data collected (e.g. survey; census data; \
-textual data; clinical data; process-produced data; psychological \
-tests)"
+        :selections => [
+                        "Qualitative",
+                        "Quantitative",
+                        "Administrative / process-produced data",
+                        "Audio-taped interviews",
+                        "Case study notes",
+                        "Census data",
+                        "Clinical data",
+                        "Coded documents ",
+                        "Correspondence",
+                        "Educational test data",
+                        "Election returns",
+                        "Experimental data",
+                        "Field notes",
+                        "Focus group transcripts",
+                        "Image",
+                        "Interview notes",
+                        "Interview summaries or extracts",
+                        "Interview transcripts",
+                        "Kinship diagrams",
+                        "Minutes of meetings",
+                        "Naturally occurring speech/conversation transcripts",
+                        "Observational ratings/data",
+                        "Photographs",
+                        "Press clippings",
+                        "Publications",
+                        "Psychological test",
+                        "Sound",
+                        "Statistics/aggregate data",
+                        "Survey data",
+                        "Textual data",
+                        "Time budget diaries/data",
+                        "Video-taped interviews" ]
       }
     when :time_method
       {
@@ -63,7 +93,8 @@ tests)"
                         "follow-up cross-sectional study",
                         "repeated cross-sectional study",
                         "longitudinal/panel/cohort study",
-                        "time series", "trend study", "other"]
+                        "time series",
+                        "trend study"]
       }
     when :sample_population
       {
@@ -87,8 +118,7 @@ population"
                         "quasi-random (e.g. random walk) sample",
                         "purposive selection/case studies",
                         "volunteer sample",
-                        "convenience sample",
-                        "other"]
+                        "convenience sample"]
       }
     when :collection_mode
       {
@@ -107,8 +137,7 @@ population"
                         "simulation",
                         "telephone interview",
                         "transcription of existing materials",
-                        "web-based self-completion",
-                        "other"]
+                        "web-based self-completion"]
       }
     when :collection_start
       {
