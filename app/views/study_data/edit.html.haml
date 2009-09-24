@@ -8,10 +8,10 @@
 - make_form_for @study, :url => study_datum_url(@study) do |f|
   = f.error_messages
   = f.text_field  :data_kind
-  = f.select      :time_method
+  = f.multiselect :time_method
   = f.text_area   :sample_population
-  = f.select      :sampling_procedure
-  = f.select      :collection_mode
+  = f.multiselect :sampling_procedure
+  = f.multiselect :collection_mode
   = f.date_select :collection_start, :start_year => start_year
   = f.date_select :collection_end, :start_year => start_year
   = f.date_select :period_start, :start_year => start_year

@@ -1,4 +1,6 @@
 class Study < ActiveRecord::Base
+  extend Accessors
+
   belongs_to :user
 
   validates_presence_of :title
@@ -10,6 +12,10 @@ class Study < ActiveRecord::Base
                   :principal_investigators, :data_collectors,
                   :research_initiators, :funding_agency,
                   :other_acknowledgements)
+
+  multi_select :time_method
+  multi_select :sampling_procedure
+  multi_select :collection_mode
 
   def label_for(column)
     Study.field_properties(column)[:label] || column.to_s.humanize

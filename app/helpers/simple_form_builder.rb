@@ -63,6 +63,43 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
 '   }
   end
   
+  def multiselect(column, *args)
+    options = args.last.is_a?(Hash) ? args.pop : {}
+    label = options.delete(:label) || 
+      if @object.respond_to? :label_for then @object.label_for column end ||
+      column
+    title = options.delete(:title) ||
+      if @object.respond_to? :help_on then @object.help_on column end
+    size = options.delete(:size) || 6
+
+    if @object.respond_to? :selections
+      args[0] = @object.selections(column).map { |x| [x,x] }
+    end
+    args << options unless options.empty?
+
+    msg = @object.errors.on(column)
+    id = "#{@object_name}_#{column}"
+    name = "#{@object_name}[#{column}][]"
+    current = @object.send(column)
+    
+    haml { '
+%p{ :title => title }
+  %label{ :for => id }
+    = label.to_s.humanize + indicate_required(options)
+  %br
+  %span.input
+    %select{ :id => id, :name => name, :multiple => "multiple", :size => size }
+      - for (k, v) in args[0]
+        - if current.include? v
+          %option{ :value => v, :selected => "selected" }= k
+        - else
+          %option{ :value => v }= k
+  - unless msg.blank?
+    %span.formError= msg
+.clear
+' }
+  end
+
   private
   def indicate_required(options)
     options.delete(:required) ? haml { '%span.required *' } : ""
