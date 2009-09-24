@@ -90,10 +90,8 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
   %span.input
     %select{ :id => id, :name => name, :multiple => "multiple", :size => size }
       - for (k, v) in args[0]
-        - if current.include? v
-          %option{ :value => v, :selected => "selected" }= k
-        - else
-          %option{ :value => v }= k
+        - selected = current.include?(v) ? "selected" : nil
+        %option{ :value => v, :selected => selected }= k
   - unless msg.blank?
     %span.formError= msg
 .clear
