@@ -7,24 +7,21 @@
 
 - make_form_for @study, :url => study_datum_url(@study) do |f|
   = f.error_messages
-  %div{ :style => "float: left" }
-    = f.multiselect :data_kind
-  %div{ :style => "float: left" }
+  %div
+    = f.multiselect :data_kind, :inline => true
     = f.multiselect :time_method
-  .clear
-  = f.text_area   :sample_population
-  %div{ :style => "float: left" }
-    = f.multiselect :sampling_procedure
-  %div{ :style => "float: left" }
-    = f.multiselect :collection_mode
-  .clear
-  %div{ :style => "float: left" }
-    = f.date_select :collection_start, :start_year => start_year
-  = f.date_select :collection_end, :start_year => start_year
-  .clear
-  %div{ :style => "float: left" }
-    = f.date_select :period_start, :start_year => start_year
-  = f.date_select :period_end, :start_year => start_year
+  %div
+    = f.text_area   :sample_population
   = f.text_area   :loss_prevention
+  %div
+    = f.multiselect :sampling_procedure, :inline => true
+    = f.multiselect :collection_mode
+  %div
+    = f.date_select :collection_start, :start_year => start_year, |
+                    :inline => true |
+    = f.date_select :collection_end, :start_year => start_year
+  %div
+    = f.date_select :period_start, :start_year => start_year, :inline => true
+    = f.date_select :period_end, :start_year => start_year
   %hr
   = f.result_buttons %w{Back Next}
