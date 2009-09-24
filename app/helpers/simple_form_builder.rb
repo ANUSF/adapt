@@ -10,25 +10,32 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
       title = options.delete(:title) ||
         if @object.respond_to? :help_on then @object.help_on column end
 
-      if name.to_str == "select" and @object.respond_to? :selections
-        args[0] = [ ["-- please select --", ""] ] +
-          @object.selections(column).map { |x| [x,x] }
+      if name.to_str == "select"
+        if args.size < 1 and @object.respond_to? :selections
+          args[0] = [ ["-- please select --", ""] ] +
+            @object.selections(column).map { |x| [x,x] }
+        end
       end
       args << options unless options.empty?
       
-      content =
-        @template.content_tag("label",
-                              label.to_s.humanize + indicate_required(options),
-                              :for => "#{@object_name}_#{column}") +
-        @template.content_tag("br") +
-        @template.content_tag("span", super(column, *args), :class => "input")
-     
+      id = "#{@object_name}_#{column}"
+      name = "#{@object_name}[#{column}]"
+      required = options.delete(:required)
       msg = @object.errors.on(column)
-      unless msg.blank?
-        content += @template.content_tag("span", msg, :class => "formError")
-      end
-      @template.content_tag("p", content, :title => title) +
-        @template.content_tag("div", nil, :class => "clear")
+      classes = "form-field" + (options.delete(:inline) ? " inline" : "")
+    
+    haml { '
+%span{ :title => title, :class => classes }
+  %label{ :for => id }
+    = label.to_s.humanize
+    - if required
+      %span.required *      
+  %br
+  %span.input= super(column, *args)
+  - unless msg.blank?
+    %span.formError= msg
+  %span.clear
+' }
     end
   end
 
@@ -72,20 +79,24 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
       if @object.respond_to? :help_on then @object.help_on column end
     size = options.delete(:size) || 6
 
-    if @object.respond_to? :selections
+    if args.size < 1 and @object.respond_to? :selections
       args[0] = @object.selections(column).map { |x| [x,x] }
     end
     args << options unless options.empty?
 
-    msg = @object.errors.on(column)
     id = "#{@object_name}_#{column}"
     name = "#{@object_name}[#{column}][]"
+    required = options.delete(:required)
+    msg = @object.errors.on(column)
     current = @object.send(column)
+    classes = "form-field" + (options.delete(:inline) ? " inline" : "")
     
     haml { '
-%p{ :title => title }
+%span{ :title => title, :class => classes }
   %label{ :for => id }
-    = label.to_s.humanize + indicate_required(options)
+    = label.to_s.humanize
+    - if required
+      %span.required *      
   %br
   %span.input
     %select{ :id => id, :name => name, :multiple => "multiple", :size => size }
@@ -94,15 +105,11 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
         %option{ :value => v, :selected => selected }= k
   - unless msg.blank?
     %span.formError= msg
-.clear
+  %span.clear
 ' }
   end
 
   private
-  def indicate_required(options)
-    options.delete(:required) ? haml { '%span.required *' } : ""
-  end
-  
   def error_message_on(object, column)
     begin
       @template.error_message_on(object, column)
