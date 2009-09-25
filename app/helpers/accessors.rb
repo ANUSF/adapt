@@ -5,7 +5,12 @@ module Accessors
     end
 
     define_method(name) do
-      ActiveSupport::JSON.decode(read_attribute name)
+      content = read_attribute name
+      if content.blank?
+        []
+      else
+        ActiveSupport::JSON.decode(read_attribute name)
+      end
     end
   end
 end
