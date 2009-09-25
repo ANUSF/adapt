@@ -1,12 +1,9 @@
 <%
-    require 'java'
-    System = java.lang.System
-
-    db_path = System.getProperty('RAILS_DB_PATH')
+    db_path = ENV['RAILS_DB_PATH']
     unless db_path
-        env = ENV["RAILS_ENV"]
+        env = ENV['RAILS_ENV']
         db_base = ((%w{stage production}.include?(env) &&
-		    System.getProperty('user.home')) || ".") + "/db"
+		    ENV['RAILS_USER_HOME']) || ".") + "/db"
 	db_name = "db_#{env || 'development'}.sqlite3"
         db_path = "#{db_base}/#{db_name}"
     end

@@ -146,6 +146,7 @@ public class DeploymentWrapper {
 		final String dbDir = joinedPath(applicationBase, "db");
 		final String dbPath = joinedPath(dbDir, "db.sqlite3");
 		System.setProperty("RAILS_DB_PATH", dbPath);
+		System.setProperty("RAILS_IS_LOCAL", "true");
 		
 		if (!new File(dbPath).exists()) {
 			Log.info("Copying template database to " + dbPath);
