@@ -11,7 +11,7 @@
   %body
     #top
       #navigation
-        %img{ :src => "images/minifantopleft.png" }
+        = image_tag "/images/minifantopleft.png" }
         .clear
         %ul
           - if current_user
@@ -31,8 +31,8 @@
     
       #main
         #header
-          %img{ :src => "images/minifantop.png" }
-          %img{ :class => "logo", :src => "images/assda-logo.png" }
+          = image_tag "/images/minifantop.png" }
+          = image_tag "/images/assda-logo.png", :class => "logo"
           %div ASSDA Self Deposit (Prototype)
         .clear
         #divider
