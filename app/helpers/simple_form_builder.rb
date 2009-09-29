@@ -22,10 +22,9 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
       name = "#{@object_name}[#{column}]"
       required = options.delete(:required)
       msg = @object.errors.on(column)
-      classes = "form-field" + (options.delete(:inline) ? " inline" : "")
     
     haml { '
-%span{ :title => title, :class => classes }
+%div{ :title => title, :class => "form-field" }
   %label{ :for => id }
     = label.to_s.humanize
     - if required
@@ -89,10 +88,9 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
     required = options.delete(:required)
     msg = @object.errors.on(column)
     current = @object.send(column)
-    classes = "form-field" + (options.delete(:inline) ? " inline" : "")
     
     haml { '
-%span{ :title => title, :class => classes }
+%div{ :title => title, :class => "form-field" }
   %label{ :for => id }
     = label.to_s.humanize
     - if required

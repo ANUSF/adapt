@@ -13,6 +13,9 @@ class Study < ActiveRecord::Base
                   :research_initiators, :funding_agency,
                   :other_acknowledgements)
 
+  validates_presence_of :title
+  validates_presence_of :abstract
+
   multi_select :data_kind
   multi_select :time_method
   multi_select :sampling_procedure
