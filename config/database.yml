@@ -32,6 +32,14 @@ template: &template
   encoding: utf8
   username: olaf
   password: g3h31m
+<% elsif @adapter == "postgresql" %>
+  adapter: jdbcpostgresql
+  username: olaf
+  password: g3h31m
+<% elsif @adapter == "derby" %>
+  adapter: jdbcderby
+  username: app
+  password: app
 <% end %>
 
 bootstrap:
