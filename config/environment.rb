@@ -1,9 +1,6 @@
 require 'java'
 System = java.lang.System
-
-ENV['RAILS_DB_PATH'] ||= System.getProperty('RAILS_DB_PATH')
 ENV['RAILS_IS_LOCAL'] ||= System.getProperty('RAILS_IS_LOCAL')
-ENV['RAILS_USER_HOME'] ||= System.getProperty('user.home')
 
 RAILS_GEM_VERSION = '2.3.4' unless defined? RAILS_GEM_VERSION
 
@@ -19,6 +16,7 @@ Rails::Initializer.run do |config|
 
   config.time_zone = 'Canberra'
 
+  # -- automatically migrate the database on startup
   config.after_initialize do
     migration_path = RAILS_ROOT + "/db/migrate"
     ActiveRecord::Migrator.migrate(migration_path)
