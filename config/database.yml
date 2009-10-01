@@ -1,42 +1,58 @@
 <%
-    db_path = ENV['RAILS_DB_PATH']
-    unless db_path
-        env = ENV['RAILS_ENV']
-        db_base = ((%w{stage production}.include?(env) &&
-		    ENV['RAILS_USER_HOME']) || ".") + "/db"
-	db_name = "db_#{env || 'development'}.sqlite3"
-        db_path = "#{db_base}/#{db_name}"
+  require 'java'
+  System = java.lang.System
+
+  @app      = "tatwraps"
+  @adapter  = ENV['RAILS_DB_ADAPTER'] ||
+                System.getProperty('RAILS_DB_ADAPTER') || "sqlite3"
+  @db_path  = ENV['RAILS_DB_PATH'] || System.getProperty('RAILS_DB_PATH')
+  @home     = ENV['HOME'] || System.getProperty('user.home')
+
+  def db_name(env)
+    if @db_path
+      name = @db_path
+    elsif %w{mysql postgresql}.include? @adapter
+      name = "#{@app}_#{env}"
+    else
+      base = if %w{stage production}.include?(env)
+               "#{@home}/#{@app}" else "." end
+      name = "#{base}/db/db_#{env}.#{@adapter}"
     end
-    #puts "db_path = #{db_path}"
+    puts "# The database for #{env} is #{name}."
+    name
+  end
 %>
 
+template: &template
+<% if @adapter == "sqlite3" %>
+  adapter:  jdbcsqlite3
+  timeout:  5000
+<% elsif @adapter == "mysql" %>
+  adapter: jdbcmysql
+  encoding: utf8
+  username: olaf
+  password: g3h31m
+<% end %>
+
 bootstrap:
-  adapter:  jdbcsqlite3
-  database: <%= db_path %>
-  timeout:  5000
-  
+  database: <%=db_name("bootstrap")%>
+  <<: *template
+
 stage:
-  adapter:  jdbcsqlite3
-  database: <%= db_path %>
-  timeout:  5000
-  
+  database: <%=db_name("stage")%>
+  <<: *template
+
 production:
-  adapter:  jdbcsqlite3
-  database: <%= db_path %>
-  timeout:  5000
+  database: <%=db_name("production")%>
+  <<: *template
 
 development:
-  adapter:  jdbcsqlite3
-  database: <%= db_path %>
-  timeout:  5000
-  
-# Warning: The database defined as 'test' will be erased and
-# re-generated from your development database when you run 'rake'.
-# Do not set this db to the same as development or production.
+  database: <%=db_name("development")%>
+  <<: *template
+
 test: &TEST
-  adapter:  jdbcsqlite3
-  database: db/db_test.sqlite3
-  timeout:  5000
+  database: <%=db_name("test")%>
+  <<: *template
   
 cucumber:
   <<: *TEST
