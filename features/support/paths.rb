@@ -17,8 +17,8 @@ module NavigationHelpers
     when /the registration page/
       '/users/new'
 
-    when /^(.*)'s study index page$/i
-      user_studies_path(User.find_by_username($1))
+    when /^the study index page$/i
+      studies_path
 
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
