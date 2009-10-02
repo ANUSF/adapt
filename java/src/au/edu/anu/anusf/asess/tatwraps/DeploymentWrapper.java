@@ -11,6 +11,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Properties;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
 
@@ -66,6 +70,7 @@ public class DeploymentWrapper {
 	public DeploymentWrapper() throws Exception {
 		determineApplicationName();
 		showControlFrame();
+		logSystemProperties();
 		extractApplication();
 		startServer();
 		openBrowserFrame();
@@ -137,6 +142,20 @@ public class DeploymentWrapper {
 		final PrintStream s = new PrintStream(new FileOutputStream(name));
 		s.print(consoleWidget.getText());
 		s.close();
+	}
+	
+	private void logSystemProperties() {
+    	final Properties props = System.getProperties();
+    	final List<String> pkeys = new ArrayList<String>();
+    	for (final Object key: props.keySet()) {
+    		pkeys.add(String.valueOf(key));
+    	}
+    	Collections.sort(pkeys);
+    	Log.info("System properties:");
+    	for (final String key: pkeys) {
+    		Log.info(String.format("    %-32s    %s",
+    				key, props.getProperty(key)));
+    	}
 	}
 	
 	private void extractApplication() throws IOException {
