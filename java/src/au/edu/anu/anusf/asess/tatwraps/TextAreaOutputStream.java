@@ -1,5 +1,6 @@
 package au.edu.anu.anusf.asess.tatwraps;
 
+import java.awt.Font;
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -23,6 +24,7 @@ public class TextAreaOutputStream extends OutputStream {
     public TextAreaOutputStream(final int height, final int width) {
         buffer = new StringBuffer(128);
     	output = new JTextArea(height, width);
+    	output.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
 		scrollPane = new JScrollPane(output,
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -31,7 +33,7 @@ public class TextAreaOutputStream extends OutputStream {
     }
     
     public TextAreaOutputStream() {
-    	this(20, 60);
+    	this(24, 80);
     }
     
     public void write(int b) throws IOException {
