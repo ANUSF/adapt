@@ -18,7 +18,7 @@
              else "." end
       name = "#{base}/db/db_#{env}.#{@adapter}"
     end
-    puts "# The database for #{env} is #{name}."
+    #puts "# The database for #{env} is #{name}."
     name
   end
 %>

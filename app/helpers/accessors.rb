@@ -1,16 +1,15 @@
 module Accessors
-  def multi_select(name)
-    define_method("#{name}=") do |items|
-      write_attribute name, items.to_json
+  def json_accessors(name)
+    define_method("#{name}=") do |value|
+      puts "#{name} = #{value.inspect}"
+      fields = ActiveSupport::JSON.decode(read_attribute :additional_metadata)
+      fields[name.to_s] = value
+      write_attribute :additional_metadata, fields.to_json
     end
 
     define_method(name) do
-      content = read_attribute name
-      if content.blank?
-        []
-      else
-        ActiveSupport::JSON.decode(read_attribute name)
-      end
+      fields = ActiveSupport::JSON.decode(read_attribute :additional_metadata)
+      fields[name.to_s]
     end
   end
 end
