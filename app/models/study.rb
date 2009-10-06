@@ -3,23 +3,33 @@ class Study < ActiveRecord::Base
 
   belongs_to :user
 
-  validates_presence_of :title
-
   attr_accessible(:name, :title, :abstract, :data_kind, :time_method,
                   :sample_population, :sampling_procedure, :collection_mode,
                   :collection_start, :collection_end, :period_start,
                   :period_end, :loss_prevention, :depositors,
                   :principal_investigators, :data_collectors,
                   :research_initiators, :funding_agency,
-                  :other_acknowledgements)
+                  :other_acknowledgements, :additional_metadata)
 
   validates_presence_of :title
   validates_presence_of :abstract
 
-  multi_select :data_kind
-  multi_select :time_method
-  multi_select :sampling_procedure
-  multi_select :collection_mode
+  json_accessors :data_kind
+  json_accessors :time_method
+  json_accessors :sample_population
+  json_accessors :sampling_procedure
+  json_accessors :collection_mode
+  json_accessors :collection_start
+  json_accessors :collection_end
+  json_accessors :period_start
+  json_accessors :period_end
+  json_accessors :loss_prevention
+  json_accessors :depositors
+  json_accessors :principal_investigators
+  json_accessors :data_collectors
+  json_accessors :research_initiators
+  json_accessors :funding_agency
+  json_accessors :other_acknowledgements
 
   def label_for(column)
     Study.field_properties(column)[:label] || column.to_s.humanize
