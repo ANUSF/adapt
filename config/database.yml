@@ -14,8 +14,8 @@
     elsif %w{mysql postgresql}.include? @adapter
       name = "#{@app}_#{env}"
     else
-      base = if %w{stage production}.include?(env)
-               "#{@home}/#{@app}" else "." end
+      base = if %w{stage production}.include?(env) then "#{@home}/#{@app}"
+             else "." end
       name = "#{base}/db/db_#{env}.#{@adapter}"
     end
     puts "# The database for #{env} is #{name}."
