@@ -5,17 +5,14 @@ class UsersController < ApplicationController
   
   def create
     @user = User.new(params[:user])
-    if User.find_by_username(@user[:username])
-      # -- authlogic breaks validation within model
-      @user.errors.add(:username, "is already taken")
-      flash.now[:error] = "Registration failed."
-      render :action => 'new'
-    elsif @user.save
-      flash[:notice] = "Registration successful."
-      redirect_to studies_url
-    else
-      flash.now[:error] = "Registration failed."
-      render :action => 'new'
+    @user.save do |successful|
+      if successful
+        flash[:notice] = "Registration successful."
+        redirect_to studies_url
+      else
+        flash.now[:error] = "Registration failed."
+        render :action => 'new'
+      end
     end
   end
   
@@ -25,11 +22,14 @@ class UsersController < ApplicationController
   
   def update
     @user = current_user
-    if @user.update_attributes(params[:user])
-      flash[:notice] = "Successfully updated profile."
-      redirect_to studies_url
-    else
-      render :action => 'edit'
+    @user.attributes = params[:user]
+    @user.save do |successful|
+      if successful
+        flash[:notice] = "Successfully updated profile."
+        redirect_to studies_url
+      else
+        render :action => 'edit'
+      end
     end
   end
 end

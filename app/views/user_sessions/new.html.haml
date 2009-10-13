@@ -10,4 +10,7 @@
     = f.label :password
     %br
     = f.password_field :password
+  %h3 Or use OpenID
+  = f.text_field :openid_identifier, :label => "OpenID URL"
+  %hr
   %p= f.submit "Submit"
