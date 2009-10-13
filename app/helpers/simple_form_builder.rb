@@ -25,11 +25,12 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
     
     haml { '
 %div{ :title => title, :class => "form-field" }
-  %label{ :for => id }
-    = label.to_s.humanize
-    - if required
-      %span.required *      
-  %br
+  - unless label.blank?
+    %label{ :for => id }
+      = label.to_s.humanize
+      - if required
+        %span.required *      
+    %br
   %span.input= super(column, *args)
   - unless msg.blank?
     %span.formError= msg
@@ -45,8 +46,9 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
     create_tagged_field(name, :size => 40)
   end
   
-  create_tagged_field("date_select")
-  create_tagged_field("datetime_select")
+  create_tagged_field("date_select", :include_blank => true,
+                      :start_year => Time.now.year - 100)
+  create_tagged_field("datetime_select", :include_blank => true)
   create_tagged_field("select")
   create_tagged_field("text_area", :rows => 4, :cols => 60)
   

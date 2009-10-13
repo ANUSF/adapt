@@ -154,15 +154,15 @@ population"
       }
     when :collection_start
       {
-        :label => "Start date of data collection"
+        :label => ""
       }
     when :collection_end
       {
-        :label => "End date of data collection"
+        :label => ""
       }
     when :period_start
       {
-        :label => "Start date of period data refers to",
+        :label => "",
         :help => 
 "If the data pertains to a period prior to the time when it was \
 collected (e.g. medical records for 1980-1990 collected in 1992) what \
@@ -170,7 +170,7 @@ period does the data come from? "
       }
     when :period_end
       {
-        :label => "End date of period data refers to",
+        :label => "",
         :help =>
 "If the data pertains to a period prior to the time when it was \
 collected (e.g. medical records for 1980-1990 collected in 1992) what \
