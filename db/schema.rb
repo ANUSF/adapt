@@ -9,34 +9,32 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091006052755) do
+ActiveRecord::Schema.define(:version => 20091006064645) do
 
-  create_table "studies", :id => false, :force => true do |t|
-    t.integer  "id",                   :limit => nil, :null => false
-    t.integer  "user_id",                             :null => false
-    t.string   "permanent_identifier",                :null => false
-    t.string   "name",                                :null => false
-    t.string   "status",                              :null => false
-    t.string   "title",                :limit => nil, :null => false
-    t.string   "abstract",             :limit => nil, :null => false
-    t.string   "additional_metadata",  :limit => nil, :null => false
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
+  create_table "studies", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "permanent_identifier"
+    t.string   "name"
+    t.string   "status"
+    t.text     "title"
+    t.text     "abstract"
+    t.text     "additional_metadata"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  create_table "users", :id => false, :force => true do |t|
-    t.integer  "id",                :limit => nil, :null => false
-    t.string   "username",                         :null => false
-    t.string   "email",                            :null => false
-    t.string   "crypted_password",                 :null => false
-    t.string   "password_salt",                    :null => false
-    t.string   "persistence_token",                :null => false
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
-    t.string   "name",                             :null => false
-    t.string   "address",           :limit => nil, :null => false
-    t.string   "telephone",                        :null => false
-    t.string   "fax",                              :null => false
+  create_table "users", :force => true do |t|
+    t.string   "username"
+    t.string   "email"
+    t.string   "crypted_password"
+    t.string   "password_salt"
+    t.string   "persistence_token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+    t.text     "address"
+    t.string   "telephone"
+    t.string   "fax"
   end
 
 end

@@ -9,6 +9,8 @@ require File.join(File.dirname(__FILE__), 'boot')
 Rails::Initializer.run do |config|
   config.gem "haml"
   config.gem "authlogic"
+  config.gem "authlogic-oid", :lib => "authlogic_openid"
+  config.gem "ruby-openid", :lib => "openid"
 
   # -- These two must be set in warble.rb for some reason
   #config.gem "activerecord-jdbcsqlite3-adapter"
