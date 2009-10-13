@@ -1,5 +1,4 @@
 - title "Edit Study #{@study.name||""} (Page 2)"
-- start_year = Time.now.year - 100
 
 %p
   %em=h @study.title
@@ -11,20 +10,23 @@
     = f.multiselect :data_kind, :required => true
     = f.multiselect :time_method
   .clear
-  = f.text_area   :sample_population
-  = f.text_area   :loss_prevention
+  = f.text_area :sample_population
+  = f.text_area :loss_prevention
   .row
     = f.multiselect :sampling_procedure
     = f.multiselect :collection_mode
   .clear
   .row
-    = f.date_select :collection_start, :start_year => start_year, |
-                    :inline => true |
-    = f.date_select :collection_end, :start_year => start_year
+    .form-field Data collection period:
+    = f.text_field :collection_start, :size => 12
+    .form-field &mdash;
+    = f.text_field :collection_end, :size => 12
   .clear
   .row
-    = f.date_select :period_start, :start_year => start_year
-    = f.date_select :period_end, :start_year => start_year
+    .form-field Time period data refers to:
+    = f.text_field :period_start, :size => 12
+    .form-field &mdash;
+    = f.text_field :period_end, :size => 12
   .clear
   %hr
   = f.result_buttons %w{Back Next}
