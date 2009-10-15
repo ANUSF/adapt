@@ -13,7 +13,7 @@ Warbler::Config.new do |config|
   config.includes = FileList["db/db_bootstrap.sqlite3"]
 
   # Additional files/directories to exclude
-  config.excludes = FileList["lib/tasks"]
+  config.excludes = FileList["lib/tasks", "tmp/openids/*"]
 
   # Additional Java .jar files to include.  Note that if .jar files are placed
   # in lib (and not otherwise excluded) then they need not be mentioned here.

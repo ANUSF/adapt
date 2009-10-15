@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   acts_as_authentic do |c|
     c.transition_from_crypto_providers = Authlogic::CryptoProviders::Sha512
     c.crypto_provider = Authlogic::CryptoProviders::BCrypt
-    #c.openid_required_fields = [:fullname, :nickname, :email]
+    c.openid_required_fields = [:fullname, :nickname, :email]
   end
   
   attr_accessible(:username, :email, :password, :password_confirmation,
@@ -26,10 +26,9 @@ class User < ActiveRecord::Base
   has_many :studies
 
   private  
-  # def map_openid_registration(registration)
-  #   puts registration.inspect
-  #   self.name = registration["fullname"] if name.blank?
-  #   self.email = registration["email"] if email.blank?  
-  #   self.username = registration["nickname"] if username.blank?  
-  # end  
+  def map_openid_registration(registration)
+    self.name = registration["fullname"] if name.blank?
+    self.email = registration["email"] if email.blank?  
+    self.username = registration["nickname"] if username.blank?  
+  end  
 end

@@ -3,10 +3,10 @@ class StudiesDecodeColumns < ActiveRecord::Migration
 
   def self.up
     for study in Study.all
-      study.data_kind          = JSON::decode(study.data_kind)
-      study.time_method        = JSON::decode(study.time_method)
-      study.sampling_procedure = JSON::decode(study.sampling_procedure)
-      study.collection_mode    = JSON::decode(study.collection_mode)
+      study.data_kind          = JSON::decode(study.data_kind || "[]")
+      study.time_method        = JSON::decode(study.time_method || "[]")
+      study.sampling_procedure = JSON::decode(study.sampling_procedure || "[]")
+      study.collection_mode    = JSON::decode(study.collection_mode || "[]")
       study.save!
     end
   end
