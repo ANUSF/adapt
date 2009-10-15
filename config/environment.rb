@@ -22,5 +22,6 @@ Rails::Initializer.run do |config|
   config.after_initialize do
     migration_path = RAILS_ROOT + "/db/migrate"
     ActiveRecord::Migrator.migrate(migration_path)
+    OpenIdAuthentication.store = :file
   end
 end
