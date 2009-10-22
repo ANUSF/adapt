@@ -1,41 +1,65 @@
 require 'haml'
 
 class SimpleFormBuilder < ActionView::Helpers::FormBuilder
-  def self.create_tagged_field(name, default_options = {})
-    define_method(name) do |column, *args|
-      options = default_options.merge(args.last.is_a?(Hash) ? args.pop : {})
-      label = options.delete(:label) || 
-        if @object.respond_to? :label_for then @object.label_for column end ||
-        column
-      title = options.delete(:title) ||
-        if @object.respond_to? :help_on then @object.help_on column end
+  def create_field(column, default_options, *args)
+    options = default_options.merge(args.last.is_a?(Hash) ? args.pop : {})
+    label = options.delete(:label) || 
+      if @object.respond_to? :label_for then @object.label_for column end ||
+      column
+    title = options.delete(:title) ||
+      if @object.respond_to? :help_on then @object.help_on column end
 
-      if name.to_str == "select"
-        if args.size < 1 and @object.respond_to? :selections
-          args[0] = [ ["-- please select --", ""] ] +
-            @object.selections(column).map { |x| [x,x] }
-        end
-      end
-      args << options unless options.empty?
-      
-      id = "#{@object_name}_#{column}"
-      name = "#{@object_name}[#{column}]"
-      required = options.delete(:required)
-      msg = @object.errors.on(column)
-    
+    id = "#{@object_name}_#{column}"
+    name = "#{@object_name}[#{column}]"
+    required = options.delete(:required)
+    msg = @object.errors.on(column)
+    field = yield(name, id, args, options)
+
     haml { '
 %div{ :title => title, :class => "form-field" }
-  - unless label.blank?
-    %label{ :for => id }
-      = label.to_s.humanize
-      - if required
-        %span.required *      
-    %br
-  %span.input= super(column, *args)
+  %label{ :for => id }
+    = label.to_s.humanize
+    - if required
+      %span.required *      
+  %br
+  %span.input= field
   - unless msg.blank?
     %span.formError= msg
   %span.clear
 ' }
+  end
+
+  def multiselect(column, *args)
+    create_field(column, {}, *args) do |name, id, args, options|
+      selections = if args.size > 0 then args[0]
+                   elsif @object.respond_to? :selections
+                     @object.selections(column).map { |x| [x,x] }
+                   else [] end
+      size = options.delete(:size) || 6
+      current = @object.send(column) || []
+      haml { '
+%select{ :id => id, :name => "#{name}[]", :multiple => "multiple", |
+         :size => size } |
+  - for (k, v) in selections
+    - selected = current.include?(v) ? "selected" : nil
+    %option{ :value => v, :selected => selected }= k
+' }
+    end
+  end
+
+  def self.create_tagged_field(name, default_options = {})
+    define_method(name) do |column, *args|
+      create_field(column, default_options, *args) do |name, id, args, options|
+        if name.to_str == "select" and args.size < 1
+          args[0] = [ ["-- please select --", ""] ]
+          if @object.respond_to? :selections
+            args[0] += @object.selections(column).map { |x| [x,x] }
+          end
+        end
+        args << options unless options.empty?
+
+        super(column, *args)
+      end
     end
   end
 
@@ -71,44 +95,6 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
 '   }
   end
   
-  def multiselect(column, *args)
-    options = args.last.is_a?(Hash) ? args.pop : {}
-    label = options.delete(:label) || 
-      if @object.respond_to? :label_for then @object.label_for column end ||
-      column
-    title = options.delete(:title) ||
-      if @object.respond_to? :help_on then @object.help_on column end
-    size = options.delete(:size) || 6
-
-    if args.size < 1 and @object.respond_to? :selections
-      args[0] = @object.selections(column).map { |x| [x,x] }
-    end
-    args << options unless options.empty?
-
-    id = "#{@object_name}_#{column}"
-    name = "#{@object_name}[#{column}][]"
-    required = options.delete(:required)
-    msg = @object.errors.on(column)
-    current = @object.send(column) || []
-    
-    haml { '
-%div{ :title => title, :class => "form-field" }
-  %label{ :for => id }
-    = label.to_s.humanize
-    - if required
-      %span.required *      
-  %br
-  %span.input
-    %select{ :id => id, :name => name, :multiple => "multiple", :size => size }
-      - for (k, v) in args[0]
-        - selected = current.include?(v) ? "selected" : nil
-        %option{ :value => v, :selected => selected }= k
-  - unless msg.blank?
-    %span.formError= msg
-  %span.clear
-' }
-  end
-
   private
   def error_message_on(object, column)
     begin
