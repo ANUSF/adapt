@@ -1,44 +1,16 @@
 require 'haml'
 
 class SimpleFormBuilder < ActionView::Helpers::FormBuilder
-  def create_field(column, default_options, *args)
-    options = default_options.merge(args.last.is_a?(Hash) ? args.pop : {})
-    label = options.delete(:label) || 
-      if @object.respond_to? :label_for then @object.label_for column end ||
-      column
-    title = options.delete(:title) ||
-      if @object.respond_to? :help_on then @object.help_on column end
-
-    id = "#{@object_name}_#{column}"
-    name = "#{@object_name}[#{column}]"
-    required = options.delete(:required)
-    msg = @object.errors.on(column)
-    field = yield(name, id, args, options)
-
-    haml { '
-%div{ :title => title, :class => "form-field" }
-  %label{ :for => id }
-    = label.to_s.humanize
-    - if required
-      %span.required *      
-  %br
-  %span.input= field
-  - unless msg.blank?
-    %span.formError= msg
-  %span.clear
-' }
-  end
-
   def multiselect(column, *args)
-    create_field(column, {}, *args) do |name, id, args, options|
-      selections = if args.size > 0 then args[0]
+    create_field(column, {}, *args) do |d|
+      selections = if d.args.size > 0 then d.args[0]
                    elsif @object.respond_to? :selections
                      @object.selections(column).map { |x| [x,x] }
                    else [] end
-      size = options.delete(:size) || 6
+      size = d.options.delete(:size) || 6
       current = @object.send(column) || []
       haml { '
-%select{ :id => id, :name => "#{name}[]", :multiple => "multiple", |
+%select{ :id => d.id, :name => "#{d.name}[]", :multiple => "multiple", |
          :size => size } |
   - for (k, v) in selections
     - selected = current.include?(v) ? "selected" : nil
@@ -47,16 +19,17 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
-  def self.create_tagged_field(name, default_options = {})
-    define_method(name) do |column, *args|
-      create_field(column, default_options, *args) do |name, id, args, options|
-        if name.to_str == "select" and args.size < 1
+  def self.create_tagged_field(method_name, default_options = {})
+    define_method(method_name) do |column, *args|
+      create_field(column, default_options, *args) do |d|
+        args = d.args
+        if method_name.to_s == :select and args.size < 1
           args[0] = [ ["-- please select --", ""] ]
           if @object.respond_to? :selections
             args[0] += @object.selections(column).map { |x| [x,x] }
           end
         end
-        args << options unless options.empty?
+        args << d.options unless d.options.empty?
 
         super(column, *args)
       end
@@ -96,6 +69,46 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
   end
   
   private
+  class Descriptor
+    attr_accessor :name, :id, :args, :options
+    def initialize(name, id, args, options)
+      self.name = name
+      self.id = id
+      self.args = args
+      self.options = options
+    end
+  end
+
+  def create_field(column, default_options, *args)
+    raise ArgumentError, "Missing block" unless block_given?
+
+    options = default_options.merge(args.last.is_a?(Hash) ? args.pop : {})
+    label = options.delete(:label) || 
+      if @object.respond_to? :label_for then @object.label_for column end ||
+      column
+    title = options.delete(:title) ||
+      if @object.respond_to? :help_on then @object.help_on column end
+
+    id = "#{@object_name}_#{column}"
+    name = "#{@object_name}[#{column}]"
+    required = options.delete(:required)
+    msg = @object.errors.on(column)
+
+    haml { '
+%div{ :title => title, :class => "form-field" }
+  - if not label.blank? or required
+    %label{ :for => id }
+      = label.to_s.humanize
+      - if required
+        %span.required *
+    %br
+  %span.input= yield Descriptor.new(name, id, args, options)
+  - unless msg.blank?
+    %span.formError= msg
+  %span.clear
+' }
+  end
+
   def error_message_on(object, column)
     begin
       @template.error_message_on(object, column)
@@ -104,6 +117,7 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def haml(&block)
+    raise ArgumentError, "Missing block" unless block_given?
     Haml::Engine.new(block.call).render(block.binding)
   end
 end
