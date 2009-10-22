@@ -2,10 +2,10 @@ class Study < ActiveRecord::Base
   belongs_to :user
 
   JSON_FIELDS = [:data_kind, :time_method, :sample_population,
-                  :sampling_procedure, :collection_method, :collection_start,
-                  :collection_end, :period_start, :period_end, :response_rate,
-                  :depositors, :principal_investigators, :data_producers,
-                  :funding_agency, :other_acknowledgements]
+                 :sampling_procedure, :collection_method, :collection_start,
+                 :collection_end, :period_start, :period_end, :response_rate,
+                 :depositors, :principal_investigators, :data_producers,
+                 :funding_agency, :other_acknowledgements]
 
   attr_accessible(*([:name, :title, :abstract, :additional_metadata] +
                     JSON_FIELDS))
@@ -172,6 +172,7 @@ period does the data come from? "
       }
     when :principal_investigators
       {
+        :subfields => %w{Name Affiliation},
         :help =>
 "Please list the name(s) of each principal investigator and the \
 organisation with which they are associated"
