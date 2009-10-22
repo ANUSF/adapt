@@ -17,26 +17,28 @@ module AnuSF
     end
 
     module ClassMethods
-      def json_accessors(name)
+      def json_field(name)
         define_method("#{name}=") do |value|
-          fields = read_json_fields
-          fields[name.to_s] = value
-          write_json_fields(fields)
+          write_json(read_json.merge({ name.to_s => value }))
         end
 
         define_method(name) do
-          read_json_fields()[name.to_s]
+          read_json()[name.to_s]
         end
+      end
+
+      def json_fields(*names)
+        names.each { |name| json_field(name) }
       end
     end
 
     module InstanceMethods
-      def read_json_fields
-        ActiveSupport::JSON.decode(read_attribute(self.json_column_name) ||
-                                   "{}")
+      def read_json
+        text = read_attribute(self.json_column_name) || "{}"
+        ActiveSupport::JSON.decode text
       end
 
-      def write_json_fields(fields)
+      def write_json(fields)
         write_attribute self.json_column_name, fields.to_json
       end
     end
