@@ -89,7 +89,7 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
     name = "#{@object_name}[#{column}][]"
     required = options.delete(:required)
     msg = @object.errors.on(column)
-    current = @object.send(column)
+    current = @object.send(column) || []
     
     haml { '
 %div{ :title => title, :class => "form-field" }
