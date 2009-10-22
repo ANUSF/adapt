@@ -2,15 +2,15 @@ require 'haml'
 
 class SimpleFormBuilder < ActionView::Helpers::FormBuilder
   def multiselect(column, *args)
-    create_field(column, {}, *args) do |d|
-      selections = if d.args.size > 0 then d.args[0]
+    create_field(column, {}, *args) do |f|
+      selections = if f.args.size > 0 then f.args[0]
                    elsif @object.respond_to? :selections
                      @object.selections(column).map { |x| [x,x] }
                    else [] end
-      size = d.options.delete(:size) || 6
+      size = f.options.delete(:size) || 6
       current = @object.send(column) || []
       haml { '
-%select{ :id => d.id, :name => "#{d.name}[]", :multiple => "multiple", |
+%select{ :id => f.id, :name => "#{f.name}[]", :multiple => "multiple", |
          :size => size } |
   - for (k, v) in selections
     - selected = current.include?(v) ? "selected" : nil
@@ -21,15 +21,15 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
 
   def self.create_tagged_field(method_name, default_options = {})
     define_method(method_name) do |column, *args|
-      create_field(column, default_options, *args) do |d|
-        args = d.args
+      create_field(column, default_options, *args) do |f|
+        args = f.args.clone
         if method_name.to_s == :select and args.size < 1
           args[0] = [ ["-- please select --", ""] ]
           if @object.respond_to? :selections
             args[0] += @object.selections(column).map { |x| [x,x] }
           end
         end
-        args << d.options unless d.options.empty?
+        args << f.options unless f.options.empty?
 
         super(column, *args)
       end
