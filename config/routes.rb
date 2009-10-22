@@ -1,6 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :study_acknowledgements
-
   map.resources :user_sessions
   map.resources :users
   map.resources :studies

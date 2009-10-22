@@ -1,6 +1,4 @@
 class Study < ActiveRecord::Base
-  extend Accessors
-
   belongs_to :user
 
   attr_accessible(:name, :title, :abstract, :data_kind, :time_method,
@@ -13,6 +11,8 @@ class Study < ActiveRecord::Base
 
   validates_presence_of :title
   validates_presence_of :abstract
+
+  accesses_via_json :additional_metadata
 
   json_accessors :data_kind
   json_accessors :time_method
