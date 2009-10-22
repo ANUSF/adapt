@@ -17,16 +17,16 @@
     = f.multiselect :collection_method
   .clear
   .row
-    .form-field Data collection period:
     = f.text_field :collection_start, :size => 12
     .form-field &mdash;
     = f.text_field :collection_end, :size => 12
+    .form-field Data collection period
   .clear
   .row
-    .form-field Time period data refers to:
     = f.text_field :period_start, :size => 12
     .form-field &mdash;
     = f.text_field :period_end, :size => 12
+    .form-field Time period data refers to
   .clear
   %hr
   = f.result_buttons %w{Back Next}
