@@ -1,24 +1,21 @@
 class Study < ActiveRecord::Base
   belongs_to :user
 
-  attr_accessible(:name, :title, :abstract, :data_kind, :time_method,
-                  :sample_population, :sampling_procedure, :collection_mode,
-                  :collection_start, :collection_end, :period_start,
-                  :period_end, :loss_prevention, :depositors,
-                  :principal_investigators, :data_collectors,
-                  :research_initiators, :funding_agency,
-                  :other_acknowledgements, :additional_metadata)
+  JSON_FIELDS = [:data_kind, :time_method, :sample_population,
+                  :sampling_procedure, :collection_method, :collection_start,
+                  :collection_end, :period_start, :period_end, :response_rate,
+                  :depositors, :principal_investigators, :data_producers,
+                  :funding_agency, :other_acknowledgements]
+
+  attr_accessible(*([:name, :title, :abstract, :additional_metadata] +
+                    JSON_FIELDS))
 
   validates_presence_of :title
   validates_presence_of :abstract
 
   accesses_via_json :additional_metadata
 
-  json_fields(:data_kind, :time_method, :sample_population,
-              :sampling_procedure, :collection_mode, :collection_start,
-              :collection_end, :period_start, :period_end, :loss_prevention,
-              :depositors, :principal_investigators, :data_collectors,
-              :research_initiators, :funding_agency, :other_acknowledgements)
+  json_fields(*JSON_FIELDS)
 
   def label_for(column)
     Study.field_properties(column)[:label] || column.to_s.humanize
@@ -122,7 +119,7 @@ population"
                         "volunteer sample",
                         "convenience sample"]
       }
-    when :collection_mode
+    when :collection_method
       {
         :label => "Method of data collection",
         :selections => ["clinical measurements",
@@ -165,13 +162,8 @@ period does the data come from? "
 collected (e.g. medical records for 1980-1990 collected in 1992) what \
 period does the data come from? "
       }
-    when :loss_prevention
+    when :response_rate
       {
-        :label => "Actions to minimise loss",
-        :help =>
-"Provide details of any actions that were taken to increase the \
-response rate (e.g. follow-up letters, financial inducements, \
-call-backs)"
       }
     when :depositors
       {
@@ -184,15 +176,9 @@ call-backs)"
 "Please list the name(s) of each principal investigator and the \
 organisation with which they are associated"
       }
-    when :data_collectors
+    when :data_producers
       {
         :help => "List if different from the principal investigator(s)"
-      }
-    when :research_initiators
-      {
-        :help =>
-"If the study was conducted for a particular person or organisation, \
-please list them"
       }
     when :funding_agency
       {
