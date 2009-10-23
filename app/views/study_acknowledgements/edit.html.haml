@@ -8,7 +8,7 @@
   = f.error_messages
   = f.structured :depositors, :required => true
   = f.structured :principal_investigators, :required => true
-  = f.structured :data_producers
+  = f.structured :data_producers, :repeatable => true
   = f.structured :funding_agency
   = f.structured :other_acknowledgements, :size => 22
   %hr
