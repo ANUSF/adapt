@@ -50,17 +50,30 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
                   else f.args end
       subfields = [column] if subfields.empty?
       size = f.options.delete(:size) || 30
+      multi = f.options.delete(:repeatable)
+
+      current = @object.send(column)
+      count = 1 + subfields.map { |s| current[s].size }.max if multi
+
       haml { '
 .row
   - for sub in subfields
     - id = "#{f.id}_#{sub}"
     - name = "#{f.name}[#{sub}]"
-    - value = @object.send(column)[sub] || nil
+    - val = current[sub] || nil
     .form-field
       %label{ :for => id }= sub.humanize
-      %br
-      %input{ :id => id, :type => "text", :name => name, :value => value, |
-              :size => size } |
+      - if multi
+        - for i in 0...count
+          %br
+          %input{ :id => id + "_#{i}", :type => "text", |
+                  :name => name + "[#{i}]", :value => val["#{i}"], |
+                  :size => size } |
+      - else
+        %br
+        %input{ :id => id, :type => "text", |
+                :name => name, :value => val, |
+                :size => size } |
 ' }
     end
   end
