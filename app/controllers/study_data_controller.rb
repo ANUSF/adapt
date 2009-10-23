@@ -6,9 +6,10 @@ class StudyDataController < ApplicationController
   def update
     @study = Study.find(params[:id])
 
-    current = @study.attributes
+    old = ActiveSupport::JSON.decode @study.additional_metadata
     @study.attributes = params[:study]
-    update_needed = @study.attributes != current
+    new = ActiveSupport::JSON.decode @study.additional_metadata
+    update_needed = old != new
 
     if not update_needed or @study.save
       flash[:notice] = "Edits for page 2 were saved." if update_needed
