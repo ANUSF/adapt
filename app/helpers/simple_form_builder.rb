@@ -53,7 +53,10 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
       multi = f.options.delete(:repeatable)
 
       current = @object.send(column)
-      count = 1 + subfields.map { |s| current[s].size }.max if multi
+      count = 2 + subfields.map { |s|
+        current[s].entries.select { |k,v| not v.blank? }.
+          map { |k,v| k.to_i }.max 
+      }.max if multi
 
       haml { '
 .row
