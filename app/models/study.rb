@@ -29,6 +29,10 @@ class Study < ActiveRecord::Base
     Study.field_properties(column)[:selections] || []
   end
 
+  def subfields(column)
+    Study.field_properties(column)[:subfields] || []
+  end
+
   protected
 
   def self.field_properties(column)
@@ -167,28 +171,36 @@ period does the data come from? "
       }
     when :depositors
       {
-        :label => "Depositor",
+        :subfields => %w{name affiliation},
+        :label => "Depositor:",
         :help => "Please give details of person(s) sending the materials"
       }
     when :principal_investigators
       {
-        :subfields => %w{Name Affiliation},
+        :subfields => %w{name affiliation},
+        :label => "Principal Investigator(s):",
         :help =>
 "Please list the name(s) of each principal investigator and the \
 organisation with which they are associated"
       }
     when :data_producers
       {
+        :subfields => %w{name affiliation},
+        :label => "Data Producer(s):",
         :help => "List if different from the principal investigator(s)"
       }
     when :funding_agency
       {
+        :subfields => %w{agency grant_number},
+        :label => "Funding:",
         :help =>
 "Please list then names(s) of all funding source(s) (include the grant \
 number if appropriate)"
       }
     when :other_acknowledgements
       {
+        :subfields => %w{name affiliation role},
+        :label => "Other Acknowledgements:",
         :help =>
 "Please list the names of any other persons or organisations who \
 played a significant role in the conduct of the study"
