@@ -44,6 +44,27 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
+  def structured(column, *args)
+    create_field(column, {}, *args) do |f|
+      subfields = if f.args.empty? then try(:subfields, column)
+                  else f.args end
+      subfields = [column] if subfields.empty?
+      size = f.options.delete(:size) || 30
+      haml { '
+.row
+  - for sub in subfields
+    - id = "#{f.id}_#{sub}"
+    - name = "#{f.name}[#{sub}]"
+    - value = @object.send(column)[sub] || nil
+    .form-field
+      %label{ :for => id }= sub.humanize
+      %br
+      %input{ :id => id, :type => "text", :name => name, :value => value, |
+              :size => size } |
+' }
+    end
+  end
+
   def fields_for(name, *args, &block)
     raise ArgumentError, "Missing block" unless block_given?
     options = args.last.is_a?(Hash) ? args.pop : {}
