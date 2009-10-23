@@ -1,33 +1,12 @@
 require 'haml'
 
 class SimpleFormBuilder < ActionView::Helpers::FormBuilder
-  def multiselect(column, *args)
-    create_field(column, {}, *args) do |f|
-      selections = if f.args.size > 0 then f.args[0]
-                   elsif @object.respond_to? :selections
-                     @object.selections(column).map { |x| [x,x] }
-                   else [] end
-      size = f.options.delete(:size) || 6
-      current = @object.send(column) || []
-      haml { '
-%select{ :id => f.id, :name => "#{f.name}[]", :multiple => "multiple", |
-         :size => size } |
-  - for (k, v) in selections
-    - selected = current.include?(v) ? "selected" : nil
-    %option{ :value => v, :selected => selected }= k
-' }
-    end
-  end
-
   def self.create_tagged_field(method_name, default_options = {})
     define_method(method_name) do |column, *args|
       create_field(column, default_options, *args) do |f|
         args = f.args.clone
         if method_name.to_s == :select and args.size < 1
-          args[0] = [ ["-- please select --", ""] ]
-          if @object.respond_to? :selections
-            args[0] += @object.selections(column).map { |x| [x,x] }
-          end
+          args[0] = [ ["-- please select --", ""] ] + selections_for(column)
         end
         args << f.options unless f.options.empty?
 
@@ -49,6 +28,22 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
   create_tagged_field("select")
   create_tagged_field("text_area", :rows => 4, :cols => 60)
   
+  def multiselect(column, *args)
+    create_field(column, {}, *args) do |f|
+      selections = if f.args.empty? then selections_for(column)
+                   else f.args[0] end
+      size = f.options.delete(:size) || 6
+      current = @object.send(column) || []
+      haml { '
+%select{ :id => f.id, :name => "#{f.name}[]", :multiple => "multiple", |
+         :size => size } |
+  - for (k, v) in selections
+    - selected = current.include?(v) ? "selected" : nil
+    %option{ :value => v, :selected => selected }= k
+' }
+    end
+  end
+
   def fields_for(name, *args, &block)
     raise ArgumentError, "Missing block" unless block_given?
     options = args.last.is_a?(Hash) ? args.pop : {}
@@ -79,19 +74,20 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
+  def try(method_name, *args)
+    @object.send method_name, *args if @object.respond_to? method_name
+  end
+
   def create_field(column, default_options, *args)
     raise ArgumentError, "Missing block" unless block_given?
 
     options = default_options.merge(args.last.is_a?(Hash) ? args.pop : {})
-    label = options.delete(:label) || 
-      if @object.respond_to? :label_for then @object.label_for column end ||
-      column
-    title = options.delete(:title) ||
-      if @object.respond_to? :help_on then @object.help_on column end
+    label = options.delete(:label) || try(:label_for, column) || column
+    title = options.delete(:title) || try(:help_on, column)
+    required = options.delete(:required)
 
     id = "#{@object_name}_#{column}"
     name = "#{@object_name}[#{column}]"
-    required = options.delete(:required)
     msg = @object.errors.on(column)
 
     haml { '
@@ -107,6 +103,10 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
     %span.formError= msg
   %span.clear
 ' }
+  end
+
+  def selections_for(column)
+    (try(:selections, column) || []).map { |x| [x,x] }
   end
 
   def error_message_on(object, column)
