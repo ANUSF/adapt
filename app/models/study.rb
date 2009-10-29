@@ -104,9 +104,9 @@ class Study < ActiveRecord::Base
     :sample_population => {
       :label => "Sample population",
       :help =>
-"Please desscribe the universe that was being sampled in this study. \
+"Please describe the universe that was being sampled in this study. \
 Specify any limitations on age, sex, location, occupation, etc. of the \
-population"
+population."
       },
     :sampling_procedure => {
       :label => "Sampling procedures",
@@ -166,34 +166,41 @@ period does the data come from? "
     :depositors => {
       :subfields => %w{name affiliation},
       :label => "Depositor:",
-      :help => "Please give details of person(s) sending the materials"
+      :help => "Please give details of the person sending the materials."
     },
     :principal_investigators => {
       :subfields => %w{name affiliation},
+      :repeatable => true,
       :label => "Principal Investigator(s):",
       :help =>
 "Please list the name(s) of each principal investigator and the \
-organisation with which they are associated"
+organisation with which they are associated. Click 'Refresh' for \
+additional lines."
     },
     :data_producers => {
       :subfields => %w{name affiliation},
       :repeatable => true,
       :label => "Data Producer(s):",
-      :help => "List if different from the principal investigator(s)"
+      :help =>
+"List if different from the principal investigator(s). Click 'Refresh' \
+for additional lines."
     },
     :funding_agency => {
       :subfields => %w{agency grant_number},
+      :repeatable => true,
       :label => "Funding:",
       :help =>
 "Please list then names(s) of all funding source(s) (include the grant \
-number if appropriate)"
+number if appropriate). Click 'Refresh' for additional lines."
     },
     :other_acknowledgements => {
       :subfields => %w{name affiliation role},
+      :repeatable => true,
       :label => "Other Acknowledgements:",
       :help =>
 "Please list the names of any other persons or organisations who \
-played a significant role in the conduct of the study"
+played a significant role in the conduct of the study. Click 'Refresh' \
+for additional lines."
     }
   }
 end

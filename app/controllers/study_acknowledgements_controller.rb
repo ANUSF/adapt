@@ -16,6 +16,8 @@ class StudyAcknowledgementsController < ApplicationController
       flash[:notice] = "Edits for page 3 were saved." if update_needed
       if params[:result] == "Back"
         redirect_to edit_study_datum_url(@study)
+      elsif params[:result] == "Refresh"
+        redirect_to edit_study_acknowledgement_url(@study)
       else
         redirect_to @study
       end
