@@ -33,6 +33,10 @@ class Study < ActiveRecord::Base
     Study.field_properties(column)[:subfields] || []
   end
 
+  def is_repeatable?(column)
+    Study.field_properties(column)[:repeatable] || false
+  end
+
   protected
 
   def self.field_properties(column)
@@ -173,6 +177,7 @@ organisation with which they are associated"
     },
     :data_producers => {
       :subfields => %w{name affiliation},
+      :repeatable => true,
       :label => "Data Producer(s):",
       :help => "List if different from the principal investigator(s)"
     },

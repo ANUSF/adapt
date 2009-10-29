@@ -35,7 +35,7 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
       size = f.options.delete(:size) || 6
       current = @object.send(column) || []
       haml { '
-%select{ :id => f.id, :name => "#{f.name}[]", :multiple => "multiple", |
+%select{ :id => f.ident, :name => "#{f.name}[]", :multiple => "multiple", |
          :size => size } |
   - for (k, v) in selections
     - selected = current.include?(v) ? "selected" : nil
@@ -50,33 +50,30 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
                   else f.args end
       subfields = [column] if subfields.empty?
       size = f.options.delete(:size) || 30
-      multi = f.options.delete(:repeatable)
+      multi = f.options.delete(:repeatable) || try(:is_repeatable?, column)
 
       current = @object.send(column)
-      count = 2 + subfields.map { |s|
-        current[s].entries.select { |k,v| not v.blank? }.
-          map { |k,v| k.to_i }.max 
-      }.max if multi
 
       haml { '
 .row
   - for sub in subfields
-    - id = "#{f.id}_#{sub}"
-    - name = "#{f.name}[#{sub}]"
-    - val = current[sub] || nil
     .form-field
-      %label{ :for => id }= sub.humanize
+      %label{ :for => f.ident }= sub.humanize
       - if multi
-        - for i in 0...count
+        - for i in 0..current.size
+          - ident = "#{f.ident}_#{i}_#{sub}"
+          - name  = "#{f.name}[#{i}][#{sub}]"
+          - value = (current[i] || {})[sub]
           %br
-          %input{ :id => id + "_#{i}", :type => "text", |
-                  :name => name + "[#{i}]", :value => val["#{i}"], |
-                  :size => size } |
+          %input{ :id => ident, :type => "text", :name => name, |
+                  :value => value, :size => size } |
       - else
+        - ident = "#{f.ident}_#{sub}"
+        - name  = "#{f.name}[#{sub}]"
+        - value = current[sub] || nil
         %br
-        %input{ :id => id, :type => "text", |
-                :name => name, :value => val, |
-                :size => size } |
+        %input{ :id => ident, :type => "text", :name => name, |
+                :value => value, :size => size } |
 ' }
     end
   end
@@ -102,11 +99,11 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
   
   private
   class Descriptor
-    attr_accessor :name, :id, :args, :options
-    def initialize(name, id, args, options)
-      self.name = name
-      self.id = id
-      self.args = args
+    attr_accessor :name, :ident, :args, :options
+    def initialize(name, ident, args, options)
+      self.name    = name
+      self.ident   = ident
+      self.args    = args
       self.options = options
     end
   end
@@ -123,19 +120,19 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
     title = options.delete(:title) || try(:help_on, column)
     required = options.delete(:required)
 
-    id = "#{@object_name}_#{column}"
-    name = "#{@object_name}[#{column}]"
-    msg = @object.errors.on(column)
+    ident = "#{@object_name}_#{column}"
+    name  = "#{@object_name}[#{column}]"
+    msg   = @object.errors.on(column)
 
     haml { '
 %div{ :title => title, :class => "form-field" }
   - if not label.blank? or required
-    %label{ :for => id }
+    %label{ :for => ident }
       = label.to_s.humanize
       - if required
         %span.required *
     %br
-  %span.input= yield Descriptor.new(name, id, args, options)
+  %span.input= yield Descriptor.new(name, ident, args, options)
   - unless msg.blank?
     %span.formError= msg
   %span.clear
