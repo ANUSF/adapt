@@ -19,6 +19,15 @@ module AnuSF
     module ClassMethods
       def json_field(name)
         define_method("#{name}=") do |value|
+          if try(:is_repeatable?, name)
+            # -- filters empty entries from a repeatable field
+            value = value.values if value.is_a? Hash
+            value = if try(:subfields, name).empty?
+              value.reject &:x.blank?
+            else
+              value.reject { |x| x.values.all? &:blank? }
+            end
+          end
           write_json(read_json.merge({ name.to_s => value }))
         end
 
@@ -29,6 +38,11 @@ module AnuSF
 
       def json_fields(*names)
         names.each { |name| json_field(name) }
+      end
+
+      private
+      def try(method_name, *args)
+        self.send method_name, *args if self.respond_to? method_name
       end
     end
 
