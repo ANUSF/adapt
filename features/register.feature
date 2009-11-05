@@ -21,7 +21,7 @@ Feature: Register
 
       | login | email | passwd | confirm | name | address | status  | cause                     |
       | olaf  | olaf  | geheim | geheim  | olaf | Here    | success |                           |
-      | odf   | olaf  | geheim | geheim  | olaf | Here    | failed  | Username is already taken |
+      | odf   | olaf  | geheim | geheim  | olaf | Here    | failed  | Username has already been taken |
       | *l*f  | olaf  | geheim | geheim  | olaf | Here    | failed  | Username should use only  |
       | olaf  | olaf  | geheim | g3h31m  | olaf | Here    | failed  | Password doesn't match    |
       | olaf  | olaf  | ge     | ge      | olaf | Here    | failed  | Password is too short     |
