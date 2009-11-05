@@ -7,7 +7,7 @@ class StudyFilesController < ApplicationController
     @study = Study.find(params[:id])
 
     #TODO hack!
-    old = ActiveSupport::JSON.decode @study.additional_metadata
+    old = ActiveSupport::JSON.decode @study.additional_metadata || "{}"
     @study.attributes = params[:study]
     new = ActiveSupport::JSON.decode @study.additional_metadata
     update_needed = old != new
