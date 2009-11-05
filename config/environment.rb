@@ -1,6 +1,8 @@
 require 'java'
 System = java.lang.System
-ENV['RAILS_IS_LOCAL'] ||= System.getProperty('RAILS_IS_LOCAL')
+for key in %w{RAILS_IS_LOCAL ADAPT_ASSET_PATH}
+  ENV[key] ||= System.getProperty(key)
+end
 
 RAILS_GEM_VERSION = '2.3.4' unless defined? RAILS_GEM_VERSION
 
