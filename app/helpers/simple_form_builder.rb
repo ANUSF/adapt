@@ -52,7 +52,7 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
       size = f.options.delete(:size) || 30
       multi = f.options.delete(:repeatable) || try(:is_repeatable?, column)
 
-      current = @object.send(column)
+      current = @object.send(column) || (multi ? [] : {})
 
       haml { '
 .row
@@ -70,7 +70,7 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
       - else
         - ident = "#{f.ident}_#{sub}"
         - name  = "#{f.name}[#{sub}]"
-        - value = current[sub] || nil
+        - value = current[sub]
         %br
         %input{ :id => ident, :type => "text", :name => name, |
                 :value => value, :size => size } |
