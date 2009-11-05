@@ -1,0 +1,7 @@
+- make_form_for @attachment, :html => {:multipart => true} do |f|
+  = f.error_messages
+  = f.file_field :content, :label => "File to upload"
+  = f.text_field :category
+  = f.text_field :format
+  = f.text_area :description
+  = f.result_buttons %w{Upload Cancel}

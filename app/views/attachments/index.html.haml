@@ -1,0 +1,21 @@
+- title "Attachments"
+
+%table
+  %tr
+    %th Name
+    %th Category
+    %th Format
+    %th Stored as
+    %th Description
+  - for attachment in @attachments
+    %tr
+      %td= h attachment.name
+      %td= h attachment.category
+      %td= h attachment.format
+      %td= h attachment.stored_as
+      %td= h attachment.description
+      %td= link_to 'Edit', edit_attachment_path(attachment)
+      %td= link_to 'Delete', attachment_path(attachment), :method => :delete, |
+                             :confirm => "Delete this attachment?" |
+
+%p= link_to "New Attachment", new_attachment_path
