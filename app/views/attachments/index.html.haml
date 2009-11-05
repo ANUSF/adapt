@@ -1,21 +1,23 @@
 - title "Attachments"
 
-%table
-  %tr
-    %th Name
-    %th Category
-    %th Format
-    %th Stored as
-    %th Description
-  - for attachment in @attachments
-    %tr
-      %td= h attachment.name
-      %td= h attachment.category
-      %td= h attachment.format
-      %td= h attachment.stored_as
-      %td= h attachment.description
-      %td= link_to 'Edit', edit_attachment_path(attachment)
-      %td= link_to 'Delete', attachment_path(attachment), :method => :delete, |
-                             :confirm => "Delete this attachment?" |
+- for attachment in @attachments
+  %hr
+  %p
+    %strong Name:
+    = h attachment.name
+  %p
+    %strong Category:
+    = h attachment.category
+  %p
+    %strong Format:
+    = h attachment.format
+  %p
+    %strong Description:
+    = h attachment.description
+  %p
+    = link_to 'Edit', edit_attachment_path(attachment)
+    = link_to 'Delete', attachment_path(attachment), :method => :delete, |
+                        :confirm => "Delete this attachment?" |
 
+%hr
 %p= link_to "New Attachment", new_attachment_path
