@@ -1,5 +1,6 @@
 class Study < ActiveRecord::Base
   belongs_to :user
+  has_many :attachments, :dependent => :destroy
 
   JSON_FIELDS = [:data_kind, :time_method, :sample_population,
                  :sampling_procedure, :collection_method, :collection_start,

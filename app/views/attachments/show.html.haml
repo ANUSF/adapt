@@ -1,0 +1,25 @@
+- title "Attachment"
+
+%p
+  %strong Study:
+  %em= h @study.title
+
+- unless @attachment.nil?
+  %p
+    %strong Filename:
+    %em= h @attachment.name
+  %p
+    %strong Category:
+    =h @attachment.category
+  %p
+    %strong Format:
+    =h @attachment.format
+  %p
+    %strong Description:
+    =h @attachment.description
+  %p>
+    = link_to "Back to study", @study
+    |
+    = link_to "Edit", edit_study_attachment_path(@study, @attachment)
+    |
+    = link_to "Download", download_study_attachment_path(@study, @attachment)

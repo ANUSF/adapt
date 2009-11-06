@@ -1,40 +1,62 @@
 class AttachmentsController < ApplicationController
-  def index
-    @attachments = Attachment.all
-  end
-  
+  before_filter :get_study
+
   def new
-    @attachment = Attachment.new
+    @attachment = @study.attachments.new
   end
   
+  def show
+    @attachment = @study.attachments.find(params[:id])
+  end
+
+  def download
+    @attachment = @study.attachments.find(params[:id])
+    send_data(@attachment.data, :filename => @attachment.name)
+  end
+
   def create
-    @attachment = Attachment.new(params[:attachment])
-    if @attachment.save
-      flash[:notice] = "Successfully created attachment."
-      redirect_to attachments_url
+    if params[:result] == "Cancel"
+      flash[:notice] = "Attachment upload cancelled."
+      redirect_to @study
     else
-      render :action => 'new'
+      @attachment = @study.attachments.new(params[:attachment])
+      if @attachment.save
+        flash[:notice] = "Attachment successfully uploaded."
+        redirect_to [@study, @attachment]
+      else
+        render :action => 'new'
+      end
     end
   end
   
   def edit
-    @attachment = Attachment.find(params[:id])
+    @attachment = @study.attachments.find(params[:id])
   end
   
   def update
-    @attachment = Attachment.find(params[:id])
-    if @attachment.update_attributes(params[:attachment])
-      flash[:notice] = "Successfully updated attachment."
-      redirect_to attachments_url
+    @attachment = @study.attachments.find(params[:id])
+    if params[:result] == "Cancel"
+      flash[:notice] = "Attachment update cancelled."
+      redirect_to [@study, @attachment]
     else
-      render :action => 'edit'
+      if @attachment.update_attributes(params[:attachment])
+        flash[:notice] = "Attachment information successfully updated."
+        redirect_to [@study, @attachment]
+      else
+        render :action => 'edit'
+      end
     end
   end
 
   def destroy
-    @attachment = Attachment.find(params[:id])
+    @attachment = @study.attachments.find(params[:id])
     @attachment.destroy
     flash[:notice] = "Successfully deleted attachment '#{@attachment.name}'"
-    redirect_to attachments_url
+    redirect_to @study
+  end
+
+  private
+  def get_study
+    @study = Study.find(params[:study_id])
   end
 end
