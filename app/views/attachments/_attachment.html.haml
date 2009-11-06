@@ -1,10 +1,6 @@
 - unless attachment.nil?
   %li
-    =h attachment.name
+    = link_to h(attachment.name), [attachment.study, attachment]
     - unless attachment.description.blank?
       &mdash;
       =h attachment.description
-    = link_to 'Edit', edit_study_attachment_path(attachment.study, attachment)
-    = link_to 'Delete', study_attachment_path(attachment.study, attachment), |
-                        :method => :delete, |
-                        :confirm => "Delete this attachment?" |
