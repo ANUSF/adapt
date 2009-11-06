@@ -14,16 +14,17 @@ Rails::Initializer.run do |config|
   config.gem "authlogic-oid", :lib => "authlogic_openid"
   config.gem "ruby-openid", :lib => "openid"
 
-  # -- These two must be set in warble.rb for some reason
+  # -- These must be set in warble.rb for some reason
   #config.gem "activerecord-jdbcsqlite3-adapter"
   #config.gem "bcrypt-ruby"
 
   config.time_zone = 'Canberra'
 
-  # -- automatically migrate the database on startup
   config.after_initialize do
+    # -- automatically migrate the database on startup
     migration_path = RAILS_ROOT + "/db/migrate"
     ActiveRecord::Migrator.migrate(migration_path)
+    # -- db store for OpenID has problems with some adapters
     OpenIdAuthentication.store = :file
   end
 end
