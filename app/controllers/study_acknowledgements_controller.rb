@@ -19,7 +19,7 @@ class StudyAcknowledgementsController < ApplicationController
       elsif params[:result] == "Refresh"
         redirect_to edit_study_acknowledgement_url(@study)
       else
-        redirect_to edit_study_file_url(@study)
+        redirect_to @study
       end
     else
       render :action => 'edit'
