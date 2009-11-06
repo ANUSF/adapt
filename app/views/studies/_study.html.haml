@@ -8,15 +8,6 @@
       %strong Short Name:
       =h study.name
   %p
-    %strong Status:
-    =h study.status
-  %p
-    %strong ASSDA ID:
-    - if study.permanent_identifier.blank?
-      %em &mdash;pending&mdash
-    - else
-      =h study.permanent_identifier
-  %p
     %strong Study Title:
     =h study.title
   %p
@@ -26,6 +17,15 @@
     %strong Attachments:
   %ul
     = render study.attachments
+  %p
+    %strong Status:
+    =h study.status
+  %p
+    %strong ASSDA ID:
+    - if study.permanent_identifier.blank?
+      %em &mdash;pending&mdash
+    - else
+      =h study.permanent_identifier
   %p>
     = link_to "Edit", edit_study_path(study)
     |
