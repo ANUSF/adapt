@@ -21,7 +21,7 @@ class Attachment < ActiveRecord::Base
     self.stored_as = "#{self.id}"
     self.save!
     begin
-      File.open(stored_path, "w") { |fp| fp.write(@content) }
+      File.open(stored_path, "w", 0660) { |fp| fp.write(@content) }
     rescue Exception => ex
       delete_file
       raise ex
