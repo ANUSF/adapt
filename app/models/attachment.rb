@@ -1,4 +1,6 @@
 class Attachment < ActiveRecord::Base
+  belongs_to :study
+
   attr_accessible :content, :category, :format, :description
 
   after_create :write_file
@@ -7,6 +9,10 @@ class Attachment < ActiveRecord::Base
   def content=(uploaded)
     self.name = uploaded.original_filename
     @content = uploaded.read
+  end
+
+  def data
+    File.open(stored_path) { |f| f.read }
   end
 
   protected

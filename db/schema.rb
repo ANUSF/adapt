@@ -9,17 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091105013047) do
-
-  create_table "attachments", :force => true do |t|
-    t.string   "name"
-    t.string   "category"
-    t.string   "format"
-    t.text     "stored_as"
-    t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(:version => 20091022035410) do
 
   create_table "open_id_authentication_associations", :force => true do |t|
     t.integer "issued"

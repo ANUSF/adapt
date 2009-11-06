@@ -1,4 +1,15 @@
 - title "Edit Attachment"
 
-= render :partial => 'form'
+%p
+  %strong Attachment:
+  %em== '#{h @attachment.name}'
+%p
+  %strong Study:
+  %em== '#{h @study.title}'
 
+- make_form_for [ @study, @attachment ], :html => {:multipart => true} do |f|
+  = f.error_messages
+  = f.text_field :category
+  = f.text_field :format
+  = f.text_area :description
+  = f.result_buttons %w{Submit Cancel}
