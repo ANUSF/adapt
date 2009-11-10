@@ -1,5 +1,6 @@
 class Attachment < ActiveRecord::Base
   belongs_to :study
+  validates_presence_of :category, :format
 
   attr_accessible :content, :category, :format, :description
 
@@ -18,13 +19,14 @@ class Attachment < ActiveRecord::Base
   protected
 
   def stored_path
-    base = (ENV['ADAPT_ASSET_PATH'] || RAILS_ROOT + "/assets") + "/attachments"
+    assets = ENV['ADAPT_ASSET_PATH'] || RAILS_ROOT + "/assets"
+    base = "#{assets}/studies/#{study.id}/attachments"
     FileUtils.mkdir_p base unless File.exist? base
     "#{base}/#{stored_as}"
   end
 
   def write_file
-    self.stored_as = "#{self.id}"
+    self.stored_as = "#{self.id}__#{self.name}"
     self.save!
     begin
       File.open(stored_path, "w", 0660) { |fp| fp.write(@content) }
