@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :user_sessions
   map.resources :users
-  map.resources :studies do |studies|
+  map.resources :studies, :shallow => true do |studies|
     studies.resources :attachments, :member => { :download => :get }
   end
   map.resources :study_data
