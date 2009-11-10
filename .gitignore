@@ -1,10 +1,13 @@
 *.war
 *~
 
-db/db_*
-public/stylesheets/application.css
+/db/db_*
+/public/stylesheets/application.css
 
-java/bin/
-java/build/dist.jar
-java/build/appname.txt
-java/.manager/
+/java/bin/*
+/java/build/dist.jar
+/java/build/appname.txt
+/java/.manager/*
+/log/*
+/tmp/*
+/assets/*
