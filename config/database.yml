@@ -1,12 +1,8 @@
 <%
-  require 'java'
-  System = java.lang.System
-
   @app      = "tatwraps"
-  @adapter  = ENV['RAILS_DB_ADAPTER'] ||
-                System.getProperty('RAILS_DB_ADAPTER') || "sqlite3"
-  @db_path  = ENV['RAILS_DB_PATH'] || System.getProperty('RAILS_DB_PATH')
-  @home     = ENV['HOME'] || System.getProperty('user.home')
+  @adapter  = ENV['ADAPT_DB_ADAPTER'] || "sqlite3"
+  @db_path  = ENV['ADAPT_DB_PATH']
+  @home     = ENV['HOME']
 
   def db_name(env)
     if @db_path
@@ -18,7 +14,6 @@
              else "." end
       name = "#{base}/db/db_#{env}.#{@adapter}"
     end
-    #puts "# The database for #{env} is #{name}."
     name
   end
 %>
