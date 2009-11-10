@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def validate_ip
-    if ENV["RAILS_IS_LOCAL"] == "true" and request.remote_ip != "127.0.0.1"
+    if ENV["ADAPT_IS_LOCAL"] == "true" and request.remote_ip != "127.0.0.1"
       flash.now[:error] = "Remote access denied."
       render 'layouts/empty'
     end
