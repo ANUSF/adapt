@@ -5,11 +5,12 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
     define_method(method_name) do |column, *args|
       create_field(column, default_options, *args) do |f|
         args = f.args.clone
-        if method_name.to_s == :select and args.size < 1
+        if method_name.to_sym == :select and args.size < 1
           args[0] = [ ["-- please select --", ""] ] + selections_for(column)
         end
         args << f.options unless f.options.empty?
 
+        #@object.logger.info("SimpleFormBuilder: #{column} #{args.inspect}")
         super(column, *args)
       end
     end
