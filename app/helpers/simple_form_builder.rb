@@ -36,17 +36,19 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
 
   def select(column, *args)
     create_field(column, {}, *args) do |f|
-      selections = if f.args.empty? then selections_for(column)
-                   else f.args[0] end
+      selections = f.args.empty? ? selections_for(column) : f.args[0]
+      empty = try :empty_selection, column
+      selections = [[empty, ""]] + selections if empty
+
       multi = f.options.delete(:repeatable) || try(:is_repeatable?, column)
       multi = multi ? "multiple" : nil
       size = f.options.delete(:size) || (6 if multi)
 
       current = @object.send(column) || []
+      name = multi ? "#{f.name}[]" : f.name
 
       haml { '
-%select{ :id => f.ident, :name => "#{f.name}[]", :multiple => multi, |
-         :size => size } |
+%select{ :id => f.ident, :name => name, :multiple => multi, :size => size }
   - for (k, v) in selections
     - selected = current.include?(v) ? "selected" : nil
     %option{ :value => v, :selected => selected }= k
