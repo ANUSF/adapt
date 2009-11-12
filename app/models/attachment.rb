@@ -1,6 +1,5 @@
 class Attachment < ActiveRecord::Base
   belongs_to :study
-  validates_presence_of :category, :format
 
   attr_accessible :content, :category, :format, :description
 
