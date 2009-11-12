@@ -19,24 +19,25 @@ class Study < ActiveRecord::Base
 
   json_fields(*JSON_FIELDS)
 
-  def self.property_accessor(name)
+  def self.annotate_with(name)
     define_method(name) do |column|
-      props = @@field_properties[column.to_sym] || {}
-      res = props[name.to_sym] || @@field_properties[:__defaults__][name.to_sym]
-      res.class == Proc ? res.call(column) : res
+      props = @@field_annotations[column.to_sym] || {}
+      key = name.to_sym
+      res = props[key] || @@field_annotations[:__defaults__][key]
+      res.class == Proc ? res.call(self, column) : res
     end
   end
 
   for name in %w{label_for help_on selections subfields is_repeatable?}
-    property_accessor(name)
+    annotate_with(name)
   end
 
   protected
 
-  @@field_properties = {
+  @@field_annotations = {
     :__defaults__ => {
-      :label_for => proc { |column| column.to_s.humanize },
-      :help_on => proc { |column| column.to_s.humanize },
+      :label_for => proc { |object, column| column.to_s.humanize },
+      :help_on => proc { |object, column| object.label_for(column) },
       :selections => [],
       :subfields => [],
       :is_repeatable? => false
