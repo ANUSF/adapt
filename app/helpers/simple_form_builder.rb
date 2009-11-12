@@ -5,12 +5,7 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
     define_method(method_name) do |column, *args|
       create_field(column, default_options, *args) do |f|
         args = f.args.clone
-        if method_name.to_sym == :select and args.size < 1
-          args[0] = [ ["-- please select --", ""] ] + selections_for(column)
-        end
         args << f.options unless f.options.empty?
-
-        #@object.logger.info("SimpleFormBuilder: #{column} #{args.inspect}")
         super(column, *args)
       end
     end
@@ -19,7 +14,7 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
   extend ActionView::Helpers::TagHelper
   extend ActionView::Helpers::FormTagHelper
 
-  for name in field_helpers - ["text_area", "hidden_field", "check_box"]
+  for name in field_helpers - %w{text_area hidden_field check_box select}
     create_tagged_field(name, :size => 40)
   end
   
@@ -39,14 +34,18 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
 ' }
   end
 
-  def multiselect(column, *args)
+  def select(column, *args)
     create_field(column, {}, *args) do |f|
       selections = if f.args.empty? then selections_for(column)
                    else f.args[0] end
-      size = f.options.delete(:size) || 6
+      multi = f.options.delete(:repeatable) || try(:is_repeatable?, column)
+      multi = multi ? "multiple" : nil
+      size = f.options.delete(:size) || (6 if multi)
+
       current = @object.send(column) || []
+
       haml { '
-%select{ :id => f.ident, :name => "#{f.name}[]", :multiple => "multiple", |
+%select{ :id => f.ident, :name => "#{f.name}[]", :multiple => multi, |
          :size => size } |
   - for (k, v) in selections
     - selected = current.include?(v) ? "selected" : nil

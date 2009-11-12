@@ -12,14 +12,14 @@
     = f.check_box :data_is_qualitative
     = f.check_box :data_is_quantitative
   .row
-    = f.multiselect :data_kind, :required => true
-    = f.multiselect :time_method
+    = f.select :data_kind, :required => true
+    = f.select :time_method
   .clear
   = f.text_area :sample_population
   = f.text_field :response_rate
   .row
-    = f.multiselect :sampling_procedure
-    = f.multiselect :collection_method
+    = f.select :sampling_procedure
+    = f.select :collection_method
   .clear
   .row
     = f.text_field :collection_start, :size => 12

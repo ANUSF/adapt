@@ -19,53 +19,49 @@ class Study < ActiveRecord::Base
 
   json_fields(*JSON_FIELDS)
 
-  def label_for(column)
-    Study.field_properties(column)[:label] || column.to_s.humanize
+  def self.property_accessor(name)
+    define_method(name) do |column|
+      props = @@field_properties[column.to_sym] || {}
+      res = props[name.to_sym] || @@field_properties[:__defaults__][name.to_sym]
+      res.class == Proc ? res.call(column) : res
+    end
   end
 
-  def help_on(column)
-    Study.field_properties(column)[:help] || label_for(column)
-  end
-
-  def selections(column)
-    Study.field_properties(column)[:selections] || []
-  end
-
-  def subfields(column)
-    Study.field_properties(column)[:subfields] || []
-  end
-
-  def is_repeatable?(column)
-    Study.field_properties(column)[:repeatable] || false
+  for name in %w{label_for help_on selections subfields is_repeatable?}
+    property_accessor(name)
   end
 
   protected
 
-  def self.field_properties(column)
-    @@field_properties[column.to_sym] or {}
-  end
-
   @@field_properties = {
+    :__defaults__ => {
+      :label_for => proc { |column| column.to_s.humanize },
+      :help_on => proc { |column| column.to_s.humanize },
+      :selections => [],
+      :subfields => [],
+      :is_repeatable? => false
+    },
     :name => {
-      :label => "Short name",
-      :help => "Short name to use for later reference."
+      :label_for => "Short name",
+      :help_on => "Short name to use for later reference."
     },
     :title => {
-      :label => "Study title",
-      :help => "The full title of this study."
+      :label_for => "Study title",
+      :help_on => "The full title of this study."
     },
     :abstract => {
-      :label => "Study abstract",
-      :help => "The study abstract."
+      :label_for => "Study abstract",
+      :help_on => "The study abstract."
     },
     :data_is_qualitative=> {
-      :label => "Qualitative Data"
+      :label_for => "Qualitative Data"
     },
     :data_is_quantitative=> {
-      :label => "Quantitative Data"
+      :label_for => "Quantitative Data"
     },
     :data_kind => {
-      :label => "Kind of data",
+      :label_for => "Kind of data",
+      :is_repeatable? => true,
       :selections => [
                       "Administrative / process-produced data",
                       "Audio-taped interviews",
@@ -99,7 +95,8 @@ class Study < ActiveRecord::Base
                       "Video-taped interviews" ]
       },
     :time_method => {
-      :label => "Time dimensions",
+      :label_for => "Time dimensions",
+      :is_repeatable? => true,
       :selections => ["one-time cross-sectional study",
                       "follow-up cross-sectional study",
                       "repeated cross-sectional study",
@@ -108,14 +105,15 @@ class Study < ActiveRecord::Base
                       "trend study"]
       },
     :sample_population => {
-      :label => "Sample population",
-      :help =>
+      :label_for => "Sample population",
+      :help_on =>
 "Please describe the universe that was being sampled in this study. \
 Specify any limitations on age, sex, location, occupation, etc. of the \
 population."
       },
     :sampling_procedure => {
-      :label => "Sampling procedures",
+      :label_for => "Sampling procedures",
+      :is_repeatable? => true,
       :selections => ["no sampling (total universe)",
                       "simple random sample",
                       "one-stage stratified or systematic random sample",
@@ -130,7 +128,8 @@ population."
                       "convenience sample"]
       },
     :collection_method => {
-      :label => "Method of data collection",
+      :label_for => "Method of data collection",
+      :is_repeatable? => true,
       :selections => ["clinical measurements",
                       "compilation or synthesis of existing material",
                       "diaries",
@@ -148,21 +147,21 @@ population."
                       "web-based self-completion"]
     },
     :collection_start => {
-      :label => ""
+      :label_for => ""
     },
     :collection_end => {
-      :label => ""
+      :label_for => ""
     },
     :period_start => {
-      :label => "",
-      :help => 
+      :label_for => "",
+      :help_on => 
 "If the data pertains to a period prior to the time when it was \
 collected (e.g. medical records for 1980-1990 collected in 1992) what \
 period does the data come from? "
     },
     :period_end => {
-      :label => "",
-      :help =>
+      :label_for => "",
+      :help_on =>
 "If the data pertains to a period prior to the time when it was \
 collected (e.g. medical records for 1980-1990 collected in 1992) what \
 period does the data come from? "
@@ -171,39 +170,39 @@ period does the data come from? "
     },
     :depositors => {
       :subfields => %w{name affiliation},
-      :label => "Depositor:",
-      :help => "Please give details of the person sending the materials."
+      :label_for => "Depositor:",
+      :help_on => "Please give details of the person sending the materials."
     },
     :principal_investigators => {
       :subfields => %w{name affiliation},
-      :repeatable => true,
-      :label => "Principal Investigator(s):",
-      :help =>
+      :is_repeatable? => true,
+      :label_for => "Principal Investigator(s):",
+      :help_on =>
 "Please list the name(s) of each principal investigator and the \
 organisation with which they are associated. Click 'Refresh' for \
 additional lines."
     },
     :data_producers => {
       :subfields => %w{name affiliation},
-      :repeatable => true,
-      :label => "Data Producer(s):",
-      :help =>
+      :is_repeatable? => true,
+      :label_for => "Data Producer(s):",
+      :help_on =>
 "List if different from the principal investigator(s). Click 'Refresh' \
 for additional lines."
     },
     :funding_agency => {
       :subfields => %w{agency grant_number},
-      :repeatable => true,
-      :label => "Funding:",
-      :help =>
+      :is_repeatable? => true,
+      :label_for => "Funding:",
+      :help_on =>
 "Please list then names(s) of all funding source(s) (include the grant \
 number if appropriate). Click 'Refresh' for additional lines."
     },
     :other_acknowledgements => {
       :subfields => %w{name affiliation role},
-      :repeatable => true,
-      :label => "Other Acknowledgements:",
-      :help =>
+      :is_repeatable? => true,
+      :label_for => "Other Acknowledgements:",
+      :help_on =>
 "Please list the names of any other persons or organisations who \
 played a significant role in the conduct of the study. Click 'Refresh' \
 for additional lines."
