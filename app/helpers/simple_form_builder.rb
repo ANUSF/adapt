@@ -19,7 +19,7 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
   extend ActionView::Helpers::TagHelper
   extend ActionView::Helpers::FormTagHelper
 
-  for name in field_helpers - ["text_area", "hidden_field"]
+  for name in field_helpers - ["text_area", "hidden_field", "check_box"]
     create_tagged_field(name, :size => 40)
   end
   
@@ -29,6 +29,16 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
   create_tagged_field("select")
   create_tagged_field("text_area", :rows => 4, :cols => 60)
   
+  def check_box(column, *args)
+    options = args.last.is_a?(Hash) ? args.pop : {}
+    label = options.delete(:label) || try(:label_for, column) || column
+    haml { '
+%span
+  = super(column, *args)
+  = label
+' }
+  end
+
   def multiselect(column, *args)
     create_field(column, {}, *args) do |f|
       selections = if f.args.empty? then selections_for(column)
