@@ -7,6 +7,14 @@ class Attachment < ActiveRecord::Base
   after_create :write_file
   before_destroy :delete_file
 
+  def selections(column)
+    if column.to_sym == :category
+      [ "Data File", "Documentation" ]
+    else
+      []
+    end
+  end
+
   def content=(uploaded)
     self.name = uploaded.original_filename
     @content = uploaded.read
