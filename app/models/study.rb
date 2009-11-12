@@ -2,7 +2,8 @@ class Study < ActiveRecord::Base
   belongs_to :user
   has_many :attachments, :dependent => :destroy
 
-  JSON_FIELDS = [:data_kind, :time_method, :sample_population,
+  JSON_FIELDS = [:data_is_qualitative, :data_is_quantitative, :data_kind,
+                 :time_method, :sample_population,
                  :sampling_procedure, :collection_method, :collection_start,
                  :collection_end, :period_start, :period_end, :response_rate,
                  :depositors, :principal_investigators, :data_producers,
@@ -57,11 +58,15 @@ class Study < ActiveRecord::Base
       :label => "Study abstract",
       :help => "The study abstract."
     },
+    :data_is_qualitative=> {
+      :label => "Qualitative Data"
+    },
+    :data_is_quantitative=> {
+      :label => "Quantitative Data"
+    },
     :data_kind => {
       :label => "Kind of data",
       :selections => [
-                      "Qualitative",
-                      "Quantitative",
                       "Administrative / process-produced data",
                       "Audio-taped interviews",
                       "Case study notes",
