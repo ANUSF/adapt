@@ -23,7 +23,7 @@ module AnuSF
             # -- filters empty entries from a repeatable field
             value = value.values if value.is_a? Hash
             value = if try(:subfields, name).empty?
-              value.reject &:x.blank?
+              value.reject &:blank?
             else
               value.reject { |x| x.values.all? &:blank? }
             end
