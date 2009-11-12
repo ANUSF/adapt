@@ -7,11 +7,11 @@ class Attachment < ActiveRecord::Base
   before_destroy :delete_file
 
   def selections(column)
-    if column.to_sym == :category
-      [ "Data File", "Documentation" ]
-    else
-      []
-    end
+    column.to_sym == :category ? [ "Data File", "Documentation" ] : []
+  end
+
+  def empty_selection(column)
+    column.to_sym == :category ? "-- Please select --" : false
   end
 
   def content=(uploaded)
