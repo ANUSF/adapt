@@ -28,7 +28,8 @@ class Study < ActiveRecord::Base
     end
   end
 
-  for name in %w{label_for help_on selections subfields is_repeatable?}
+  for name in %w{label_for help_on selections subfields is_repeatable?
+                 allow_other?}
     annotate_with(name)
   end
 
@@ -40,7 +41,8 @@ class Study < ActiveRecord::Base
       :help_on => proc { |object, column| object.label_for(column) },
       :selections => [],
       :subfields => [],
-      :is_repeatable? => false
+      :is_repeatable? => false,
+      :allow_other? => false
     },
     :name => {
       :label_for => "Short name",
@@ -63,6 +65,7 @@ class Study < ActiveRecord::Base
     :data_kind => {
       :label_for => "Kind of data",
       :is_repeatable? => true,
+      :allow_other? => true,
       :selections => [
                       "Administrative / process-produced data",
                       "Audio-taped interviews",
@@ -98,6 +101,7 @@ class Study < ActiveRecord::Base
     :time_method => {
       :label_for => "Time dimensions",
       :is_repeatable? => true,
+      :allow_other? => true,
       :selections => ["one-time cross-sectional study",
                       "follow-up cross-sectional study",
                       "repeated cross-sectional study",
@@ -115,6 +119,7 @@ population."
     :sampling_procedure => {
       :label_for => "Sampling procedures",
       :is_repeatable? => true,
+      :allow_other? => true,
       :selections => ["no sampling (total universe)",
                       "simple random sample",
                       "one-stage stratified or systematic random sample",
@@ -131,6 +136,7 @@ population."
     :collection_method => {
       :label_for => "Method of data collection",
       :is_repeatable? => true,
+      :allow_other? => true,
       :selections => ["clinical measurements",
                       "compilation or synthesis of existing material",
                       "diaries",

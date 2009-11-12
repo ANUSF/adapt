@@ -39,12 +39,14 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
       selections = f.args.empty? ? selections_for(column) : f.args[0]
       empty = try :empty_selection, column
       selections = [[empty, ""]] + selections if empty
+      other = f.options.delete(:allow_other) || try(:allow_other?, column)
 
       multi = f.options.delete(:repeatable) || try(:is_repeatable?, column)
       multi = multi ? "multiple" : nil
       size = f.options.delete(:size) || (6 if multi)
 
       current = @object.send(column) || []
+      current_other = (current - selections.transpose[1]).join(", ") if other
       name = multi ? "#{f.name}[]" : f.name
 
       haml { '
@@ -52,6 +54,11 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
   - for (k, v) in selections
     - selected = current.include?(v) ? "selected" : nil
     %option{ :value => v, :selected => selected }= k
+- if other
+  %br
+  Other:
+  %input{ :id => f.ident, :name => name, :type => "text", :size => 25, |
+          :value => current_other } |
 ' }
     end
   end
