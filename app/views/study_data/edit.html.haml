@@ -6,6 +6,11 @@
 
 - make_form_for @study, :url => study_datum_url(@study) do |f|
   = f.error_messages
+  %div
+    %em Select at least one:
+    %br
+    = f.check_box :data_is_qualitative
+    = f.check_box :data_is_quantitative
   .row
     = f.multiselect :data_kind, :required => true
     = f.multiselect :time_method
