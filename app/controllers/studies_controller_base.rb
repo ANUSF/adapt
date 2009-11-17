@@ -15,6 +15,6 @@ class StudiesControllerBase < ApplicationController
   end
 
   def owns_study
-    @study && @study.user == current_user
+    logged_in && @study && @study.user == current_user
   end
 end

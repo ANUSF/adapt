@@ -1,6 +1,6 @@
 class UserSessionsController < ApplicationController
-  permit :new, :create, :if => :logged_out
-  permit :destroy, :if => :logged_in
+  permit :new, :create, :if => :logged_out, :message => "Already logged in."
+  permit :destroy, :if => :logged_in, :message => "Already logged out."
 
   def new
     @user_session = UserSession.new
