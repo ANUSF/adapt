@@ -1,8 +1,4 @@
-class StudyDataController < ApplicationController
-  permit :edit, :update, :if => :current_user_owns_study
-
-  before_filter :find_study
-
+class StudyDataController < StudiesControllerBase
   def edit
   end
   
@@ -23,16 +19,5 @@ class StudyDataController < ApplicationController
     else
       render :action => 'edit'
     end
-  end
-
-  private
-
-  def find_study
-    return @study if defined? @study
-    @study = logged_in && current_user.studies.find_by_id(params[:id])
-  end
-
-  def current_user_owns_study
-    not find_study.nil?
   end
 end

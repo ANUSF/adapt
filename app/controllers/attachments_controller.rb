@@ -1,10 +1,9 @@
 class AttachmentsController < ApplicationController
-  permit :new, :create, :if => :current_user_owns_study
-  permit :show, :download, :edit, :update, :destroy,
-         :if => :current_user_owns_attachment
+  permit :new, :create, :if => :owns_study
+  permit :show, :download, :edit, :update, :destroy, :if => :owns_attachment
 
-  before_filter :find_study, :only => [ :new, :create ]
-  before_filter :find_attachment, :except => [ :new, :create ]
+  before_authorization_filter :find_study, :only => [ :new, :create ]
+  before_authorization_filter :find_attachment, :except => [ :new, :create ]
 
   def new
     @attachment = @study.attachments.new
@@ -58,21 +57,18 @@ class AttachmentsController < ApplicationController
   private
 
   def find_study
-    return @study if defined? @study
-    @study = logged_in && current_user.studies.find_by_id(params[:study_id])
+    @study = Study.find_by_id(params[:study_id])
   end
 
-  def current_user_owns_study
-    not find_study.nil?
+  def owns_study
+    @study && @study.user == current_user
   end
 
   def find_attachment
-    return @attachment if defined? @attachment
-    file = Attachment.find_by_id(params[:id])
-    @attachment = file && (file.study.user == current_user ? file : nil)
+    @attachment = Attachment.find_by_id(params[:id])
   end
 
-  def current_user_owns_attachment
-    not find_attachment.nil?
+  def owns_attachment
+    @attachment && @attachment.study.user == current_user
   end
 end

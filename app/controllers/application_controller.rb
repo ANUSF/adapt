@@ -10,6 +10,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
   
+  protected
+
   class_inheritable_accessor :permission_settings
   self.permission_settings = {}
 
@@ -19,18 +21,18 @@ class ApplicationController < ActionController::Base
       options[:if] = code
     else
       case options[:if]
-      when nil
-        options[:if] = true
-      when :logged_in
-        options[:message] ||= "Must be logged in"
-      when :logged_out
-        options[:message] ||= "Must be logged out"
+      when :logged_in  then options[:message] ||= "Must be logged in."
+      when :logged_out then options[:message] ||= "Must be logged out."
       end
     end
     args.each { |name| self.permission_settings[name.to_sym] = options }
   end
 
-  protected
+  def self.before_authorization_filter(*args)
+    before_filter *args
+    skip_before_filter :authorize
+    before_filter :authorize
+  end
 
   def logged_in
     not logged_out
@@ -63,27 +65,18 @@ class ApplicationController < ActionController::Base
     begin
       options = self.class.permission_settings[action_name.to_sym] || {}
       permitted = case options[:if]
-                  when Proc
-                    options[:if].call(current_user, params)
-                  when Symbol
-                    self.send(options[:if])
-                  else
-                    options[:if]
+                  when nil    then true
+                  when Proc   then options[:if].call(current_user, params)
+                  when Symbol then self.send(options[:if])
+                  else             options[:if]
                   end
       unless permitted
-        message = if options[:message]
-                    options[:message] + " to access"
-                  else
-                    "Access denied to"
-                  end
-        flash[:error] = "#{message} '#{request.request_uri}'."
-        redirect_to(request.env["HTTP_REFERER"] ||
-                    current_user ? studies_url : root_url)
+        flash.now[:error] = options[:message] || "Access denied."
+        render 'layouts/empty'
       end
     rescue
-      flash[:error] = "Error determining authorization for " +
-        "#{request.request_uri} (action #{action_name})."
-      redirect_to root_url
+      flash.now[:error] = "Error in authorization check."
+      render 'layouts/empty'
     end
   end
 end
