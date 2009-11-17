@@ -61,7 +61,7 @@ class AttachmentsController < ApplicationController
   end
 
   def owns_study
-    @study && @study.user == current_user
+    logged_in && @study && @study.user == current_user
   end
 
   def find_attachment
@@ -69,6 +69,6 @@ class AttachmentsController < ApplicationController
   end
 
   def owns_attachment
-    @attachment && @attachment.study.user == current_user
+    logged_in && @attachment && @attachment.study.user == current_user
   end
 end
