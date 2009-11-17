@@ -1,4 +1,7 @@
 class UserSessionsController < ApplicationController
+  permit :new, :create, :if => :logged_out
+  permit :destroy, :if => :logged_in
+
   def new
     @user_session = UserSession.new
   end
@@ -7,7 +10,7 @@ class UserSessionsController < ApplicationController
     @user_session = UserSession.new(params[:user_session])
     @user_session.save do |successful|
       if successful
-        flash[:notice] = "Welcome #{current_user[:username]}!"
+        flash[:notice] = "Welcome #{@user_session.record.username}!"
         redirect_to studies_url
       else
         flash.now[:error] = "Login failed."
@@ -18,8 +21,10 @@ class UserSessionsController < ApplicationController
   
   def destroy
     @user_session = UserSession.find
-    @user_session.destroy
-    flash[:notice] = "Successfully logged out."
+    if @user_session
+      @user_session.destroy
+      flash[:notice] = "Successfully logged out."
+    end
     redirect_to root_url
   end
 end

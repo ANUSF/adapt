@@ -1,11 +1,19 @@
 class StudiesController < ApplicationController
+  permit :index, :new, :create, :if => :logged_in
+  permit :show, :edit, :update, :destroy, :if => :current_user_owns_study
+
+  before_filter :find_study, :only => [ :show, :edit, :update, :destroy ]
+
+  # # -- permit can be called with a block, too
+  # permit :show do |user, params|
+  #   user.studies.find_by_id(params[:id])
+  # end
 
   def index
     @studies = current_user.studies.all
   end
   
   def show
-    @study = current_user.studies.find(params[:id])
   end
   
   def new
@@ -24,12 +32,9 @@ class StudiesController < ApplicationController
   end
   
   def edit
-    @study = Study.find(params[:id])
   end
   
   def update
-    @study = Study.find(params[:id])
-
     current = @study.attributes
     @study.attributes = params[:study]
     update_needed = @study.attributes != current
@@ -43,9 +48,19 @@ class StudiesController < ApplicationController
   end
   
   def destroy
-    @study = Study.find(params[:id])
     @study.destroy
     flash[:notice] = "Successfully destroyed study."
     redirect_to studies_url
+  end
+
+  private
+
+  def find_study
+    return @study if defined? @study
+    @study = logged_in && current_user.studies.find_by_id(params[:id])
+  end
+
+  def current_user_owns_study
+    not find_study.nil?
   end
 end

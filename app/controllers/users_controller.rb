@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  permit :new, :create, :if => :logged_out
+  permit :edit, :update, :if => :logged_in
+
   def new
     @user = User.new
   end
