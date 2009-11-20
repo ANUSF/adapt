@@ -48,7 +48,7 @@ module Verboten
           render :text => '', :layout => true
         end
       rescue
-        flash.now[:error] = "Error in authorization check."
+        flash.now[:error] = "Error in authorization test."
         render :text => '', :layout => true
       end
     end
