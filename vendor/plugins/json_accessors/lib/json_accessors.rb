@@ -1,21 +1,5 @@
-require 'active_record'
-
-module AnuSF
+module ANUSF
   module JsonAccessors
-    def self.included(mod)
-      mod.extend(ActsMethods)
-    end
-
-    module ActsMethods
-      def accesses_via_json(column_name)
-        class_inheritable_accessor :json_column_name
-        self.json_column_name = column_name.to_sym
-        
-        extend ClassMethods
-        include InstanceMethods
-      end
-    end
-
     module ClassMethods
       def json_field(name)
         define_method("#{name}=") do |value|
@@ -59,9 +43,12 @@ module AnuSF
   end
 end
 
-# reopen ActiveRecord and include all the above to make
-# them available to all our models if they want it
-
-ActiveRecord::Base.class_eval do
-  include AnuSF::JsonAccessors
+class ActiveRecord::Base
+  def self.accesses_via_json(column_name)
+    class_inheritable_accessor :json_column_name
+    self.json_column_name = column_name.to_sym
+        
+    extend ANUSF::JsonAccessors::ClassMethods
+    include ANUSF::JsonAccessors::InstanceMethods
+  end
 end
