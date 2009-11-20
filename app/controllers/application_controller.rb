@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   def validate_ip
     if ENV["ADAPT_IS_LOCAL"] == "true" and request.remote_ip != "127.0.0.1"
       flash.now[:error] = "Remote access denied."
-      render 'layouts/empty'
+      render :text => '', :layout => true
     end
   end
 end
