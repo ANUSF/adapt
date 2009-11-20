@@ -3,11 +3,6 @@ class StudiesControllerBase < ApplicationController
 
   permit :edit, :update, :if => :owns_study
 
-  # # -- permit can be called with a block, too
-  # permit :edit do |user, params|
-  #   user.studies.find_by_id(params[:id])
-  # end
-
   protected
 
   def find_study
@@ -16,5 +11,13 @@ class StudiesControllerBase < ApplicationController
 
   def owns_study
     logged_in && @study && @study.user == current_user
+  end
+
+  def update_attributes
+    #TODO hack!
+    old = ActiveSupport::JSON.decode @study.additional_metadata || "{}"
+    @study.attributes = params[:study]
+    new = ActiveSupport::JSON.decode @study.additional_metadata
+    @changed = old != new
   end
 end

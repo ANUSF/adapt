@@ -6,9 +6,6 @@ class StudiesController < StudiesControllerBase
     @studies = current_user.studies.all
   end
   
-  def show
-  end
-  
   def new
     @study = current_user.studies.new
   end
@@ -22,6 +19,9 @@ class StudiesController < StudiesControllerBase
     else
       render :action => 'new'
     end
+  end
+  
+  def show
   end
   
   def edit

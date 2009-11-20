@@ -3,14 +3,10 @@ class StudyDataController < StudiesControllerBase
   end
   
   def update
-    #TODO hack!
-    old = ActiveSupport::JSON.decode @study.additional_metadata || "{}"
-    @study.attributes = params[:study]
-    new = ActiveSupport::JSON.decode @study.additional_metadata
-    update_needed = old != new
+    update_attributes
 
-    if not update_needed or @study.save
-      flash[:notice] = "Edits for page 2 were saved." if update_needed
+    if not @changed or @study.save
+      flash[:notice] = "Edits for page 2 were saved." if @changed
       if params[:result] == "Back"
         redirect_to edit_study_url(@study)
       else
