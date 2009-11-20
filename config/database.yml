@@ -1,5 +1,5 @@
 <%
-  @app      = "tatwraps"
+  @app      = "adapt"
   @adapter  = ENV['ADAPT_DB_ADAPTER'] || "sqlite3"
   @db_path  = ENV['ADAPT_DB_PATH']
   @home     = ENV['HOME']
