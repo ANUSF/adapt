@@ -13,20 +13,27 @@ class ApplicationController < ActionController::Base
   
   private
   
-  def current_user_session
-    return @current_user_session if defined?(@current_user_session)
-    @current_user_session = UserSession.find
+  def login(user)
+    session[:user_id] = user.id
   end
-  
+
+  def logout
+    session[:user_id] = nil
+  end
+
   def current_user
     return @current_user if defined?(@current_user)
-    @current_user = current_user_session && current_user_session.record
+    @current_user = User.find_by_id(session[:user_id])
   end
 
   def validate_ip
     if ENV["ADAPT_IS_LOCAL"] == "true" and request.remote_ip != "127.0.0.1"
-      flash.now[:error] = "Remote access denied."
-      render :text => '', :layout => true
+      fail_with "Remote access denied."
     end
+  end
+
+  def fail_with(message)
+      flash.now[:error] = message
+      render :text => '', :layout => true
   end
 end
