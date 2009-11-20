@@ -45,11 +45,11 @@ module Verboten
         end
         unless allowed
           flash.now[:error] = options[:message] || "Access denied."
-          render :template => 'layouts/empty'
+          render :text => '', :layout => true
         end
       rescue
         flash.now[:error] = "Error in authorization check."
-        render :template => 'layouts/empty'
+        render :text => '', :layout => true
       end
     end
   end
