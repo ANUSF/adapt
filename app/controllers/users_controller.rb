@@ -8,13 +8,11 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     @user.attributes = params[:user]
-    @user.save do |successful|
-      if successful
-        flash[:notice] = "Successfully updated profile."
-        redirect_to studies_url
-      else
-        render :action => 'edit'
-      end
+    if @user.save
+      flash[:notice] = "Successfully updated profile."
+      redirect_to studies_url
+    else
+      render :action => 'edit'
     end
   end
 end

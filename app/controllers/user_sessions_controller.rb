@@ -1,5 +1,5 @@
 class UserSessionsController < ApplicationController
-  ASSDA_OPENID_PATH = "http://wyrd.anu.edu.au:8080/joid/user/"
+  OPENID_SERVER = ENV['ASSDA_OPENID_SERVER']
 
   permit :new, :create, :if => :logged_out, :message => "Already logged in."
   permit :destroy, :if => :logged_in, :message => "Already logged out."
@@ -8,7 +8,7 @@ class UserSessionsController < ApplicationController
   end
   
   def create
-    openID_url = params[:login] ? ASSDA_OPENID_PATH + params[:login] : nil
+    openID_url = params[:login] ? OPENID_SERVER + params[:login] : nil
 
     authenticate_with_open_id(openID_url) do |result, ident_url|
       case result.status
@@ -42,7 +42,7 @@ class UserSessionsController < ApplicationController
   def login_as(ident_url)
     user = User.find_by_openid_identifier(ident_url)
     if user.nil?
-      login_name = ident_url.sub(/^#{ASSDA_OPENID_PATH}/, '')
+      login_name = ident_url.sub(/^#{OPENID_SERVER}/, '')
       name = case login_name
              when /([a-z]+)\.([a-z]+)/i
                "#{$1.capitalize} #{$2.capitalize}"

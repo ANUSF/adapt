@@ -1,3 +1,8 @@
 - title "Edit User Profile"
 
-= render :partial => 'form'
+- make_form_for @user do |f|
+  = f.text_field :name
+  = f.text_area :address, :rows => 6
+  = f.text_field :telephone
+  = f.text_field :fax
+  %p= f.result_buttons "Submit"

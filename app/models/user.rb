@@ -14,5 +14,5 @@ class User < ActiveRecord::Base
   validates_format_of   :fax, :with => PHONE,
                         :message => "Does not look like a phone number."
 
-  has_many :studies
+  has_many :studies, :dependent => :destroy
 end
