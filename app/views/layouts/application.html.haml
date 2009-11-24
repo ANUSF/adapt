@@ -16,18 +16,16 @@
         %ul
           - if current_user
             %li
-              %a{ :href => studies_path }   View deposits
+              %a{ :href => studies_path }             View deposits
             %li
-              %a{ :href => new_study_path } Add study
+              %a{ :href => new_study_path }           Add study
             %li
               %a{ :href => edit_user_path(:current) } Edit profile
             %li
-              %a{ :href => logout_path }    Logout
+              %a{ :href => logout_path }              Logout
           - else
             %li
-              %a{ :href => new_user_path }  Register
-            %li
-              %a{ :href => login_path }     Login
+              %a{ :href => "#{ENV['ASSDA_REGISTRATION_URL']}" } Register
     
       #main
         #header
