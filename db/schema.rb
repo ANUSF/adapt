@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091124042343) do
+ActiveRecord::Schema.define(:version => 20091124043443) do
 
   create_table "attachments", :force => true do |t|
     t.integer  "study_id"
@@ -35,18 +35,15 @@ ActiveRecord::Schema.define(:version => 20091124042343) do
   end
 
   create_table "users", :force => true do |t|
+    t.string   "openid_identifier"
     t.string   "username"
     t.string   "email"
-    t.string   "crypted_password"
-    t.string   "password_salt"
-    t.string   "persistence_token"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.string   "name"
     t.text     "address"
     t.string   "telephone"
     t.string   "fax"
-    t.string   "openid_identifier"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
