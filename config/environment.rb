@@ -15,13 +15,10 @@ ENV['ASSDA_REGISTRATION_URL'] ||= "http://kspace2.anu.edu.au/online_reg.php"
 
 Rails::Initializer.run do |config|
   config.gem "haml"
-  config.gem "authlogic"
-  config.gem "authlogic-oid", :lib => "authlogic_openid"
   config.gem "ruby-openid", :lib => "openid"
 
-  # -- These must be set in warble.rb for some reason
+  # -- This must be set in warble.rb for some reason
   #config.gem "activerecord-jdbcsqlite3-adapter"
-  #config.gem "bcrypt-ruby"
 
   config.time_zone = 'Canberra'
 

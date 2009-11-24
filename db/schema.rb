@@ -9,21 +9,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091022035410) do
+ActiveRecord::Schema.define(:version => 20091124042343) do
 
-  create_table "open_id_authentication_associations", :force => true do |t|
-    t.integer "issued"
-    t.integer "lifetime"
-    t.string  "handle"
-    t.string  "assoc_type"
-    t.binary  "server_url"
-    t.binary  "secret"
-  end
-
-  create_table "open_id_authentication_nonces", :force => true do |t|
-    t.integer "timestamp",  :null => false
-    t.string  "server_url"
-    t.string  "salt",       :null => false
+  create_table "attachments", :force => true do |t|
+    t.integer  "study_id"
+    t.string   "name"
+    t.string   "category"
+    t.string   "format"
+    t.text     "stored_as"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "studies", :force => true do |t|
