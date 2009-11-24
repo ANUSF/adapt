@@ -4,8 +4,7 @@ class ApplicationController < ActionController::Base
 
   forbid_everything # -- forbid all access not explicitly granted
 
-  filter_parameter_logging(:password, :password_confirmation,
-                           :authenticity_token)
+  filter_parameter_logging(:authenticity_token)
   
   before_filter :validate_ip
 
