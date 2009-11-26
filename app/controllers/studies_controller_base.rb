@@ -1,7 +1,7 @@
 class StudiesControllerBase < ApplicationController
   before_authorization_filter :find_study
 
-  permit :edit, :update, :if => :owns_study
+  permit :edit, :update, :if => :may_edit
 
   protected
 
@@ -9,8 +9,16 @@ class StudiesControllerBase < ApplicationController
     @study = Study.find_by_id(params[:id])
   end
 
-  def owns_study
-    logged_in && @study && @study.user == current_user
+  def may_view
+    @study and @study.can_be_viewed_by current_user
+  end
+
+  def may_edit
+    @study and @study.can_be_edited_by current_user
+  end
+
+  def may_submit
+    @study and @study.can_be_submitted_by current_user
   end
 
   def update_attributes

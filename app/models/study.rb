@@ -19,6 +19,42 @@ class Study < ActiveRecord::Base
 
   json_fields(*JSON_FIELDS)
 
+  def status
+    result = read_attribute('status')
+    if result == "incomplete"
+      if (data_kind.blank? or
+          depositors['affiliation'].blank? or
+          depositors['name'].blank? or
+          principal_investigators.blank? or
+          attachments.count == 0
+          )
+        "incomplete"
+      else
+        "unsubmitted"
+      end
+    else
+      result
+    end
+  end
+
+  def is_owned_by(person)
+    user == person
+  end
+
+  def can_be_viewed_by(person)
+    is_owned_by person
+  end
+
+  def can_be_edited_by(person)
+    is_owned_by person and %w{incomplete unsubmitted}.include? status
+  end
+
+  def can_be_submitted_by(person)
+    is_owned_by person and status == 'unsubmitted'
+  end
+  
+  protected
+
   def self.annotate_with(name)
     define_method(name) do |column|
       props = @@field_annotations[column.to_sym] || {}
@@ -32,8 +68,6 @@ class Study < ActiveRecord::Base
                  allow_other?}
     annotate_with(name)
   end
-
-  protected
 
   @@field_annotations = {
     :__defaults__ => {

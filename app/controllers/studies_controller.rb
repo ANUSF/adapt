@@ -1,6 +1,8 @@
 class StudiesController < StudiesControllerBase
   permit :index, :new, :create, :if => :logged_in
-  permit :show, :destroy, :if => :owns_study
+  permit :show, :if => :may_view
+  permit :destroy, :if => :may_edit
+  permit :submit, :if => :may_submit
 
   def index
     @studies = current_user.studies.all
@@ -44,5 +46,11 @@ class StudiesController < StudiesControllerBase
     @study.destroy
     flash[:notice] = "Successfully destroyed study."
     redirect_to studies_url
+  end
+
+  def submit
+    @study.status = "submitted"
+    @study.save!
+    redirect_to @study
   end
 end
