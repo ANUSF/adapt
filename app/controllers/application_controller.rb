@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
-  helper_method :current_user
+  helper_method :current_user, :users_may_change_roles
   
   around_filter :validate_session
   forbid_everything # forbid all access not explicitly granted
@@ -27,6 +27,10 @@ class ApplicationController < ActionController::Base
   def current_user
     return @current_user if defined?(@current_user)
     @current_user = User.find_by_id(session[:user_id])
+  end
+
+  def users_may_change_roles
+    Rails.env == 'development' or ENV["ADAPT_IS_LOCAL"] == "true"
   end
 
   def validate_session
