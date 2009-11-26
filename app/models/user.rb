@@ -1,5 +1,14 @@
 class User < ActiveRecord::Base
+  has_many :studies, :dependent => :destroy
+  has_many :studies_in_curation,  :class_name  => 'Study',
+                                  :foreign_key => :archivist_id
+  has_many :studies_for_approval, :class_name  => 'Study',
+                                  :foreign_key => :manager_id
+
   attr_accessible(:username, :email, :name, :address, :telephone, :fax)
+
+  # -- the possible roles for a user
+  ROLES = %w{contributor archivist admin}
 
   # -- patterns for checking phone numbers
   SEP   = /( |-)?/
@@ -14,9 +23,7 @@ class User < ActiveRecord::Base
   validates_format_of   :fax, :with => PHONE,
                         :message => "Does not look like a phone number."
 
-  has_many :studies, :dependent => :destroy
-
   def selections(column)
-    %w{contributor archivist admin} if column.to_sym == :role
+    ROLES if column.to_sym == :role
   end
 end
