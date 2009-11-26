@@ -1,23 +1,27 @@
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
-  protect_from_forgery
-
-  forbid_everything # -- forbid all access not explicitly granted
-
-  filter_parameter_logging(:authenticity_token)
-  
-  before_filter :validate_ip
-
   helper_method :current_user
+  
+  around_filter :validate_session
+  forbid_everything # forbid all access not explicitly granted
+
+  protect_from_forgery
+  filter_parameter_logging :authenticity_token
   
   private
   
   def login(user)
-    session[:user_id] = user.id
+    new_session(user)
   end
 
   def logout
-    session[:user_id] = nil
+    new_session
+  end
+
+  def new_session(user = nil)
+    reset_session
+    session[:user_id] = user && user.id
+    session[:ip] = request.remote_ip
   end
 
   def current_user
@@ -25,14 +29,32 @@ class ApplicationController < ActionController::Base
     @current_user = User.find_by_id(session[:user_id])
   end
 
-  def validate_ip
-    if ENV["ADAPT_IS_LOCAL"] == "true" and request.remote_ip != "127.0.0.1"
-      fail_with "Remote access denied."
+  def validate_session
+    if ENV["ADAPT_IS_LOCAL"] == "true"
+      if request.remote_ip != "127.0.0.1"
+        flash.now[:error] = "Remote access denied."
+        render :text => '', :layout => true
+      end
+    elsif current_user
+      begin
+        if request.remote_ip != session[:ip]
+          kill_session "Your network connection seems to have changed."
+        elsif !session[:expires_at] or session[:expires_at] < Time.now
+          kill_session "Your session has expired."
+        end
+      rescue ActiveRecord::RecordNotFound # stale session cookie
+        kill_session "You seem to have a stale session cookie."
+      end
     end
+
+    yield
+
+    session[:expires_at] = 1.hour.since
   end
 
-  def fail_with(message)
-      flash.now[:error] = message
-      render :text => '', :layout => true
+  def kill_session(message)
+    new_session
+    flash[:error] = message + " Please log in again!"
+    redirect_to login_url
   end
 end

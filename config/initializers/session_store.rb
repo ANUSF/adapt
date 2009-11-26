@@ -5,7 +5,7 @@
 # Make sure the secret is at least 30 characters and all random, 
 # no regular words or you'll be exposed to dictionary attacks.
 ActionController::Base.session = {
-  :key         => '_Fedora-Ingest_session',
+  :key         => 'assda_adapt_session',
   :secret      => '425655458519e76165710c6a7669f344097be6441ba9ab198b8103bef8922507885c432dd7c9c3733c9abbf376e56e27a67bac2bc65e6f2bd87d63ee713a9891'
 }
 
