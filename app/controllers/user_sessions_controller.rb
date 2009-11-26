@@ -51,6 +51,7 @@ class UserSessionsController < ApplicationController
              end
       user = User.new(:username => login_name, :name => name)
       user.openid_identifier = ident_url
+      user.role = "contributor"
       user.save!
     end
     user && login(user)
