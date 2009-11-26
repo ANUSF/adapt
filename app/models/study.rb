@@ -1,5 +1,7 @@
 class Study < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :depositor, :class_name => 'User', :foreign_key => :user_id
+  belongs_to :archivist, :class_name => 'User', :foreign_key => :archivist_id
+  belongs_to :manager,   :class_name => 'User', :foreign_key => :manager_id
   has_many :attachments, :dependent => :destroy
 
   JSON_FIELDS = [:data_is_qualitative, :data_is_quantitative, :data_kind,
@@ -37,20 +39,27 @@ class Study < ActiveRecord::Base
     end
   end
 
-  def is_owned_by(person)
-    user == person
-  end
-
   def can_be_viewed_by(person)
-    is_owned_by person
+    case person.role
+    when 'contributor' then person == depositor
+    when 'archivist'   then true
+    when 'admin'       then true
+    else                    false
+    end
   end
 
   def can_be_edited_by(person)
-    is_owned_by person and %w{incomplete unsubmitted}.include? status
+    case person.role
+    when 'contributor' then person == depositor and
+                            %w{incomplete unsubmitted}.include? status
+    when 'archivist'   then person == archivist
+    when 'admin'       then true
+    else                    false
+    end
   end
 
   def can_be_submitted_by(person)
-    is_owned_by person and status == 'unsubmitted'
+    person == depositor and status == 'unsubmitted'
   end
   
   protected

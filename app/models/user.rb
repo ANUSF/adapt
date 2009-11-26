@@ -15,4 +15,8 @@ class User < ActiveRecord::Base
                         :message => "Does not look like a phone number."
 
   has_many :studies, :dependent => :destroy
+
+  def selections(column)
+    %w{contributor archivist admin} if column.to_sym == :role
+  end
 end
