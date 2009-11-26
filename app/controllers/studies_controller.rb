@@ -5,7 +5,12 @@ class StudiesController < StudiesControllerBase
   permit :submit, :if => :may_submit
 
   def index
-    @studies = current_user.studies.all
+    @studies =
+      case current_user && current_user.role
+      when 'contributor' then current_user.studies
+      when 'archivist'   then current_user.studies_in_curation
+      when 'admin'       then Study.all
+      end
   end
   
   def new

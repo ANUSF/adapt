@@ -1,3 +1,26 @@
-- title "Deposits by #{h current_user.name}"
+- title "Deposits"
 
-= render :partial => "study", :collection => @studies
+%table
+  %thead
+    %tr
+      %th
+      %th Title
+      %th Abstract
+      %th Depositor
+      %th Manager
+      %th Archivist
+      %th Status
+      %th Files
+      %th ASSDA ID
+  %tbody
+    - for study in @studies
+      %tr
+        %td= link_to "Details", study
+        %td=h study.title[0, 15]
+        %td=h study.abstract[0, 15]
+        %td=h study.owner.name
+        %td=h study.manager && study.manager.name
+        %td=h study.archivist && study.archivist.name
+        %td= study.status
+        %td= study.attachments.count
+        %td= study.permanent_identifier || "&mdash;"

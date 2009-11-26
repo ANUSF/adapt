@@ -1,5 +1,5 @@
 class Study < ActiveRecord::Base
-  belongs_to :depositor, :class_name => 'User', :foreign_key => :user_id
+  belongs_to :owner,     :class_name => 'User', :foreign_key => :user_id
   belongs_to :archivist, :class_name => 'User', :foreign_key => :archivist_id
   belongs_to :manager,   :class_name => 'User', :foreign_key => :manager_id
   has_many :attachments, :dependent => :destroy
@@ -41,7 +41,7 @@ class Study < ActiveRecord::Base
 
   def can_be_viewed_by(person)
     case person.role
-    when 'contributor' then person == depositor
+    when 'contributor' then person == owner
     when 'archivist'   then true
     when 'admin'       then true
     else                    false
@@ -50,7 +50,7 @@ class Study < ActiveRecord::Base
 
   def can_be_edited_by(person)
     case person.role
-    when 'contributor' then person == depositor and
+    when 'contributor' then person == owner and
                             %w{incomplete unsubmitted}.include? status
     when 'archivist'   then person == archivist
     when 'admin'       then true
@@ -59,7 +59,7 @@ class Study < ActiveRecord::Base
   end
 
   def can_be_submitted_by(person)
-    person == depositor and status == 'unsubmitted'
+    person == owner and status == 'unsubmitted'
   end
   
   protected
