@@ -1,6 +1,6 @@
 class AttachmentsController < ApplicationController
-  permit :new, :create, :if => :owns_study
-  permit :show, :download, :edit, :update, :destroy, :if => :owns_attachment
+  permit :show, :download, :if => :may_view
+  permit :new, :create, :edit, :update, :destroy, :if => :may_edit
 
   before_authorization_filter :find_study, :only => [ :new, :create ]
   before_authorization_filter :find_attachment, :except => [ :new, :create ]
@@ -60,15 +60,16 @@ class AttachmentsController < ApplicationController
     @study = Study.find_by_id(params[:study_id])
   end
 
-  def owns_study
-    logged_in && @study && @study.user == current_user
-  end
-
   def find_attachment
     @attachment = Attachment.find_by_id(params[:id])
+    @study = @attachment.study if @attachment
   end
 
-  def owns_attachment
-    logged_in && @attachment && @attachment.study.user == current_user
+  def may_view
+    @study and @study.can_be_viewed_by current_user
+  end
+
+  def may_edit
+    @study and @study.can_be_edited_by current_user
   end
 end
