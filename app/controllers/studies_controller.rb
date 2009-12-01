@@ -1,4 +1,4 @@
-class StudiesController < Application_Controller
+class StudiesController < ApplicationController
   before_authorization_filter :find_study
 
   permit :index, :new, :create, :if => :logged_in
