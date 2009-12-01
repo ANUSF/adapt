@@ -25,7 +25,7 @@ class StudiesController < ApplicationController
     @study.status = "incomplete"
     if @study.save
       flash[:notice] = "Study entry created."
-      redirect_to edit_study_datum_url(@study)
+      redirect_to @study
     else
       render :action => 'new'
     end
@@ -38,7 +38,8 @@ class StudiesController < ApplicationController
   end
   
   def update
-    if params[:result] == "Cancel"
+    result = params[:result]
+    if result == "Cancel"
       flash[:notice] = "Edit cancelled."
       redirect_to @study
     else
@@ -46,11 +47,7 @@ class StudiesController < ApplicationController
 
       if @study.save
         flash[:notice] = "Changes were saved succesfully."
-        if params[:result] == "Refresh"
-          redirect_to edit_study_url(@study)
-        else
-          redirect_to @study
-        end
+        redirect_to :action => (result == "Refresh" ? :edit : :show)
       else
         render :action => 'edit'
       end
