@@ -25,6 +25,7 @@ class Study < ActiveRecord::Base
     result = read_attribute('status')
     if result == "incomplete"
       if (data_kind.blank? or
+          depositors.nil? or
           depositors['affiliation'].blank? or
           depositors['name'].blank? or
           principal_investigators.blank? or
