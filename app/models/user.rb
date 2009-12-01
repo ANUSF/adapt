@@ -7,6 +7,9 @@ class User < ActiveRecord::Base
 
   attr_accessible(:username, :email, :name, :address, :telephone, :fax)
 
+  #TODO exclude admins
+  named_scope :archivists, :conditions => 'role != "contributor"'
+
   # -- the possible roles for a user
   ROLES = %w{contributor archivist admin}
 
