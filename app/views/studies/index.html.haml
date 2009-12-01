@@ -14,7 +14,7 @@
       %th ASSDA ID
   %tbody
     - for study in @studies
-      %tr
+      %tr{ :class => "#{cycle("odd", "even")}" }
         %td= link_to "Details", study
         %td=h study.title[0, 15]
         %td=h study.abstract[0, 15]
