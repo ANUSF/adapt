@@ -1,3 +1,39 @@
 - title "Study"
 
-= render :partial => "study", :object => @study
+%hr
+%p
+  %strong Depositor:
+  =h @study.owner.name
+%p
+  %strong Study Title:
+  =h @study.title
+%p
+  %strong Abstract:
+  =h @study.abstract
+%p
+  %strong Attachments:
+%ul
+  = render @study.attachments
+%p
+  %strong Status:
+  =h @study.status
+%p
+  %strong ASSDA ID:
+  - if @study.permanent_identifier.blank?
+    %em &mdash;pending&mdash
+  - else
+    =h @study.permanent_identifier
+%p>
+  - if @study.can_be_edited_by current_user
+    = link_to "Edit", edit_study_path(@study)
+    |
+    = link_to "Delete", @study, :confirm => 'Really delete this study?', |
+                               :method => :delete |
+    /
+    |
+    = link_to "Add a file", new_study_attachment_path(@study)
+  - if @study.can_be_submitted_by current_user
+    |
+    /
+    = link_to "Submit", submit_study_path(@study), :method => :post, |
+        :confirm => 'Please ensure all information is complete and correct.' |
