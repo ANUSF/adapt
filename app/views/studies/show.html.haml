@@ -28,7 +28,7 @@
     = link_to "Edit", edit_study_path(@study)
     |
     = link_to "Delete", @study, :confirm => 'Really delete this study?', |
-                               :method => :delete |
+                                :method => :delete |
     /
     |
     = link_to "Add a file", new_study_attachment_path(@study)
@@ -37,3 +37,10 @@
     /
     = link_to "Submit", submit_study_path(@study), :method => :post, |
         :confirm => 'Please ensure all information is complete and correct.' |
+
+- if @study.can_be_approved_by current_user
+  %hr
+  %h3 Approve and assign to an archivist:
+  - make_form_for @study do |f|
+    = f.select :archivist, :label => ""
+    = f.result_buttons %w{Assign}
