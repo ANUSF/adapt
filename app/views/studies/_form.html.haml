@@ -3,5 +3,42 @@
   = f.error_messages
   = f.text_area :title, :rows => 4, :required => true
   = f.text_area :abstract, :rows => 16, :required => true
+
   %hr
-  %p= f.result_buttons "Next"
+  %div
+    %em Select at least one:
+    %br
+    = f.check_box :data_is_qualitative
+    = f.check_box :data_is_quantitative
+  .row
+    = f.select :data_kind, :required => true
+    = f.select :time_method
+  .clear
+  = f.text_area :sample_population
+  = f.text_field :response_rate
+  .row
+    = f.select :sampling_procedure
+    = f.select :collection_method
+  .clear
+  .row
+    = f.text_field :collection_start, :size => 12
+    .form-field &mdash;
+    = f.text_field :collection_end, :size => 12
+    .form-field Data collection period
+  .clear
+  .row
+    = f.text_field :period_start, :size => 12
+    .form-field &mdash;
+    = f.text_field :period_end, :size => 12
+    .form-field Time period data refers to
+  .clear
+
+  %hr
+  = f.structured :depositors, :required => true
+  = f.structured :principal_investigators, :required => true
+  = f.structured :data_producers
+  = f.structured :funding_agency
+  = f.structured :other_acknowledgements, :size => 22
+
+  %hr
+  %p= f.result_buttons %w{Refresh Submit Cancel}
