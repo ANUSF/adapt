@@ -1,6 +1,9 @@
-class StudiesController < StudiesControllerBase
+class StudiesController < Application_Controller
+  before_authorization_filter :find_study
+
   permit :index, :new, :create, :if => :logged_in
   permit :show, :if => :may_view
+  permit :edit, :update, :if => :may_edit
   permit :destroy, :if => :may_edit
   permit :submit, :if => :may_submit
 
@@ -21,7 +24,7 @@ class StudiesController < StudiesControllerBase
     @study = current_user.studies.new(params[:study])
     @study.status = "incomplete"
     if @study.save
-      flash[:notice] = "Study entry created. Further input required."
+      flash[:notice] = "Study entry created."
       redirect_to edit_study_datum_url(@study)
     else
       render :action => 'new'
@@ -35,15 +38,22 @@ class StudiesController < StudiesControllerBase
   end
   
   def update
-    current = @study.attributes
-    @study.attributes = params[:study]
-    update_needed = @study.attributes != current
-
-    if not update_needed or @study.save
-      flash[:notice] = "Edits for page 1 were saved." if update_needed
-      redirect_to edit_study_datum_url(@study)
+    if params[:result] == "Cancel"
+      flash[:notice] = "Edit cancelled."
+      redirect_to @study
     else
-      render :action => 'edit'
+      @study.attributes = params[:study]
+
+      if @study.save
+        flash[:notice] = "Changes were saved succesfully."
+        if params[:result] == "Refresh"
+          redirect_to edit_study_url(@study)
+        else
+          redirect_to @study
+        end
+      else
+        render :action => 'edit'
+      end
     end
   end
   
@@ -57,5 +67,23 @@ class StudiesController < StudiesControllerBase
     @study.status = "submitted"
     @study.save!
     redirect_to @study
+  end
+
+  protected
+
+  def find_study
+    @study = Study.find_by_id(params[:id])
+  end
+
+  def may_view
+    @study and @study.can_be_viewed_by current_user
+  end
+
+  def may_edit
+    @study and @study.can_be_edited_by current_user
+  end
+
+  def may_submit
+    @study and @study.can_be_submitted_by current_user
   end
 end
