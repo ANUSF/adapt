@@ -6,13 +6,17 @@ class StudiesController < ApplicationController
   permit :edit, :update, :if => :may_edit
   permit :destroy, :if => :may_edit
   permit :submit, :if => :may_submit
+  permit :approve, :if => :may_approve
 
   def index
     @studies =
       case current_user && current_user.role
-      when 'contributor' then current_user.studies
-      when 'archivist'   then current_user.studies_in_curation
-      when 'admin'       then Study.all
+      when 'contributor'
+        current_user.studies
+      when 'archivist'
+        current_user.studies_in_curation
+      when 'admin'
+        Study.find :all, :conditions => 'status != "incomplete"'
       end
   end
   
@@ -66,6 +70,12 @@ class StudiesController < ApplicationController
     redirect_to @study
   end
 
+  def approve
+    @study.status = "approved"
+    @study.save!
+    redirect_to studies_url
+  end
+
   protected
 
   def find_study
@@ -82,5 +92,9 @@ class StudiesController < ApplicationController
 
   def may_submit
     @study and @study.can_be_submitted_by current_user
+  end
+
+  def may_approve
+    @study and @study.can_be_approved_by current_user
   end
 end

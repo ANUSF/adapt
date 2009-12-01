@@ -64,6 +64,11 @@ class Study < ActiveRecord::Base
     person == owner and status == 'unsubmitted'
   end
   
+  def can_be_approved_by(person)
+    person.role == 'admin' and status == 'submitted' and
+      (manager == person or manager == nil)
+  end
+  
   protected
 
   def self.annotate_with(name)
@@ -100,6 +105,13 @@ class Study < ActiveRecord::Base
     :abstract => {
       :label_for => "Study abstract",
       :help_on => "The study abstract."
+    },
+    :archivist => {
+      :label_for => "",
+      :help_on => "Select the archivist to curate this deposit.",
+      :selections => proc {
+        User.find_all_by_role("archivist").map { |a| [a.name, a.id] }
+      } 
     },
     :data_is_qualitative=> {
       :label_for => "Qualitative Data"

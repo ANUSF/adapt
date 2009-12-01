@@ -159,7 +159,9 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def selections_for(column)
-    (try(:selections, column) || []).map { |x| [x.humanize, x] }
+    (try(:selections, column) || []).map do |x|
+      if x.is_a?(Array) then x else [x.to_s.humanize, x] end
+    end
   end
 
   def error_message_on(object, column)
