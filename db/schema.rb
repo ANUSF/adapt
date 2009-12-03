@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091124043443) do
+ActiveRecord::Schema.define(:version => 20091126051223) do
 
   create_table "attachments", :force => true do |t|
     t.integer  "study_id"
@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(:version => 20091124043443) do
     t.text     "additional_metadata"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "archivist_id"
+    t.integer  "manager_id"
   end
 
   create_table "users", :force => true do |t|
@@ -44,6 +46,7 @@ ActiveRecord::Schema.define(:version => 20091124043443) do
     t.string   "fax"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "role"
   end
 
 end
