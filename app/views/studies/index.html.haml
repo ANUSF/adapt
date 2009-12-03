@@ -7,7 +7,6 @@
       %th Title
       %th Abstract
       %th Depositor
-      %th Manager
       %th Archivist
       %th Status
       %th Files
@@ -16,10 +15,11 @@
     - for study in @studies
       %tr{ :class => "#{cycle("odd", "even")}" }
         %td= link_to "Details", study
-        %td= clip_text h(study.title), 40
-        %td= clip_text h(study.abstract), 40
+        %td
+          %p= clip_text h(study.title), 60
+        %td
+          %p= clip_text h(study.abstract), 60
         %td=h study.owner.name
-        %td=h study.manager && study.manager.name
         %td=h study.archivist && study.archivist.name
         %td= study.status
         %td= study.attachments.count
