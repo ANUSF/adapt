@@ -103,6 +103,8 @@ body
       :right 150px
 
 #divider
+  :margin 0
+  :padding 0
   :position relative
   :height 10px
   :background url(../images/matrixRule.jpg)
@@ -179,8 +181,9 @@ h1, h2, h3
 h1
   :font
     :size 140%
-  :margin
+  :padding
     :top 1.2em
+  :margin
     :bottom 0.8em
 
 h2
@@ -231,6 +234,8 @@ ins
     :color lightgreen
 
 .clear
+  :margin 0
+  :padding 0
   :content "."
   :display block
   :height 0
@@ -241,12 +246,14 @@ ins
   >ul
     :list-style none
     :margin 0
-    :padding 0.6em 12em
+    :margin-left 16em
+    :padding 0.6em 0
     :line-height 140%
     >li
       :margin 0.2em 0
       :padding 0
       :clear left
+      :max-width 35em
       ul
         :list-style none
         li
@@ -257,10 +264,10 @@ ins
       :margin-bottom 1em
   
   dfn
-    :margin-left -10em
+    :margin-left -14em
     :display block
     :float left
-    :width 10em
+    :width 14em
     :font-weight bolder
     :font-style italic
 
