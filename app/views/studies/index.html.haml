@@ -16,8 +16,8 @@
     - for study in @studies
       %tr{ :class => "#{cycle("odd", "even")}" }
         %td= link_to "Details", study
-        %td=h study.title[0, 15]
-        %td=h study.abstract[0, 15]
+        %td= clip_text h(study.title), 40
+        %td= clip_text h(study.abstract), 40
         %td=h study.owner.name
         %td=h study.manager && study.manager.name
         %td=h study.archivist && study.archivist.name

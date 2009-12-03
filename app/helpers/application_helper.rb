@@ -7,4 +7,8 @@ module ApplicationHelper
     args = (args << options.merge(:builder => FORM_BUILDER))
     form_for(name, *args, &block)
   end
+
+  def clip_text(text, size)
+    if text.length > size then text[0, size-5] + "[...]" else text end
+  end
 end
