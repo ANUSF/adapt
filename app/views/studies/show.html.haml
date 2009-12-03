@@ -13,21 +13,26 @@
       %dfn Depositor:
       =h @study.owner.name
     %li
-      %dfn Archivist:
-      = cleanup(@study.archivist && @study.archivist.name)
-    %li
       %dfn Attachments:
       - if @study.attachments.empty?
         (none)
       - else
         %ul
           = render @study.attachments
+  %hr
+  %ul
     %li
       %dfn Status:
       =h @study.status
     %li
       %dfn ASSDA ID:
       = cleanup @study.permanent_identifier
+    %li
+      %dfn Archivist:
+      = cleanup(@study.archivist && @study.archivist.name)
+
+  %hr
+  %ul
     %li
       %dfn Kind of data:
       - kinds = []
@@ -39,11 +44,71 @@
       %dfn Sample population:
       = cleanup @study.sample_population
     %li
+      %dfn Time period:
+      = [h(@study.period_start), h(@study.period_end)].join(" &mdash; ")
+    %li
+      %dfn Response rate:
+      = cleanup @study.response_rate
+    %li
       %dfn Sampling procedure:
       = cleanup @study.sampling_procedure.join(", ")
     %li
       %dfn Collection method:
       = cleanup @study.collection_method.join(", ")
+    %li
+      %dfn Collection period:
+      = [h(@study.collection_start), h(@study.collection_end)].join(" &mdash; ")
+
+  %hr
+  %ul
+    %li
+      %dfn Depositor:
+      = "#{cleanup @study.depositors["name"]},"
+      = cleanup @study.depositors["affiliation"]
+    %li
+      %dfn Principal Investigators:
+      - if @study.principal_investigators.empty?
+        &mdash;
+      - else
+        %ul
+          - for item in @study.principal_investigators
+            %li
+              = "#{cleanup item["name"]},"
+              = cleanup item["affiliation"]
+    %li
+      %dfn Data Producers:
+      - if @study.data_producers.empty?
+        &mdash;
+      - else
+        %ul
+          - for item in @study.data_producers
+            %li
+              = "#{cleanup item["name"], "n.a."},"
+              = cleanup item["affiliation"], "n.a."
+    %li
+      %dfn Funding:
+      - if @study.funding_agency.empty?
+        &mdash;
+      - else
+        %ul
+          - for item in @study.funding_agency
+            %li
+              - data = []
+              - data << item["agency"] unless item["agency"].blank?
+              - unless item["grant_number"].blank?
+                - data << "grant no. #{item["grant_number"]}"
+              = cleanup data.join(", ")
+    %li
+      %dfn Acknowledgements:
+      - if @study.other_acknowledgements.empty?
+        &mdash;
+      - else
+        %ul
+          - for item in @study.other_acknowledgements
+            %li
+              = "#{cleanup item["name"], "n.a."},"
+              = cleanup item["affiliation"], "n.a."
+              = "(#{cleanup item["role"], "n.a."})"
 %hr
 %p>
   - if @study.can_be_edited_by current_user
