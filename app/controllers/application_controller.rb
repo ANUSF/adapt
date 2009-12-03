@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
-  helper_method :current_user, :users_may_change_roles
+  helper_method :current_user, :in_demo_mode, :users_may_change_roles
   
   around_filter :validate_session
   forbid_everything # forbid all access not explicitly granted

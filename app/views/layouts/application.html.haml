@@ -33,7 +33,11 @@
         #header
           = image_tag "/images/minifantop.png"
           = image_tag "/images/assda-logo.png", :class => "logo"
-          %div ADAPT (Prototype)
+          %div
+            - if in_demo_mode
+              ADAPT Prototype (Demo mode)
+            - else
+              ASSDA Deposit and Preservation Tool (Prototype)
         .clear
         #divider
         .clear
