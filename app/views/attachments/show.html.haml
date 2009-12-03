@@ -1,27 +1,32 @@
 - title "Attachment"
 
-%p
-  %strong Study:
-  %em= h @attachment.study.title
+%hr
+.properties
+  %ul
+    %li
+      %dfn Study:
+      %em= h @attachment.study.title
 
-- unless @attachment.nil?
-  %p
-    %strong Filename:
-    %em= h @attachment.name
-  %p
-    %strong Category:
-    =h @attachment.category
-  %p
-    %strong Description:
-    =h @attachment.description
-  %p>
-    = link_to "Back to study", @attachment.study
+    - unless @attachment.nil?
+      %li
+        %dfn Filename:
+        %em= h @attachment.name
+      %li
+        %dfn Category:
+        =h @attachment.category
+      %li
+        %dfn Description:
+        =h @attachment.description
+
+%hr
+%p>
+  = link_to "Back to study", @attachment.study
+  |
+  - if @attachment.study.can_be_edited_by current_user
+    = link_to "Edit", edit_attachment_path(@attachment)
     |
-    - if @attachment.study.can_be_edited_by current_user
-      = link_to "Edit", edit_attachment_path(@attachment)
-      |
-      = link_to "Delete", @attachment, :method => :delete, |
-                          :confirm => 'Really delete this attachment?' |
-      
-      |
-    = link_to "Download", download_attachment_path(@attachment)
+    = link_to "Delete", @attachment, :method => :delete, |
+                        :confirm => 'Really delete this attachment?' |
+    
+    |
+  = link_to "Download", download_attachment_path(@attachment)

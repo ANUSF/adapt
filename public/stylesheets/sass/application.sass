@@ -23,15 +23,15 @@ big
   :font
     :size larger
 
+ul
+  :list
+    :style disc
+
 li
   :margin 0.3em 3em
   ul
     :list
       :style circle
-
-ul
-  :list
-    :style disc
 
 dt
   :font
@@ -236,6 +236,33 @@ ins
   :height 0
   :clear both
   :visibility hidden
+
+.properties
+  >ul
+    :list-style none
+    :margin 0
+    :padding 0.6em 12em
+    :line-height 140%
+    >li
+      :margin 0.2em 0
+      :padding 0
+      :clear left
+      ul
+        :list-style none
+        li
+          :margin-left 4em
+          a
+            :margin-left -4em
+    li.title
+      :margin-bottom 1em
+  
+  dfn
+    :margin-left -10em
+    :display block
+    :float left
+    :width 10em
+    :font-weight bolder
+    :font-style italic
 
 #flash_notice,
 #flash_error
