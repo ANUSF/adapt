@@ -29,8 +29,17 @@ class ApplicationController < ActionController::Base
     @current_user = User.find_by_id(session[:user_id])
   end
 
+  def in_demo_mode
+    (Rails.env == 'development' or ENV["ADAPT_IS_LOCAL"] == "true") and
+      ENV["ADAPT_DEMO_MODE"] == "true"
+  end
+
   def users_may_change_roles
-    Rails.env == 'development' or ENV["ADAPT_IS_LOCAL"] == "true"
+    in_demo_mode
+  end
+
+  def bypass_openid
+    in_demo_mode
   end
 
   def validate_session
