@@ -15,7 +15,7 @@
     %li
       %dfn Attachments:
       - if @study.attachments.empty?
-        (none)
+        &mdash;
       - else
         %ul
           = render @study.attachments
@@ -35,11 +35,11 @@
   %ul
     %li
       %dfn Kind of data:
-      - kinds = []
-      - kinds << "qualitative" if @study.data_is_qualitative
-      - kinds << "quantitative" if @study.data_is_quantitative
-      - kinds = [kinds.join(" and ")] + @study.data_kind
-      = cleanup kinds.join(", ")
+      - tmp = []
+      - tmp << "qualitative" if @study.data_is_qualitative == '1'
+      - tmp << "quantitative" if @study.data_is_quantitative == '1'
+      - tmp = tmp.empty? ? [] : [tmp.join(" and ")]
+      = cleanup((tmp + @study.data_kind).join(", ").humanize)
     %li
       %dfn Sample population:
       = cleanup @study.sample_population
@@ -51,10 +51,10 @@
       = cleanup @study.response_rate
     %li
       %dfn Sampling procedure:
-      = cleanup @study.sampling_procedure.join(", ")
+      = cleanup @study.sampling_procedure.join(", ").humanize
     %li
       %dfn Collection method:
-      = cleanup @study.collection_method.join(", ")
+      = cleanup @study.collection_method.join(", ").humanize
     %li
       %dfn Collection period:
       = [h(@study.collection_start), h(@study.collection_end)].join(" &mdash; ")
