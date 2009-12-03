@@ -1,28 +1,35 @@
 - title "Study"
 
 %hr
-%p
-  %strong Depositor:
-  =h @study.owner.name
-%p
-  %strong Study Title:
-  =h @study.title
-%p
-  %strong Abstract:
-  =h @study.abstract
-%p
-  %strong Attachments:
-%ul
-  = render @study.attachments
-%p
-  %strong Status:
-  =h @study.status
-%p
-  %strong ASSDA ID:
-  - if @study.permanent_identifier.blank?
-    %em &mdash;pending&mdash
-  - else
-    =h @study.permanent_identifier
+.properties
+  %ul
+    %li
+      %dfn Title:
+      %em=h @study.title
+    %li
+      %dfn Abstract:
+      =h @study.abstract
+    %li
+      %dfn Depositor:
+      =h @study.owner.name
+    %li
+      %dfn Attachments:
+      - if @study.attachments.empty?
+        (none)
+      - else
+        %ul
+          = render @study.attachments
+    %li
+      %dfn Status:
+      =h @study.status
+    %li
+      %dfn ASSDA ID:
+      - if @study.permanent_identifier.blank?
+        %em &mdash;pending&mdash
+      - else
+        =h @study.permanent_identifier
+
+%hr
 %p>
   - if @study.can_be_edited_by current_user
     = link_to "Edit", edit_study_path(@study)
