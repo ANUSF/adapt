@@ -1,4 +1,4 @@
-- title "Study"
+- title "Study Details"
 
 %hr
 .properties
@@ -13,6 +13,9 @@
       %dfn Depositor:
       =h @study.owner.name
     %li
+      %dfn Archivist:
+      = cleanup(@study.archivist && @study.archivist.name)
+    %li
       %dfn Attachments:
       - if @study.attachments.empty?
         (none)
@@ -24,11 +27,23 @@
       =h @study.status
     %li
       %dfn ASSDA ID:
-      - if @study.permanent_identifier.blank?
-        %em &mdash;pending&mdash
-      - else
-        =h @study.permanent_identifier
-
+      = cleanup @study.permanent_identifier
+    %li
+      %dfn Kind of data:
+      - kinds = []
+      - kinds << "qualitative" if @study.data_is_qualitative
+      - kinds << "quantitative" if @study.data_is_quantitative
+      - kinds = [kinds.join(" and ")] + @study.data_kind
+      = cleanup kinds.join(", ")
+    %li
+      %dfn Sample population:
+      = cleanup @study.sample_population
+    %li
+      %dfn Sampling procedure:
+      = cleanup @study.sampling_procedure.join(", ")
+    %li
+      %dfn Collection method:
+      = cleanup @study.collection_method.join(", ")
 %hr
 %p>
   - if @study.can_be_edited_by current_user
