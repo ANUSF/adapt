@@ -1,3 +1,10 @@
 - title "New Study"
+- stylesheet :forms
 
-= render :partial => 'form'
+- make_form_for @study do |f|
+  = f.error_messages
+  = f.text_area :title, :rows => 4, :required => true
+  = f.text_area :abstract, :rows => 16, :required => true
+
+  %hr
+  %p= f.result_buttons %w{Submit Cancel}
