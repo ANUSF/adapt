@@ -2,7 +2,6 @@
 *~
 
 /db/db_*
-/public/stylesheets/application.css
 
 /java/bin/*
 /java/build/dist.jar
