@@ -25,13 +25,19 @@ class StudiesController < ApplicationController
   end
   
   def create
-    @study = current_user.studies.new(params[:study])
-    @study.status = "incomplete"
-    if @study.save
-      flash[:notice] = "Study entry created."
-      redirect_to @study
+    if params[:result] == "Cancel"
+      flash[:notice] = "Study creation cancelled."
+      redirect_to studies_url
     else
-      render :action => 'new'
+      @study = current_user.studies.new(params[:study])
+      @study.status = "incomplete"
+
+      if @study.save
+        flash[:notice] = "Study entry created."
+        redirect_to edit_study_url(@study)
+      else
+        render :action => :new
+      end
     end
   end
   

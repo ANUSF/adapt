@@ -38,7 +38,7 @@
       - tmp << "qualitative" if @study.data_is_qualitative == '1'
       - tmp << "quantitative" if @study.data_is_quantitative == '1'
       - tmp = tmp.empty? ? [] : [tmp.join(" and ")]
-      = cleanup((tmp + @study.data_kind).join(", ").humanize)
+      = cleanup((tmp + (@study.data_kind || [])).join(", ").humanize)
     %li
       %dfn Sample population:
       = cleanup @study.sample_population
@@ -50,10 +50,10 @@
       = cleanup @study.response_rate
     %li
       %dfn Sampling procedure:
-      = cleanup @study.sampling_procedure.join(", ").humanize
+      = cleanup((@study.sampling_procedure || []).join(", ").humanize)
     %li
       %dfn Collection method:
-      = cleanup @study.collection_method.join(", ").humanize
+      = cleanup((@study.collection_method || []).join(", ").humanize)
     %li
       %dfn Collection period:
       = [h(@study.collection_start), h(@study.collection_end)].join(" &mdash; ")
@@ -62,11 +62,14 @@
   %ul
     %li
       %dfn Depositor:
-      = "#{cleanup @study.depositors["name"]},"
-      = cleanup @study.depositors["affiliation"]
+      - if @study.depositors
+        = "#{cleanup @study.depositors["name"]},"
+        = cleanup @study.depositors["affiliation"]
+      - else
+        &mdash;
     %li
       %dfn Principal Investigators:
-      - if @study.principal_investigators.empty?
+      - if @study.principal_investigators.blank?
         &mdash;
       - else
         %ul
@@ -76,7 +79,7 @@
               = cleanup item["affiliation"]
     %li
       %dfn Data Producers:
-      - if @study.data_producers.empty?
+      - if @study.data_producers.blank?
         &mdash;
       - else
         %ul
@@ -86,7 +89,7 @@
               = cleanup item["affiliation"], "n.a."
     %li
       %dfn Funding:
-      - if @study.funding_agency.empty?
+      - if @study.funding_agency.blank?
         &mdash;
       - else
         %ul
@@ -99,7 +102,7 @@
               = cleanup data.join(", ")
     %li
       %dfn Acknowledgements:
-      - if @study.other_acknowledgements.empty?
+      - if @study.other_acknowledgements.blank?
         &mdash;
       - else
         %ul
