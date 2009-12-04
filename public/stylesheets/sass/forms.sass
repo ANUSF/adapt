@@ -1,0 +1,37 @@
+@import definitions
+
+form div
+  :margin 1em 0
+
+.form-field .row
+  :margin 0
+    :left 1em
+
+.row .form-field
+  :display block
+  :float left
+  :margin
+    :right 2em
+
+.form-field
+  :font
+    :style italic
+
+.input
+  :float left
+
+.required
+  :padding
+    :left 1ex
+  :color = !signal_color
+
+.formError
+  :padding
+    :left 1em
+  :color = !signal_color
+
+.fieldWithErrors
+  input
+    :border
+      :style solid
+      :color = !signal_color
