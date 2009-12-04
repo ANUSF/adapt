@@ -4,8 +4,24 @@
 @import tables
 @import forms
 
-#navigation, #flash
+#navigation, #flash_notice, #flash_error, #footer, #divider,
+.submit, .links, .noprint
   :display none
+
+body
+  :background white
+  :color black
+  :font
+    :family Times
+    :size 10pt
+
+body, #main, table
+  :width 100%
+  :margin 0
+  :float none
+
+#header, h1, h2, h3, dfn, table, form
+  :font-family Helvetica
 
 #header
   :font
@@ -18,28 +34,14 @@
     :margin 0
       :bottom 2em
 
-#footer
-  :margin-top 2em
-  :text-align center
-
-.submit, .links
-  :display none
-
-.hide-in-print
-  :display none
-
-body
-  :font
-    :family Times
-    :size 10pt
-
-h1, h2, h3, dfn, #header, #footer
-  :font
-    :family Helvetica
-
 a
   :color = black
   :text-decoration none
+
+hr
+  :width 100%
+  :border none
+    :bottom 1px solid black
 
 .clear
   :margin 0
