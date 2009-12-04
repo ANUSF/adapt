@@ -1,0 +1,89 @@
+#top {
+  overflow: hidden; }
+
+#main {
+  width: 80%;
+  float: left;
+  margin-bottom: -2000px;
+  padding-bottom: 2000px;
+  overflow: hidden;
+  display: block; }
+
+#header {
+  height: 65px;
+  padding-right: 12px;
+  background-color: white;
+  text-align: center;
+  color: #994779;
+  font-family: Arial, Verdana, Helvetica, sans-serif;
+  font-size: 160%;
+  font-weight: bold; }
+  #header img {
+    margin-bottom: -2px;
+    float: left; }
+  #header img.logo {
+    padding-top: 8px;
+    float: right; }
+  #header div {
+    float: right;
+    margin-top: 30px;
+    margin-right: 150px; }
+
+#divider {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  height: 10px;
+  background: url(../images/matrixRule.jpg);
+  background-color: #994779; }
+
+#content {
+  margin: 0;
+  padding: 0 20px;
+  background: url(../images/house.jpg) no-repeat right bottom;
+  border-bottom: 1px solid;
+  border-bottom-color: #994779; }
+
+#page {
+  padding-bottom: 20px; }
+  #page p {
+    max-width: 40em; }
+
+#navigation {
+  width: 20%;
+  float: left;
+  margin-bottom: -2000px;
+  padding-bottom: 2000px;
+  overflow: hidden;
+  display: block;
+  background: url(../images/matrixRule.jpg);
+  background-color: #994779; }
+  #navigation ul {
+    list-style: none; }
+  #navigation li {
+    border: 1px solid white;
+    padding: 3px 6px;
+    margin-top: 5px; }
+    #navigation li a {
+      color: white;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-family: Arial, Verdana, Helvetica, sans-serif;
+      font-weight: bolder;
+      display: block;
+      width: 100%; }
+  #navigation li:hover {
+    color: #994779;
+    background-color: white; }
+    #navigation li:hover a {
+      color: #994779; }
+  #navigation img {
+    float: right;
+    margin-right: 0;
+    margin-top: 0; }
+
+#footer {
+  padding: 10px;
+  text-align: center; }
+  #footer img {
+    float: right; }
