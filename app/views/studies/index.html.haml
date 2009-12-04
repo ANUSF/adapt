@@ -4,7 +4,7 @@
 %table
   %thead
     %tr
-      %th
+      %th.hide-in-print
       %th Title
       %th Abstract
       %th Depositor
@@ -15,7 +15,7 @@
   %tbody
     - for study in @studies
       %tr{ :class => "#{cycle("odd", "even")}" }
-        %td= link_to "Details", study
+        %td.hide-in-print= link_to "Details", study
         %td
           %p= clip_text h(study.title), 60
         %td

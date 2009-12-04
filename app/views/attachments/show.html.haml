@@ -18,7 +18,7 @@
         =h @attachment.description
 
 %hr
-%p>
+%p.links>
   = link_to "Back to study", @attachment.study
   |
   - if @attachment.study.can_be_edited_by current_user

@@ -7,6 +7,7 @@
     %title= h(yield(:title) || "Untitled")
     - unless stripped
       = stylesheet_link_tag 'application'
+      = stylesheet_link_tag 'application-print', :media => "print"
       = yield(:head)
   
   %body

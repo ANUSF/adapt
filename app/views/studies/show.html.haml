@@ -16,8 +16,7 @@
       - if @study.attachments.empty?
         &mdash;
       - else
-        %ul
-          = render @study.attachments
+        %ul= render @study.attachments
   %hr
   %ul
     %li
@@ -112,7 +111,7 @@
               = cleanup item["affiliation"], "n.a."
               = "(#{cleanup item["role"], "n.a."})"
 %hr
-%p>
+%p.links>
   - if @study.can_be_edited_by current_user
     = link_to "Edit", edit_study_path(@study)
     |
