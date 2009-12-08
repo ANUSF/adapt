@@ -64,12 +64,14 @@
   ul
     :list-style none
   li
-    :border 1px solid white
-    :padding 3px 6px
     :margin-top 5px
-    :background-color = !primary_color
+    :padding 0
     a
+      :border 1px solid white
+      :margin 0
+      :padding 3px 6px
       :color white
+      :background-color = !primary_color
       :text
         :decoration none
         :transform uppercase
@@ -77,10 +79,8 @@
         :size 90%
         :weight bolder
       :display block
-      :width 100%
-  li:hover
-    :background-color white
-    a
+    a:hover
+      :background-color white
       :color = !primary_color
   img
     :float right
