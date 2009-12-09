@@ -96,15 +96,22 @@ jQuery.djtch = {
 		formSubmitted: function() {
 			var input = jQuery(this);
 			var form = input.closest('form');
+			var multi = (form.attr('enctype') ==
+				     'multipart/form-data');
+			var iname = input.attr('name');
+			var ivalue = input.attr('value');
 			form.ajaxSubmit({
 				url: form.attr('action'),
 				beforeSerialize: function(object, options) {
-				    options.data[input.attr('name')] =
-					input.attr('value');
+				    if (multi) options.data[iname] = ivalue;
+				    return true;
+				},
+				beforeSubmit: function(data, object, options) {
+				    data.push({ name: iname, value: ivalue });
 				    return true;
 				},
 				success: function(html, status) {
-					jQuery.djtch.update(form, html);
+				    jQuery.djtch.update(form, html);
 				}
 			})
 			return false;
@@ -128,8 +135,8 @@ jQuery.fn.extend({
 		return this.hide().after(this.text());
 	},
 	djtchForm: function() {
-		return this.find('input[type=submit]')
-			.click(jQuery.djtch.handlers.formSubmitted).end();
+	    return this.find('input[type=submit]')
+		.click(jQuery.djtch.handlers.formSubmitted).end();
 	},
 	djtchEnable: function() {
 		return this
