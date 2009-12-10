@@ -169,18 +169,18 @@ public class DeploymentWrapper {
 		System.setProperty("ADAPT_ASSET_PATH", assetPath);
 		System.setProperty("ADAPT_IS_LOCAL", "true");
 		
-		if (!new File(dbPath).exists()) {
-			Log.info("Copying template database to " + dbPath);
-			new File(dbDir).mkdirs();
-			final InputStream is = new FileInputStream(joinedPath(
-					this.applicationPath, "WEB-INF",
-					"db", "db_bootstrap.sqlite3"));
-			final OutputStream os = new FileOutputStream(dbPath);
-			this.copy(is, os);
-			is.close();
-			os.flush();
-			os.close();
-		}
+//		if (!new File(dbPath).exists()) {
+//			Log.info("Copying template database to " + dbPath);
+//			new File(dbDir).mkdirs();
+//			final InputStream is = new FileInputStream(joinedPath(
+//					this.applicationPath, "WEB-INF",
+//					"db", "db_bootstrap.sqlite3"));
+//			final OutputStream os = new FileOutputStream(dbPath);
+//			this.copy(is, os);
+//			is.close();
+//			os.flush();
+//			os.close();
+//		}
 	}
 	
 	private void startServer() throws Exception {
