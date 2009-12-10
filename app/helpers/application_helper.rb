@@ -15,4 +15,8 @@ module ApplicationHelper
   def cleanup(text, default = "&mdash;")
     text.blank? ? default : h(text)
   end
+
+  def format_text(text)
+    sanitize(RedCloth.new(text).to_html).untaint
+  end
 end

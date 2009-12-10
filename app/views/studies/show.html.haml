@@ -7,10 +7,9 @@
       %em=h @study.title
     %li
       %dfn Abstract:
-      =h @study.abstract
-    %li
-      %dfn Depositor:
-      =h @study.owner.name
+      =format_text @study.abstract
+  %hr
+  %ul
     %li
       %dfn Attachments:
       - if @study.attachments.empty?
