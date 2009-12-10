@@ -70,8 +70,8 @@ public class DeploymentWrapper {
 	public DeploymentWrapper() throws Exception {
 		determineApplicationName();
 		showControlFrame();
-		logSystemProperties();
 		extractApplication();
+		logSystemProperties();
 		startServer();
 		openBrowserFrame();
 		waitForServer();
