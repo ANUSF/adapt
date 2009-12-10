@@ -5,6 +5,7 @@ require File.join(File.dirname(__FILE__), 'boot')
 Rails::Initializer.run do |config|
   config.gem "haml"
   config.gem "ruby-openid", :lib => "openid"
+  config.gem "RedCloth"
 
   # -- This must be set in warble.rb for some reason
   #config.gem "activerecord-jdbcsqlite3-adapter"

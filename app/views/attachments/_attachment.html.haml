@@ -2,5 +2,4 @@
   %li
     = link_to h(attachment.name), attachment
     - unless attachment.description.blank?
-      &mdash;
-      =h attachment.description
+      =format_text attachment.description
