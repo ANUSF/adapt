@@ -1,7 +1,7 @@
 Warbler::Config.new do |config|
-  config.dirs = %w(app config lib log vendor tmp db/migrate)
+  config.dirs = %w(app config lib vendor script log tmp db/migrate)
 
-  config.includes = FileList["db/db_bootstrap.sqlite3"]
+  #config.includes = FileList["db/db_bootstrap.sqlite3"]
 
   config.excludes = FileList["lib/tasks", "tmp/openids/*"]
 
