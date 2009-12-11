@@ -30,8 +30,11 @@ class ApplicationController < ActionController::Base
   end
 
   def in_demo_mode
-    (Rails.env == 'development' or ENV["ADAPT_IS_LOCAL"] == "true") and
-      ENV["ADAPT_DEMO_MODE"] == "true"
+    case Rails.env
+    when 'development' then ENV["ADAPT_DEMO_MODE"] == 'true'
+    when 'stage'       then true
+    else                    false
+    end
   end
 
   def users_may_change_roles

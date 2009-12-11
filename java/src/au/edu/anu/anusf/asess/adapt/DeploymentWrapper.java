@@ -3,7 +3,6 @@ package au.edu.anu.anusf.asess.adapt;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -70,8 +69,9 @@ public class DeploymentWrapper {
 	public DeploymentWrapper() throws Exception {
 		determineApplicationName();
 		showControlFrame();
-		extractApplication();
+		setAdaptSystemProperties();
 		logSystemProperties();
+		extractApplication();
 		startServer();
 		openBrowserFrame();
 		waitForServer();
@@ -161,26 +161,10 @@ public class DeploymentWrapper {
 	private void extractApplication() throws IOException {
 		Log.info("Extracting web application to " + this.applicationPath);
 		this.extractJar(this.applicationPath, this.warName + ".war");
+	}
 
-		final String dbDir = joinedPath(applicationBase, "db");
-		final String dbPath = joinedPath(dbDir, "db.sqlite3");
-		final String assetPath = joinedPath(applicationBase, "assets");
-		System.setProperty("ADAPT_DB_PATH", dbPath);
-		System.setProperty("ADAPT_ASSET_PATH", assetPath);
+	private void setAdaptSystemProperties() {
 		System.setProperty("ADAPT_IS_LOCAL", "true");
-		
-//		if (!new File(dbPath).exists()) {
-//			Log.info("Copying template database to " + dbPath);
-//			new File(dbDir).mkdirs();
-//			final InputStream is = new FileInputStream(joinedPath(
-//					this.applicationPath, "WEB-INF",
-//					"db", "db_bootstrap.sqlite3"));
-//			final OutputStream os = new FileOutputStream(dbPath);
-//			this.copy(is, os);
-//			is.close();
-//			os.flush();
-//			os.close();
-//		}
 	}
 	
 	private void startServer() throws Exception {

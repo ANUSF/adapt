@@ -1,20 +1,19 @@
 <%
-  @app      = "adapt"
-  @adapter  = ENV['ADAPT_DB_ADAPTER'] || "sqlite3"
-  @db_path  = ENV['ADAPT_DB_PATH']
-  @home     = ENV['HOME']
+  @app     = "adapt"
+  @adapter = ENV['ADAPT_DB_ADAPTER'] || "sqlite3"
+  @home    = ENV['HOME']
+  @adapt   = ENV['ADAPT_HOME']
+  @db_path = ENV['ADAPT_DB_PATH']
 
   def db_name(env)
+    suffix = (env == 'production') ? '' : "_#{env}"
     if @db_path
-      name = @db_path
+      @db_path
     elsif %w{mysql postgresql}.include? @adapter
-      name = "#{@app}_#{env}"
+      "#{@app}_#{env}"
     else
-      base = if %w{stage production}.include?(env) then "#{@home}/#{@app}"
-             else "." end
-      name = "#{base}/db/db_#{env}.#{@adapter}"
+      "#{@adapt}/db/db#{suffix}.#{@adapter}"
     end
-    name
   end
 %>
 
@@ -36,10 +35,6 @@ template: &template
   username: app
   password: app
 <% end %>
-
-bootstrap:
-  database: <%=db_name("bootstrap")%>
-  <<: *template
 
 stage:
   database: <%=db_name("stage")%>

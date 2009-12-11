@@ -26,8 +26,7 @@ class Attachment < ActiveRecord::Base
   protected
 
   def stored_path
-    assets = ENV['ADAPT_ASSET_PATH'] || RAILS_ROOT + "/assets"
-    base = "#{assets}/studies/#{study.id}/attachments"
+    base = "#{ENV['ADAPT_ASSET_PATH']}/studies/#{study.id}/attachments"
     FileUtils.mkdir_p(base, :mode => 0755) unless File.exist? base
     "#{base}/#{stored_as}"
   end
