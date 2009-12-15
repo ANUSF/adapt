@@ -17,7 +17,6 @@
       - unless stripped
         #navigation
           = image_tag "/images/minifantopleft.png"
-          .clear
           %ul
             - if current_user
               %li= link_to "View deposits", studies_path
@@ -38,7 +37,6 @@
                 ADAPT Prototype (Demo mode)
               - else
                 ASSDA Deposit and Preservation Tool (Prototype)
-          .clear
           #divider
 
         #content
@@ -52,7 +50,6 @@
           #page= yield
   
     - unless stripped
-      .clear
       #footer
         Copyright 2009 ANUSF
         %br
