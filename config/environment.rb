@@ -14,7 +14,7 @@ end
 ENV['HOME'] ||= java.lang.System.getProperty('user.home') || '.'
 
 # -- set some values to their defaults if unspecified
-ENV['ADAPT_HOME'] ||= case Rails.env
+ENV['ADAPT_HOME'] ||= case ENV['RAILS_ENV']
                       when 'production' then "#{ENV['HOME']}/adapt"
                       when 'stage'      then "#{ENV['HOME']}/adapt_stage"
                       else                   RAILS_ROOT
