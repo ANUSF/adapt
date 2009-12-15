@@ -3,13 +3,13 @@
 	fixPage();
 
 	// -- deals with collapsible page content
-	jQuery('.collapsible', context).hide().before(
+	jQuery('.collapsible', context).hide().wrap("<div></div>").before(
           '<a href="" class="toggle noprint">[+]</a>' +
-          '<div class="proxy">&hellip;</div>');
+          '<div class="proxy">&hellip;</div><div class="clear"/>');
 	jQuery('.toggle', context).click(function() {
 		var link = jQuery(this);
-		var placeholder = link.next();
-		var content = link.next().next();
+		var placeholder = link.parent().find('.proxy');
+		var content = link.parent().find('.collapsible');
 		if (content.is(':visible')) {
 		    content.hide();
 		    placeholder.show();
@@ -22,12 +22,16 @@
 		return false;
 	});
 	jQuery('.toggle', context).hover(function() {
-		jQuery(this).next().addClass('toggle-show');
-		jQuery(this).next().next().addClass('toggle-hide');
+		jQuery(this).parent().find('.proxy')
+		    .addClass('toggle-show');
+		jQuery(this).parent().find('.collapsible')
+		    .addClass('toggle-hide');
 		return false;
 	    }, function() {
-		jQuery(this).next().removeClass('toggle-show');
-		jQuery(this).next().next().removeClass('toggle-hide');
+		jQuery(this).parent().find('.proxy')
+		    .removeClass('toggle-show');
+		jQuery(this).parent().find('.collapsible')
+		    .removeClass('toggle-hide');
 	    });
 		
     }
