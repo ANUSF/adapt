@@ -20,18 +20,11 @@ form div
 .input
   :float left
 
-.required
-  :padding
-    :left 1ex
-  :color = !signal_color
-
-.formError
-  :padding
-    :left 1em
-  :color = !signal_color
-
 .fieldWithErrors
-  input
-    :border
-      :style solid
-      :color = !signal_color
+  :margin 0
+  :padding 0
+  :border 1px solid
+    :color = !signal_color
+
+label em
+  :color = !signal_color

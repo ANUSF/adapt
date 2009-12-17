@@ -145,15 +145,15 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
 
     haml { '
 %div{ :title => title, :class => "form-field" }
-  - if not label.blank? or required
+  - if not label.blank? or required or not msg.blank?
     %label{ :for => ident }
       = label.to_s.humanize
       - if required
-        %span.required *
+        %em *
+      - unless msg.blank?
+        %em= msg
     %br
   %span.input= yield Descriptor.new(name, ident, args, options)
-  - unless msg.blank?
-    %span.formError= msg
   %span.clear
 ' }
   end

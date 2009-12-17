@@ -6,6 +6,10 @@ class Attachment < ActiveRecord::Base
   after_create :write_file
   before_destroy :delete_file
 
+  validates_presence_of :content, :message => "No file given or file not found."
+  validates_presence_of :description, :message => "Can't be blank."
+  validates_presence_of :category, :message => "Please select one."
+
   def selections(column)
     column.to_sym == :category ? [ "Data File", "Documentation" ] : []
   end
