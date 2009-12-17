@@ -13,18 +13,16 @@ class UserSessionsController < ApplicationController
     if bypass_openid
       login_as openID_url, "Demo mode: ASSDA ID was not checked."
     else
-      authenticate_with_open_id(openID_url) do |result, ident_url|
-        case result.status
-        when :missing
-          failed_login "Sorry, the OpenID server couldn't be found"
-        when :invalid
-          failed_login "Sorry, this seems to be an invalid OpenID"
-        when :canceled
-          failed_login "OpenID verification was canceled"
-        when :failed
-          failed_login "Sorry, the OpenID verification failed"
-        when :successful
+      #sreg = ["email", "fullname"]
+      sreg = []
+      authenticate_with_open_id(openID_url, :optional => sreg) do
+        |result, ident_url, profile|
+
+        if result.status == :successful
+          Rails.logger.info(profile.inspect)
           login_as ident_url
+        else
+          failed_login result.message
         end
       end
     end
