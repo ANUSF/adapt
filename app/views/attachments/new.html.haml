@@ -6,8 +6,8 @@
   %em== '#{h @study.title}'
 
 - make_form_for [ @study, @attachment ], :html => {:multipart => true} do |f|
-  = f.error_messages
-  = f.file_field :content, :label => "File to upload"
-  = f.select :category
-  = f.text_area :description
+  /= f.error_messages
+  = f.file_field :content, :label => "File to upload", :required => true
+  = f.select :category, :required => true
+  = f.text_area :description, :required => true
   = f.result_buttons %w{Upload Cancel}
