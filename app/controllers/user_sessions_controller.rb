@@ -13,8 +13,8 @@ class UserSessionsController < ApplicationController
     if bypass_openid
       login_as openID_url, "Demo mode: ASSDA ID was not checked."
     else
-      #sreg = ["email", "fullname"]
-      sreg = []
+      sreg = ["email", "fullname"]
+      #sreg = []
       authenticate_with_open_id(openID_url, :optional => sreg) do
         |result, ident_url, profile|
 
