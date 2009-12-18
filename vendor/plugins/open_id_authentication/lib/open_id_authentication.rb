@@ -171,6 +171,11 @@ module OpenIdAuthentication
       when OpenID::Consumer::CANCEL
         yield Result[:canceled], identity_url, nil
       when OpenID::Consumer::FAILURE
+        # [ODF] added logging of error message
+        msg = open_id_response.message
+        Rails.logger.error(">>> OpenID failure message: #{msg} <<<")
+        # [/ODF]
+
         yield Result[:failed], identity_url, nil
       when OpenID::Consumer::SETUP_NEEDED
         yield Result[:setup_needed], open_id_response.setup_url, nil
