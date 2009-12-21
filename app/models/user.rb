@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   has_many :studies_for_approval, :class_name  => 'Study',
                                   :foreign_key => :manager_id
 
-  attr_accessible(:username, :email, :name, :address, :telephone, :fax)
+  attr_accessible(:email, :name, :address, :telephone, :fax)
 
   #TODO exclude admins
   named_scope :archivists, :conditions => 'role != "contributor"'
