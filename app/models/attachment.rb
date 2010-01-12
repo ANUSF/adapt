@@ -6,7 +6,7 @@ class Attachment < ActiveRecord::Base
   after_create :write_file
   before_destroy :delete_file
 
-  validates_presence_of :content, :message => "File not found or empty."
+  #validates_presence_of :content, :message => "File not found or empty."
   validates_presence_of :description, :message => "Can't be blank."
   validates_presence_of :category, :message => "Please select one."
 
