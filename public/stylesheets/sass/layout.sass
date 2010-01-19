@@ -1,13 +1,15 @@
 @import definitions
 
+!max_height = 3000px
+
 #top
   :overflow hidden
 
 #main
   :width auto
   :float clear
-  :margin-bottom -2000px
-  :padding-bottom 2000px
+  :margin-bottom = -!max_height
+  :padding-bottom = !max_height
   :overflow hidden
   :display block
 
@@ -57,8 +59,8 @@
 #navigation
   :width 170px
   :float left
-  :margin-bottom -2000px
-  :padding-bottom 2000px
+  :margin-bottom = -!max_height
+  :padding-bottom = !max_height
   :overflow hidden
   :display block
   :background-color = !primary_darker
