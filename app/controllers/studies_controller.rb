@@ -1,35 +1,49 @@
 class StudiesController < ApplicationController
+  # ----------------------------------------------------------------------------
+  # Authorization and other filtering.
+  # ----------------------------------------------------------------------------
+
+  # -- find referenced study before performing authorization
   before_authorization_filter :find_study
 
-  permit :index, :new, :create, :if => :logged_in
-  permit :show, :if => :may_view
+  # -- declare access permissions via the 'verboten' plugin
+  permit :index, :new, :create,    :if => :logged_in
+  permit :show,                    :if => :may_view
   permit :edit, :update, :destroy, :if => :may_edit
-  permit :submit, :if => :may_submit
-  permit :approve, :if => :may_approve
+  permit :submit,                  :if => :may_submit
+  permit :approve,                 :if => :may_approve
 
   protected
 
+  # Finds the study with the id specified in the request.
   def find_study
     @study = Study.find_by_id(params[:id])
   end
 
+  # Whether the current user may view the referenced study.
   def may_view
     @study and @study.can_be_viewed_by current_user
   end
 
+  # Whether the current user may edit the referenced study.
   def may_edit
     @study and @study.can_be_edited_by current_user
   end
 
+  # Whether the current user may submit the referenced study.
   def may_submit
     @study and @study.can_be_submitted_by current_user
   end
 
+  # Whether the current user may approve the referenced study.
   def may_approve
     @study and @study.can_be_approved_by current_user
   end
 
-
+  # ----------------------------------------------------------------------------
+  # The standard actions this controller implements. All action code relies on
+  # the @study variable having been set by a before filter.
+  # ----------------------------------------------------------------------------
   public
 
   def index
@@ -93,6 +107,10 @@ class StudiesController < ApplicationController
     flash[:notice] = "Successfully destroyed study."
     redirect_to studies_url
   end
+
+  # ----------------------------------------------------------------------------
+  # Additional actions this controller provides.
+  # ----------------------------------------------------------------------------
 
   def submit
     @study.status = "submitted"
