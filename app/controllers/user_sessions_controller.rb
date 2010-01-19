@@ -27,7 +27,7 @@ class UserSessionsController < ApplicationController
   end
   
   def destroy
-    logout
+    new_session
     flash[:notice] = "Successfully logged out."
     redirect_to root_url
   end
@@ -46,7 +46,7 @@ class UserSessionsController < ApplicationController
       user.save!
     end
 
-    if user && login(user)
+    if user && new_session(user)
       flash[:notice] = options[:message] || "Login successful."
       redirect_to studies_url
     else
