@@ -4,21 +4,22 @@ class AttachmentsController < ApplicationController
   # ----------------------------------------------------------------------------
 
   # -- find referenced resources before performing authorization
-  before_authorization_filter :find_study, :only => [ :new, :create ]
+  before_authorization_filter :find_study,      :only   => [ :new, :create ]
   before_authorization_filter :find_attachment, :except => [ :new, :create ]
 
   # -- declare access permissions via the 'verboten' plugin
-  permit :show, :download, :if => :may_view
+  permit :show, :download,                        :if => :may_view
   permit :new, :create, :edit, :update, :destroy, :if => :may_edit
 
   private
 
-  # Finds the study with the id in the 'study_id' parameter.
+  # Finds the study with the id in the 'study_id' request parameter.
   def find_study
     @study = Study.find_by_id(params[:study_id])
   end
 
-  # Finds the attachment with the given id and the study it belongs to.
+  # Finds the attachment with id specified in the request and the study it
+  # belongs to.
   def find_attachment
     @attachment = Attachment.find_by_id(params[:id])
     @study = @attachment.study if @attachment
