@@ -9,7 +9,7 @@ class Study < ActiveRecord::Base
                  :sampling_procedure, :collection_method, :collection_start,
                  :collection_end, :period_start, :period_end, :response_rate,
                  :depositors, :principal_investigators, :data_producers,
-                 :funding_agency, :other_acknowledgements]
+                 :funding_agency, :other_acknowledgements, :references]
 
   attr_accessible(*([:name, :title, :abstract, :additional_metadata] +
                     JSON_FIELDS))
@@ -268,6 +268,15 @@ number if appropriate). Click 'Refresh' for additional lines."
 "Please list the names of any other persons or organisations who \
 played a significant role in the conduct of the study. Click 'Refresh' \
 for additional lines."
+    },
+    :references => {
+      :subfields => ["title", "author", "details"],
+      :is_repeatable? => true,
+      :help_on =>
+"Please provide the bibliographic details and, where available, online \
+links to any published work (including journal articles, books or book \
+chapters, conference presentations, theses or any other publications \
+or outputs) based wholly or in part on the material."
     }
   }
 end

@@ -112,6 +112,17 @@
               = "#{cleanup item["name"], "n.a."},"
               = cleanup item["affiliation"], "n.a."
               = "(#{cleanup item["role"], "n.a."})"
+    %li
+      %dfn References:
+      - if @study.references.blank?
+        &mdash;
+      - else
+        %ul
+          - for item in @study.references
+            %li
+              = "#{item["author"]}: " unless item["author"].blank?
+              %em= cleanup item["title"], "n.a."
+              = " (#{item["details"]})" unless item["details"].blank?
 %hr
 %p.links>
   - if @study.can_be_edited_by current_user
