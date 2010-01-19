@@ -1,7 +1,5 @@
-# These helper methods can be called in your template to set variables to be used in the layout
-# This module should be included in all views globally,
-# to do so you may need to add this line to your ApplicationController
-#   helper :layout
+# These helper methods can be called in templates to set variables to be used in
+# the layout.
 module LayoutHelper
   def title(page_title, show_title = true)
     @content_for_title = page_title.to_s
