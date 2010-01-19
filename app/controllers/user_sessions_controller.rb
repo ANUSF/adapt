@@ -1,24 +1,39 @@
+# The controller for establishing and destroying user sessions, or in
+# other words, to handle authentication and login/logout. This
+# controller accepts OpenID's from a single provider as the only valid
+# form of authentication.
+
 class UserSessionsController < ApplicationController
+  # -- the OpenID provider we accept
   OPENID_SERVER = ENV['ASSDA_OPENID_SERVER']
 
+  # -- declare access permissions via the 'verboten' plugin
   permit :new, :create, :if => :logged_out, :message => "Already logged in."
-  permit :destroy, :if => :logged_in, :message => "Already logged out."
+  permit :destroy,      :if => :logged_in,  :message => "Already logged out."
 
+  # ----------------------------------------------------------------------------
+  # The actions this controller implements.
+  # ----------------------------------------------------------------------------
   def new
   end
   
   def create
+    # -- construct the OpenID URL to authenticate
     openID_url = params[:login] ? OPENID_SERVER + params[:login] : nil
 
     if bypass_openid
+      # -- bypass server authentication for demo purposes or testing
       login_as openID_url, :message => "Demo mode: ASSDA ID was not checked."
     else
+      # -- authenticate with the OpenID provider
       args = [openID_url, { :optional => ["email", "fullname"] }]
       authenticate_with_open_id(*args) do |result, ident_url, profile|
+        # -- check the returned status
         if result.status == :successful
-          Rails.logger.info(profile.inspect)
+          # -- everything's fine: create a session
           login_as ident_url, :profile => profile
         else
+          # -- something went wrong: display an error message
           flash.now[:error] = result.message
           render :action => 'new'
         end
@@ -32,11 +47,18 @@ class UserSessionsController < ApplicationController
     redirect_to root_url
   end
 
+  # ----------------------------------------------------------------------------
+  # Private helper methods.
+  # ----------------------------------------------------------------------------
   private
 
+  # Creates a session with the given identity as the authenticated user.
   def login_as(ident_url, options = {})
+    # -- strip the server address and create a user record if none exist
     login_name = ident_url.sub(/^#{OPENID_SERVER}/, '')
     user = User.find_or_create_by_username(login_name)
+
+    # -- fill in user data from the OpenID simple registration profile received
     unless user.nil?
       profile = options[:profile] || {}
       user.role  = "contributor"       if user.role.blank?
@@ -46,6 +68,7 @@ class UserSessionsController < ApplicationController
       user.save!
     end
 
+    # -- create a new session for the given user
     if user && new_session(user)
       flash[:notice] = options[:message] || "Login successful."
       redirect_to studies_url
