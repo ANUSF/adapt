@@ -1,6 +1,7 @@
-require 'haml'
-
+# The custom form builder we use in this application.
 class SimpleFormBuilder < ActionView::Helpers::FormBuilder
+
+  # Overrides the method with the given name with our standard replacement.
   def self.create_tagged_field(method_name, default_options = {})
     define_method(method_name) do |column, *args|
       create_field(column, default_options, *args) do |f|
@@ -11,19 +12,22 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
+  # -- grab names of some standard tag helpers and override most of them
   extend ActionView::Helpers::TagHelper
   extend ActionView::Helpers::FormTagHelper
 
   for name in field_helpers - %w{text_area hidden_field check_box select}
     create_tagged_field(name, :size => 40)
   end
-  
+
+  # -- more automated overrides, but with different default options
   create_tagged_field("date_select", :include_blank => true,
                       :start_year => Time.now.year - 100)
   create_tagged_field("datetime_select", :include_blank => true)
   create_tagged_field("select")
   create_tagged_field("text_area", :rows => 4, :cols => 60)
   
+  # The new check_box helper uses a layout different from our generic one.
   def check_box(column, *args)
     options = args.last.is_a?(Hash) ? args.pop : {}
     label = options.delete(:label) || try(:label_for, column) || column
@@ -34,6 +38,7 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
 ' }
   end
 
+  # A versatile helper method for creating selection boxes.
   def select(column, *args)
     create_field(column, {}, *args) do |f|
       selections = f.args.empty? ? selections_for(column) : f.args[0]
