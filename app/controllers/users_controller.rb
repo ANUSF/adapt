@@ -1,6 +1,11 @@
+# The controller for editing and displaying user profiles.
 class UsersController < ApplicationController
+  # -- declare access permissions via the 'verboten' plugin
   permit :edit, :update, :if => :logged_in
 
+  # ----------------------------------------------------------------------------
+  # The actions this controller implements.
+  # ----------------------------------------------------------------------------
   def edit
     @user = current_user
   end
