@@ -1,9 +1,31 @@
 class AttachmentsController < ApplicationController
+  before_authorization_filter :find_study, :only => [ :new, :create ]
+  before_authorization_filter :find_attachment, :except => [ :new, :create ]
+
   permit :show, :download, :if => :may_view
   permit :new, :create, :edit, :update, :destroy, :if => :may_edit
 
-  before_authorization_filter :find_study, :only => [ :new, :create ]
-  before_authorization_filter :find_attachment, :except => [ :new, :create ]
+  private
+
+  def find_study
+    @study = Study.find_by_id(params[:study_id])
+  end
+
+  def find_attachment
+    @attachment = Attachment.find_by_id(params[:id])
+    @study = @attachment.study if @attachment
+  end
+
+  def may_view
+    @study and @study.can_be_viewed_by current_user
+  end
+
+  def may_edit
+    @study and @study.can_be_edited_by current_user
+  end
+
+
+  public
 
   def new
     @attachment = @study.attachments.new
@@ -52,24 +74,5 @@ class AttachmentsController < ApplicationController
     @attachment.destroy
     flash[:notice] = "Successfully deleted attachment '#{@attachment.name}'"
     redirect_to @attachment.study
-  end
-
-  private
-
-  def find_study
-    @study = Study.find_by_id(params[:study_id])
-  end
-
-  def find_attachment
-    @attachment = Attachment.find_by_id(params[:id])
-    @study = @attachment.study if @attachment
-  end
-
-  def may_view
-    @study and @study.can_be_viewed_by current_user
-  end
-
-  def may_edit
-    @study and @study.can_be_edited_by current_user
   end
 end

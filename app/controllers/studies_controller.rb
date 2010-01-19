@@ -3,10 +3,34 @@ class StudiesController < ApplicationController
 
   permit :index, :new, :create, :if => :logged_in
   permit :show, :if => :may_view
-  permit :edit, :update, :if => :may_edit
-  permit :destroy, :if => :may_edit
+  permit :edit, :update, :destroy, :if => :may_edit
   permit :submit, :if => :may_submit
   permit :approve, :if => :may_approve
+
+  protected
+
+  def find_study
+    @study = Study.find_by_id(params[:id])
+  end
+
+  def may_view
+    @study and @study.can_be_viewed_by current_user
+  end
+
+  def may_edit
+    @study and @study.can_be_edited_by current_user
+  end
+
+  def may_submit
+    @study and @study.can_be_submitted_by current_user
+  end
+
+  def may_approve
+    @study and @study.can_be_approved_by current_user
+  end
+
+
+  public
 
   def index
     @studies =
@@ -81,27 +105,5 @@ class StudiesController < ApplicationController
     @study.archivist = User.archivists.find(params[:study][:archivist])
     @study.save!
     redirect_to studies_url
-  end
-
-  protected
-
-  def find_study
-    @study = Study.find_by_id(params[:id])
-  end
-
-  def may_view
-    @study and @study.can_be_viewed_by current_user
-  end
-
-  def may_edit
-    @study and @study.can_be_edited_by current_user
-  end
-
-  def may_submit
-    @study and @study.can_be_submitted_by current_user
-  end
-
-  def may_approve
-    @study and @study.can_be_approved_by current_user
   end
 end
