@@ -23,10 +23,8 @@ config.action_controller.allow_forgery_protection    = false
 config.action_mailer.delivery_method = :test
 
 # -- Additional gems required for testing
+config.gem "webrat", :lib => false
+config.gem "cucumber", :lib => false
+config.gem "machinist", :source => "http://gemcutter.org"
 config.gem "faker"
-config.gem "thoughtbot-shoulda", :lib => "shoulda",
-                                 :source => "http://gems.github.com"
-#config.gem "rspec"
-#config.gem "rspec-rails"
-config.gem "webrat"
-config.gem "cucumber"
+config.gem "pickle", :lib => false
