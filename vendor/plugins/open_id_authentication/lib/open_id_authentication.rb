@@ -47,12 +47,17 @@ module OpenIdAuthentication
       new(code)
     end
 
-    def initialize(code)
+    def initialize(code, cause = nil)
       @code = code
+      @cause = cause
     end
 
     def status
       @code
+    end
+
+    def cause
+      @cause
     end
 
     ERROR_MESSAGES.keys.each { |state| define_method("#{state}?") { @code == state } }
@@ -66,7 +71,7 @@ module OpenIdAuthentication
     end
 
     def message
-      ERROR_MESSAGES[@code]
+      ERROR_MESSAGES[@code] + (cause ? ": #{cause}" : "")
     end
   end
 
@@ -171,12 +176,10 @@ module OpenIdAuthentication
       when OpenID::Consumer::CANCEL
         yield Result[:canceled], identity_url, nil
       when OpenID::Consumer::FAILURE
-        # [ODF] added logging of error message
         msg = open_id_response.message
         Rails.logger.error(">>> OpenID failure message: #{msg} <<<")
-        # [/ODF]
 
-        yield Result[:failed], identity_url, nil
+        yield Result.new(:failed, msg), identity_url, nil
       when OpenID::Consumer::SETUP_NEEDED
         yield Result[:setup_needed], open_id_response.setup_url, nil
       end
