@@ -7,6 +7,8 @@
     %title= h(yield(:title) || "Untitled")
     - unless stripped
       = stylesheet_link_tag 'application'
+      /[if IE]
+        = stylesheet_link_tag 'ie-fixes'
       = stylesheet_link_tag 'application-print', :media => "print"
       = javascript_include_tag 'jquery-1.3.1', 'jquery.form'
       = javascript_include_tag 'jquery.djtch', 'application'
@@ -37,7 +39,6 @@
                 ADAPT Prototype (Demo mode)
               - else
                 ASSDA Deposit and Preservation Tool (Prototype)
-          #divider
 
         #content
           - flash.each do |name, msg|
