@@ -7,7 +7,7 @@ require 'java'
 # -- read some missing environment variables from the Java system properties
 for key in %w{ADAPT_HOME ADAPT_IS_LOCAL ADAPT_DB_ADAPTER
               ADAPT_DB_PATH ADAPT_ASSET_PATH
-              ASSDA_OPENID_SERVER ASSDA_REGISTRATION_URL}
+              ASSDA_OPENID_SERVER ASSDA_OPENID_LOGOUT ASSDA_REGISTRATION_URL}
   ENV[key] ||= java.lang.System.getProperty(key)
 end
 
@@ -21,6 +21,7 @@ ENV['ADAPT_HOME'] ||= case ENV['RAILS_ENV']
                       end
 ENV['ADAPT_ASSET_PATH']       ||= "#{ENV['ADAPT_HOME']}/assets"
 ENV['ASSDA_OPENID_SERVER']    ||= "http://openid.assda.edu.au/joid/user/"
+ENV['ASSDA_OPENID_LOGOUT']    ||= "http://openid.assda.edu.au/joid/logout.jsp"
 ENV['ASSDA_REGISTRATION_URL'] ||= "http://assda.anu.edu.au/online_reg.php"
 
 Rails::Initializer.run do |config|

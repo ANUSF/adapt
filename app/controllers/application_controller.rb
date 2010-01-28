@@ -56,9 +56,7 @@ class ApplicationController < ActionController::Base
 
   # Forced logout for current user.
   def kill_session(message)
-    new_session
-    flash[:error] = message + " Please log in again!"
-    redirect_to login_url
+    redirect_to logout_url(:message => message + " Please log in again!")
   end
 
   # This is called as an around filter for all controller actions and
