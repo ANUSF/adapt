@@ -56,24 +56,30 @@ a.toggle
 !dfn_width = 13em
 
 .properties
-  :position relative
   ul
     :position relative
-    :left = !dfn_width + 2em
     :list-style none
     :margin 0
-    :padding 0.6em 0
+    :padding 0.6em 2em
     li
       :position relative
-      :left = -!dfn_width
+      :left = !dfn_width
       :margin 0
+      :margin-right = !dfn_width
       :padding 0.4em 0 0 0
       :max-width 35em
-      ul, p
-        :display block
-        :clear both
+      dfn
+        :margin 0
+        :padding 0
         :position relative
-        :left = !dfn_width
+        :margin-left = -!dfn_width
+        :width = !dfn_width
+        :float left
+        :color #222
+        :font
+          :weight bolder
+          :style normal
+      ul
         :list-style none
         :margin 0
         :padding 0
@@ -82,17 +88,3 @@ a.toggle
           :left 0
           :margin 0
           :padding 0.2em 0 0 0
-          p
-            :posiition relative
-            :left 0
-  
-  dfn
-    :margin 0
-    :padding 0
-    :width = !dfn_width
-    :display block
-    :float left
-    :color #222
-    :font
-      :weight bolder
-      :style normal
