@@ -14,10 +14,13 @@ module NavigationHelpers
     when /^the login page$/
       '/login'
 
+    when /^the study index page$/
+      '/studies'
+
     when /^the study details page for #{capture_model}$/
       "/studies/#{model($1).id}"
 
-    when /"^(.+)$"/
+    when /^"(.+)"$/
       $1
 
     else
