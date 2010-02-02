@@ -9,6 +9,7 @@ Sham.name { Faker::Name.name }
 User.blueprint do
   name
   username { self.name.gsub(' ', '.') }
+  role { "contributor" }
 end
 
 Sham.title { Faker::Company.catch_phrase }

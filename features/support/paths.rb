@@ -8,16 +8,16 @@ module NavigationHelpers
   def path_to(page_name)
     case page_name
     
-    when /the homepage/
+    when /^the homepage$/
       '/'
     
-    when /the login page/
+    when /^the login page$/
       '/login'
 
-    when /^the study index page$/i
-      studies_path
+    when /^the study details page for #{capture_model}$/
+      "/studies/#{model($1).id}"
 
-    when /"(.+)"/
+    when /"^(.+)$"/
       $1
 
     else

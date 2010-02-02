@@ -1,12 +1,12 @@
 Feature: Deposition
   In order to submit data to ASSDA
-  As a depositor
-  I want to create and manage study deposit
+  As a contributor
+  I want to create and manage study deposits
 
   Background:
     Given I exist
     And they exist
-    And a study exists with owner: me, title: "My First Study"
+    And a study: "first" exists with owner: me, title: "My First Study"
     And a study exists with owner: me, title: "My Second Study"
     And a study exists with owner: them, title: "Advanced Ham"
 
@@ -34,3 +34,10 @@ Feature: Deposition
     And I should not see "My First Study"
     And I should not see "My Second Study"
     But I should see "Advanced Ham"
+    And I should see "incomplete"
+
+  Scenario: Viewing study details
+    When I am logged in as myself
+    And I go to the study details page for study: "first"
+    Then I should see "Study Details"
+    And I should see "Title: My First Study"
