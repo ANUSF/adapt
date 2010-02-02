@@ -68,7 +68,6 @@ class StudiesController < ApplicationController
       redirect_to studies_url
     else
       @study = current_user.studies.new(params[:study])
-      @study.status = "incomplete"
 
       if @study.save
         flash[:notice] = "Study entry created."

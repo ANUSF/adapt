@@ -23,7 +23,7 @@ class Study < ActiveRecord::Base
 
   def status
     result = read_attribute('status')
-    if result == "incomplete"
+    if result.blank? or result == "incomplete"
       if (data_kind.blank? or
           (data_is_quantitative == "0" and data_is_qualitative == "0") or
           depositors.nil? or
