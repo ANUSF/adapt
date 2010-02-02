@@ -14,11 +14,11 @@ module NavigationHelpers
     when /the login page/
       '/login'
 
-    when /the registration page/
-      '/users/new'
-
     when /^the study index page$/i
       studies_path
+
+    when /"(.+)"/
+      $1
 
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +

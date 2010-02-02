@@ -30,11 +30,15 @@ class ApplicationController < ActionController::Base
 
   # Whether the application is being run in a special demo mode.
   def in_demo_mode
-    case Rails.env
-    when 'development' then ENV["ADAPT_DEMO_MODE"] == 'true'
-    when 'stage'       then true
-    else                    false
+    if ENV['ADAPT_DEMO_MODE']
+      ENV['ADAPT_DEMO_MODE'] == 'true'
+    else
+      not %w{development production}.include? Rails.env
     end
+  end
+
+  def in_local_mode
+    ENV['ADAPT_IS_LOCAL'] == 'true'
   end
 
   # Whether users may assume arbitrary roles.
@@ -62,7 +66,7 @@ class ApplicationController < ActionController::Base
   # This is called as an around filter for all controller actions and
   # handles session expiration, invalid IP addresses, etc.
   def validate_session
-    if ENV["ADAPT_IS_LOCAL"] == "true"
+    if in_local_mode
       # -- local instances can not be accessed from other host
       if request.remote_ip != "127.0.0.1"
         flash.now[:error] = "Remote access denied."
