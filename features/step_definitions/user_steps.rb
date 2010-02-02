@@ -1,11 +1,6 @@
-Given /^I have an account as "(.+)" with password "(.+)"$/ do |user, pass|
-  User.create!({
-                 :username => user, :email => "dummy@gmail.com",
-                 :password => pass, :password_confirmation => pass,
-                 :name => "Olaf", :address => "Here"
-               })
-end
-
-Given /^there is an account "(.+)"$/ do |user|
-  Given "I have an account as \"#{user}\" with password \"geheim\""
+Given /^I am logged in as #{capture_model}$/ do |user|
+  user = model(user)
+  visit path_to("the login page")
+  fill_in "login", :with => user.username
+  click_button "Submit"
 end
