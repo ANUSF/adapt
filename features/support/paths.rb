@@ -17,8 +17,8 @@ module NavigationHelpers
     when /^the study index page$/
       '/studies'
 
-    when /^the study details page for #{capture_model}$/
-      "/studies/#{model($1).id}"
+    when /^the study details page for "(.+)"$/
+      "/studies/#{model("study: \"#{$1}\"").id}"
 
     when /^"(.+)"$/
       $1
