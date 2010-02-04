@@ -1,0 +1,35 @@
+!dfn_width = 13em
+
+.properties
+  ul
+    :position relative
+    :list-style none
+    :margin 0
+    :padding 0.6em 2em
+    li
+      :position relative
+      :left = !dfn_width
+      :margin 0
+      :margin-right = !dfn_width
+      :padding 0.4em 0 0 0
+      :max-width 35em
+      dfn
+        :margin 0
+        :padding 0
+        :position relative
+        :margin-left = -!dfn_width
+        :width = !dfn_width
+        :float left
+        :color #222
+        :font
+          :weight bolder
+          :style normal
+      ul
+        :list-style none
+        :margin 0
+        :padding 0
+        li
+          :position relative
+          :left 0
+          :margin 0
+          :padding 0.2em 0 0 0
