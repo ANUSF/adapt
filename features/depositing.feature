@@ -1,7 +1,7 @@
 Feature: Depositing
+  In order to prepare for submission of my study data to ASSDA
   As a contributor
   I want to create and manage study descriptions, also called deposits
-  In order to prepare for submission of my study data to ASSDA
 
   Background:
     Given there is a contributor account for Alice
