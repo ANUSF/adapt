@@ -1,7 +1,7 @@
 Feature: Depositing
-  In order to submit data to ASSDA
   As a contributor
-  I want to create and manage study descriptions
+  I want to create and manage study descriptions, also called deposits
+  In order to prepare for submission of my study data to ASSDA
 
   Background:
     Given there is a contributor account for Alice
@@ -20,7 +20,7 @@ Feature: Depositing
     And I should see "Edit Study"
     And I should see "The Title"
 
-  Scenario: Viewing Alice's studies
+  Scenario: Viewing Alice's deposits
     Given I am logged in as Alice
     When I follow "View Deposits"
     Then I should be on the study index page
@@ -29,7 +29,7 @@ Feature: Depositing
     And I should see "Second Study"
     But I should not see "Advanced Ham"
 
-  Scenario: Viewing Bill's studies
+  Scenario: Viewing Bill's deposits
     Given I am logged in as Bill
     When I follow "View Deposits"
     Then I should be on the study index page
