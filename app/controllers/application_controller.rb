@@ -3,16 +3,16 @@
 # (c)2010 ANUSF
 
 class ApplicationController < ActionController::Base
-  # -- make all helpers available in controllers
+  # -- makes all helpers available in controllers
   helper :all
 
-  # -- make these controller methods available in views
+  # -- makes these controller methods available in views
   helper_method :current_user, :in_demo_mode, :users_may_change_roles
  
   # -- this handles session expiration, invalid IP addresses, etc.
   around_filter :validate_session
 
-  # -- forbid all access not explicitly granted ('verboten' plugin)
+  # -- forbids all access not explicitly granted ('verboten' plugin)
   forbid_everything
 
   # -- protects from CSRF attacks via an authenticity token
@@ -37,6 +37,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Whether the application is being run locally on the user's machine
   def in_local_mode
     ENV['ADAPT_IS_LOCAL'] == 'true'
   end
