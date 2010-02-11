@@ -3,6 +3,10 @@ def column_contents(name)
   (t.transpose)[t[0].index(name)].join('"')
 end
 
+Then /^I should not be on (.+)$/ do |page_name|
+  URI.parse(current_url).path.should_not == path_to(page_name)
+end
+
 Then /^(?:|I )should see (?:a|the) title (.*)$/ do |pattern|
   Then "I should see #{pattern} within \"#content > h1\""
 end
