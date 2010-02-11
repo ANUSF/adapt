@@ -2,7 +2,6 @@
 - stylesheet :forms
 
 - make_form_for @study do |f|
-  = f.error_messages
   %h3 Title and Abstract
   .collapsible
     = f.text_area :title, :rows => 4, :required => true
