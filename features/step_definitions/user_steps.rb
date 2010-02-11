@@ -5,6 +5,10 @@ Given /^I am logged in as (.*)$/ do |user|
   click_button "Submit"
 end
 
+Given /^I am not logged in$/ do
+  visit "/logout"
+end
+
 Given /^there is an? (.*) account for (.*)$/ do |role, name|
   Given "a user: \"#{name}\" exists with role: \"#{role}\""
 end
