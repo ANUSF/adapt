@@ -114,9 +114,16 @@ class StudiesController < ApplicationController
   # ----------------------------------------------------------------------------
 
   def submit
-    @study.status = "submitted"
-    @study.save!
-    redirect_to @study
+    case params[:licence]
+    when "Accept"
+      @study.status = "submitted"
+      @study.save!
+      flash[:notice] = "Study successfully submitted and pending approval."
+      redirect_to @study
+    when "Decline"
+      flash[:notice] = "Study not submitted."
+      redirect_to @study
+    end
   end
 
   def approve
