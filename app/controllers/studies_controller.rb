@@ -73,6 +73,8 @@ class StudiesController < ApplicationController
         flash[:notice] = "Study entry created."
         redirect_to edit_study_url(@study)
       else
+        flash[:error] =
+          "Study creation failed. Please correct the fields marked in red."
         render :action => :new
       end
     end
