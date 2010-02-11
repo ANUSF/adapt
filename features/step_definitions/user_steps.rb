@@ -12,8 +12,3 @@ end
 Given /^there is an? (.*) account for (.*)$/ do |role, name|
   Given "a user: \"#{name}\" exists with role: \"#{role}\", name: \"#{name}\""
 end
-
-Given /^(.*) has a study entitled "(.*)"$/ do |user, title|
-  Given "a study: \"#{title}\" exists with owner: user: \"#{user}\", " +
-    "title: \"#{title}\""
-end

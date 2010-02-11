@@ -19,7 +19,6 @@ Feature: Contributor views deposit list
     And I should see "Alice" in the "Created by" column
     And I should see "First Study" in the "Title" column
     And I should see "Second Study" in the "Title" column
-    And I should see "incomplete" in the "Status" column
     But I should not see "Advanced" in the "Title" column
     And I should not see "Bill" in the "Created by" column
 
@@ -31,7 +30,6 @@ Feature: Contributor views deposit list
     And I should see a table with 1 rows
     And I should see "Bill" in the "Created by" column
     And I should see "Advanced Ham" in the "Title" column
-    And I should see "incomplete" in the "Status" column
     But I should not see "Study" in the "Title" column
     And I should not see "Alice" in the "Created by" column
 
