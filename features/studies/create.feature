@@ -8,7 +8,7 @@ Feature: Contributor creates study
     And I am logged in as Alice
     And I am on "/studies/new"
 
-  Scenario: Successful submission
+  Scenario: Successful creation
     When I fill in "Study title" with "My Study"
     And I fill in "Study abstract" with "To be written"
     And I press "Submit"
