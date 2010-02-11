@@ -10,29 +10,32 @@ Feature: Contributor views deposit list
     And Alice has a study entitled "Second Study"
     And Bill has a study entitled "Advanced Ham"
 
-
   Scenario: Alice can see her deposits, but not Bill's
     Given I am logged in as Alice
     When I go to "/studies"
     Then I should be on the study index page
-    And I should see "Deposits"
-    And I should see "First Study"
-    And I should see "Second Study"
-    But I should not see "Advanced Ham"
+    And I should see the title "Deposits"
+    And I should see a table with 2 rows
+    And I should see "Alice" in the "Created by" column
+    And I should see "First Study" in the "Title" column
+    And I should see "Second Study" in the "Title" column
+    And I should see "incomplete" in the "Status" column
+    But I should not see "Advanced" in the "Title" column
+    And I should not see "Bill" in the "Created by" column
 
-  Scenario: Bill can see her deposits, but not Alice's
+  Scenario: Bill can see his deposits, but not Alice's
     Given I am logged in as Bill
     When I go to "/studies"
     Then I should be on the study index page
-    And I should see "Deposits"
-    And I should not see "First Study"
-    And I should not see "Second Study"
-    But I should see "Advanced Ham"
-    And I should see "incomplete"
+    And I should see the title "Deposits"
+    And I should see a table with 1 rows
+    And I should see "Bill" in the "Created by" column
+    And I should see "Advanced Ham" in the "Title" column
+    And I should see "incomplete" in the "Status" column
+    But I should not see "Study" in the "Title" column
+    And I should not see "Alice" in the "Created by" column
 
   Scenario: One must be logged in to see any deposits
     Given I am not logged in
     When I go to "/studies"
-    Then I should be on the study index page
-    But I should not see "Deposits"
-    And I should see "Must be logged in"
+    Then I should see the error message "Must be logged in"

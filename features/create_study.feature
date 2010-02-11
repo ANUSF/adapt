@@ -13,6 +13,7 @@ Feature: Contributor creates study
     And I fill in "Study abstract" with "To be written"
     And I press "Submit"
     Then I should see "Study entry created"
+    And I should see the title "Edit Study"
     And the "Study title" field should contain "My Study"
     And the "Study abstract" field should contain "To be written"
 
@@ -20,13 +21,15 @@ Feature: Contributor creates study
     When I fill in "Study title" with "<title>"
     And I fill in "Study abstract" with "<abstract>"
     And I press "Submit"
-    Then I should see "Study creation failed"
+    Then I should see the error message "Study creation failed"
     And I should see "can't be blank"
+    And I should see the title "New Study"
     And the "Study title" field should contain "<title>"
     And the "Study abstract" field should contain "<abstract>"
 
     Examples:
       | title    | abstract      |
+      |          |               |
       | My Study |               |
       |          | To be written |
 
@@ -35,7 +38,7 @@ Feature: Contributor creates study
     And I fill in "Study abstract" with "<abstract>"
     And I press "Cancel"
     Then I should see "Study creation cancelled"
-    And I should see "Deposits"
+    And I should see the title "Deposits"
 
     Examples:
       | title    | abstract      |
@@ -46,5 +49,4 @@ Feature: Contributor creates study
   Scenario: One cannot create a study without logging in
     Given I am not logged in
     When I go to "/studies/new"
-    Then I should see "Must be logged in"
-    And I should not see "Study title"
+    Then I should see the error message "Must be logged in"
