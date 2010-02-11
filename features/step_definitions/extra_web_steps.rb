@@ -3,8 +3,16 @@ def column_contents(name)
   (t.transpose)[t[0].index(name)].join('"')
 end
 
-Then /^I should not be on (.+)$/ do |page_name|
+Then /^(?:|I )should not be on (.+)$/ do |page_name|
   URI.parse(current_url).path.should_not == path_to(page_name)
+end
+
+Then /^(?:|I )should see a "([^\"]*)" link$/ do |text|
+  response.should have_selector("a[href]", :content => text)
+end
+
+Then /^(?:|I )should not see a "([^\"]*)" link$/ do |text|
+  response.should_not have_selector("a[href]", :content => text)
 end
 
 Then /^(?:|I )should see (?:a|the) title (.*)$/ do |pattern|
