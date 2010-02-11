@@ -20,12 +20,29 @@ Feature: Contributor submits study
     When I go to the study details page for "First Study"
     Then I should not see a "Submit" link
 
-  @focus
   Scenario: License form is shown
     Given the study "First Study" has status "unsubmitted"
     When I go to the study details page for "First Study"
     And I follow "Submit"
     Then I should see the title "ASSDA Deposit Licence"
     And I should see "As the owner of the copyright in this material"
-    And I should see "Accept"
-    And I should see "Decline"
+    And I should see an "Accept" button
+    And I should see an "Decline" button
+
+  Scenario: Licence accepted
+    Given the study "First Study" has status "unsubmitted"
+    When I go to the study details page for "First Study"
+    And I follow "Submit"
+    And I press "Accept"
+    Then I should be on the study details page for "First Study"
+    And I should see "Status: submitted"
+    And I should see "Study successfully submitted and pending approval."
+
+  Scenario: Licence declined
+    Given the study "First Study" has status "unsubmitted"
+    When I go to the study details page for "First Study"
+    And I follow "Submit"
+    And I press "Decline"
+    Then I should be on the study details page for "First Study"
+    And I should see "Status: unsubmitted"
+    And I should see "Study not submitted."
