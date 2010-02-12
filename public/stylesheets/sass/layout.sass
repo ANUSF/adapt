@@ -82,7 +82,13 @@
 #page
   :padding-bottom 20px
   p
-    :max-width 40em
+    :max-width = !paragraph_width
+  li,dd
+    p
+      :max-width = !paragraph_width - !list_indent
+    li,dd
+      p
+        :max-width = !paragraph_width - 2 * !list_indent
 
 #footer
   :position relative
