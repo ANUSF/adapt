@@ -61,4 +61,5 @@
         &mdash;
         %br
         Powered by Ruby on Rails
-        = link_to "Printer style preview", url_for(:printer_friendly => 1)
+        = link_to "Printer style preview", url_for(:printer_friendly => 1), |
+                                           :method => request.method |
