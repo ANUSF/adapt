@@ -10,7 +10,7 @@ Feature: Contributor submits study
     And Alice has a study entitled "First Study"
     And I am logged in as Alice
 
-  Scenario: Incomplete study can be submitted
+  Scenario: Complete study can be submitted
     Given the study "First Study" has status "unsubmitted"
     When I go to the study details page for "First Study"
     Then I should see a "Submit" link
@@ -24,25 +24,7 @@ Feature: Contributor submits study
     Given the study "First Study" has status "unsubmitted"
     When I go to the study details page for "First Study"
     And I follow "Submit"
-    Then I should see the title "ASSDA Deposit Licence"
+    Then I should see the page heading "ASSDA Deposit Licence"
     And I should see "As the owner of the copyright in this material"
     And I should see an "Accept" button
     And I should see an "Decline" button
-
-  Scenario: Licence accepted
-    Given the study "First Study" has status "unsubmitted"
-    When I go to the study details page for "First Study"
-    And I follow "Submit"
-    And I press "Accept"
-    Then I should be on the study details page for "First Study"
-    And I should see "Status: submitted"
-    And I should see "Study successfully submitted and pending approval."
-
-  Scenario: Licence declined
-    Given the study "First Study" has status "unsubmitted"
-    When I go to the study details page for "First Study"
-    And I follow "Submit"
-    And I press "Decline"
-    Then I should be on the study details page for "First Study"
-    And I should see "Status: unsubmitted"
-    And I should see "Study not submitted."

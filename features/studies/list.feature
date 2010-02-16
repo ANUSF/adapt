@@ -12,9 +12,9 @@ Feature: Contributor views deposit list
 
   Scenario: Alice can see her deposits, but not Bill's
     Given I am logged in as Alice
-    When I go to "/studies"
+    When I follow "View Deposits"
     Then I should be on the study index page
-    And I should see the title "Deposits"
+    And I should see the page heading "Deposits"
     And I should see a table with 2 rows
     And I should see "Alice" in the "Created by" column
     And I should see "First Study" in the "Title" column
@@ -24,9 +24,9 @@ Feature: Contributor views deposit list
 
   Scenario: Bill can see his deposits, but not Alice's
     Given I am logged in as Bill
-    When I go to "/studies"
+    When I follow "View Deposits"
     Then I should be on the study index page
-    And I should see the title "Deposits"
+    And I should see the page heading "Deposits"
     And I should see a table with 1 rows
     And I should see "Bill" in the "Created by" column
     And I should see "Advanced Ham" in the "Title" column

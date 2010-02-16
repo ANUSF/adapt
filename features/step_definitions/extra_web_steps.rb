@@ -23,7 +23,7 @@ Then /^(?:|I )should not see (?:a|an) "([^\"]*)" button$/ do |text|
   response.should_not have_selector("input[value=\"#{text}\"]")
 end
 
-Then /^(?:|I )should see (?:a|an|the) title (.*)$/ do |pattern|
+Then /^(?:|I )should see (?:a|an|the) page heading (.*)$/ do |pattern|
   Then "I should see #{pattern} within \"#content > h1\""
 end
 
