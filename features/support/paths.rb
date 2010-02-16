@@ -20,6 +20,9 @@ module NavigationHelpers
     when /^the study details page for "(.+)"$/
       "/studies/#{model("study: \"#{$1}\"").id}"
 
+    when /^the licence page for "(.+)"$/
+      "/studies/#{model("study: \"#{$1}\"").id}/submit"
+
     when /^"(.+)"$/
       $1
 

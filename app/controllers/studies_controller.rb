@@ -116,10 +116,16 @@ class StudiesController < ApplicationController
   def submit
     case params[:licence]
     when "Accept"
-      @study.status = "submitted"
-      @study.save!
-      flash[:notice] = "Study successfully submitted and pending approval."
-      redirect_to @study
+      if params[:access].blank?
+        flash.now[:error] = "Please select an access option."
+      elsif (date = grab_date(params[:date])).nil?
+        flash.now[:error] = "Sorry, the date was not recognized."
+      else
+        @study.status = "submitted"
+        @study.save!
+        flash[:notice] = "Study successfully submitted and pending approval."
+        redirect_to @study
+      end
     when "Decline"
       flash[:notice] = "Study not submitted."
       redirect_to @study
@@ -131,5 +137,13 @@ class StudiesController < ApplicationController
     @study.archivist = User.archivists.find(params[:study][:archivist])
     @study.save!
     redirect_to studies_url
+  end
+
+  private
+  def grab_date(s)
+    begin
+      Date.parse(s)
+    rescue
+    end
   end
 end
