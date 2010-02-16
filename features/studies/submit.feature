@@ -24,7 +24,7 @@ Feature: Contributor submits study
     Given the study "First Study" has status "unsubmitted"
     When I go to the study details page for "First Study"
     And I follow "Submit"
-    Then I should see the page heading "ASSDA Deposit Licence"
+    Then I should see the page heading "Deposit Licence"
     And I should see "As the owner of the copyright in this material"
     And I should see an "Accept" button
     And I should see an "Decline" button
