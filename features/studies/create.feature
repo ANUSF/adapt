@@ -5,25 +5,27 @@ Feature: Contributor creates study
 
   Background:
     Given there is a contributor account for Alice
-    And I am logged in as Alice
-    And I am on "/studies/new"
 
   Scenario: Successful creation
-    When I fill in "Study title" with "My Study"
+    Given I am logged in as Alice
+    When I follow "Add Study"
+    And I fill in "Study title" with "My Study"
     And I fill in "Study abstract" with "To be written"
     And I press "Submit"
     Then I should see "Study entry created"
-    And I should see the title "Edit Study"
+    And I should see the page heading "Edit Study"
     And the "Study title" field should contain "My Study"
     And the "Study abstract" field should contain "To be written"
 
   Scenario Outline: Missing data
-    When I fill in "Study title" with "<title>"
+    Given I am logged in as Alice
+    When I follow "Add Study"
+    And I fill in "Study title" with "<title>"
     And I fill in "Study abstract" with "<abstract>"
     And I press "Submit"
     Then I should see the error message "Study creation failed"
     And I should see "can't be blank"
-    And I should see the title "New Study"
+    And I should see the page heading "New Study"
     And the "Study title" field should contain "<title>"
     And the "Study abstract" field should contain "<abstract>"
 
@@ -34,11 +36,13 @@ Feature: Contributor creates study
       |          | To be written |
 
   Scenario Outline: Creation cancelled
-    When I fill in "Study title" with "<title>"
+    Given I am logged in as Alice
+    When I follow "Add Study"
+    And I fill in "Study title" with "<title>"
     And I fill in "Study abstract" with "<abstract>"
     And I press "Cancel"
     Then I should see "Study creation cancelled"
-    And I should see the title "Deposits"
+    And I should see the page heading "Deposits"
 
     Examples:
       | title    | abstract      |
