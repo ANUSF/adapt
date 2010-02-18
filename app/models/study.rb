@@ -2,7 +2,8 @@ class Study < ActiveRecord::Base
   belongs_to :owner,     :class_name => 'User', :foreign_key => :user_id
   belongs_to :archivist, :class_name => 'User', :foreign_key => :archivist_id
   belongs_to :manager,   :class_name => 'User', :foreign_key => :manager_id
-  has_many :attachments, :dependent => :destroy
+  has_many   :attachments, :dependent => :destroy
+  has_one    :licence ,    :dependent => :destroy
 
   JSON_FIELDS = [:data_is_qualitative, :data_is_quantitative, :data_kind,
                  :time_method, :sample_population,

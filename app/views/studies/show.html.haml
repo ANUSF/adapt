@@ -136,7 +136,7 @@
   - if @study.can_be_submitted_by current_user and @study.status == "unsubmitted"
     |
     /
-    = link_to "Submit", submit_study_path(@study), :method => :post, |
+    = link_to "Submit", new_study_licence_path(@study), |
         :confirm => 'Please ensure all information is complete and correct.' |
 
 - if @study.can_be_approved_by current_user

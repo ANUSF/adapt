@@ -10,7 +10,6 @@ class StudiesController < ApplicationController
   permit :index, :new, :create,    :if => :logged_in
   permit :show,                    :if => :may_view
   permit :edit, :update, :destroy, :if => :may_edit
-  permit :submit,                  :if => :may_submit
   permit :approve,                 :if => :may_approve
 
   protected
@@ -112,30 +111,6 @@ class StudiesController < ApplicationController
   # ----------------------------------------------------------------------------
   # Additional actions this controller provides.
   # ----------------------------------------------------------------------------
-
-  def submit
-    if @study.status == "incomplete"
-      flash[:error] = "Please supply all required information."
-      redirect_to @study
-    elsif @study.status != "unsubmitted"
-      flash[:error] = "This study has already been submitted."
-      redirect_to @study
-    elsif params[:licence] == "Accept"
-      if params[:access].blank?
-        flash.now[:error] = "Please select an access option."
-      elsif (date = grab_date(params[:date])).nil?
-        flash.now[:error] = "Sorry, the date was not recognized."
-      else
-        @study.status = "submitted"
-        @study.save!
-        flash[:notice] = "Study successfully submitted and pending approval."
-        redirect_to @study
-      end
-    elsif params[:licence] == "Decline"
-      flash[:notice] = "Study not submitted."
-      redirect_to @study
-    end
-  end
 
   def approve
     @study.status = "approved"

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 module StudiesHelper
   def licence_text(access = nil, html = true)
-    text = Licence.text(access)
+    text = LicenceText.full(access)
     unless html
       text.gsub!(/<\/?[^>]*>/, "")  # strips html tags
       text.gsub!(/&[^;]*;/, "")     # strips html entities
@@ -12,8 +12,8 @@ module StudiesHelper
   end
 end
 
-class Licence
-  def self.text(access_type)
+class LicenceText
+  def self.full(access_type)
     haml do '
 %p
 
@@ -58,7 +58,7 @@ class Licence
       the deposited material.
 
   %dt (3) AVAILABILITY OF DATA FOR ANALYSIS
-  %dd= access_text(access_type)
+  %dd= access(access_type)
 
   %dt (4) AVAILABILITY OF UNPUBLISHED REPORTS
   %dd
@@ -85,16 +85,16 @@ class Licence
 
   private
 
-  def self.access_text(access_type)
+  def self.access(access_type)
     case access_type
-    when 'A' then unrestricted_access_text
-    when 'B' then restricted_access_text
-    when 'S' then deferred_access_text
-    else          access_options_text
+    when 'A' then unrestricted_access
+    when 'B' then restricted_access
+    when 'S' then deferred_access
+    else          access_options
     end
   end
 
-  def self.access_options_text
+  def self.access_options
     haml do '
 %p
 
@@ -105,17 +105,17 @@ class Licence
 %dl
   %dt
     (i) Unrestricted access. (Access A)
-  %dd= unrestricted_access_text
+  %dd= unrestricted_access
 
   %dt
     (ii) Depositor required to give or withhold permission for access.
     (Access B)
-  %dd= restricted_access_text
+  %dd= restricted_access
 '
     end
   end
 
-  def self.unrestricted_access_text
+  def self.unrestricted_access
     haml do '
 %p
 
@@ -131,7 +131,7 @@ class Licence
     end
   end
 
-  def self.restricted_access_text
+  def self.restricted_access
     haml do '
 %p
 
@@ -151,7 +151,7 @@ class Licence
     end
   end
 
-  def self.deferred_access_text
+  def self.deferred_access
     haml do '
 %p
 

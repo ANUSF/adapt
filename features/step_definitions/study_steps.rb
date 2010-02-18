@@ -4,11 +4,9 @@ Given /^(.*) has a study entitled "(.*)"$/ do |user, title|
 end
 
 Given /^the study "([^\"]*)" has status "([^\"]*)"$/ do |title, status|
-  study = model("study: \"#{title}\"")
-  study.update_attribute(:status, status)
+  model("study: \"#{title}\"").update_attribute(:status, status)
 end
 
 When /^I submit the study "([^\"]*)"$/ do |title|
-  study = model("study: \"#{title}\"")
-  visit "/studies/#{study.id}/submit", :post
+  visit new_study_licence_path(model("study: \"#{title}\""))
 end
