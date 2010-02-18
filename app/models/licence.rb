@@ -3,10 +3,23 @@ class Licence < ActiveRecord::Base
 
   attr_accessible :signed_by, :email, :access_mode, :signed_date
 
-  validates_presence_of :signed_by
-  validates_presence_of :email
+  validates_presence_of :signed_by, :message => "Name required."
+  validates_presence_of :email, :message => "Contact email required."
   validates_presence_of :access_mode, :message => "Please select one."
-  validates_presence_of :signed_date
+  validates_presence_of :signed_date, :message => "Date required."
+
+  validates_each :signed_date do |record, attr, value|
+    date = begin Date.parse(value) rescue nil end
+    if date
+      if value =~ /\b\d\d?\/\d\d?\/\d{2,4}\b/
+        record.errors.add attr, "Ambiguous date format."
+      elsif not (2010..2999).include? date.year
+        record.errors.add attr, "Invalid year: #{date.year}"
+      end
+    else
+      record.errors.add attr, "Unknown date format."
+    end
+  end
 
   def selections(column)
     case column.to_sym
@@ -18,6 +31,6 @@ class Licence < ActiveRecord::Base
   end
 
   def empty_selection(column)
-    column.to_sym == :access_mode ? "-- Please select --" : false
+    column.to_sym == :access_mode ? "" : false
   end
 end
