@@ -1,32 +1,16 @@
 - title "Deposit Licence"
+- stylesheet :forms
 
 = licence_text
 
 %hr
 
-%p
-  %em
-    (Please verify your name and email address and select an access
-    option.)
+%em (Please verify the information below and select an access option.)
 
 %fieldset
-  - form_for [ @study, @licence ] do |f|
-    %p
-      == I, #{f.text_field :signed_by, :size => 20}
-      == (Email: #{f.text_field :email, :size => 20}),
-    %p accept the terms of this licence with
-    %p
-      = f.radio_button :access_mode, "A"
-      unrestricted access (Access A) as specified under point (3.i) above.
-    %p
-      = f.radio_button :access_mode, "B"
-      access by permission (Access B) as specified under point (3.ii) above.
-    %p
-      = f.radio_button :access_mode, "S"
-      access conditions to be negotiated between me and ASSDA.
-    %p
-      %span{ :style => "float: left" }
-        == Date: #{f.text_field :signed_date, :size => 20}
-      %span{ :style => "float: right" }
-        = f.submit "Decline", :name => "result"
-        = f.submit "Accept", :name => "result"
+  - make_form_for [ @study, @licence ] do |f|
+    = f.text_field :signed_by, :required => true
+    = f.text_field :signed_date, :required => true
+    = f.text_field :email, :required => true
+    = f.select :access_mode, :required => true
+    %p= f.result_buttons %w{Cancel Continue}
