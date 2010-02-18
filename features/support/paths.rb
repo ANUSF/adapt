@@ -21,7 +21,7 @@ module NavigationHelpers
       "/studies/#{model("study: \"#{$1}\"").id}"
 
     when /^the licence page for "(.+)"$/
-      "/studies/#{model("study: \"#{$1}\"").id}/licences"
+      new_study_licence_path(model("study: \"#{$1}\""))
 
     when /^"(.+)"$/
       $1
