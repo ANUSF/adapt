@@ -1,3 +1,4 @@
+@focus
 Feature: Contributor accepts or declines licence
   In order to transfer the necessary rights on my material to ASSDA
   As a contributor
@@ -11,7 +12,7 @@ Feature: Contributor accepts or declines licence
     Given the study "First Study" has status "unsubmitted"
     And I am logged in as Alice
     When I submit the study "First Study"
-    And I choose "access_a"
+    And I choose "licence_access_mode_a"
     And I press "Accept"
     Then I should be on the study details page for "First Study"
     And I should see "submitted"
@@ -38,8 +39,8 @@ Feature: Contributor accepts or declines licence
     Given the study "First Study" has status "unsubmitted"
     And I am logged in as Alice
     When I submit the study "First Study"
-    And I fill in "date" with "today"
-    And I choose "access_a"
+    And I fill in "licence_signed_date" with "today"
+    And I choose "licence_access_mode_a"
     And I press "Accept"
     Then I should be on the licence page for "First Study"
     And I should see an error message "Sorry, the date was not recognized."

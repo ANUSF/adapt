@@ -21,7 +21,7 @@ module NavigationHelpers
       "/studies/#{model("study: \"#{$1}\"").id}"
 
     when /^the licence page for "(.+)"$/
-      "/studies/#{model("study: \"#{$1}\"").id}/submit"
+      "/studies/#{model("study: \"#{$1}\"").id}/licences"
 
     when /^"(.+)"$/
       $1
