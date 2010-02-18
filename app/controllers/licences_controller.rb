@@ -55,14 +55,15 @@ class LicencesController < ApplicationController
   end
 
   def create
-    if params[:result] == "Accept"
+    if params[:result] == "Continue"
       @licence = @study.build_licence(params[:licence])
       if @licence.save
         @study.update_attribute(:status, "submitted")
         flash[:notice] = "Study successfully submitted and pending approval."
         redirect_to @study
       else
-        flash.now[:error] = "There were some errors."
+        flash.now[:error] =
+          "Something went wrong. Please correct the fields marked in red."
         render :action => :new
       end
     else
