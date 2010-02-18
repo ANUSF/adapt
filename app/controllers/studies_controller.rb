@@ -114,8 +114,13 @@ class StudiesController < ApplicationController
   # ----------------------------------------------------------------------------
 
   def submit
-    case params[:licence]
-    when "Accept"
+    if @study.status == "incomplete"
+      flash[:error] = "Please supply all required information."
+      redirect_to @study
+    elsif @study.status != "unsubmitted"
+      flash[:error] = "This study has already been submitted."
+      redirect_to @study
+    elsif params[:licence] == "Accept"
       if params[:access].blank?
         flash.now[:error] = "Please select an access option."
       elsif (date = grab_date(params[:date])).nil?
@@ -126,7 +131,7 @@ class StudiesController < ApplicationController
         flash[:notice] = "Study successfully submitted and pending approval."
         redirect_to @study
       end
-    when "Decline"
+    elsif params[:licence] == "Decline"
       flash[:notice] = "Study not submitted."
       redirect_to @study
     end

@@ -28,3 +28,23 @@ Feature: Contributor submits study
     And I should see "As the owner of the copyright in this material"
     And I should see an "Accept" button
     And I should see an "Decline" button
+
+  Scenario: Incomplete study
+    Given the study "First Study" has status "incomplete"
+    And I am logged in as Alice
+    When I submit the study "First Study"
+    Then I should be on the study details page for "First Study" 
+    And I should see an error message "Please supply all required information."
+
+  Scenario: Study already submitted
+    Given the study "First Study" has status "submitted"
+    And I am logged in as Alice
+    When I submit the study "First Study"
+    Then I should be on the study details page for "First Study" 
+    And I should see an error message "This study has already been submitted."
+
+  Scenario: Not owner
+    Given there is a contributor account for Bob
+    And I am logged in as Bob
+    And I submit the study "First Study"
+    Then I should see the error message "Access denied"

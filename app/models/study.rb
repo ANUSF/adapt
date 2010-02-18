@@ -61,12 +61,11 @@ class Study < ActiveRecord::Base
   end
 
   def can_be_submitted_by(person)
-    person == owner and status == 'unsubmitted'
+    person == owner
   end
   
   def can_be_approved_by(person)
-    person.role == 'admin' and status == 'submitted' and
-      (manager == person or manager == nil)
+    person.role == 'admin' and (manager == person or manager == nil)
   end
   
   protected
