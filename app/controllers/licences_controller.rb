@@ -58,15 +58,15 @@ class LicencesController < ApplicationController
     if params[:result] == "Continue"
       @licence = @study.build_licence(params[:licence])
       if @licence.save
-        @study.update_attribute(:status, "submitted")
-        flash[:notice] = "Study successfully submitted and pending approval."
-        redirect_to @study
+        flash[:notice] = "Please review and confirm."
+        redirect_to @licence
       else
         flash.now[:error] =
           "Something went wrong. Please correct the fields marked in red."
         render :action => :new
       end
     else
+      @licence.destroy
       flash[:notice] = "Study not submitted."
       redirect_to @study
     end
@@ -80,5 +80,12 @@ class LicencesController < ApplicationController
   # ----------------------------------------------------------------------------
 
   def accept
+    if params[:result] == "Accept"
+      @study.update_attribute(:status, "submitted")
+      flash[:notice] = "Study submitted and pending approval."
+    else
+      flash[:notice] = "Licence not accepted."
+    end
+    redirect_to @study
   end
 end

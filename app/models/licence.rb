@@ -1,4 +1,6 @@
 class Licence < ActiveRecord::Base
+  include LicenceText
+
   belongs_to :study
 
   attr_accessible :signed_by, :email, :access_mode, :signed_date
@@ -45,5 +47,16 @@ class Licence < ActiveRecord::Base
 
   def empty_selection(column)
     column.to_sym == :access_mode ? "" : false
+  end
+
+  def text(html = true)
+    text = full_text(access_mode)
+    unless html
+      text.gsub!(/<\/?[^>]*>/, "")  # strips html tags
+      text.gsub!(/&[^;]*;/, "")     # strips html entities
+      text.gsub!(/^ +/, "")         # removes leading blanks
+      text.gsub!(/\n\n\n*/, "\n\n") # removed multiple empty lines
+    end
+    text
   end
 end
