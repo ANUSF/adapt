@@ -4,12 +4,13 @@ class StudiesController < ApplicationController
   # ----------------------------------------------------------------------------
 
   # -- find referenced study before performing authorization
-  before_authorization_filter :find_study
+  before_authorization_filter :find_study, :except => [ :index, :new ]
 
   # -- declare access permissions via the 'verboten' plugin
   permit :index, :new, :create,    :if => :logged_in
   permit :show,                    :if => :may_view
   permit :edit, :update, :destroy, :if => :may_edit
+  permit :submit,                  :if => :may_submit
   permit :approve,                 :if => :may_approve
 
   protected
@@ -95,7 +96,7 @@ class StudiesController < ApplicationController
 
       if @study.save
         flash[:notice] = "Changes were saved succesfully."
-        redirect_to :action => (result == "Refresh" ? :edit : :show)
+        redirect_to :action => (result == "Save and continue" ? :edit : :show)
       else
         render :action => 'edit'
       end
@@ -111,6 +112,19 @@ class StudiesController < ApplicationController
   # ----------------------------------------------------------------------------
   # Additional actions this controller provides.
   # ----------------------------------------------------------------------------
+
+  def submit
+    if @study.status == "incomplete"
+      flash[:error] = "This study is not yet ready for submission:<br/><br/>" +
+        @study.errors.full_messages.join("<br/>")
+      render :action => :edit
+    elsif @study.status != "unsubmitted"
+      flash[:error] = "This study has already been submitted."
+      redirect_to @study
+    else
+      redirect_to new_study_licence_url(@study)
+    end
+  end
 
   def approve
     @study.status = "approved"

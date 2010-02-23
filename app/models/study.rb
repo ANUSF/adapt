@@ -18,24 +18,31 @@ class Study < ActiveRecord::Base
   validates_presence_of :title
   validates_presence_of :abstract
 
+  validates_presence_of :data_kind, :if => :checking
+  validates_presence_of :principal_investigators, :if => :checking
+  validates_presence_of :attachments, :if => :checking
+
+  validates_each :depositors, :if => :checking do |record, attr, value|
+    if value.nil?
+      record.errors.add attr, "can't be blank."
+    elsif value['affiliation'].blank? or value['name'].blank?
+      record.errors.add attr, "must be given with both name and affiliation."
+    end
+  end
+
   accesses_via_json :additional_metadata
+
+  attr_reader :checking
 
   json_fields(*JSON_FIELDS)
 
   def status
     result = read_attribute('status')
     if result.blank? or result == "incomplete"
-      if (data_kind.blank? or
-          (data_is_quantitative == "0" and data_is_qualitative == "0") or
-          depositors.nil? or
-          depositors['affiliation'].blank? or
-          depositors['name'].blank? or
-          principal_investigators.blank? or
-          attachments.count == 0
-          )
-        "incomplete"
-      else
+      if ready_for_submission?
         "unsubmitted"
+      else
+        "incomplete"
       end
     else
       result
@@ -70,6 +77,17 @@ class Study < ActiveRecord::Base
   end
   
   protected
+
+  def ready_for_submission?
+    if data_is_quantitative == "0" and data_is_qualitative == "0"
+      result = false
+    else
+      @checking = true
+      result = valid?
+      @checking = false
+    end
+    result
+  end
 
   def self.annotate_with(name)
     define_method(name) do |column|

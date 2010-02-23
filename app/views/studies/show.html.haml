@@ -128,16 +128,12 @@
   - if @study.can_be_edited_by current_user
     = link_to "Edit", edit_study_path(@study)
     |
+    = link_to "Add a file", new_study_attachment_path(@study)
+    |
     = link_to "Delete", @study, :confirm => 'Really delete this study?', |
                                 :method => :delete |
-    /
-    |
-    = link_to "Add a file", new_study_attachment_path(@study)
-  - if @study.can_be_submitted_by current_user and @study.status == "unsubmitted"
-    |
-    /
-    = link_to "Submit", new_study_licence_path(@study), |
-        :confirm => 'Please ensure all information is complete and correct.' |
+  - if @study.can_be_submitted_by current_user
+    = button_to "Submit this study", submit_study_path(@study)
 
 - if @study.can_be_approved_by current_user
   %hr
