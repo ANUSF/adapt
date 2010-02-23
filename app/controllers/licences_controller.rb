@@ -58,7 +58,8 @@ class LicencesController < ApplicationController
     if params[:result] == "Continue"
       @licence = @study.build_licence(params[:licence])
       if @licence.save
-        flash[:notice] = "Please review and confirm."
+        flash[:notice] = "Access to the data will be " +
+          @licence.access_phrase + ". Please review and confirm."
         redirect_to @licence
       else
         flash.now[:error] =
@@ -66,7 +67,6 @@ class LicencesController < ApplicationController
         render :action => :new
       end
     else
-      @licence.destroy
       flash[:notice] = "Study not submitted."
       redirect_to @study
     end
@@ -80,11 +80,14 @@ class LicencesController < ApplicationController
   # ----------------------------------------------------------------------------
 
   def accept
-    if params[:result] == "Accept"
-      @study.update_attribute(:status, "submitted")
-      flash[:notice] = "Study submitted and pending approval."
-    else
-      flash[:notice] = "Licence not accepted."
+    if @study.status == "unsubmitted"
+      if params[:result] == "Accept"
+        @study.update_attribute(:status, "submitted")
+        flash[:notice] = "Study submitted and pending approval."
+      else
+        @licence.destroy
+        flash[:notice] = "Licence not accepted."
+      end
     end
     redirect_to @study
   end

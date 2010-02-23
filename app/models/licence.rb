@@ -59,4 +59,12 @@ class Licence < ActiveRecord::Base
     end
     text
   end
+
+  def access_phrase
+    case access_mode
+    when 'A' then "unrestricted"
+    when 'B' then "subject to written permission"
+    when 'S' then "determined according to a separate agreement"
+    end
+  end
 end

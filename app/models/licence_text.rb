@@ -67,7 +67,10 @@ module LicenceText
       University shall incur no liability, either expressed or implicit, for
       the physical materials deposited with the Archive or for the loss of
       data or information in the operation of the Archive.
-
+  - unless access_mode.blank?
+    %p== Signed: #{signed_by}
+    %p== Date: #{signed_date}
+    %p== Email: #{email}
 '
     end
   end
