@@ -1,4 +1,3 @@
-@focus
 Feature: Contributor accepts or declines licence
   In order to transfer the necessary rights on my material to ASSDA
   As a contributor
@@ -14,13 +13,13 @@ Feature: Contributor accepts or declines licence
   Scenario: Licence accepted
     When I select "S - To be negotiated" from "Access mode"
     And I press "Continue"
-    Then I should see "submitted"
-    And I should see "Study successfully submitted and pending approval."
-    And I should be on the study details page for "First Study"
+    Then I should see the page heading "Deposit Licence"
+    And I should see "Please review and confirm."
+    And I should see "Signed: Alice"
 
   Scenario: No access mode selected
     When I press "Continue"
-    Then I should see the page heading "Deposit Licence"
+    Then I should see the page heading "Licence Form"
     And I should see an error message "Please correct the fields marked in red."
     And I should see "Please select one."
 
@@ -37,7 +36,7 @@ Feature: Contributor accepts or declines licence
     And I fill in "Email" with "<email>"
     And I select "S - To be negotiated" from "Access mode"
     And I press "Continue"
-    Then I should see the page heading "Deposit Licence"
+    Then I should see the page heading "Licence Form"
     And I should see an error message "Please correct the fields marked in red."
     And I should see "<message>"
 

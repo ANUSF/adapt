@@ -2,8 +2,10 @@
 
 %pre= @licence.text false
 
-%fieldset
-  - form_tag accept_licence_url(@licence) do
-    %p
-      %input{ :name => "result", :type => "submit", :value => "Go Back" }
-      %input{ :name => "result", :type => "submit", :value => "Accept" }
+%hr
+- if @study.status == "unsubmitted"
+  %fieldset
+    - form_tag accept_licence_url(@licence) do
+      %p
+        %input{ :name => "result", :type => "submit", :value => "Go Back" }
+        %input{ :name => "result", :type => "submit", :value => "Accept" }
