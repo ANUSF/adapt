@@ -1,7 +1,7 @@
-Feature: Contributor accepts or declines licence
-  In order to transfer the necessary rights on my material to ASSDA
+Feature: Contributor signs licence form
+  In order to specify ASSDA's rights on my material
   As a contributor
-  I want to sign the licence form
+  I want to fill in and sign the licence form
 
   Background:
     Given there is a contributor account for Alice
@@ -10,25 +10,25 @@ Feature: Contributor accepts or declines licence
     And I am logged in as Alice
     And I am on the licence page for "First Study"
 
-  Scenario: Licence accepted
+  Scenario: Contributor accepts licence, which is then shown for final review
     When I select "S - To be negotiated" from "Access mode"
     And I press "Continue"
     Then I should see the page heading "Deposit Licence"
     And I should see "Please review and confirm."
     And I should see "Signed: Alice"
 
-  Scenario: No access mode selected
-    When I press "Continue"
-    Then I should see the page heading "Licence Form"
-    And I should see an error message "Please correct the fields marked in red."
-    And I should see "Please select one."
-
-  Scenario: Licence declined
+  Scenario: Contributor does not accept licence
     When I select "S - To be negotiated" from "Access mode"
     And I press "Cancel"
     Then I should be on the study details page for "First Study"
     And I should see "unsubmitted"
     And I should see "Study not submitted."
+
+  Scenario: No access mode selected
+    When I press "Continue"
+    Then I should see the page heading "Licence Form"
+    And I should see an error message "Please correct the fields marked in red."
+    And I should see "Please select one."
 
   Scenario Outline: Bad or missing form values
     When I fill in "Signed by" with "<name>"
