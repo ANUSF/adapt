@@ -41,12 +41,8 @@ class LicencesController < ApplicationController
   public
 
   def new
-    if @study.status == "incomplete"
-      flash[:error] = "Please supply all required information."
-      redirect_to @study
-    elsif @study.status != "unsubmitted"
-      flash[:error] = "This study has already been submitted."
-      redirect_to @study
+    if @study.status != "unsubmitted"
+      redirect_to submit_study_url(@study)
     else
       @licence = @study.build_licence(:signed_by => current_user.name,
                                       :email => current_user.email,
@@ -55,7 +51,12 @@ class LicencesController < ApplicationController
   end
 
   def create
-    if params[:result] == "Continue"
+    if @study.status != "unsubmitted"
+      redirect_to submit_study_url(@study)
+    elsif params[:result] == "Cancel"
+      flash[:notice] = "Study not submitted."
+      redirect_to @study
+    else
       @licence = @study.build_licence(params[:licence])
       if @licence.save
         flash[:notice] = "Access to the data will be " +
@@ -66,9 +67,6 @@ class LicencesController < ApplicationController
           "Something went wrong. Please correct the fields marked in red."
         render :action => :new
       end
-    else
-      flash[:notice] = "Study not submitted."
-      redirect_to @study
     end
   end
 
