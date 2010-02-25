@@ -24,7 +24,7 @@ class Study < ActiveRecord::Base
                         :message => '- please list at least one.'
 
   validates_each :attachments, :if => :checking do |record, attr, value|
-    if value.select { |a| a.category == "data_file" }.empty?
+    if value.select { |a| a.category == "Data File" }.empty?
       record.errors.add attr, '- please attach at least one data file.'
     end
   end
