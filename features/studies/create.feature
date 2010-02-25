@@ -24,7 +24,7 @@ Feature: Contributor creates study
     And I fill in "Study abstract" with "<abstract>"
     And I press "Submit"
     Then I should see the error message "Study creation failed"
-    And I should see "can't be blank"
+    And I should see "may not be blank"
     And I should see the page heading "New Study"
     And the "Study title" field should contain "<title>"
     And the "Study abstract" field should contain "<abstract>"
