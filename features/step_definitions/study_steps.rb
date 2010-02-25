@@ -8,5 +8,5 @@ Given /^the study "([^\"]*)" has status "([^\"]*)"$/ do |title, status|
 end
 
 When /^I submit the study "([^\"]*)"$/ do |title|
-  visit new_study_licence_path(model("study: \"#{title}\""))
+  visit submit_study_path(model("study: \"#{title}\"")), :post
 end

@@ -12,21 +12,28 @@ class Study < ActiveRecord::Base
                  :depositors, :principal_investigators, :data_producers,
                  :funding_agency, :other_acknowledgements, :references]
 
-  attr_accessible(*([:name, :title, :abstract, :additional_metadata] +
-                    JSON_FIELDS))
+  attr_accessible(*(JSON_FIELDS +
+                    [:name, :title, :abstract, :additional_metadata]))
 
-  validates_presence_of :title
-  validates_presence_of :abstract
+  validates_presence_of :title, :message => 'may not be blank.'
+  validates_presence_of :abstract, :message => 'may not be blank.'
 
-  validates_presence_of :data_kind, :if => :checking
-  validates_presence_of :principal_investigators, :if => :checking
-  validates_presence_of :attachments, :if => :checking
+  validates_presence_of :data_kind, :if => :checking,
+                        :message => '- please select one or more options.'
+  validates_presence_of :principal_investigators, :if => :checking,
+                        :message => '- please list at least one.'
+
+  validates_each :attachments, :if => :checking do |record, attr, value|
+    if value.select { |a| a.category == "data_file" }.empty?
+      record.errors.add attr, '- please attach at least one data file.'
+    end
+  end
 
   validates_each :depositors, :if => :checking do |record, attr, value|
     if value.nil?
-      record.errors.add attr, "can't be blank."
+      record.errors.add attr, "may not be blank."
     elsif value['affiliation'].blank? or value['name'].blank?
-      record.errors.add attr, "must be given with both name and affiliation."
+      record.errors.add attr, "- please provide both a name and an affiliation."
     end
   end
 
