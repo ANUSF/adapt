@@ -133,12 +133,4 @@ class StudiesController < ApplicationController
     @study.save!
     redirect_to studies_url
   end
-
-  private
-  def grab_date(s)
-    begin
-      Date.parse(s)
-    rescue
-    end
-  end
 end
