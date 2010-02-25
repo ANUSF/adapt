@@ -46,7 +46,7 @@
 
         #content
           - flash.each do |name, msg|
-            %div{ :id => "flash_#{name}" }= msg
+            %div{ :id => "flash_#{name}" }= h(msg).gsub(/\n/, '<br/>')
       
           - if show_title? and not stripped
             %h1=h yield(:title)
