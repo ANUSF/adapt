@@ -24,8 +24,10 @@ class Study < ActiveRecord::Base
                         :message => '- please list at least one.'
 
   validates_each :attachments, :if => :checking do |record, attr, value|
-    if value.select { |a| a.category == "Data File" }.empty?
-      record.errors.add attr, '- please attach at least one data file.'
+    if value.empty?
+      record.errors.add attr, '- please supply at least one data file.'
+    elsif value.select { |a| a.category == "Data File" }.empty?
+      record.errors.add attr, '- only documentation supplied, but no data.'
     end
   end
 
@@ -34,6 +36,14 @@ class Study < ActiveRecord::Base
       record.errors.add attr, "may not be blank."
     elsif value['affiliation'].blank? or value['name'].blank?
       record.errors.add attr, "- please provide both a name and an affiliation."
+    end
+  end
+
+  validates_each :data_is_quantitative, :if => :checking do
+    |record, attr, value|
+    if value == "0" and record.data_is_qualitative == "0"
+      record.errors.add "Qualitative/Quantitative Data",
+      "- please select at least one."
     end
   end
 
@@ -86,13 +96,9 @@ class Study < ActiveRecord::Base
   protected
 
   def ready_for_submission?
-    if data_is_quantitative == "0" and data_is_qualitative == "0"
-      result = false
-    else
-      @checking = true
-      result = valid?
-      @checking = false
-    end
+    @checking = true
+    result = valid?
+    @checking = false
     result
   end
 
