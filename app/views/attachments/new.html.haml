@@ -7,6 +7,6 @@
 
 - make_form_for [ @study, @attachment ], :html => {:multipart => true} do |f|
   = f.file_field :content, :label => "File to upload", :required => true
-  = f.select :category, :required => true
-  = f.text_area :description, :required => true
+  = f.check_box :category
+  = f.text_area :description
   = f.result_buttons %w{Upload Cancel}

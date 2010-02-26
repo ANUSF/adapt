@@ -10,7 +10,6 @@
 
 - make_form_for @attachment do |f|
   = f.error_messages
-  = f.select :category
-  /= f.text_field :format
+  = f.check_box :category
   = f.text_area :description
   = f.result_buttons %w{Submit Cancel}
