@@ -15,35 +15,40 @@ class Study < ActiveRecord::Base
   attr_accessible(*(JSON_FIELDS +
                     [:name, :title, :abstract, :additional_metadata]))
 
-  validates_presence_of :title, :message => 'may not be blank.'
-  validates_presence_of :abstract, :message => 'may not be blank.'
+  validates_presence_of :title, :message => '- may not be blank.'
+  validates_presence_of :abstract, :message => '- may not be blank.'
+
+  validates_each :attachments, :if => :checking do |rec, attr, val|
+    if val.empty?
+      rec.errors.add attr, '- please supply at least one data file.'
+    elsif val.select { |a| a.category == "Data File" }.empty?
+      rec.errors.add attr, '- only documentation supplied, but no data.'
+    end
+  end
+
+  validates_each :data_is_quantitative, :if => :checking do |rec, attr, val|
+    if val == "0" and rec.data_is_qualitative == "0"
+      rec.errors.add 'Data Category',
+                     '- please select qualitative, quantitative or both.'
+    end
+  end
 
   validates_presence_of :data_kind, :if => :checking,
-                        :message => '- please select one or more options.'
-  validates_presence_of :principal_investigators, :if => :checking,
-                        :message => '- please list at least one.'
+                        :message => '- please specify at least one.'
 
-  validates_each :attachments, :if => :checking do |record, attr, value|
-    if value.empty?
-      record.errors.add attr, '- please supply at least one data file.'
-    elsif value.select { |a| a.category == "Data File" }.empty?
-      record.errors.add attr, '- only documentation supplied, but no data.'
+  validates_each :depositors, :if => :checking do |rec, attr, val|
+    if val.nil? or (val['affiliation'].blank? and val['name'].blank?)
+      rec.errors.add attr, '- may not be blank.'
+    elsif val['affiliation'].blank? or val['name'].blank?
+      rec.errors.add attr, '- please provide both a name and an affiliation.'
     end
   end
 
-  validates_each :depositors, :if => :checking do |record, attr, value|
-    if value.nil?
-      record.errors.add attr, "may not be blank."
-    elsif value['affiliation'].blank? or value['name'].blank?
-      record.errors.add attr, "- please provide both a name and an affiliation."
-    end
-  end
-
-  validates_each :data_is_quantitative, :if => :checking do
-    |record, attr, value|
-    if value == "0" and record.data_is_qualitative == "0"
-      record.errors.add "Qualitative/Quantitative Data",
-      "- please select at least one."
+  validates_each :principal_investigators, :if => :checking do |rec, attr, val|
+    if val.blank?
+      rec.errors.add attr, '- please list at least one.'
+    elsif val.any? { |pi| pi['name'].blank? or pi['affiliation'].blank? }
+      rec.errors.add attr, '- please provide both names and affiliations.'
     end
   end
 
