@@ -6,15 +6,12 @@ class Attachment < ActiveRecord::Base
   after_create :write_file
   before_destroy :delete_file
 
-  validates_presence_of :description, :message => "Can't be blank."
-  validates_presence_of :category, :message => "Please select one."
-
   def selections(column)
-    column.to_sym == :category ? [ "Data File", "Documentation" ] : []
+    column.to_sym == :category ? [ "Documentation", "Data File" ] : []
   end
 
-  def empty_selection(column)
-    column.to_sym == :category ? "-- Please select --" : false
+  def label_for(column)
+    column.to_sym == :category ? "Data File" : nil
   end
 
   def content=(uploaded)
