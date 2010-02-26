@@ -23,7 +23,7 @@ Feature: Contributor submits study
   Scenario: Incomplete study
     Given the study "First Study" has status "incomplete"
     When I go to the study details page for "First Study"
-    And I press "Submit this study"
+    And I press "List missing information"
     Then I should see the page heading "Edit Study"
     And I should see an error message "not yet ready for submission"
 

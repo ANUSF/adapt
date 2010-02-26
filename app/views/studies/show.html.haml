@@ -133,7 +133,10 @@
     = link_to "Delete", @study, :confirm => 'Really delete this study?', |
                                 :method => :delete |
   - if @study.can_be_submitted_by current_user
-    = button_to "Submit this study", submit_study_path(@study)
+    - if @study.status == "incomplete"
+      = button_to "List missing information", submit_study_path(@study)
+    - elsif @study.status == "unsubmitted"
+      = button_to "Submit this study", submit_study_path(@study)
 
 - if @study.can_be_approved_by current_user
   %hr
