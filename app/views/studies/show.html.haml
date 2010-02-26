@@ -126,6 +126,8 @@
 %hr
 %p.links>
   - if @study.can_be_edited_by current_user
+    = link_to "Show DDI", study_path(@study, :format => :xml)
+    |
     = link_to "Edit", edit_study_path(@study)
     |
     = link_to "Add a file", new_study_attachment_path(@study)
