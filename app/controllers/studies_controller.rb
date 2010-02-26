@@ -81,6 +81,10 @@ class StudiesController < ApplicationController
   end
   
   def show
+    respond_to do |format|
+      format.html
+      format.xml { render :xml => @study.to_ddi }
+    end
   end
   
   def edit
