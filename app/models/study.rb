@@ -1,6 +1,4 @@
 class Study < ActiveRecord::Base
-  include StudyDDI
-
   belongs_to :owner,     :class_name => 'User', :foreign_key => :user_id
   belongs_to :archivist, :class_name => 'User', :foreign_key => :archivist_id
   belongs_to :manager,   :class_name => 'User', :foreign_key => :manager_id
