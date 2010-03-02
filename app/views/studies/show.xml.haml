@@ -1,0 +1,23 @@
+%codeBook
+  %docDscr
+    %citation
+      %titlStmt
+        %title= @study.title
+  %stdyDscr
+    %citation
+      %titlStmt
+        %title= @study.title
+    %stdyInfo
+      %abstract= @study.abstract
+      %sumDscr
+        - unless @study.period_start.blank?
+          %timePrd{ :date => @study.period_start, :event => 'start' }
+        - unless @study.period_end.blank?
+          %timePrd{ :date => @study.period_end, :event => 'end' }
+        - unless @study.collection_start.blank?
+          %timePrd{ :date => @study.collection_start, :event => 'start' }
+        - unless @study.collection_end.blank?
+          %timePrd{ :date => @study.collection_end, :event => 'end' }
+        - unless @study.sample_population.blank?
+          %universe= @study.sample_population
+        %dataKind= @study.data_kind.join(',')
