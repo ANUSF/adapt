@@ -1,3 +1,4 @@
+!!! XML
 %codeBook
   %docDscr
     %citation
@@ -7,6 +8,24 @@
     %citation
       %titlStmt
         %title= @study.title
+      %rspStmt
+        - @study.principal_investigators.each do |author|
+          %AuthEnty{ :affiliation => author['affiliation'] }
+            = author['name']
+        - @study.other_acknowledgements.each do |ack|
+          %otherId{ :role => ack['role'], :affiliation => ack['affiliation'] }
+            = ack['name']
+      %prodStmt
+        - @study.data_producers.each do |producer|
+          %producer{ :affiliation => producer['affiliation'] }
+            = producer['name']
+        - @study.funding_agency.each do |agency|
+          %fundAg= agency['agency']
+          - unless agency['grant_number'].blank?
+            %grantNo{ :agency => agency['agency'] }= agency['grant_number']
+      %distStmt
+        %depositr{ :affiliation => @study.depositors['affiliation'] }
+          = @study.depositors['name']
     %stdyInfo
       %abstract= @study.abstract
       %sumDscr
@@ -37,3 +56,13 @@
       - unless @study.response_rate.blank?
         %anlyInfo
           %respRate= @study.response_rate
+    %othrStdyMat
+      - @study.references.each do |ref|
+        %othRefs
+          %citation
+            %titlStmt
+              %titl= ref['title']
+            %rspStmt
+              %AuthEnty= ref['author']
+            %biblCit= ref['details']
+
