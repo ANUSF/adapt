@@ -20,6 +20,10 @@
           %timePrd{ :date => @study.collection_end, :event => 'end' }
         - unless @study.sample_population.blank?
           %universe= @study.sample_population
+        - if @study.data_is_quantitative == "1"
+          %dataKind Quantitative
+        - if @study.data_is_qualitative == "1"
+          %dataKind Qualitative
         - @study.data_kind.each do |kind|
           %dataKind= kind
     %method
