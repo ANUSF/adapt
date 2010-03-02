@@ -20,4 +20,16 @@
           %timePrd{ :date => @study.collection_end, :event => 'end' }
         - unless @study.sample_population.blank?
           %universe= @study.sample_population
-        %dataKind= @study.data_kind.join(',')
+        - @study.data_kind.each do |kind|
+          %dataKind= kind
+    %method
+      %dataColl
+        - @study.time_method.each do |method|
+          %timeMeth= method
+        - @study.sampling_procedure.each do |sampl|
+          %sampProc= sampl
+        - @study.collection_method.each do |mode|
+          %collMode= mode
+      - unless @study.response_rate.blank?
+        %anlyInfo
+          %respRate= @study.response_rate
