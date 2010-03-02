@@ -3,18 +3,25 @@
   %docDscr
     %citation
       %titlStmt
-        %title= @study.title
-  %stdyDscr
-    %citation
-      %titlStmt
-        %title= @study.title
+        %titl= @study.title
       %rspStmt
         - @study.principal_investigators.each do |author|
           %AuthEnty{ :affiliation => author['affiliation'] }
             = author['name']
         - @study.other_acknowledgements.each do |ack|
-          %otherId{ :role => ack['role'], :affiliation => ack['affiliation'] }
-            = ack['name']
+          %othId{ :role => ack['role'], :affiliation => ack['affiliation'] }
+            %p= ack['name']
+  %stdyDscr
+    %citation
+      %titlStmt
+        %titl= @study.title
+      %rspStmt
+        - @study.principal_investigators.each do |author|
+          %AuthEnty{ :affiliation => author['affiliation'] }
+            = author['name']
+        - @study.other_acknowledgements.each do |ack|
+          %othId{ :role => ack['role'], :affiliation => ack['affiliation'] }
+            %p= ack['name']
       %prodStmt
         - @study.data_producers.each do |producer|
           %producer{ :affiliation => producer['affiliation'] }
@@ -64,5 +71,5 @@
               %titl= ref['title']
             %rspStmt
               %AuthEnty= ref['author']
-            %biblCit= ref['details']
+            %holdings{ :URI => ref['details'] }
 
