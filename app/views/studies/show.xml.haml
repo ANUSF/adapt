@@ -46,13 +46,17 @@
       %abstract= @study.abstract
       %sumDscr
         - unless @study.period_start.blank?
-          %timePrd{ :date => @study.period_start, :event => 'start' }
+          - p_start = Date.parse(@study.period_start).to_s
+          %timePrd{ :date => p_start, :event => 'start' }
         - unless @study.period_end.blank?
-          %timePrd{ :date => @study.period_end, :event => 'end' }
+          - p_end = Date.parse(@study.period_end).to_s
+          %timePrd{ :date => p_end, :event => 'end' }
         - unless @study.collection_start.blank?
-          %collDate{ :date => @study.collection_start, :event => 'start' }
+          - c_start = Date.parse(@study.collection_start).to_s
+          %collDate{ :date => c_start, :event => 'start' }
         - unless @study.collection_end.blank?
-          %collDate{ :date => @study.collection_end, :event => 'end' }
+          - c_end = Date.parse(@study.collection_end).to_s
+          %collDate{ :date => c_end, :event => 'end' }
         - unless @study.sample_population.blank?
           %universe= @study.sample_population
         - if @study.data_is_quantitative == "1"
@@ -85,8 +89,12 @@
         - if access == 'B'
           %specPerm{ :required => "yes" }
 
-            There is a special access form. Please complete the form
-            (http://assda.anu.edu.au/???) and return it to ASSDA.
+            The depositor has requested that the user apply for
+            permission to access these data. Please complete the
+            Application to Access Restricted Data Form
+            (http://assda-nesstar.anu.edu.au/webview/ASSDAData/forms/ASSDA.FORM.ACCESSB. pdf)
+            and return it to ASSDA who will contact the depositor on
+            your behalf.
 
         - if access == 'S'
           %conditions

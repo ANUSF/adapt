@@ -36,6 +36,33 @@ class Study < ActiveRecord::Base
   validates_presence_of :data_kind, :if => :checking,
                         :message => '- please specify at least one.'
 
+  validates_each :collection_start, :collection_end, :period_start, :period_end,
+                 :if => :checking do |rec, attr, val|
+    unless val.blank?
+      date = begin Date.parse(val.strip) rescue nil end
+      if date
+        if val =~ /\b\d\d?\/\d\d?\/\d{2,4}\b/
+          rec.errors.add attr, "- ambiguous date format."
+        elsif not (1000..2999).include? date.year
+          rec.errors.add attr, "- invalid year: #{date.year}"
+        else
+          rec.send attr.to_s + "=", date.strftime("%d %h %Y")
+          opp = case attr
+                when :collection_start then :collection_end
+                when :collection_end   then :collection_start
+                when :period_start     then :period_end
+                when :period_end       then :period_start
+                end
+          if rec.send(opp).blank?
+            rec.errors.add opp, "- time period incomplete."
+          end
+        end
+      else
+        rec.errors.add attr, "- unknown date format."
+      end
+    end
+  end
+
   validates_each :depositors, :if => :checking do |rec, attr, val|
     if val.nil? or (val['affiliation'].blank? and val['name'].blank?)
       rec.errors.add attr, '- may not be blank.'
