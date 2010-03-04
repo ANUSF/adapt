@@ -113,7 +113,7 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
     yield builder.new(name, object, @template, options, block)
   end
   
-  def result_buttons(values = %w{Submit Cancel})
+  def result_buttons(values = %w{Save Cancel})
     values = [values] if values.is_a? String
     haml { '
 %p.submit
