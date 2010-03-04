@@ -34,7 +34,7 @@
           - unless agency['grant_number'].blank?
             %grantNo{ :agency => agency['agency'] }= agency['grant_number']
       %distStmt
-        %distrbtr{ :abbr => "ASSDA", |
+        %distrbtr{ :abbr => "ASSDA", URI => "http://assda.anu.edu.au", |
                    :affiliation => "The Australian National University" } |
           Australian Social Science Data Archive
         %depositr{ :affiliation => @study.depositors['affiliation'] }
@@ -50,9 +50,9 @@
         - unless @study.period_end.blank?
           %timePrd{ :date => @study.period_end, :event => 'end' }
         - unless @study.collection_start.blank?
-          %timePrd{ :date => @study.collection_start, :event => 'start' }
+          %collDate{ :date => @study.collection_start, :event => 'start' }
         - unless @study.collection_end.blank?
-          %timePrd{ :date => @study.collection_end, :event => 'end' }
+          %collDate{ :date => @study.collection_end, :event => 'end' }
         - unless @study.sample_population.blank?
           %universe= @study.sample_population
         - if @study.data_is_quantitative == "1"
@@ -100,28 +100,30 @@
           contact with colleagues of similar interests.
 
         %citReq
-          %p
 
-            All manuscripts based in whole or in part on these data
-            should:
+          All manuscripts based in whole or in part on these data
+          should:
+          :cdata
 
-          %p
+          :cdata
 
-            (i) identify the data and original investigators by using
-            the recommended bibliographic reference to the data file;
+          (i) identify the data and original investigators by using
+          the recommended bibliographic reference to the data file;
+          :cdata
 
-          %p
+          :cdata
+            
+          (ii) acknowledge the Australian Social Science Data Archive
+          and, where the data are made available through the
+          Australian Social Science Data Archive by another archive,
+          acknowledge that archive;
+          :cdata
 
-            (ii) acknowledge the Australian Social Science Data
-            Archive and, where the data are made available through the
-            Australian Social Science Data Archive by another archive,
-            acknowledge that archive;
+          :cdata
 
-          %p
-
-            (iii) declare that those who carried out the original
-            analysis and collection of the data bear no responsibility
-            for the further analysis or interpretation of them.
+          (iii) declare that those who carried out the original
+          analysis and collection of the data bear no responsibility
+          for the further analysis or interpretation of them.
 
         %deposReq
 
