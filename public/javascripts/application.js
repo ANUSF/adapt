@@ -5,19 +5,24 @@
 	// -- deals with collapsible page content
 	jQuery('.collapsible', context).hide().wrap("<div></div>").before(
           '<a href="" class="toggle noprint">[+]</a>' +
-          '<div class="proxy">&hellip;</div><div class="clear"/>');
+          '<div class="proxy">&hellip;</div><div class="clear"/>' +
+	  '<input type = "hidden" class = "state" name = "" value = "">' );
 	jQuery('.toggle', context).click(function() {
 		var link = jQuery(this);
 		var placeholder = link.parent().find('.proxy');
 		var content = link.parent().find('.collapsible');
+		var field = link.parent().find('input.state');
 		if (content.is(':visible')) {
 		    content.hide();
 		    placeholder.show();
 		    link.html('[+]');
+		    field.attr('value', 'false');
 		} else {
 		    content.show();
 		    placeholder.hide();
 		    link.html('[&ndash;]');
+		    field.attr('name', content.attr('id'));
+		    field.attr('value', 'true');
 		}
 		return false;
 	});

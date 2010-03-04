@@ -3,13 +3,13 @@
 
 - make_form_for @study do |f|
   %h3 Title and Abstract
-  .collapsible
+  .collapsible#show-title
     = f.text_area :title, :rows => 4, :required => true
     = f.text_area :abstract, :rows => 16, :required => true
 
   %hr
   %h3 Data Description
-  .collapsible
+  .collapsible#show-data
     %div
       - msg = @study.errors.on("Data Category")
       %label
@@ -45,7 +45,7 @@
 
   %hr
   %h3 Credits and Acknowledgements
-  .collapsible
+  .collapsible#show-credits
     = f.structured :depositors, :required => true
     = f.structured :principal_investigators, :required => true
     = f.structured :data_producers
