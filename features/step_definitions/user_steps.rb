@@ -6,7 +6,7 @@ Given /^I am logged in as ([a-z]+ )?(.*)$/ do |role, user|
   user = model("user: \"#{user}\"")
   visit path_to("the login page")
   fill_in "login", :with => user.username
-  click_button "Submit"
+  click_button "Login via ASSDA"
 end
 
 Given /^I am not logged in$/ do

@@ -100,7 +100,7 @@ class StudiesController < ApplicationController
 
       if @study.save
         flash[:notice] = "Changes were saved succesfully."
-        redirect_to :action => (result == "Save and continue" ? :edit : :show)
+        redirect_to :action => (result == "Refresh" ? :edit : :show)
       else
         render :action => 'edit'
       end
