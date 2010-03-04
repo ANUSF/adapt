@@ -125,8 +125,8 @@
               = " (#{item["details"]})" unless item["details"].blank?
 %hr
 %p.links>
+  = link_to "Show DDI", study_path(@study, :format => :xml)
   - if @study.can_be_edited_by current_user
-    = link_to "Show DDI", study_path(@study, :format => :xml)
     |
     = link_to "Edit", edit_study_path(@study)
     |

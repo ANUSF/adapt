@@ -4,17 +4,20 @@
     %citation
       %titlStmt
         %titl= @study.title
-      %rspStmt
-        - @study.principal_investigators.each do |author|
-          %AuthEnty{ :affiliation => author['affiliation'] }
-            = author['name']
-        - @study.other_acknowledgements.each do |ack|
-          %othId{ :role => ack['role'], :affiliation => ack['affiliation'] }
-            %p= ack['name']
+        %IDNo= @study.permanent_identifier || "au.edu.assda.ddi.xxxxx"
+      %prodStmt
+        %producer{ :abbr => "ASSDA", |
+                   :affiliation => "The Australian National University" } |
+          Australian Social Science Data Archive
+        %copyright
+          == Copyright © #{Date.today.year},
+          The Australian National University.
+          All rights reserved.
   %stdyDscr
     %citation
       %titlStmt
         %titl= @study.title
+        %IDNo= @study.permanent_identifier || "au.edu.assda.ddi.xxxxx"
       %rspStmt
         - @study.principal_investigators.each do |author|
           %AuthEnty{ :affiliation => author['affiliation'] }
@@ -31,8 +34,14 @@
           - unless agency['grant_number'].blank?
             %grantNo{ :agency => agency['agency'] }= agency['grant_number']
       %distStmt
+        %distrbtr{ :abbr => "ASSDA", |
+                   :affiliation => "The Australian National University" } |
+          Australian Social Science Data Archive
         %depositr{ :affiliation => @study.depositors['affiliation'] }
           = @study.depositors['name']
+      %verStmt
+        %verResp
+          Australian Social Science Data Archive
     %stdyInfo
       %abstract= @study.abstract
       %sumDscr
@@ -63,6 +72,76 @@
       - unless @study.response_rate.blank?
         %anlyInfo
           %respRate= @study.response_rate
+    %dataAccs
+      %useStmt
+        - access = @study.licence && @study.licence.access_mode
+
+        %confDec{ :required => "yes" }
+
+          A copy of the User Undertaking Form
+          (http://assda.anu.edu.au/accessing.html) must be signed
+          before the data can be accessed.
+
+        - if access == 'B'
+          %specPerm{ :required => "yes" }
+
+            There is a special access form. Please complete the form
+            (http://assda.anu.edu.au/???) and return it to ASSDA.
+
+        - if access == 'S'
+          %conditions
+
+            Special access conditions apply. Please contact ASSDA.
+            
+        %restrctn
+
+          The depositor may be informed (by the archive) of use being
+          made of the data, in order to comment on that use and make
+          contact with colleagues of similar interests.
+
+        %citReq
+          %p
+
+            All manuscripts based in whole or in part on these data
+            should:
+
+          %p
+
+            (i) identify the data and original investigators by using
+            the recommended bibliographic reference to the data file;
+
+          %p
+
+            (ii) acknowledge the Australian Social Science Data
+            Archive and, where the data are made available through the
+            Australian Social Science Data Archive by another archive,
+            acknowledge that archive;
+
+          %p
+
+            (iii) declare that those who carried out the original
+            analysis and collection of the data bear no responsibility
+            for the further analysis or interpretation of them.
+
+        %deposReq
+
+          In order to assemble essential information about archival
+          resources and to facilitate the exchange of information
+          about users’ research activities, individuals are required
+          to email ASSDA (assda@anu.edu.au) with the bibliographic
+          details and, where available, online links to any published
+          work (including journal articles, books or book chapters,
+          conference presentations, theses or any other publications
+          or outputs) based wholly or in part on the material.
+
+        %disclaimer
+
+          Use of the material is solely at the user's risk. The
+          depositor, The Australian National University and the
+          Australian Social Science Data Archive shall not be held
+          responsible for the accuracy and completeness of the
+          material supplied.
+
     %othrStdyMat
       - @study.references.each do |ref|
         %othRefs
