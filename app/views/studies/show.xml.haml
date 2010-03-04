@@ -45,18 +45,10 @@
     %stdyInfo
       %abstract= @study.abstract
       %sumDscr
-        - unless @study.period_start.blank?
-          - p_start = Date.parse(@study.period_start).to_s
-          %timePrd{ :date => p_start, :event => 'start' }
-        - unless @study.period_end.blank?
-          - p_end = Date.parse(@study.period_end).to_s
-          %timePrd{ :date => p_end, :event => 'end' }
-        - unless @study.collection_start.blank?
-          - c_start = Date.parse(@study.collection_start).to_s
-          %collDate{ :date => c_start, :event => 'start' }
-        - unless @study.collection_end.blank?
-          - c_end = Date.parse(@study.collection_end).to_s
-          %collDate{ :date => c_end, :event => 'end' }
+        %timePrd{ :date => date(@study.period_start), :event => 'start' }
+        %timePrd{ :date => date(@study.period_end), :event => 'end' }
+        %collDate{ :date => date(@study.collection_start), :event => 'start' }
+        %collDate{ :date => date(@study.collection_end), :event => 'end' }
         - unless @study.sample_population.blank?
           %universe= @study.sample_population
         - if @study.data_is_quantitative == "1"

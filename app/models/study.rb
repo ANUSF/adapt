@@ -39,7 +39,7 @@ class Study < ActiveRecord::Base
   validates_each :collection_start, :collection_end, :period_start, :period_end,
                  :if => :checking do |rec, attr, val|
     unless val.blank?
-      date = begin Date.parse(val.strip) rescue nil end
+      date = begin Date.parse(val.to_s.strip) rescue nil end
       if date
         if val =~ /\b\d\d?\/\d\d?\/\d{2,4}\b/
           rec.errors.add attr, "- ambiguous date format."
