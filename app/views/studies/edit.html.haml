@@ -3,15 +3,15 @@
 
 - make_form_for @study do |f|
   %h3 Title and Abstract
-  - show = params['show-title'] == 'true' ? " start-open" : ""
-  #show-title{ :class => "collapsible" + show }
+  - show = params['show-title-fields'] == 'true' ? " start-open" : ""
+  #title-fields{ :class => "collapsible" + show }
     = f.text_area :title, :rows => 4, :required => true
     = f.text_area :abstract, :rows => 16, :required => true
 
   %hr
   %h3 Data Description
-  - show = params['show-data'] == 'true' ? " start-open" : ""
-  #show-data{ :class => "collapsible" + show }
+  - show = params['show-data-fields'] == 'true' ? " start-open" : ""
+  #data-fields{ :class => "collapsible" + show }
     %div
       - msg = @study.errors.on("Data Category")
       %label
@@ -47,8 +47,8 @@
 
   %hr
   %h3 Credits and Acknowledgements
-  - show = params['show-credits'] == 'true' ? " start-open" : ""
-  #show-credits{ :class => "collapsible" + show }
+  - show = params['show-credit-fields'] == 'true' ? " start-open" : ""
+  #credit-fields{ :class => "collapsible" + show }
     = f.structured :depositors, :required => true
     = f.structured :principal_investigators, :required => true
     = f.structured :data_producers
