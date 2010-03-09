@@ -1,16 +1,26 @@
 - title "Edit Study #{@study.name||""}"
 - stylesheet :forms
 
-- make_form_for @study do |f|
+- make_form_for @study do |form|
   %h3 Title and Abstract
-  - show = params['show-title-fields'] == 'true' ? " start-open" : ""
+  - show = @show_title_fields ? " start-open" : ""
   #title-fields{ :class => "collapsible" + show }
-    = f.text_area :title, :rows => 4, :required => true
-    = f.text_area :abstract, :rows => 16, :required => true
+    = form.text_area :title, :rows => 4, :required => true
+    = form.text_area :abstract, :rows => 16, :required => true
 
   %hr
+  %h3 Licence Details
+  - show = @show_licence_fields ? " start-open" : ""
+  #licence-fields{ :class => "collapsible" + show }
+    - form.fields_for :licence, @study.licence do |fields|
+      = fields.text_field :signed_by, :required => true
+      = fields.text_field :signed_date, :required => true
+      = fields.text_field :email, :required => true
+      = fields.select :access_mode, :required => true
+      
+  %hr
   %h3 Data Description
-  - show = params['show-data-fields'] == 'true' ? " start-open" : ""
+  - show = @show_data_fields ? " start-open" : ""
   #data-fields{ :class => "collapsible" + show }
     %div
       - msg = @study.errors.on("Data Category")
@@ -20,41 +30,41 @@
         - unless msg.blank?
           %em= msg
       %br
-      = f.check_box :data_is_qualitative
-      = f.check_box :data_is_quantitative
+      = form.check_box :data_is_qualitative
+      = form.check_box :data_is_quantitative
     .row
-      = f.select :data_kind, :required => true
-      = f.select :time_method
+      = form.select :data_kind, :required => true
+      = form.select :time_method
     .clear
-    = f.text_area :sample_population
+    = form.text_area :sample_population
     .row
-      = f.text_field :period_start, :size => 12
+      = form.text_field :period_start, :size => 12
       .form-field &mdash;
-      = f.text_field :period_end, :size => 12
+      = form.text_field :period_end, :size => 12
       .form-field Time period data refers to
     .clear
-    = f.text_field :response_rate
+    = form.text_field :response_rate
     .row
-      = f.select :sampling_procedure
-      = f.select :collection_method
+      = form.select :sampling_procedure
+      = form.select :collection_method
     .clear
     .row
-      = f.text_field :collection_start, :size => 12
+      = form.text_field :collection_start, :size => 12
       .form-field &mdash;
-      = f.text_field :collection_end, :size => 12
+      = form.text_field :collection_end, :size => 12
       .form-field Data collection period
   .clear
 
   %hr
   %h3 Credits and Acknowledgements
-  - show = params['show-credit-fields'] == 'true' ? " start-open" : ""
+  - show = @show_credit_fields ? " start-open" : ""
   #credit-fields{ :class => "collapsible" + show }
-    = f.structured :depositors, :required => true
-    = f.structured :principal_investigators, :required => true
-    = f.structured :data_producers
-    = f.structured :funding_agency
-    = f.structured :other_acknowledgements, :size => 22
-    = f.structured :references, :size => 22
+    = form.structured :depositors, :required => true
+    = form.structured :principal_investigators, :required => true
+    = form.structured :data_producers
+    = form.structured :funding_agency
+    = form.structured :other_acknowledgements, :size => 22
+    = form.structured :references, :size => 22
 
   %hr
-  %p= f.result_buttons ['Refresh', 'Save', 'Cancel']
+  %p= form.result_buttons ['Refresh', 'Save', 'Cancel']
