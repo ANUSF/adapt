@@ -4,7 +4,7 @@ class StudiesController < ApplicationController
   # ----------------------------------------------------------------------------
 
   # -- find referenced study before performing authorization
-  before_authorization_filter :find_study, :except => [ :index, :new ]
+  before_authorization_filter :find_study, :except => [ :index, :new, :create ]
 
   # -- declare access permissions via the 'verboten' plugin
   permit :index, :new, :create,    :if => :logged_in
@@ -12,6 +12,8 @@ class StudiesController < ApplicationController
   permit :edit, :update, :destroy, :if => :may_edit
   permit :submit,                  :if => :may_submit
   permit :approve,                 :if => :may_approve
+
+  before_filter :set_view_options, :only => [ :edit, :update ]
 
   protected
 
@@ -38,6 +40,25 @@ class StudiesController < ApplicationController
   # Whether the current user may approve the referenced study.
   def may_approve
     @study and @study.can_be_approved_by current_user
+  end
+
+  def set_view_options
+    if params['show-title-fields']
+      session['study_title_fields'] = params['show-title-fields'] == 'true'
+    end
+    if params['show-licence-fields']
+      session['study_licence_fields'] = params['show-licence-fields'] == 'true'
+    end
+    if params['show-data-fields']
+      session['study_data_fields'] = params['show-data-fields'] == 'true'
+    end
+    if params['show-credit-fields']
+      session['study_credit_fields'] = params['show-credit-fields'] == 'true'
+    end
+    @show_title_fields   = session['study_title_fields']
+    @show_licence_fields = session['study_licence_fields']
+    @show_data_fields    = session['study_data_fields']
+    @show_credit_fields  = session['study_credit_fields']
   end
 
   # ----------------------------------------------------------------------------
@@ -88,6 +109,9 @@ class StudiesController < ApplicationController
   end
   
   def edit
+    @study.licence ||= Licence.new(:signed_by => current_user.name,
+                                   :email => current_user.email,
+                                   :signed_date => Date.today.inspect)
   end
   
   def update
@@ -96,15 +120,12 @@ class StudiesController < ApplicationController
       flash[:notice] = "Edit cancelled."
       redirect_to @study
     else
-      @study.attributes = params[:study]
+      okay = @study.update_attributes(params[:study]) and
+        @study.create_licence(params[:licence])
+      flash[:notice] = "Changes were saved succesfully." if okay
 
-      if @study.save
-        flash[:notice] = "Changes were saved succesfully."
-        if result == "Refresh"
-          render :action => 'edit'
-        else
-          redirect_to @study
-        end
+      if okay and result != "Refresh"
+        redirect_to @study
       else
         render :action => 'edit'
       end
@@ -126,6 +147,9 @@ class StudiesController < ApplicationController
       flash.now[:error] =
         "This study is not yet ready for submission:\n\n" +
         @study.errors.full_messages.join("\n")
+      @study.licence ||= Licence.new(:signed_by => current_user.name,
+                                     :email => current_user.email,
+                                     :signed_date => Date.today.inspect)
       render :action => :edit
     elsif @study.status != "unsubmitted"
       flash[:error] = "This study has already been submitted."
