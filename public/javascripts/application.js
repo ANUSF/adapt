@@ -7,6 +7,18 @@
           '<a href="" class="toggle noprint">[+]</a>' +
           '<div class="proxy">&hellip;</div><div class="clear"/>' +
 	  '<input type = "hidden" class = "state" name = "" value = "">' );
+	jQuery('.collapsible.start-open', context).each(function() {
+		var content = jQuery(this);
+		var placeholder = content.parent().find('.proxy');
+		var link = content.parent().find('.toggle');
+		var field = content.parent().find('input.state');
+
+		content.show();
+		placeholder.hide();
+		link.html('[&ndash;]');
+		field.attr('name', content.attr('id'));
+		field.attr('value', 'true');
+	});
 	jQuery('.toggle', context).click(function() {
 		var link = jQuery(this);
 		var placeholder = link.parent().find('.proxy');
