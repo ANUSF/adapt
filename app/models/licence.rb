@@ -5,22 +5,28 @@ class Licence < ActiveRecord::Base
 
   attr_accessible :signed_by, :email, :access_mode, :signed_date
 
-  validates_presence_of :signed_by, :message => "Name required."
-  validates_presence_of :email, :message => "Contact email required."
-  validates_presence_of :access_mode, :message => "Please select one."
-  validates_presence_of :signed_date, :message => "Date required."
+  validates_presence_of :signed_by, :if => :checking,
+    :message => "Name required."
+  validates_presence_of :email, :if => :checking,
+    :message => "Contact email required."
+  validates_presence_of :access_mode, :if => :checking,
+    :message => "Please select one."
+  validates_presence_of :signed_date, :if => :checking,
+    :message => "Date required."
 
-  validates_format_of   :signed_by,
-    :with => /\A[\w -]*\Z/,
+  validates_format_of   :signed_by, :with => /\A[\w -]*\Z/,
+    :if => :checking,
     :message => "Invalid name - only letters, spaces and hyphens are allowed."
-  validates_format_of   :signed_by,
-    :with => /\A[^\d_]*\Z/,
+  validates_format_of   :signed_by, :with => /\A[^\d_]*\Z/,
+    :if => :checking,
     :message => "Invalid name - only letters, spaces and hyphens are allowed."
   validates_format_of   :email,
     :with => /\A([A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4})?\Z/i,
+    :if => :checking,
     :message => "Invalid email address."
 
   validates_inclusion_of :access_mode, :in => ['', 'A', 'B', 'S'],
+                         :if => :checking,
                          :message => "Value must be A, B or S."
 
   validates_each :signed_date do |record, attr, value|
@@ -35,6 +41,8 @@ class Licence < ActiveRecord::Base
       record.errors.add attr, "Unknown date format."
     end
   end
+
+  attr_reader :checking
 
   def selections(column)
     case column.to_sym
@@ -66,5 +74,14 @@ class Licence < ActiveRecord::Base
     when 'B' then "subject to written permission"
     when 'S' then "determined according to a separate agreement"
     end
+  end
+  
+  protected
+
+  def ready_for_submission?
+    @checking = true
+    result = valid?
+    @checking = false
+    result
   end
 end

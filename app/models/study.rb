@@ -131,7 +131,7 @@ class Study < ActiveRecord::Base
     @checking = true
     result = valid?
     @checking = false
-    result
+    result and licence and licence.ready_for_submission?
   end
 
   def self.annotate_with(name)
