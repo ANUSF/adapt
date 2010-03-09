@@ -121,7 +121,7 @@ class StudiesController < ApplicationController
       redirect_to @study
     else
       okay = @study.update_attributes(params[:study]) and
-        @study.create_licence(params[:licence])
+        @study.licence.update_attributes(params[:licence])
       flash[:notice] = "Changes were saved succesfully." if okay
 
       if okay and result != "Refresh"
@@ -147,9 +147,6 @@ class StudiesController < ApplicationController
       flash.now[:error] =
         "This study is not yet ready for submission:\n\n" +
         @study.errors.full_messages.join("\n")
-      @study.licence ||= Licence.new(:signed_by => current_user.name,
-                                     :email => current_user.email,
-                                     :signed_date => Date.today.inspect)
       render :action => :edit
     elsif @study.status != "unsubmitted"
       flash[:error] = "This study has already been submitted."
