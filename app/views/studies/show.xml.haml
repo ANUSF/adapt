@@ -73,20 +73,19 @@
       %useStmt
         - access = @study.licence && @study.licence.access_mode
 
-        %confDec{ :required => "yes", :URI => "/accessing.html" }
+        %confDec{ :required => "yes", :URI => "/accessing.jsp" }
 
           A copy of the User Undertaking Form must be signed before
           the data can be accessed.
 
         - if access == 'B'
-          %specPerm{ :required => "yes" }
+          %specPerm{ :required => "yes", |
+                     :URI => "/ASSDAData/forms/ASSDA.FORM.ACCESSB.pdf" } |
 
             The depositor has requested that the user apply for
             permission to access these data. Please complete the
-            Application to Access Restricted Data Form
-            (http://assda-nesstar.anu.edu.au/webview/ASSDAData/forms/ASSDA.FORM.ACCESSB. pdf)
-            and return it to ASSDA who will contact the depositor on
-            your behalf.
+            Application to Access Restricted Data Form and return it
+            to ASSDA who will contact the depositor on your behalf.
 
         - if access == 'S'
           %conditions
