@@ -156,7 +156,8 @@ class StudiesController < ApplicationController
       flash[:error] = "This study has already been submitted."
       redirect_to @study
     else
-      flash[:notice] = "Please review and confirm."
+      flash[:notice] = "Access to the data will be " +
+        @study.licence.access_phrase + ". Please review and confirm."
       redirect_to @study.licence
     end
   end
