@@ -3,7 +3,7 @@ Feature: Contributor submits study
   In order to have my work added to ASSDA's collection and to understand
     ASSDA's policies regarding the data I submit
   As a contributor
-  I want to submit a completed studie entry and be presented the license form
+  I want to submit a completed study entry and be presented the license form
     for review
 
   Background:
