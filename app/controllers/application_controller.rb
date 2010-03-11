@@ -9,15 +9,15 @@ class ApplicationController < ActionController::Base
   # -- makes these controller methods available in views
   helper_method :current_user, :in_demo_mode, :users_may_change_roles
  
-  # -- this handles session expiration, invalid IP addresses, etc.
-  around_filter :validate_session
-
   # -- forbids all access not explicitly granted ('verboten' plugin)
   forbid_everything
 
   # -- protects from CSRF attacks via an authenticity token
   protect_from_forgery
   filter_parameter_logging :authenticity_token
+
+  # -- this handles session expiration, invalid IP addresses, etc.
+  around_filter :validate_session
 
   
   private

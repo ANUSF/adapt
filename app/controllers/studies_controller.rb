@@ -156,7 +156,8 @@ class StudiesController < ApplicationController
       flash[:error] = "This study has already been submitted."
       redirect_to @study
     else
-      redirect_to new_study_licence_url(@study)
+      flash[:notice] = "Please review and confirm."
+      redirect_to @study.licence
     end
   end
 

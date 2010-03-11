@@ -8,8 +8,9 @@ class LicencesController < ApplicationController
   before_authorization_filter :find_licence, :except => [ :new, :create ]
 
   # -- declare access permissions via the 'verboten' plugin
-  permit :new, :create, :if => :may_create
-  permit :show,         :if => :may_view
+  #    (new and create are currently disabled and may be found obsolete)
+  permit :show,   :if => :may_view
+  permit :accept, :if => :may_create
 
   private
 
@@ -83,8 +84,7 @@ class LicencesController < ApplicationController
         @study.update_attribute(:status, "submitted")
         flash[:notice] = "Study submitted and pending approval."
       else
-        @licence.destroy
-        flash[:notice] = "Licence not accepted."
+        flash[:notice] = "The study has not yet been submitted."
       end
     end
     redirect_to @study
