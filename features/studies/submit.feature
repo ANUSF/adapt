@@ -3,22 +3,22 @@ Feature: Contributor submits study
   In order to have my work added to ASSDA's collection and to understand
     ASSDA's policies regarding the data I submit
   As a contributor
-  I want to submit a completed studie entry and be presented a license form
-    for me to sign
+  I want to submit a completed studie entry and be presented the license form
+    for review
 
   Background:
     Given there is a contributor account for Alice
     And Alice has a study entitled "First Study"
     And I am logged in as Alice
 
-  Scenario: License form is shown
+  Scenario: License form is shown for review
     Given the study "First Study" has status "unsubmitted"
+    And the study "First Study" has access mode "A"
     When I go to the study details page for "First Study"
     And I press "Submit this study"
-    Then I should see the page heading "Licence Form"
-    And I should see "As the owner of the copyright in this material"
-    And I should see a "Continue" button
-    And I should see a "Cancel" button
+    Then I should see the page heading "Deposit Licence"
+    And I should see "Please review and confirm."
+    And I should see "Signed: Alice"
 
   Scenario: Incomplete study
     Given the study "First Study" has status "incomplete"
