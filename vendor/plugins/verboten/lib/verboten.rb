@@ -35,7 +35,8 @@ module Verboten
           allowed = self.send :permitted, action_name, params
           options = {}
         else
-          options = self.class.permission_settings[action_name.to_sym] || {}
+          options = self.class.permission_settings[action_name.to_sym] ||
+            { :if => false }
           allowed = case options[:if]
                     when nil    then true
                     when Proc   then options[:if].call(self)
@@ -62,5 +63,7 @@ class ActionController::Base
 
     extend Verboten::ClassMethods
     include Verboten::InstanceMethods
+
+    before_filter :authorize
   end
 end
