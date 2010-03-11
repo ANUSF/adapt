@@ -19,17 +19,17 @@
         %titl= @study.title
         %IDNo= @study.permanent_identifier || "au.edu.assda.ddi.xxxxx"
       %rspStmt
-        - @study.principal_investigators.each do |author|
+        - each @study.principal_investigators do |author|
           %AuthEnty{ :affiliation => author['affiliation'] }
             = author['name']
-        - @study.other_acknowledgements.each do |ack|
+        - each @study.other_acknowledgements do |ack|
           %othId{ :role => ack['role'], :affiliation => ack['affiliation'] }
             %p= ack['name']
       %prodStmt
-        - @study.data_producers.each do |producer|
+        - each @study.data_producers do |producer|
           %producer{ :affiliation => producer['affiliation'] }
             = producer['name']
-        - @study.funding_agency.each do |agency|
+        - each @study.funding_agency do |agency|
           %fundAg= agency['agency']
           - unless agency['grant_number'].blank?
             %grantNo{ :agency => agency['agency'] }= agency['grant_number']
@@ -37,8 +37,9 @@
         %distrbtr{ :abbr => "ASSDA", URI => "http://assda.anu.edu.au", |
                    :affiliation => "The Australian National University" } |
           Australian Social Science Data Archive
-        %depositr{ :affiliation => @study.depositors['affiliation'] }
-          = @study.depositors['name']
+        -unless @study.depositors.blank?
+          %depositr{ :affiliation => @study.depositors['affiliation'] }
+            = @study.depositors['name']
       %verStmt
         %verResp
           Australian Social Science Data Archive
@@ -55,15 +56,15 @@
           %dataKind Quantitative
         - if @study.data_is_qualitative == "1"
           %dataKind Qualitative
-        - @study.data_kind.each do |kind|
+        - each @study.data_kind do |kind|
           %dataKind= kind
     %method
       %dataColl
-        - @study.time_method.each do |method|
+        - each @study.time_method do |method|
           %timeMeth= method
-        - @study.sampling_procedure.each do |sampl|
+        - each @study.sampling_procedure do |sampl|
           %sampProc= sampl
-        - @study.collection_method.each do |mode|
+        - each @study.collection_method do |mode|
           %collMode= mode
       - unless @study.response_rate.blank?
         %anlyInfo
@@ -72,11 +73,10 @@
       %useStmt
         - access = @study.licence && @study.licence.access_mode
 
-        %confDec{ :required => "yes" }
+        %confDec{ :required => "yes", :URI => "/accessing.html" }
 
-          A copy of the User Undertaking Form
-          (http://assda.anu.edu.au/accessing.html) must be signed
-          before the data can be accessed.
+          A copy of the User Undertaking Form must be signed before
+          the data can be accessed.
 
         - if access == 'B'
           %specPerm{ :required => "yes" }
@@ -145,7 +145,7 @@
           material supplied.
 
     %othrStdyMat
-      - @study.references.each do |ref|
+      - each @study.references do |ref|
         %othRefs
           %citation
             %titlStmt
@@ -153,4 +153,3 @@
             %rspStmt
               %AuthEnty= ref['author']
             %holdings{ :URI => ref['details'] }
-
