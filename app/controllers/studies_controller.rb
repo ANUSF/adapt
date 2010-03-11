@@ -14,6 +14,7 @@ class StudiesController < ApplicationController
   permit :approve,                 :if => :may_approve
 
   before_filter :set_view_options, :only => [ :edit, :update ]
+  before_filter :ensure_licence,   :only => [ :edit, :submit ]
 
   protected
 
@@ -59,6 +60,12 @@ class StudiesController < ApplicationController
     @show_licence_fields = session['study_licence_fields']
     @show_data_fields    = session['study_data_fields']
     @show_credit_fields  = session['study_credit_fields']
+  end
+
+  def ensure_licence
+    @study.licence ||= Licence.new(:signed_by => current_user.name,
+                                   :email => current_user.email,
+                                   :signed_date => Date.today.inspect)
   end
 
   # ----------------------------------------------------------------------------
@@ -109,9 +116,6 @@ class StudiesController < ApplicationController
   end
   
   def edit
-    @study.licence ||= Licence.new(:signed_by => current_user.name,
-                                   :email => current_user.email,
-                                   :signed_date => Date.today.inspect)
   end
   
   def update
