@@ -38,8 +38,8 @@ class Study < ActiveRecord::Base
   validates_presence_of :data_kind, :if => :checking,
                         :message => '- please specify at least one.'
 
-  validates_each :collection_start, :collection_end, :period_start, :period_end,
-                 :if => :checking do |rec, attr, val|
+  validates_each :collection_start, :collection_end,
+                 :period_start, :period_end do |rec, attr, val|
     if (not val.blank?) and (date = rec.parse_and_validate_date(attr, val))
       rec.send attr.to_s + "=", date.strftime("%d %h %Y")
       opp = case attr
