@@ -30,7 +30,7 @@ class Licence < ActiveRecord::Base
                          :if => :checking,
                          :message => "Value must be A, B or S."
 
-  validates_each :signed_date, :if => :checking do |record, attr, value|
+  validates_each :signed_date do |record, attr, value|
     record.parse_and_validate_date(attr, value, Date.today.year - 1)
   end
 
