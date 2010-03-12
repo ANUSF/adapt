@@ -1,4 +1,6 @@
 class Study < ActiveRecord::Base
+  include ModelSupport
+
   belongs_to :owner,     :class_name => 'User', :foreign_key => :user_id
   belongs_to :archivist, :class_name => 'User', :foreign_key => :archivist_id
   belongs_to :manager,   :class_name => 'User', :foreign_key => :manager_id
@@ -38,28 +40,15 @@ class Study < ActiveRecord::Base
 
   validates_each :collection_start, :collection_end, :period_start, :period_end,
                  :if => :checking do |rec, attr, val|
-    unless val.blank?
-      date = begin Date.parse(val.to_s.strip) rescue nil end
-      if date
-        if val =~ /\b\d\d?\/\d\d?\/\d{2,4}\b/
-          rec.errors.add attr, "- ambiguous date format."
-        elsif not (1000..2999).include? date.year
-          rec.errors.add attr, "- invalid year: #{date.year}"
-        else
-          rec.send attr.to_s + "=", date.strftime("%d %h %Y")
-          opp = case attr
-                when :collection_start then :collection_end
-                when :collection_end   then :collection_start
-                when :period_start     then :period_end
-                when :period_end       then :period_start
-                end
-          if rec.send(opp).blank?
-            rec.errors.add opp, "- time period incomplete."
-          end
-        end
-      else
-        rec.errors.add attr, "- unknown date format."
-      end
+    if (not val.blank?) and (date = rec.parse_and_validate_date(attr, val))
+      rec.send attr.to_s + "=", date.strftime("%d %h %Y")
+      opp = case attr
+            when :collection_start then :collection_end
+            when :collection_end   then :collection_start
+            when :period_start     then :period_end
+            when :period_end       then :period_start
+            end
+      rec.errors.add opp, "- time period incomplete." if rec.send(opp).blank?
     end
   end
 
@@ -87,7 +76,7 @@ class Study < ActiveRecord::Base
 
   def status
     result = read_attribute('status')
-    if result.blank? or result == "incomplete"
+    if result.blank? or %w{incomplete unsubmitted}.include? result
       if ready_for_submission?
         "unsubmitted"
       else

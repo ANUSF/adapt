@@ -1,4 +1,5 @@
 class Licence < ActiveRecord::Base
+  include ModelSupport
   include LicenceText
 
   belongs_to :study
@@ -29,17 +30,8 @@ class Licence < ActiveRecord::Base
                          :if => :checking,
                          :message => "Value must be A, B or S."
 
-  validates_each :signed_date do |record, attr, value|
-    date = begin Date.parse(value) rescue nil end
-    if date
-      if value =~ /\b\d\d?\/\d\d?\/\d{2,4}\b/
-        record.errors.add attr, "Ambiguous date format."
-      elsif not (2010..2999).include? date.year
-        record.errors.add attr, "Invalid year: #{date.year}"
-      end
-    else
-      record.errors.add attr, "Unknown date format."
-    end
+  validates_each :signed_date, :if => :checking do |record, attr, value|
+    record.parse_and_validate_date(attr, value, Date.today.year - 1)
   end
 
   attr_reader :checking
