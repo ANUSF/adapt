@@ -1,6 +1,7 @@
 *.war
 *~
 
+/coverage/*
 /db/db_*
 /public/stylesheets/*.css
 

@@ -92,8 +92,7 @@ class PartialDate
           case (val = args[0])
           when Date, Time, PartialDate then [val.year, val.month, val.day]
           when String                  then PartialDate::parse(val)
-          when Integer                 then [val]
-          when Year                    then [val.to_i]
+          when Integer, Year           then [val]
           else
             raise "Expected integer, string or date; got #{val.class}."
           end
@@ -109,11 +108,11 @@ class PartialDate
   end
 
   def to_s
-    [year, month, day].compact.map(&:to_s).join "-"
+    [year, month, day].compact.map { |x| x.to_s }.join "-"
   end
 
   def pretty
-    [day, month && month.short_name, year].compact.map(&:to_s).join " "
+    [day, month && month.short_name, year].compact.map { |x| x.to_s }.join " "
   end
 
   def to_date
