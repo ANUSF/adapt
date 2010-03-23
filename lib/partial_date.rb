@@ -2,14 +2,14 @@ require 'delegate'
 
 class PartialDate
   class Year < DelegateClass(Integer)
-    def initialize(x)
-      case x
-      when 0       then raise "There was no year 0."
-      when Year    then val = x.to_i
-      when Integer then val = x
-      else              raise "Expected an integer or year; got #{x.class}."
-      end
-      super(val)
+    def initialize(val)
+      super case val
+            when 0       then raise "There was no year 0."
+            when Year    then val.to_i
+            when Integer then val
+            else
+              raise "Expected an integer or year; got #{val.class}."
+            end
     end
 
     def to_s
@@ -67,15 +67,15 @@ class PartialDate
 
   class Day < DelegateClass(Integer)
     def initialize(val)
-      case val
-      when Integer
-        raise "Day must be between 1 and 31." unless (1..31).include? val
-      when Day
-        val = val.to_i
-      else
-        raise "Expected integer or day; got #{val.class}."
-      end
-      super(val)
+      super case val
+            when Integer
+              raise "Day must be between 1 and 31." unless (1..31).include? val
+              val
+            when Day
+              val.to_i
+            else
+              raise "Expected integer or day; got #{val.class}."
+            end
     end
 
     def to_s
@@ -101,7 +101,7 @@ class PartialDate
           args
         end
 
-    @year = Year.new x[0]
+    @year  = Year.new(x[0])
     @month = Month.new(x[1]) if x[1]
     @day   = Day.new(x[2])   if x[2]
     assert_legal_date
@@ -125,17 +125,14 @@ class PartialDate
   def assert_legal_date
     #TODO support other dates for adoption of Gregorian calendar
 
-    leap = year % 4 == 0 and (year < 1753 or year % 100 != 0 or year % 400 == 0)
-
+    leap = (year % 4 == 0 and
+            (year < 1753 or year % 100 != 0 or year % 400 == 0))
     if day
-      if month
-        if month == 2 and day == 29 and not leap
-          raise "#{year} is not a leap year."
-        elsif day > month.number_of_days
-          raise "#{month.long_name} does not have #{day} days."
-        end
-      else
-        raise "Can't have a day without a month." unless month
+      raise "Can't have a day without a month." unless month
+      if month == 2 and day == 29 and not leap
+        raise "#{year} is not a leap year."
+      elsif day > month.number_of_days
+        raise "#{month.long_name} does not have #{day} days."
       end
       if year == 1752 and month == 9 and (3..13).include? day
         raise "Give us our eleven days!"
