@@ -93,7 +93,7 @@ class Study < ActiveRecord::Base
   end
 
   def can_be_viewed_by(person)
-    case person.role
+    case person && person.role
     when 'contributor' then person == owner
     when 'archivist'   then true
     when 'admin'       then true
@@ -102,7 +102,7 @@ class Study < ActiveRecord::Base
   end
 
   def can_be_edited_by(person)
-    case person.role
+    case person && person.role
     when 'contributor' then person == owner and
                             %w{incomplete unsubmitted}.include? status
     when 'archivist'   then person == archivist
@@ -116,7 +116,7 @@ class Study < ActiveRecord::Base
   end
   
   def can_be_approved_by(person)
-    person.role == 'admin' and (manager == person or manager == nil)
+    (person && person.role) == 'admin' and (manager == person or manager.nil?)
   end
   
   protected
