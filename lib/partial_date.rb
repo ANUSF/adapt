@@ -121,6 +121,14 @@ class PartialDate
     Date.new *([year, month, day].compact)
   end
 
+  def after?(other_date)
+    other = PartialDate.new other_date
+    from = [other.year, other.month, other.day].compact
+    to = [year, month, day].compact
+    n = [from.length, to.length].min
+    (from[0...n] <=> to[0...n]) < 0
+  end
+
   private
 
   def assert_legal_date
