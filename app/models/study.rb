@@ -49,6 +49,11 @@ class Study < ActiveRecord::Base
             when :period_end       then :period_start
             end
       rec.errors.add opp, "- time period incomplete." if rec.send(opp).blank?
+      if [:collection_end, :period_end].include? attr
+        unless date.after? PartialDate.new(rec.send(opp))
+          rec.errors.add attr, "- end date must be after begin date"
+        end
+      end
     end
   end
 
