@@ -1,10 +1,6 @@
 module StudiesHelper
   def date(date_string)
-    if date_string.strip =~ /\A\d{4}\z/
-      Date.new(date_string.to_i)
-    else
-      begin Date.parse(date_string) rescue nil end
-    end.to_s
+    begin PartialDate.new(date_string) rescue nil end.to_s
   end
 
   def each(list, &block)
