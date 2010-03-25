@@ -3,13 +3,14 @@ require 'delegate'
 class PartialDate
   class Year < DelegateClass(Integer)
     def initialize(val)
-      super case val
+      num = case val
             when 0       then raise "There was no year 0."
             when Year    then val.to_i
             when Integer then val
             else
               raise "Expected an integer or year; got #{val.class}."
             end
+      super(num)
     end
 
     def to_s
@@ -67,7 +68,7 @@ class PartialDate
 
   class Day < DelegateClass(Integer)
     def initialize(val)
-      super case val
+      num = case val
             when Integer
               raise "Day must be between 1 and 31." unless (1..31).include? val
               val
@@ -76,6 +77,7 @@ class PartialDate
             else
               raise "Expected integer or day; got #{val.class}."
             end
+      super(num)
     end
 
     def to_s
@@ -156,7 +158,7 @@ class PartialDate
       assert_format(a[1], SEPARATOR, "separator")
       if a[0] =~ MONTH and not a[2] =~ MONTH_STR
         resolve(date_string, a[0], a[2], nil)
-      elsif a[2] =~ MONTH
+      elsif a[2] =~ MONTH and not a[0] =~ MONTH_STR
         resolve(date_string, a[2], a[0], nil)
       else
         unknown date_string
@@ -168,9 +170,9 @@ class PartialDate
         [resolve_year(a[0]), resolve_month(a[2]), resolve_day(a[4])]
       elsif a[0] =~ MONTH and not (a[2] =~ MONTH_STR or a[4] =~ MONTH_STR)
         resolve(date_string, a[0], a[2], a[4])
-      elsif a[2] =~ MONTH and not a[4] =~ MONTH_STR
+      elsif a[2] =~ MONTH and not (a[0] =~ MONTH_STR or a[4] =~ MONTH_STR)
         resolve(date_string, a[2], a[4], a[0])
-      elsif a[4] =~ MONTH
+      elsif a[4] =~ MONTH and not (a[0] =~ MONTH_STR or a[2] =~ MONTH_STR)
         resolve(date_string, a[4], a[0], a[2])
       else
         unknown date_string

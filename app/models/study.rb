@@ -41,7 +41,7 @@ class Study < ActiveRecord::Base
   validates_each :collection_start, :collection_end,
                  :period_start, :period_end do |rec, attr, val|
     if (not val.blank?) and (date = rec.parse_and_validate_date(attr, val))
-      rec.send attr.to_s + "=", date.strftime("%d %h %Y")
+      rec.send attr.to_s + "=", date.pretty
       opp = case attr
             when :collection_start then :collection_end
             when :collection_end   then :collection_start
