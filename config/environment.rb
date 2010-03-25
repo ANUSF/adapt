@@ -30,6 +30,7 @@ Rails::Initializer.run do |config|
   config.gem "RedCloth"
   config.gem "nokogiri"
   config.gem "partial-date"
+  config.gem "verboten"
 
   # -- This must be set in warble.rb for some reason
   #config.gem "activerecord-jdbcsqlite3-adapter"
