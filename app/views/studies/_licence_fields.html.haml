@@ -1,8 +1,9 @@
-- show = @show_licence_fields ? " start-open" : ""
-#licence-fields{ :class => "collapsible" + show }
+#licence-fields
+  %h3 Licence Details
   %pre= @study.licence.text false
   - @form.fields_for :licence, @study.licence do |fields|
     = fields.text_field :signed_by, :required => true
     = fields.text_field :signed_date, :required => true
     = fields.text_field :email, :required => true
     = fields.select :access_mode, :required => true
+  %hr

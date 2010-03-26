@@ -3,20 +3,24 @@
 
 - make_form_for @study do |form|
   - @form = form
-  %h3 Title and Abstract
-  = render 'title_fields'
 
-  %hr
-  %h3 Licence Details
-  = render 'licence_fields'
-      
-  %hr
-  %h3 Data Description
-  = render 'data_fields'
+  .tabs-container
+    %ul{ :style => 'display: none' }
+      %li
+        %a{ :href => '#title-fields' }
+          %span Title and Abstract
+      %li
+        %a{ :href => '#licence-fields' }
+          %span Licence Details
+      %li
+        %a{ :href => '#data-fields' }
+          %span Data Description
+      %li
+        %a{ :href => '#credit-fields' }
+          %span Credits and Acknowledgements
 
-  %hr
-  %h3 Credits and Acknowledgements
-  = render 'credit_fields'
-
-  %hr
-  %p= form.result_buttons ['Refresh', 'Save', 'Cancel']
+    = render 'title_fields'
+    = render 'licence_fields'
+    = render 'data_fields'
+    = render 'credit_fields'
+    %p= form.result_buttons ['Refresh', 'Save', 'Cancel']
