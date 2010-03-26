@@ -50,7 +50,25 @@
 		jQuery(this).parent().find('.collapsible')
 		    .removeClass('toggle-hide');
 	    });
-		
+	
+	// -- handles tabs
+	jQuery('.tabs-container', context).each(
+	    function() {
+		var container = jQuery(this);
+		jQuery('> ul', container).show();
+		jQuery('> div', container).hide();
+		jQuery('> div:first', container).show();
+		jQuery('> ul > li > a', container).click(
+		    function() {
+			var link = jQuery(this);
+			var ref = link.attr('href');
+			jQuery('> div', container).hide();
+			jQuery('> div' + ref, container).show();
+			return false;
+		    }
+		);
+	    }
+	);
     }
 
     function fixPage() {

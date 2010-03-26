@@ -1,8 +1,9 @@
-- show = @show_credit_fields ? " start-open" : ""
-#credit-fields{ :class => "collapsible" + show }
+#credit-fields
+  %h3 Credits and Acknowledgements
   = @form.structured :depositors, :required => true
   = @form.structured :principal_investigators, :required => true
   = @form.structured :data_producers
   = @form.structured :funding_agency
   = @form.structured :other_acknowledgements, :size => 22
   = @form.structured :references, :size => 22
+  %hr

@@ -1,5 +1,5 @@
-- show = @show_data_fields ? " start-open" : ""
-#data-fields{ :class => "collapsible" + show }
+#data-fields
+  %h3 Data Description
   %div
     - msg = @study.errors.on("Data Category")
     %label
@@ -32,3 +32,4 @@
     = @form.text_field :collection_end, :size => 12
     .form-field Data collection period
   .clear
+  %hr
