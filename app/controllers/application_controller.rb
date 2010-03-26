@@ -22,6 +22,11 @@ class ApplicationController < ActionController::Base
   
   private
 
+  # Returns the current date as a nicely formatted string
+  def current_date
+    Date.today.strftime("%d %B %Y")
+  end
+
   # The logged in user for the current session, or nil if none.
   def current_user
     return @current_user if defined?(@current_user)

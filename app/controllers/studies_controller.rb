@@ -65,7 +65,7 @@ class StudiesController < ApplicationController
   def ensure_licence
     @study.licence ||= Licence.new(:signed_by => current_user.name,
                                    :email => current_user.email,
-                                   :signed_date => Date.today.inspect)
+                                   :signed_date => current_date)
   end
 
   # ----------------------------------------------------------------------------

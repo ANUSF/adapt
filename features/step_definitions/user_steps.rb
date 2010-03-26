@@ -4,7 +4,8 @@ end
 
 Given /^I am logged in as ([a-z]+ )?(.*)$/ do |role, user|
   user = model("user: \"#{user}\"")
-  visit path_to("the login page")
+  visit '/logout'
+  visit '/login'
   fill_in "login", :with => user.username
   click_button "Login via ASSDA"
 end
