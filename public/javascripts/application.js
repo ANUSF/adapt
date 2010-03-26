@@ -67,6 +67,7 @@
 			jQuery('> div' + ref, container).show();
 			jQuery('> ul a', container).removeClass('current-tab');
 			link.addClass('current-tab');
+			jQuery('#flash_notice', context).hide();
 			return false;
 		    }
 		);
