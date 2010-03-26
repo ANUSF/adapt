@@ -119,14 +119,14 @@ class Study < ActiveRecord::Base
     (person && person.role) == 'admin' and (manager == person or manager.nil?)
   end
   
-  protected
-
   def ready_for_submission?
     @checking = true
     result = valid?
     @checking = false
     result and licence and licence.ready_for_submission?
   end
+
+  protected
 
   def self.annotate_with(name)
     define_method(name) do |column|

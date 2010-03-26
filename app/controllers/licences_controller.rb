@@ -47,7 +47,7 @@ class LicencesController < ApplicationController
     else
       @licence = @study.build_licence(:signed_by => current_user.name,
                                       :email => current_user.email,
-                                      :signed_date => Date.today.inspect)
+                                      :signed_date => current_date)
     end
   end
 

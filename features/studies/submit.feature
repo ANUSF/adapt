@@ -12,8 +12,7 @@ Feature: Contributor submits study
     And I am logged in as Alice
 
   Scenario: License form is shown for review
-    Given the study "First Study" has status "unsubmitted"
-    And the study "First Study" has access mode "A"
+    Given the study "First Study" is ready for submission
     When I go to the study details page for "First Study"
     And I press "Submit this study"
     Then I should see the page heading "Deposit Licence"
