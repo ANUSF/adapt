@@ -58,12 +58,15 @@
 		jQuery('> ul', container).show();
 		jQuery('> div', container).hide();
 		jQuery('> div:first', container).show();
-		jQuery('> ul > li > a', container).click(
+		jQuery('> ul a:first', container).addClass('current-tab');
+		jQuery('> ul a', container).click(
 		    function() {
 			var link = jQuery(this);
 			var ref = link.attr('href');
 			jQuery('> div', container).hide();
 			jQuery('> div' + ref, container).show();
+			jQuery('> ul a', container).removeClass('current-tab');
+			link.addClass('current-tab');
 			return false;
 		    }
 		);
