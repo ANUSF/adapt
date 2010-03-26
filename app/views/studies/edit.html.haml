@@ -2,70 +2,21 @@
 - stylesheet :forms
 
 - make_form_for @study do |form|
+  - @form = form
   %h3 Title and Abstract
-  - show = @show_title_fields ? " start-open" : ""
-  #title-fields{ :class => "collapsible" + show }
-    = form.text_area :title, :rows => 4, :required => true
-    = form.text_area :abstract, :rows => 16, :required => true
+  = render 'title_fields'
 
   %hr
   %h3 Licence Details
-  - show = @show_licence_fields ? " start-open" : ""
-  #licence-fields{ :class => "collapsible" + show }
-    %pre= @study.licence.text false
-    - form.fields_for :licence, @study.licence do |fields|
-      = fields.text_field :signed_by, :required => true
-      = fields.text_field :signed_date, :required => true
-      = fields.text_field :email, :required => true
-      = fields.select :access_mode, :required => true
+  = render 'licence_fields'
       
   %hr
   %h3 Data Description
-  - show = @show_data_fields ? " start-open" : ""
-  #data-fields{ :class => "collapsible" + show }
-    %div
-      - msg = @study.errors.on("Data Category")
-      %label
-        Category of data
-        %em *
-        - unless msg.blank?
-          %em= msg
-      %br
-      = form.check_box :data_is_qualitative
-      = form.check_box :data_is_quantitative
-    .row
-      = form.select :data_kind, :required => true
-      = form.select :time_method
-    .clear
-    = form.text_area :sample_population
-    .row
-      = form.text_field :period_start, :size => 12
-      .form-field &mdash;
-      = form.text_field :period_end, :size => 12
-      .form-field Time period data refers to
-    .clear
-    = form.text_field :response_rate
-    .row
-      = form.select :sampling_procedure
-      = form.select :collection_method
-    .clear
-    .row
-      = form.text_field :collection_start, :size => 12
-      .form-field &mdash;
-      = form.text_field :collection_end, :size => 12
-      .form-field Data collection period
-    .clear
+  = render 'data_fields'
 
   %hr
   %h3 Credits and Acknowledgements
-  - show = @show_credit_fields ? " start-open" : ""
-  #credit-fields{ :class => "collapsible" + show }
-    = form.structured :depositors, :required => true
-    = form.structured :principal_investigators, :required => true
-    = form.structured :data_producers
-    = form.structured :funding_agency
-    = form.structured :other_acknowledgements, :size => 22
-    = form.structured :references, :size => 22
+  = render 'credit_fields'
 
   %hr
   %p= form.result_buttons ['Refresh', 'Save', 'Cancel']
