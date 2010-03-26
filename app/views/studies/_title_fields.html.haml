@@ -1,0 +1,4 @@
+- show = @show_title_fields ? " start-open" : ""
+#title-fields{ :class => "collapsible" + show }
+  = @form.text_area :title, :rows => 4, :required => true
+  = @form.text_area :abstract, :rows => 16, :required => true
