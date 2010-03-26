@@ -1,5 +1,6 @@
 - title "Edit Study #{@study.name||""}"
 - stylesheet :forms
+- stylesheet :tabs
 
 - make_form_for @study do |form|
   - @form = form
@@ -17,7 +18,7 @@
           %span Data Description
       %li
         %a{ :href => '#credit-fields' }
-          %span Credits and Acknowledgements
+          %span Credits
 
     = render 'title_fields'
     = render 'licence_fields'
