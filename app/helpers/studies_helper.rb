@@ -14,4 +14,13 @@ module StudiesHelper
       "#{study.licence.access_mode} (#{study.licence.access_phrase})"
     end
   end
+
+  def tab_link(ref, text)
+    the_class = (ref == @active_tab) ? "current-tab" : ""
+    "<li>
+       <a href='#{ref}' class='#{the_class}'>
+         <span>#{text}</span>
+       </a>
+     </li>"
+  end
 end

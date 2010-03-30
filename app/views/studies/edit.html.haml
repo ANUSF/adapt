@@ -8,18 +8,10 @@
   .tabs-container
     %input{ :type => 'hidden' }
     %ul{ :style => 'display: none' }
-      %li
-        %a.current-tab{ :href => '#title-fields' }
-          %span Title and Abstract
-      %li
-        %a{ :href => '#licence-fields' }
-          %span Licence Details
-      %li
-        %a{ :href => '#data-fields' }
-          %span Data Description
-      %li
-        %a{ :href => '#credit-fields' }
-          %span Credits
+      = tab_link('#title-fields', 'Title and Abstract')
+      = tab_link('#licence-fields', 'Licence Details')
+      = tab_link('#data-fields', 'Data Description')
+      = tab_link('#credit-fields', 'Credits')
 
     = render 'title_fields'
     = render 'licence_fields'
