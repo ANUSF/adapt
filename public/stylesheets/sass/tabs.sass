@@ -16,24 +16,35 @@
     :float left
     :margin 0 -1px -1px 0
     a
-      :bottom 0
       :float left
       :display block
+      :position relative
       :width 10em
       :margin 0 auto
       :font-weight normal
       :font-size 90%
       :text-align center
       :text-decoration none
-      :padding 3px 6px
+      :padding 0
       :border solid #aaa 1px
-      :color black
-      :background-color #eee
+      :background #eee
+      span
+        :display block
+        :margin -1px
+        :padding 3px 6px
+        :color black
+        :background url(../images/corner-eee.png) no-repeat right top
     a:hover
-      :color = white
-      :background-color #888
+      :background #888
+      span
+        :color = white
+        :background-image url(../images/corner-888.png)
     a.current-tab
-      :background-color #ffc
+      :background #ffc
+      span
+        :background-image url(../images/corner-ffc.png)
     a.current-tab:hover
-      :color black
-      :background-color #ee9
+      :background #ee9
+      span
+        :color black
+        :background-image url(../images/corner-ee9.png)
