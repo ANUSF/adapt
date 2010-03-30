@@ -44,22 +44,8 @@ class StudiesController < ApplicationController
   end
 
   def set_view_options
-    if params['show-title-fields']
-      session['study_title_fields'] = params['show-title-fields'] == 'true'
-    end
-    if params['show-licence-fields']
-      session['study_licence_fields'] = params['show-licence-fields'] == 'true'
-    end
-    if params['show-data-fields']
-      session['study_data_fields'] = params['show-data-fields'] == 'true'
-    end
-    if params['show-credit-fields']
-      session['study_credit_fields'] = params['show-credit-fields'] == 'true'
-    end
-    @show_title_fields   = session['study_title_fields']
-    @show_licence_fields = session['study_licence_fields']
-    @show_data_fields    = session['study_data_fields']
-    @show_credit_fields  = session['study_credit_fields']
+    session['active-tab'] = params['active-tab'] if params['active-tab']
+    @active_tab = session['active-tab'] || "#title-fields"
   end
 
   def ensure_licence
