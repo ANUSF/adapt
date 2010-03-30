@@ -6,9 +6,10 @@
   - @form = form
 
   .tabs-container
+    %input{ :type => 'hidden' }
     %ul{ :style => 'display: none' }
       %li
-        %a{ :href => '#title-fields' }
+        %a.current-tab{ :href => '#title-fields' }
           %span Title and Abstract
       %li
         %a{ :href => '#licence-fields' }
@@ -24,4 +25,4 @@
     = render 'licence_fields'
     = render 'data_fields'
     = render 'credit_fields'
-    %p= form.result_buttons ['Refresh', 'Save', 'Cancel']
+  %p= form.result_buttons ['Refresh', 'Save', 'Cancel']

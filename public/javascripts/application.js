@@ -17,6 +17,18 @@
 	}
     }
 
+    function select_tab() {
+	var link = jQuery(this);
+	var ref = link.attr('href');
+	var container = link.closest('.tabs-container', link);
+	jQuery('> div', container).hide();
+	jQuery('> div' + ref, container).show();
+	jQuery('> ul a', container).removeClass('current-tab');
+	link.addClass('current-tab');
+	jQuery('> input:first', container).attr('value', ref);
+	return false;
+    }
+
     function onload(context) {
 	fixPage();
 
@@ -57,20 +69,11 @@
 		var container = jQuery(this);
 		jQuery('> ul', container).show();
 		jQuery('> div', container).hide();
-		jQuery('> div:first', container).show();
-		jQuery('> ul a:first', container).addClass('current-tab');
-		jQuery('> ul a', container).click(
-		    function() {
-			var link = jQuery(this);
-			var ref = link.attr('href');
-			jQuery('> div', container).hide();
-			jQuery('> div' + ref, container).show();
-			jQuery('> ul a', container).removeClass('current-tab');
-			link.addClass('current-tab');
-			jQuery('#flash_notice', context).hide();
-			return false;
-		    }
-		);
+		jQuery('> input:first', container).attr('name', 'active-tab');
+		jQuery('> ul a.current-tab:first', container).each(select_tab);
+		jQuery('> ul a', container).click(function() {
+		    jQuery('#flash_notice', context).hide();
+		}).click(select_tab);
 	    }
 	);
     }
