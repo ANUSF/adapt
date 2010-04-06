@@ -28,7 +28,7 @@ Rails::Initializer.run do |config|
   config.gem "haml"
   config.gem "ruby-openid", :lib => "openid"
   config.gem "RedCloth"
-  config.gem "nokogiri"
+  #config.gem "nokogiri"
   config.gem "partial-date"
   config.gem "verboten"
 
