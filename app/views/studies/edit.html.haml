@@ -9,11 +9,13 @@
     %input{ :type => 'hidden' }
     %ul{ :style => 'display: none' }
       = tab_link('#title-fields', 'Title and Abstract')
+      = tab_link('#attachment-fields', 'Attached Files')
       = tab_link('#licence-fields', 'Licence Details')
       = tab_link('#data-fields', 'Data Description')
       = tab_link('#credit-fields', 'Credits')
 
     = render 'title_fields'
+    = render 'attachment_fields'
     = render 'licence_fields'
     = render 'data_fields'
     = render 'credit_fields'
