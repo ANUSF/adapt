@@ -18,26 +18,26 @@ class Study < ActiveRecord::Base
   attr_accessible(*(JSON_FIELDS + [:name, :title, :abstract,
                                    :licence_attributes, :additional_metadata]))
 
-  validates_presence_of :title, :message => '- may not be blank.'
-  validates_presence_of :abstract, :message => '- may not be blank.'
+  validates_presence_of :title, :message => 'May not be blank.'
+  validates_presence_of :abstract, :message => 'May not be blank.'
 
   validates_each :attachments, :if => :checking do |rec, attr, val|
     if val.empty?
-      rec.errors.add attr, '- please supply at least one data file.'
+      rec.errors.add attr, 'Please supply at least one data file.'
     elsif val.select { |a| a.category == "Data File" }.empty?
-      rec.errors.add attr, '- only documentation supplied, but no data.'
+      rec.errors.add attr, 'Only documentation supplied, but no data.'
     end
   end
 
   validates_each :data_is_quantitative, :if => :checking do |rec, attr, val|
     if val == "0" and rec.data_is_qualitative == "0"
       rec.errors.add 'Data Category',
-                     '- please select qualitative, quantitative or both.'
+                     'Please select qualitative, quantitative or both.'
     end
   end
 
   validates_presence_of :data_kind, :if => :checking,
-                        :message => '- please specify at least one.'
+                        :message => 'Please specify at least one.'
 
   validates_each :collection_start, :collection_end,
                  :period_start, :period_end, :if => :checking do
@@ -50,10 +50,10 @@ class Study < ActiveRecord::Base
             when :period_start     then :period_end
             when :period_end       then :period_start
             end
-      rec.errors.add opp, "- time period incomplete." if rec.send(opp).blank?
+      rec.errors.add opp, "Time period incomplete." if rec.send(opp).blank?
       if [:collection_end, :period_end].include? attr
         unless date.after? PartialDate.new(rec.send(opp))
-          rec.errors.add attr, "- end date must be after begin date"
+          rec.errors.add attr, "End date must be after begin date"
         end
       end
     end
@@ -61,17 +61,17 @@ class Study < ActiveRecord::Base
 
   validates_each :depositors, :if => :checking do |rec, attr, val|
     if val.nil? or (val['affiliation'].blank? and val['name'].blank?)
-      rec.errors.add attr, '- may not be blank.'
+      rec.errors.add attr, 'May not be blank.'
     elsif val['affiliation'].blank? or val['name'].blank?
-      rec.errors.add attr, '- please provide both a name and an affiliation.'
+      rec.errors.add attr, 'Please provide both a name and an affiliation.'
     end
   end
 
   validates_each :principal_investigators, :if => :checking do |rec, attr, val|
     if val.blank?
-      rec.errors.add attr, '- please list at least one.'
+      rec.errors.add attr, 'Please list at least one.'
     elsif val.any? { |pi| pi['name'].blank? or pi['affiliation'].blank? }
-      rec.errors.add attr, '- please provide both names and affiliations.'
+      rec.errors.add attr, 'Please provide both names and affiliations.'
     end
   end
 
@@ -125,7 +125,7 @@ class Study < ActiveRecord::Base
     @checking = true
     result = valid?
     @checking = false
-    result #and licence and licence.ready_for_submission?
+    licence and licence.ready_for_submission? and result
   end
 
   protected

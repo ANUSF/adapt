@@ -17,14 +17,14 @@ class Licence < ActiveRecord::Base
 
   validates_format_of   :signed_by, :with => /\A[\w -]*\Z/,
     :if => :checking,
-    :message => "Invalid name - only letters, spaces and hyphens are allowed."
+    :message => "Only letters, spaces and hyphens are allowed."
   validates_format_of   :signed_by, :with => /\A[^\d_]*\Z/,
     :if => :checking,
-    :message => "Invalid name - only letters, spaces and hyphens are allowed."
+    :message => "Only letters, spaces and hyphens are allowed."
   validates_format_of   :email,
     :with => /\A([A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4})?\Z/i,
     :if => :checking,
-    :message => "Invalid email address."
+    :message => "Does not look like email address."
 
   validates_inclusion_of :access_mode, :in => ['', 'A', 'B', 'S'],
                          :if => :checking,
