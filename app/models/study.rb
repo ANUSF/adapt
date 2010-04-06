@@ -6,6 +6,7 @@ class Study < ActiveRecord::Base
   belongs_to :manager,   :class_name => 'User', :foreign_key => :manager_id
   has_many   :attachments, :dependent => :destroy
   has_one    :licence ,    :dependent => :destroy
+  accepts_nested_attributes_for :licence
 
   JSON_FIELDS = [:data_is_qualitative, :data_is_quantitative, :data_kind,
                  :time_method, :sample_population,
@@ -14,8 +15,8 @@ class Study < ActiveRecord::Base
                  :depositors, :principal_investigators, :data_producers,
                  :funding_agency, :other_acknowledgements, :references]
 
-  attr_accessible(*(JSON_FIELDS +
-                    [:name, :title, :abstract, :additional_metadata]))
+  attr_accessible(*(JSON_FIELDS + [:name, :title, :abstract,
+                                   :licence_attributes, :additional_metadata]))
 
   validates_presence_of :title, :message => '- may not be blank.'
   validates_presence_of :abstract, :message => '- may not be blank.'
@@ -39,7 +40,8 @@ class Study < ActiveRecord::Base
                         :message => '- please specify at least one.'
 
   validates_each :collection_start, :collection_end,
-                 :period_start, :period_end do |rec, attr, val|
+                 :period_start, :period_end, :if => :checking do
+    |rec, attr, val|
     if (not val.blank?) and (date = rec.parse_and_validate_date(attr, val))
       rec.send attr.to_s + "=", date.pretty
       opp = case attr
@@ -123,7 +125,7 @@ class Study < ActiveRecord::Base
     @checking = true
     result = valid?
     @checking = false
-    result and licence and licence.ready_for_submission?
+    result #and licence and licence.ready_for_submission?
   end
 
   protected
