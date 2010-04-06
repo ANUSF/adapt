@@ -110,8 +110,7 @@ class StudiesController < ApplicationController
       flash[:notice] = "Edit cancelled."
       redirect_to @study
     else
-      okay = @study.update_attributes(params[:study]) and
-        @study.licence.update_attributes(params[:licence])
+      okay = @study.update_attributes(params[:study])
       flash[:notice] = "Changes were saved succesfully." if okay
 
       if okay and result != "Refresh"

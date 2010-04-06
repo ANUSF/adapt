@@ -6,7 +6,7 @@
     .collapsible
       %pre= @study.licence.text false
 
-  - @form.fields_for :licence, @study.licence do |fields|
+  - @form.fields_for :licence do |fields|
     = fields.text_field :signed_by, :required => true
     = fields.text_field :signed_date, :required => true
     = fields.text_field :email, :required => true
