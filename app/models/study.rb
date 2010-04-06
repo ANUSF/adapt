@@ -7,7 +7,7 @@ class Study < ActiveRecord::Base
   has_many   :attachments, :dependent => :destroy
   has_one    :licence ,    :dependent => :destroy
   accepts_nested_attributes_for :licence
-  accepts_nested_attributes_for :attachments
+  accepts_nested_attributes_for :attachments, :allow_destroy => true
 
   JSON_FIELDS = [:data_is_qualitative, :data_is_quantitative, :data_kind,
                  :time_method, :sample_population,

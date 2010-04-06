@@ -1,19 +1,21 @@
 #attachment-fields
-  %h3 Attached Files
+  - unless @study.attachments.empty?
+    %h3 Attached Files
 
-  - @form.fields_for :attachments do |f|
+    - @form.fields_for :attachments do |f|
+      %hr
+      = f.error_messages
+      %strong Filename:
+      %em= h f.object.name
+      = f.check_box :category
+      .row
+        .form-field Description:
+        = f.text_area :description, :label => '', :rows => 2
+      .clear
+      = f.check_box :_destroy, :label => "Delete this file"
+
     %hr
-    = f.error_messages
-    %strong Filename:
-    %em= h f.object.name
-    = f.check_box :category
-    .row
-      .form-field Description:
-      = f.text_area :description, :label => '', :rows => 2
-    .clear
 
-  %hr
-  %h3 Add another file:
+  %h3 Select a file to upload:
   - @form.fields_for :new_upload, Attachment.new do |f|
     = f.file_field :content, :label => ''
-    = f.result_buttons %w{Upload}
