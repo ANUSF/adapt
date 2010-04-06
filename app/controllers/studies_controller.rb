@@ -135,7 +135,9 @@ class StudiesController < ApplicationController
     if @study.status == "incomplete"
       flash.now[:error] =
         "This study is not yet ready for submission:\n\n" +
-        @study.errors.full_messages.join("\n")
+        (@study.errors.map + @study.licence.errors.map).map { |attr, txt|
+        "#{attr.humanize} - #{txt.downcase}"
+      }.join("\n")
       render :action => :edit
     elsif @study.status != "unsubmitted"
       flash[:error] = "This study has already been submitted."
