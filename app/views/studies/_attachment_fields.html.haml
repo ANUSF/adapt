@@ -1,0 +1,11 @@
+#attachment-fields
+  %h3 Attached Files
+
+  - @study.attachments.each do |attachment|
+    - @form.fields_for :attachment, attachment do |f|
+      %hr
+      %strong Filename:
+      %em= h attachment.name
+      = f.check_box :category
+      = f.text_area :description
+      = f.error_messages
