@@ -5,15 +5,14 @@
     - @form.fields_for :attachments do |f|
       %hr
       = f.error_messages
-      %strong Filename:
-      %em= h f.object.name
+      %strong= h f.object.name
+      &nbsp;
       = f.check_box :category
-      .row
-        .form-field Description:
-        = f.text_area :description, :label => '', :rows => 2
-      .clear
+      &nbsp;
+      %em== (#{number_to_human_size f.object.data.size})
+      &nbsp;
       = f.check_box :_destroy, :label => "Delete this file"
-
+      = f.text_area :description, :rows => 2
     %hr
 
   %h3 Select a file to upload:
