@@ -2,7 +2,7 @@
 - stylesheet :forms
 - stylesheet :tabs
 
-- make_form_for @study do |form|
+- make_form_for @study, :html => {:multipart => true} do |form|
   - @form = form
 
   .tabs-container

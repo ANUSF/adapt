@@ -7,6 +7,7 @@ class Study < ActiveRecord::Base
   has_many   :attachments, :dependent => :destroy
   has_one    :licence ,    :dependent => :destroy
   accepts_nested_attributes_for :licence
+  accepts_nested_attributes_for :attachments
 
   JSON_FIELDS = [:data_is_qualitative, :data_is_quantitative, :data_kind,
                  :time_method, :sample_population,
@@ -15,8 +16,10 @@ class Study < ActiveRecord::Base
                  :depositors, :principal_investigators, :data_producers,
                  :funding_agency, :other_acknowledgements, :references]
 
-  attr_accessible(*(JSON_FIELDS + [:name, :title, :abstract,
-                                   :licence_attributes, :additional_metadata]))
+  attr_accessible(*(JSON_FIELDS +
+                    [:name, :title, :abstract, :new_upload,
+                     :attachments_attributes, :licence_attributes,
+                     :additional_metadata]))
 
   validates_presence_of :title, :message => 'May not be blank.'
   validates_presence_of :abstract, :message => 'May not be blank.'
@@ -80,6 +83,12 @@ class Study < ActiveRecord::Base
   attr_reader :checking
 
   json_fields(*JSON_FIELDS)
+
+  def new_upload=(params)
+    file = Attachment.new(params)
+    #TODO handle ZIP files here
+    attachments << file
+  end
 
   def status
     result = read_attribute('status')
