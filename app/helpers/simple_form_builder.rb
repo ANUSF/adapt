@@ -16,7 +16,8 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
   extend ActionView::Helpers::TagHelper
   extend ActionView::Helpers::FormTagHelper
 
-  for name in field_helpers - %w{text_area hidden_field check_box select}
+  for name in field_helpers - %w{fields_for text_area hidden_field
+                                 check_box select}
     create_tagged_field(name, :size => 40)
   end
 
@@ -104,15 +105,6 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
-  def fields_for(name, *args, &block)
-    raise ArgumentError, "Missing block" unless block_given?
-    options = args.last.is_a?(Hash) ? args.pop : {}
-    object = args.first
-    builder = options[:builder] || self.class
-
-    yield builder.new(name, object, @template, options, block)
-  end
-  
   def result_buttons(values = %w{Save Cancel})
     values = [values] if values.is_a? String
     haml { '
@@ -146,7 +138,7 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
     title = options.delete(:title) || try(:help_on, column)
     required = options.delete(:required)
 
-    ident = "#{@object_name}_#{column}"
+    ident = "#{object_ident}_#{column}"
     name  = "#{@object_name}[#{column}]"
     msg   = @object.errors.on(column)
 
@@ -163,6 +155,10 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
   %span.input= yield Descriptor.new(name, ident, args, options)
   %span.clear
 ' }
+  end
+
+  def object_ident
+    @object_ident ||= @object_name.gsub(/\[/, '_').gsub(/\]/, '')
   end
 
   def selections_for(column)
