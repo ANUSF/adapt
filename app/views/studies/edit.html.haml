@@ -19,7 +19,7 @@
     = render 'licence_fields'
     = render 'data_fields'
     = render 'credit_fields'
-  %p= form.result_buttons ['Refresh', 'Save', 'Cancel']
+  %p= form.result_buttons @button_texts
 
 - if @can_submit
   = button_to "Submit this study", submit_study_path(@study)
