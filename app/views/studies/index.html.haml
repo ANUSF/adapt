@@ -19,7 +19,7 @@
           - if study.can_be_edited_by(current_user)
             = link_to "Edit", edit_study_url(study)
           - else
-            = link_to "Details", study
+            = link_to "Summary", study
         %td
           %p= clip_text h(study.title), 60
         %td
