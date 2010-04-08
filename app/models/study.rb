@@ -85,9 +85,14 @@ class Study < ActiveRecord::Base
   json_fields(*JSON_FIELDS)
 
   def new_upload=(params)
-    file = Attachment.new(params)
-    #TODO handle ZIP files here
-    attachments << file
+    content = params[:content]
+    if content.original_filename.ends_with? '.zip'
+      each_zip_entry(content.read) do |name, data|
+        attachments << Attachment.make(File.basename(name), data)
+      end
+    else
+      attachments.create(params)
+    end
   end
 
   def status

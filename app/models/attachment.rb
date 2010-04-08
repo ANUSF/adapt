@@ -23,6 +23,10 @@ class Attachment < ActiveRecord::Base
     File.open(stored_path) { |f| f.read }
   end
 
+  def self.make(name, data)
+    self.new(:content => Struct.new(:original_filename, :read).new(name, data))
+  end
+
   protected
 
   def validate_on_create
