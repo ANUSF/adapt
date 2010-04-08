@@ -1,5 +1,2 @@
 - unless attachment.nil?
-  %li
-    = link_to h(attachment.name), attachment
-    - unless attachment.description.blank?
-      =format_text attachment.description
+  %li= format_attachment attachment
