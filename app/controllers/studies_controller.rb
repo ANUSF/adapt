@@ -102,6 +102,8 @@ class StudiesController < ApplicationController
   end
   
   def edit
+    @can_submit = (@study.can_be_submitted_by(current_user) and
+                   @study.status == "unsubmitted")
   end
   
   def update
@@ -116,7 +118,7 @@ class StudiesController < ApplicationController
       if okay and result != "Refresh"
         redirect_to @study
       else
-        render :action => 'edit'
+        redirect_to edit_study_url
       end
     end
   end
