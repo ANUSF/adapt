@@ -1,6 +1,10 @@
 module AttachmentsHelper
   def format_attachment(attachment)
     link = link_to h(attachment.name), download_attachment_path(attachment)
-    format_text(attachment.description).sub(/<p>/, "<p>#{link} &mdash; ")
+    if attachment.description.blank?
+      "<p>#{link} <em>(no description)</em></p>"
+    else
+      format_text(attachment.description).sub(/<p>/, "<p>#{link} &mdash; ")
+    end
   end
 end
