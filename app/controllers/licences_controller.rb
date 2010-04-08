@@ -4,8 +4,7 @@ class LicencesController < ApplicationController
   # ----------------------------------------------------------------------------
 
   # -- find referenced study before performing authorization
-  before_authorization_filter :find_study,   :only =>   [ :new, :create ]
-  before_authorization_filter :find_licence, :except => [ :new, :create ]
+  before_authorization_filter :find_licence
 
   # -- declare access permissions via the 'verboten' plugin
   #    (new and create are currently disabled and may be found obsolete)
@@ -13,11 +12,6 @@ class LicencesController < ApplicationController
   permit :accept, :if => :may_create
 
   private
-
-  # Finds the study with the id in the 'study_id' request parameter.
-  def find_study
-    @study = Study.find_by_id(params[:study_id])
-  end
 
   # Finds the licence specified in the request and the study it belongs to.
   def find_licence
@@ -40,36 +34,6 @@ class LicencesController < ApplicationController
   # the @study variable having been set by a before filter.
   # ----------------------------------------------------------------------------
   public
-
-  def new
-    if @study.status != "unsubmitted"
-      redirect_to submit_study_url(@study)
-    else
-      @licence = @study.build_licence(:signed_by => current_user.name,
-                                      :email => current_user.email,
-                                      :signed_date => current_date)
-    end
-  end
-
-  def create
-    if @study.status != "unsubmitted"
-      redirect_to submit_study_url(@study)
-    elsif params[:result] == "Cancel"
-      flash[:notice] = "Study not submitted."
-      redirect_to @study
-    else
-      @licence = @study.build_licence(params[:licence])
-      if @licence.save
-        flash[:notice] = "Access to the data will be " +
-          @licence.access_phrase + ". Please review and confirm."
-        redirect_to @licence
-      else
-        flash.now[:error] =
-          "Something went wrong. Please correct the fields marked in red."
-        render :action => :new
-      end
-    end
-  end
 
   def show
   end
