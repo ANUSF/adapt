@@ -13,7 +13,7 @@ class StudiesController < ApplicationController
   permit :submit,                  :if => :may_submit
   permit :approve,                 :if => :may_approve
 
-  before_filter :set_view_options, :only => [ :edit, :update ]
+  before_filter :prepare_for_edit, :only => [ :edit, :update ]
   before_filter :ensure_licence,   :only => [ :edit, :submit ]
 
   protected
@@ -43,7 +43,8 @@ class StudiesController < ApplicationController
     @study and @study.can_be_approved_by current_user
   end
 
-  def set_view_options
+  def prepare_for_edit
+    @button_texts = [ 'Apply Changes', 'Undo Changes', 'Apply and Exit' ]
     session['active-tab'] = params['active-tab'] if params['active-tab']
     @active_tab = session['active-tab'] || "#title-fields"
   end
@@ -108,17 +109,24 @@ class StudiesController < ApplicationController
   
   def update
     result = params[:result]
-    if result == "Cancel"
-      flash[:notice] = "Edit cancelled."
-      redirect_to @study
+    if result.starts_with? "Undo"
+      flash[:notice] = "Reverted to previously saved state."
+      redirect_to edit_study_url
     else
-      okay = @study.update_attributes(params[:study])
-      flash[:notice] = "Changes were saved succesfully." if okay
-
-      if okay and result != "Refresh"
-        redirect_to @study
+      success = @study.update_attributes(params[:study])
+      if success
+        flash[:notice] = "Changes were saved succesfully."
+        if result.end_with? "Exit"
+          redirect_to @study
+        else
+          redirect_to edit_study_url
+        end
       else
-        redirect_to edit_study_url
+        flash.now[:error] = "Changes could not be saved:\n\n" +
+          @study.errors.map { |attr, txt|
+            "#{attr.humanize} - #{txt.downcase}"
+          }.join("\n")
+        render :action => :edit
       end
     end
   end
