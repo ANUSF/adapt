@@ -15,7 +15,11 @@
   %tbody
     - for study in @studies
       %tr{ :class => "#{cycle("odd", "even")}" }
-        %td.noprint= link_to "Details", study
+        %td.noprint
+          - if study.can_be_edited_by(current_user)
+            = link_to "Edit", edit_study_url(study)
+          - else
+            = link_to "Details", study
         %td
           %p= clip_text h(study.title), 60
         %td
