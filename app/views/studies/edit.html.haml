@@ -23,3 +23,5 @@
 
 - if @can_submit
   = button_to "Submit this study", submit_study_path(@study)
+- elsif @study.can_be_submitted_by(current_user)
+  %em (Study is not yet ready for submission.)
