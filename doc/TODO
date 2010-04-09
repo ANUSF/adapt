@@ -1,0 +1,7 @@
+- Link back to normal viewing mode from print mode.
+- Order of tabs: Title, Data, Credits, Files, Licence.
+- Use radio buttons for Data vs. Documentation.
+- Show "Submit" button disabled plus a message for incomplete studies.
+- Mark tabs that need attention (red "!" on label or label all red?).
+- Add validation messages to "Attached Files" tab.
+- Use full date for licence signature.
