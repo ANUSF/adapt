@@ -6,6 +6,12 @@ class Attachment < ActiveRecord::Base
   after_create :write_file
   before_destroy :delete_file
 
+  validates_inclusion_of :category, :if => :checking,
+    :in => ['Data File', 'Documentation'],
+    :message => "Please select one."
+
+  attr_reader :checking
+
   def selections(column)
     column.to_sym == :category ? [ "Documentation", "Data File" ] : []
   end
@@ -28,6 +34,13 @@ class Attachment < ActiveRecord::Base
   end
 
   protected
+
+  def ready_for_submission?
+    @checking = true
+    result = valid?
+    @checking = false
+    result
+  end
 
   def validate_on_create
     if self.name.blank?
