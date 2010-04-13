@@ -61,4 +61,9 @@
         %br
         Powered by Ruby on Rails
         = link_to "Printer style preview", url_for(:printer_friendly => 1), |
-                                           :method => request.method |
+            :method => request.method |
+
+    - if params.has_key?('printer_friendly')
+      %br
+      = link_to "Back to normal view", url_for(:printer_friendly => nil), |
+          :method => request.method |
