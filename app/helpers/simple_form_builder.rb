@@ -41,6 +41,16 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
 ' }
   end
 
+  # The new radio_button helper uses a layout different from our generic one.
+  def radio_button(column, value, options = {})
+    label = options.delete(:label) || value
+    haml { '
+%span
+  = super(column, value, options)
+  = label
+' }
+  end
+
   # A versatile helper method for creating selection boxes.
   def select(column, *args)
     create_field(column, {}, *args) do |f|
