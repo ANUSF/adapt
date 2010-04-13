@@ -2,6 +2,10 @@
   - unless @study.attachments.empty?
     %h3 Attached Files
 
+    - unless @study.errors.on(:attachments).blank?
+      %label
+        %em= @study.errors.on(:attachments)
+
     %p
       %em
         (For each file, please check either the "Data File" or
