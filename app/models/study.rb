@@ -25,10 +25,8 @@ class Study < ActiveRecord::Base
   validates_presence_of :abstract, :message => 'May not be blank.'
 
   validates_each :attachments, :if => :checking do |rec, attr, val|
-    if val.empty?
+    if val.select { |a| a.category == "Data File" }.empty?
       rec.errors.add attr, 'Please supply at least one data file.'
-    elsif val.select { |a| a.category == "Data File" }.empty?
-      rec.errors.add attr, 'Only documentation supplied, but no data.'
     end
   end
 
