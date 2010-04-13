@@ -137,7 +137,7 @@ class Study < ActiveRecord::Base
     @checking = true
     study_ready = valid?
     @checking = false
-    licence_ready = licence and licence.ready_for_submission?
+    licence_ready = licence && licence.ready_for_submission?
     attachments_ready = attachments.map(&:ready_for_submission?).all?
 
     study_ready and licence_ready and attachments_ready
