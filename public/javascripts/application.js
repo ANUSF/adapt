@@ -59,6 +59,12 @@
       jQuery('> input:first', container).attr('name', 'active-tab');
       jQuery('> ul a.current-tab:first', container).each(select_tab);
       jQuery('> ul a', container)
+	.each(function() {
+	  var link = jQuery(this);
+	  var container = link.closest('.tabs-container', link);
+	  var err = jQuery('> div' + link.attr('href') + ' .error', container);
+	  if (err.size() > 0) link.addClass("with-error");
+	})
 	.click(function() { jQuery('#flash_notice', context).hide(); })
 	.click(select_tab);
     });

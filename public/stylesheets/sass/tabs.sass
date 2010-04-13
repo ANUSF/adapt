@@ -1,3 +1,5 @@
+@import definitions
+
 .tabs-container
   :display inline
   :position relative
@@ -28,16 +30,16 @@
       :padding 0
       :border solid #aaa 1px
       :background #eee
+      :color black
       span
         :display block
         :margin -1px
         :padding 3px 6px
-        :color black
         :background url(../images/corner-eee.png) no-repeat right top
     a:hover
       :background #888
+      :color = white
       span
-        :color = white
         :background-image url(../images/corner-888.png)
     a.current-tab
       :background #ffc
@@ -45,6 +47,8 @@
         :background-image url(../images/corner-ffc.png)
     a.current-tab:hover
       :background #f4ee99
+      :color black
       span
-        :color black
         :background-image url(../images/corner-f4ee99.png)
+    a.with-error,a.with-error:hover
+      :color = !signal_color

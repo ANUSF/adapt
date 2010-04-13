@@ -165,7 +165,7 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
       - if required
         %em *
       - unless msg.blank?
-        %em= msg
+        %em.error= msg
     %br
   %span.input= yield Descriptor.new(name, ident, args, options)
   %span.clear
