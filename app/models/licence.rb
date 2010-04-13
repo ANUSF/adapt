@@ -31,7 +31,8 @@ class Licence < ActiveRecord::Base
                          :message => "Value must be A, B or S."
 
   validates_each :signed_date do |record, attr, value|
-    record.parse_and_validate_date(attr, value, Date.today.year - 1)
+    date = record.parse_and_validate_date(attr, value, Date.today.year - 1)
+    record.errors.add attr, "Incomplete date." if date and date.day.nil?
   end
 
   attr_reader :checking
