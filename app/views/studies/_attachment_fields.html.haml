@@ -4,7 +4,7 @@
 
     - unless @study.errors.on(:attachments).blank?
       %label
-        %em= @study.errors.on(:attachments)
+        %em.error= @study.errors.on(:attachments)
 
     %p
       %em
@@ -22,7 +22,7 @@
       %p
         - unless f.object.errors.on(:category).blank?
           %label
-            %em= f.object.errors.on(:category)
+            %em.error= f.object.errors.on(:category)
         = f.radio_button :category, "Data File"
         = f.radio_button :category, "Documentation"
       = f.text_area :description, :rows => 2
