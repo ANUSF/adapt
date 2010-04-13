@@ -43,10 +43,15 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
 
   # The new radio_button helper uses a layout different from our generic one.
   def radio_button(column, value, options = {})
+    ident = "#{object_ident}_#{column}"
+    name  = "#{@object_name}[#{column}]"
+    msg   = @object.errors.on(column)
+    check = (@object.send(column) == value)
     label = options.delete(:label) || value
     haml { '
 %span
-  = super(column, value, options)
+  %input{ :id => ident, :name => name, :type => "radio", :value => value, |
+          :checked => check } |
   = label
 ' }
   end
