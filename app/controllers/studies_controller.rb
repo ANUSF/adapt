@@ -44,7 +44,7 @@ class StudiesController < ApplicationController
   end
 
   def prepare_for_edit
-    @button_texts = [ 'Apply Changes', 'Undo Changes', 'Apply and Exit' ]
+    @button_texts = [ 'Apply Changes', 'Undo Changes', 'Save and Exit' ]
     session['active-tab'] = params['active-tab'] if params['active-tab']
     @active_tab = session['active-tab'] || "#title-fields"
   end
@@ -116,7 +116,7 @@ class StudiesController < ApplicationController
       success = @study.update_attributes(params[:study])
       if success
         flash[:notice] = "Changes were saved succesfully."
-        if result.end_with? "Exit"
+        if result.ends_with? "Exit"
           redirect_to @study
         else
           redirect_to edit_study_url
