@@ -3,15 +3,18 @@
 - stylesheet :tabs
 - wait = ! @can_submit
 
-%p
-  %em
+%em
+  %p
+    Please supply as many details as possible.
     - if @study.can_be_submitted_by(current_user) and not @can_submit
-      Please supply as many details as possible. Red text indicates
-      required information that has not yet been provided or input that
-      does not seem valid.
+      Red text indicates required information that has not yet been
+      provided or input that does not seem valid.
     - else
-      Please supply as many details as possible. Before submitting,
-      make sure that all information given is complete and correct.
+      Before submitting, make sure that all information given is
+      complete and correct.
+  %p
+    The save this form for later completion, select either "Apply
+    Changes" or "Save and Exit" at the bottom of this page.
 
 = button_to "Submit this study", submit_study_path(@study), :disabled => wait
 %br
