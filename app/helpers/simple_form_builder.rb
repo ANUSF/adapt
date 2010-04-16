@@ -122,6 +122,7 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
 
   def errors_on(column)
     msg = @object.errors.on(column)
+    msg = msg.join(" ") unless msg.nil? or msg.is_a? String
     if msg.blank?
       ''
     else
