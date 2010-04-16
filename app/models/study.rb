@@ -40,22 +40,16 @@ class Study < ActiveRecord::Base
                         :message => 'Please specify at least one.'
 
   validates_each :collection_start, :collection_end,
-                 :period_start, :period_end, :if => :checking do
-    |rec, attr, val|
-    if (not val.blank?) and (date = rec.parse_and_validate_date(attr, val))
-      rec.send attr.to_s + "=", date.pretty
-      opp = case attr
-            when :collection_start then :collection_end
-            when :collection_end   then :collection_start
-            when :period_start     then :period_end
-            when :period_end       then :period_start
-            end
-      rec.send("#{opp}=", val) if rec.send(opp).blank?
-      if [:collection_end, :period_end].include? attr
-        begin_date = PartialDate.new(rec.send(opp))
-        if date.before? begin_date
-          rec.errors.add attr.to_s.sub(/_end/, ''),
-            "End date must not be before begin date."
+                 :period_start, :period_end, :if => :checking do |rec, attr, val|
+    range, part = attr.to_s.split("_")
+    if (not val.blank?) and (date = rec.parse_and_validate_date(range, val))
+      rec.send(attr.to_s + "=", date.pretty)
+      opp = (range + (part == "start" ? "_end" : "_start")).to_sym
+      rec.send("#{opp}=", date.pretty) if rec.send(opp).blank?
+      if part == "end"
+        begin_date = rec.parse_and_validate_date(:dummy, rec.send(opp))
+        if begin_date and date.before?(begin_date)
+          rec.errors.add range, "End date must not be before begin date."
         end
       end
     end

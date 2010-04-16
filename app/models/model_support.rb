@@ -30,7 +30,7 @@ module ModelSupport
         date = PartialDate.new(Date.parse(value))
       end
     rescue => ex
-      errors.add attribute, ex.message
+      errors.add attribute, "#{ex.message.capitalize}: '#{value}'."
     else
       if not (min_year..max_year).include? date.year
         errors.add attribute, "Invalid year: #{date.year}"
