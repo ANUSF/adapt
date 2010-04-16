@@ -1,10 +1,11 @@
 #licence-fields
   %h3 Licence Details
 
-  .box
-    %strong Full licence text based on the current selections:
-    .collapsible
-      %pre= @study.licence.text false
+  %div
+    .box
+      %strong Full licence text based on the current selections:
+      .collapsible
+        %pre= @study.licence.text false
 
   - @form.fields_for :licence do |fields|
     = fields.text_field :signed_by, :required => true
