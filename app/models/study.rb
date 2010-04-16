@@ -32,8 +32,7 @@ class Study < ActiveRecord::Base
 
   validates_each :data_is_quantitative, :if => :checking do |rec, attr, val|
     if val == "0" and rec.data_is_qualitative == "0"
-      rec.errors.add 'Data Category',
-                     'Please select qualitative, quantitative or both.'
+      rec.errors.add 'Data Category', 'Please select at least one.'
     end
   end
 
@@ -55,7 +54,8 @@ class Study < ActiveRecord::Base
       if [:collection_end, :period_end].include? attr
         begin_date = PartialDate.new(rec.send(opp))
         if date.before? begin_date
-          rec.errors.add attr, "End date must not be before begin date."
+          rec.errors.add attr.to_s.sub(/_end/, ''),
+            "End date must not be before begin date."
         end
       end
     end
@@ -187,10 +187,10 @@ class Study < ActiveRecord::Base
       :selections => proc { User.archivists.map { |a| [a.name, a.id] } } 
     },
     :data_is_qualitative=> {
-      :label_for => "Qualitative Data"
+      :label_for => "Qualitative"
     },
     :data_is_quantitative=> {
-      :label_for => "Quantitative Data"
+      :label_for => "Quantitative"
     },
     :data_kind => {
       :label_for => "Kind of data",
@@ -304,6 +304,7 @@ collected (e.g. medical records for 1980-1990 collected in 1992) what \
 period does the data come from? "
       },
     :response_rate => {
+      :label_for => "Response rate:"
     },
     :depositors => {
       :subfields => %w{name affiliation},

@@ -120,6 +120,19 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
+  def errors_on(column)
+    msg = @object.errors.on(column)
+    if msg.blank?
+      ''
+    else
+      haml { '
+%label
+  &nbsp;
+  %em= msg
+' }
+    end
+  end
+
   def result_buttons(values = %w{Save Cancel})
     values = [values] if values.is_a? String
     haml { '
@@ -149,6 +162,8 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
     raise ArgumentError, "Missing block" unless block_given?
 
     options = default_options.merge(args.last.is_a?(Hash) ? args.pop : {})
+    inline = options.delete(:inline)
+    label_inline = options.delete(:label_inline)
     label = options.delete(:label) || try(:label_for, column) || column
     title = options.delete(:title) || try(:help_on, column)
     required = options.delete(:required)
@@ -157,18 +172,27 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
     name  = "#{@object_name}[#{column}]"
     msg   = @object.errors.on(column)
 
-    haml { '
-%div{ :title => title, :class => "form-field" }
-  - if not label.blank? or required or not msg.blank?
-    %label{ :for => ident }
+    content = haml { '
+- unless label.blank? and msg.blank? and not required
+  %label{ :for => ident }
+    - unless label.blank?
       = label.to_s.humanize
-      - if required
-        %em *
-      - unless msg.blank?
-        %em.error= msg
+    - if required
+      %em *
+    - unless msg.blank?
+      %em.error= msg
+  - unless label_inline
     %br
-  %span.input= yield Descriptor.new(name, ident, args, options)
-  %span.clear
+%span.input= yield Descriptor.new(name, ident, args, options)
+' }
+
+    haml { '
+- if inline
+  %span{ :title => title }= content
+- else
+  %div{ :title => title, :class => "form-field" }
+    = content
+    %span.clear
 ' }
   end
 

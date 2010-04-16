@@ -1,8 +1,13 @@
 @import definitions
 
-form div
-  :margin 0
-  :padding 1em 0
+form
+  div
+    :margin 0
+    :padding 0
+      :bottom 1em
+  h3
+    :padding 0
+      :bottom 1.5em
 
 .form-field .row
   :margin 0
@@ -16,11 +21,7 @@ form div
   :padding
     :right 2em
 
-.form-field
-  :font
-    :style italic
-
-.input
+.form-field .input
   :float left
 
 .fieldWithErrors
@@ -28,6 +29,10 @@ form div
   :padding 0
   :border 1px solid
     :color = !signal_color
+
+label
+  :font-style italic
+  :padding-right 1em
 
 label em, label .error
   :color = !signal_color

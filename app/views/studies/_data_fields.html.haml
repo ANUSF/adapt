@@ -1,34 +1,29 @@
 #data-fields
   %h3 Data Description
   %div
-    - msg = @study.errors.on("Data Category")
     %label
-      Category of data
+      Data is
       %em *
-      - unless msg.blank?
-        %em= msg
-    %br
     = @form.check_box :data_is_qualitative
     = @form.check_box :data_is_quantitative
+    = @form.errors_on("Data Category")
   .row
     = @form.select :data_kind, :required => true
     = @form.select :time_method
-  .clear
-  = @form.text_area :sample_population
-  .row
-    = @form.text_field :period_start, :size => 12
-    .form-field &mdash;
-    = @form.text_field :period_end, :size => 12
-    .form-field Time period data refers to
-  .clear
-  = @form.text_field :response_rate
-  .row
     = @form.select :sampling_procedure
     = @form.select :collection_method
   .clear
-  .row
-    = @form.text_field :collection_start, :size => 12
-    .form-field &mdash;
-    = @form.text_field :collection_end, :size => 12
-    .form-field Data collection period
-  .clear
+  %div= @form.text_area :sample_population
+  %div= @form.text_field :response_rate, :inline => true, :label_inline => true
+  %div
+    %label Time period data refers to:
+    = @form.text_field :period_start, :size => 12, :inline => true
+    &mdash;
+    = @form.text_field :period_end, :size => 12, :inline => true
+    = @form.errors_on("period")
+  %div
+    %label Data collection period:
+    = @form.text_field :collection_start, :size => 12, :inline => true
+    &mdash;
+    = @form.text_field :collection_end, :size => 12, :inline => true
+    = @form.errors_on("collection")
