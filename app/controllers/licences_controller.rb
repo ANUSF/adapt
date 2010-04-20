@@ -36,6 +36,7 @@ class LicencesController < ApplicationController
   public
 
   def show
+    @text = @licence.text(false)
   end
 
   # ----------------------------------------------------------------------------
@@ -45,8 +46,11 @@ class LicencesController < ApplicationController
   def accept
     if @study.status == "unsubmitted"
       if params[:result] == "Accept"
-        @study.update_attribute(:status, "submitted")
-        flash[:notice] = "Study submitted and pending approval."
+        if @study.submit(params[:licence_text])
+          flash[:notice] = "Study submitted and pending approval."
+        else
+          flash[:error] = "Study submission failed for unknown reasons."
+        end
       else
         flash[:notice] = "The study has not yet been submitted."
       end
