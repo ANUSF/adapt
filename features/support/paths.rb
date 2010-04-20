@@ -20,6 +20,9 @@ module NavigationHelpers
     when /^the study details page for "(.+)"$/
       "/studies/#{model("study: \"#{$1}\"").id}"
 
+    when /^the study edit page for "(.+)"$/
+      "/studies/#{model("study: \"#{$1}\"").id}/edit"
+
     when /^the licence page for "(.+)"$/
       new_study_licence_path(model("study: \"#{$1}\""))
 

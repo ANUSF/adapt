@@ -5,6 +5,8 @@ Feature: Contributor creates study
 
   Background:
     Given there is a contributor account for Alice
+    And there is a contributor account for Bill
+    And Bill has a study entitled "My Study"
 
   Scenario: Successful creation
     Given I am logged in as Alice
@@ -17,6 +19,15 @@ Feature: Contributor creates study
     And the "Study title" field should contain "My Study"
     And the "Study abstract" field should contain "To be written"
 
+  Scenario: Duplicate title
+    Given I am logged in as Bill
+    When I follow "Add Study"
+    And I fill in "Study title" with "My study"
+    And I fill in "Study abstract" with "I will fill this in later"
+    And I press "Save"
+    Then I should see the error message "Study creation failed"
+    And I should see "You have another study with this title"
+
   Scenario Outline: Missing data
     Given I am logged in as Alice
     When I follow "Add Study"
@@ -24,7 +35,7 @@ Feature: Contributor creates study
     And I fill in "Study abstract" with "<abstract>"
     And I press "Save"
     Then I should see the error message "Study creation failed"
-    And I should see "may not be blank"
+    And I should see "May not be blank"
     And I should see the page heading "New Study"
     And the "Study title" field should contain "<title>"
     And the "Study abstract" field should contain "<abstract>"
