@@ -104,8 +104,37 @@ class Study < ActiveRecord::Base
     end
   end
 
-  def submit(licence_text)
-    update_attribute(:status, "submitted")
+  def submit(licence, ddi)
+    user_dir = owner.username.gsub /[^-_.a-zA-Z0-9]+/, "_"
+    study_dir = title.gsub /[^-_.a-zA-Z0-9]+/, "_"
+    path = File.join(ENV['ADAPT_ASSET_PATH'], "Submission", user_dir, study_dir)
+    data_path = File.join(path, "DataFiles")
+    doc_path = File.join(path, "Documentation")
+    FileUtils.mkdir_p(data_path, :mode => 0755) unless File.exist? data_path
+    FileUtils.mkdir_p(doc_path, :mode => 0755) unless File.exist? doc_path
+    
+    begin
+      File.open(File.join(path, "licence.txt"), "w", 0640) { |fp|
+        fp.write(licence)
+      }
+      File.open(File.join(path, "study.ddi"), "w", 0640) { |fp|
+        fp.write(ddi)
+      }
+      attachments.select { |a| a.category == "Data File" }.each do |a|
+        File.open(File.join(data_path, a.name), "w", 0640) { |fp|
+          fp.write(a.data)
+        }
+      end
+      attachments.select { |a| a.category == "Documentation" }.each do |a|
+        File.open(File.join(doc_path, a.name), "w", 0640) { |fp|
+          fp.write(a.data)
+        }
+      end
+    rescue
+      false
+    else
+      update_attribute(:status, "submitted")
+    end
   end
 
   def approve(archivist)
