@@ -22,6 +22,9 @@ class Study < ActiveRecord::Base
                      :additional_metadata]))
 
   validates_presence_of :title, :message => 'May not be blank.'
+  validates_uniqueness_of :title, :scope => :user_id,
+                          :case_sensitive => false,
+                          :message => 'You have another study with this title.'
   validates_presence_of :abstract, :message => 'May not be blank.'
 
   validates_each :attachments, :if => :checking do |rec, attr, val|
