@@ -13,7 +13,7 @@ Feature: Contributor submits study
 
   Scenario: License form is shown for review
     Given the study "First Study" is ready for submission
-    When I go to the study details page for "First Study"
+    When I go to the study edit page for "First Study"
     And I press "Submit this study"
     Then I should see the page heading "Deposit Licence"
     And I should see "Please review and confirm."
@@ -21,8 +21,7 @@ Feature: Contributor submits study
 
   Scenario: Incomplete study
     Given the study "First Study" has status "incomplete"
-    When I go to the study details page for "First Study"
-    And I press "List missing information"
+    When I submit the study "First Study"
     Then I should see the page heading "Edit Study"
     And I should see an error message "not yet ready for submission"
 
