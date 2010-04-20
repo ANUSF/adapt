@@ -29,6 +29,13 @@ class Attachment < ActiveRecord::Base
     File.open(stored_path) { |f| f.read }
   end
 
+  def metadata
+    { :name => name,
+      :category => category,
+      :size => data.size,
+      :description => description }
+  end
+  
   def self.make(name, data)
     self.new(:content => Struct.new(:original_filename, :read).new(name, data))
   end
