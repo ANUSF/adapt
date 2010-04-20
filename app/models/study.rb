@@ -105,6 +105,10 @@ class Study < ActiveRecord::Base
   end
 
   def submit(licence, ddi)
+    def write_file(dir, filename, data)
+      File.open(File.join(dir, filename), "w", 0640) { |fp| fp.write(data) }
+    end
+
     user_dir = owner.username.gsub /[^-_.a-zA-Z0-9]+/, "_"
     study_dir = title.gsub /[^-_.a-zA-Z0-9]+/, "_"
     path = File.join(ENV['ADAPT_ASSET_PATH'], "Submission", user_dir, study_dir)
@@ -114,25 +118,13 @@ class Study < ActiveRecord::Base
     FileUtils.mkdir_p(doc_path, :mode => 0755) unless File.exist? doc_path
     
     begin
-      File.open(File.join(path, "licence.txt"), "w", 0640) { |fp|
-        fp.write(licence)
+      write_file(path, "licence.txt", licence)
+      write_file(path, "study.ddi", ddi)
+      write_file(path, "descriptions.xml", attachments.map(&:metadata).to_xml)
+      attachments.each { |a|
+        dir = (a.category == "Documentation") ? doc_path : data_path
+        write_file(dir, a.name, a.data)
       }
-      File.open(File.join(path, "study.ddi"), "w", 0640) { |fp|
-        fp.write(ddi)
-      }
-      attachments.select { |a| a.category == "Data File" }.each do |a|
-        File.open(File.join(data_path, a.name), "w", 0640) { |fp|
-          fp.write(a.data)
-        }
-      end
-      attachments.select { |a| a.category == "Documentation" }.each do |a|
-        File.open(File.join(doc_path, a.name), "w", 0640) { |fp|
-          fp.write(a.data)
-        }
-      end
-    rescue
-      false
-    else
       update_attribute(:status, "submitted")
     end
   end
