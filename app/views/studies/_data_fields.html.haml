@@ -27,3 +27,23 @@
     &mdash;
     = @form.text_field :collection_end, :size => 12, :inline => true
     = @form.errors_on("collection")
+  %hr
+  %p
+    %strong Tips for completing this page:
+  .collapsible
+    .box
+      %ul
+        %li
+          %p
+            Hold down the "Ctrl" key to mark multiple values in any
+            of the selection boxes.
+        %li
+          %p
+            Dates can be specified as a year, year and month, or full
+            date. Providing a four-digit year and three-letter month
+            helps avoid ambiguities, but other formats are accepted.
+        %li
+          %p
+            Some fields are normalized by the system. Press "Apply
+            Changes" at any time to see if your inputs were taken as
+            intended.
