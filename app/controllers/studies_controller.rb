@@ -160,9 +160,7 @@ class StudiesController < ApplicationController
   end
 
   def approve
-    @study.status = "approved"
-    @study.archivist = User.archivists.find(params[:study][:archivist])
-    @study.save!
+    @study.approve User.archivists.find(params[:study][:archivist])
     redirect_to studies_url
   end
 end

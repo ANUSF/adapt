@@ -104,6 +104,14 @@ class Study < ActiveRecord::Base
     end
   end
 
+  def submit(licence_text)
+    update_attribute(:status, "submitted")
+  end
+
+  def approve(archivist)
+    update_attributes(:status => "approved", :archivist => archivist)
+  end
+
   def can_be_viewed_by(person)
     case person && person.role
     when 'contributor' then person == owner
