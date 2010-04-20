@@ -13,7 +13,7 @@ class StudiesController < ApplicationController
   permit :submit,                  :if => :may_submit
   permit :approve,                 :if => :may_approve
 
-  before_filter :prepare_for_edit, :only => [ :edit, :update ]
+  before_filter :prepare_for_edit, :only => [ :edit, :update, :submit ]
   before_filter :ensure_licence,   :only => [ :edit, :submit ]
 
   protected
