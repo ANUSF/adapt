@@ -35,11 +35,7 @@ class ApplicationController < ActionController::Base
 
   # Whether the application is being run in a special demo mode.
   def in_demo_mode
-    if ENV['ADAPT_DEMO_MODE']
-      ENV['ADAPT_DEMO_MODE'] == 'true'
-    else
-      not %w{development production}.include? Rails.env
-    end
+    Rails.env != "production"
   end
 
   # Whether the application is being run locally on the user's machine
