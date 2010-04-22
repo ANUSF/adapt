@@ -1,5 +1,21 @@
 - title "Study Summary"
 
+- if @study.status == "submitted" and @study.can_be_approved_by current_user
+  .box
+    Approve and assign to an archivist
+    %p
+      - make_form_for @study, :url => approve_study_path(@study), |
+                              :html => { :method => :post } do |f| |
+        = f.select :archivist, :label => "", :inline => true
+        = f.result_buttons %w{Assign}
+    or reopen so that depositor can add further information:
+    %p
+      - make_form_for @study, :url => reject_study_path(@study), |
+                              :html => { :method => :post } do |f| |
+        = f.result_buttons %w{Reopen}
+  .clear
+  %hr
+
 .properties
   %ul
     %li
@@ -135,16 +151,3 @@
     |
     = link_to "Delete", @study, :confirm => 'Really delete this study?', |
                                 :method => :delete |
-
-- if @study.status == "submitted" and @study.can_be_approved_by current_user
-  %hr
-  %h3 Approve and assign to an archivist:
-  - make_form_for @study, :url => approve_study_path(@study), |
-                          :html => { :method => :post } do |f| |
-    = f.select :archivist, :label => ""
-    = f.result_buttons %w{Assign}
-  %hr
-  %h3 Return to depositor for further editing:
-  - make_form_for @study, :url => reject_study_path(@study), |
-                          :html => { :method => :post } do |f| |
-    = f.result_buttons %w{Reject}
