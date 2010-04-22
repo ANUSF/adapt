@@ -136,10 +136,15 @@
     = link_to "Delete", @study, :confirm => 'Really delete this study?', |
                                 :method => :delete |
 
-- if @study.can_be_approved_by current_user
+- if @study.status == "submitted" and @study.can_be_approved_by current_user
   %hr
   %h3 Approve and assign to an archivist:
   - make_form_for @study, :url => approve_study_path(@study), |
                           :html => { :method => :post } do |f| |
     = f.select :archivist, :label => ""
     = f.result_buttons %w{Assign}
+  %hr
+  %h3 Return to depositor for further editing:
+  - make_form_for @study, :url => reject_study_path(@study), |
+                          :html => { :method => :post } do |f| |
+    = f.result_buttons %w{Reject}

@@ -3,6 +3,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users
   map.resources :studies, :shallow => true,
                 :member => { :approve => :post,
+                             :reject  => :post,
                              :submit  => :post } do |studies|
     studies.resources :attachments, :member => { :download => :get }
     studies.resources :licences, :member => { :accept => :post }

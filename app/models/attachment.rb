@@ -1,4 +1,6 @@
 class Attachment < ActiveRecord::Base
+  include ActionView::Helpers::NumberHelper
+
   belongs_to :study
 
   attr_accessible :content, :category, :format, :description
@@ -30,10 +32,10 @@ class Attachment < ActiveRecord::Base
   end
 
   def metadata
-    { :name => name,
-      :category => category,
-      :size => data.size,
-      :description => description }
+    { "Filename" => name,
+      "Filesize" => number_to_human_size(data.size),
+      "Category" => category,
+      "Comments" => description }
   end
   
   def self.make(name, data)
