@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     end
     if @user.save
       flash[:notice] = "Successfully updated profile."
-      redirect_to studies_url
+      redirect_to params[:last_url] || studies_url
     else
       render :action => 'edit'
     end
