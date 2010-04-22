@@ -118,9 +118,10 @@ class Study < ActiveRecord::Base
     FileUtils.mkdir_p(doc_path, :mode => 0755) unless File.exist? doc_path
     
     begin
-      write_file(path, "licence.txt", licence)
-      write_file(path, "study.ddi", ddi)
-      write_file(path, "descriptions.xml", attachments.map(&:metadata).to_xml)
+      write_file(path, "Licence.txt", licence)
+      write_file(path, "Study.ddi", ddi)
+      write_file(path, "FileDescriptions.txt",
+                 attachments.map { |a| a.metadata.to_yaml }.join("\n"))
       attachments.each { |a|
         dir = (a.category == "Documentation") ? doc_path : data_path
         write_file(dir, a.name, a.data)
@@ -129,8 +130,14 @@ class Study < ActiveRecord::Base
     end
   end
 
-  def approve(archivist)
-    update_attributes(:status => "approved", :archivist => archivist)
+  def approve(assigned_archivist)
+    self.status = "approved"
+    self.archivist = assigned_archivist
+    save
+  end
+
+  def reject
+    update_attribute(:status, "unsubmitted")
   end
 
   def can_be_viewed_by(person)
@@ -147,7 +154,6 @@ class Study < ActiveRecord::Base
     when 'contributor' then person == owner and
                             %w{incomplete unsubmitted}.include? status
     when 'archivist'   then person == archivist
-    when 'admin'       then true
     else                    false
     end
   end

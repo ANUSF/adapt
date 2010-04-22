@@ -11,7 +11,7 @@ class StudiesController < ApplicationController
   permit :show,                    :if => :may_view
   permit :edit, :update, :destroy, :if => :may_edit
   permit :submit,                  :if => :may_submit
-  permit :approve,                 :if => :may_approve
+  permit :approve, :reject,        :if => :may_approve
 
   before_filter :prepare_for_edit, :only => [ :edit, :update, :submit ]
   before_filter :ensure_licence,   :only => [ :edit, :submit ]
@@ -69,7 +69,7 @@ class StudiesController < ApplicationController
       when 'archivist'
         current_user.studies_in_curation
       when 'admin'
-        Study.find :all, :conditions => 'status != "incomplete"'
+        Study.all.select { |s| %w{submitted approved}.include? s.status }
       end
   end
   
@@ -161,6 +161,11 @@ class StudiesController < ApplicationController
 
   def approve
     @study.approve User.archivists.find(params[:study][:archivist])
+    redirect_to studies_url
+  end
+
+  def reject
+    @study.reject
     redirect_to studies_url
   end
 end
