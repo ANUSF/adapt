@@ -6,8 +6,4 @@
   = f.text_area :address, :rows => 6
   = f.text_field :telephone
   = f.text_field :fax
-  - if users_may_change_roles
-    = f.select :role
-  - else
-    %p= "Role: #{@user.role}"
   %p= f.result_buttons "Save"
