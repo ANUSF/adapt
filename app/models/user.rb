@@ -26,6 +26,8 @@ class User < ActiveRecord::Base
   validates_format_of   :fax, :with => PHONE,
                         :message => "Does not look like a phone number."
 
+  #after_create { |user| UserMailer.deliver_welcome_email(user) } 
+
   def selections(column)
     ROLES if column.to_sym == :role
   end
