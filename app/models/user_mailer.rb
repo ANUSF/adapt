@@ -1,6 +1,12 @@
 class UserMailer < ActionMailer::Base
+  ASSDA_EMAIL = if Rails.env == 'production'
+                  "assda@anu.edu.au"
+                else
+                  "olaf.delgado@gmail.com"
+                end
+
   def submission_notification(study)
-    recipients "olaf.delgado@gmail.com"
+    recipients ASSDA_EMAIL
     from "assda@anu.edu.au"
     subject "A study was submitted via ADAPT"
     sent_on Time.now
