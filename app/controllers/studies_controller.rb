@@ -11,7 +11,7 @@ class StudiesController < ApplicationController
   permit :show,                    :if => :may_view
   permit :edit, :update, :destroy, :if => :may_edit
   permit :submit,                  :if => :may_submit
-  permit :approve, :reject,        :if => :may_approve
+  permit :approve, :reopen,        :if => :may_approve
 
   before_filter :prepare_for_edit, :only => [ :edit, :update, :submit ]
   before_filter :ensure_licence,   :only => [ :edit, :submit ]
@@ -164,8 +164,8 @@ class StudiesController < ApplicationController
     redirect_to studies_url
   end
 
-  def reject
-    @study.reject
+  def reopen
+    @study.reopen
     redirect_to studies_url
   end
 end

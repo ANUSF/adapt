@@ -137,7 +137,7 @@ class Study < ActiveRecord::Base
     save
   end
 
-  def reject
+  def reopen
     update_attribute(:status, "unsubmitted")
   end
 
