@@ -10,7 +10,7 @@
         = f.result_buttons %w{Assign}
     or reopen so that depositor can add further information:
     %p
-      - make_form_for @study, :url => reject_study_path(@study), |
+      - make_form_for @study, :url => reopen_study_path(@study), |
                               :html => { :method => :post } do |f| |
         = f.result_buttons %w{Reopen}
   .clear
