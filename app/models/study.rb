@@ -104,31 +104,34 @@ class Study < ActiveRecord::Base
     end
   end
 
+  include UniqueDirectory
+
   def submit(licence, ddi)
     def write_file(dir, filename, data)
       File.open(File.join(dir, filename), "w", 0640) { |fp| fp.write(data) }
     end
 
-    user_dir = owner.username.gsub /[^-_.a-zA-Z0-9]+/, "_"
-    study_dir = title.gsub /[^-_.a-zA-Z0-9]+/, "_"
-    path = File.join(ENV['ADAPT_ASSET_PATH'], "Submission", user_dir, study_dir)
+    base_path = File.join(ENV['ADAPT_ASSET_PATH'], "Submission")
+    identifier = next_unique_directory_name(base_path, "TMP")
+    path = File.join(base_path, identifier)
+
     data_path = File.join(path, "DataFiles")
     doc_path = File.join(path, "Documentation")
-    FileUtils.mkdir_p(data_path, :mode => 0755) unless File.exist? data_path
-    FileUtils.mkdir_p(doc_path, :mode => 0755) unless File.exist? doc_path
-    
-    begin
-      write_file(path, "Licence.txt", licence)
-      write_file(path, "Study.ddi", ddi)
-      write_file(path, "FileDescriptions.txt",
-                 attachments.map { |a| a.metadata.to_yaml }.join("\n"))
-      attachments.each { |a|
-        dir = (a.category == "Documentation") ? doc_path : data_path
-        write_file(dir, a.name, a.data)
-      }
-      update_attribute(:status, "submitted")
-      UserMailer.deliver_submission_notification(self)
-    end
+    FileUtils.mkdir_p(data_path, :mode => 0755)
+    FileUtils.mkdir_p(doc_path, :mode => 0755)
+
+    write_file(path, "Licence.txt", licence)
+    write_file(path, "Study.ddi", ddi)
+    write_file(path, "FileDescriptions.txt",
+               attachments.map { |a| a.metadata.to_yaml }.join("\n"))
+    attachments.each { |a|
+      dir = (a.category == "Documentation") ? doc_path : data_path
+      write_file(dir, a.name, a.data)
+    }
+
+    update_attribute(:status, "submitted")
+    update_attribute(:permanent_identifier, identifier)
+    UserMailer.deliver_submission_notification(self)
   end
 
   def approve(assigned_archivist)
