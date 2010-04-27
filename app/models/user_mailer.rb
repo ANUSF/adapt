@@ -1,9 +1,10 @@
 class UserMailer < ActionMailer::Base
-  def welcome_email(user)
+  def submission_notification(study)
     recipients "olaf.delgado@gmail.com"
-    from "notifications@example.com"
-    subject "Welcome to My Awesome Site"
+    from "assda@anu.edu.au"
+    subject "A study was submitted via ADAPT"
     sent_on Time.now
-    body(:user => user, :url => "http://localhost:3000/login")
+    body(:study => study,
+         :url => edit_study_url(study, :host => "localhost:3000"))
   end
 end

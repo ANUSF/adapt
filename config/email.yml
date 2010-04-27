@@ -1,13 +1,18 @@
-development:
+gmail: &gmail
   :enable_starttls_auto: true
   :address: smtp.gmail.com
   :port: 587
   :authentication: login
-  :user_name: grimley.fiendish@gmail.com
-  :password: "Oh, damned!"
-production:
-  :address: smtp.server.com
-  :port: 25
-  :authentication: plain
   :user_name: user
   :password: pass
+
+anusf: &anusf
+  :address: anusf.anu.edu.au
+  :port: 25
+  :domain: assda.anu.edu.au
+
+development:
+  <<: *anusf
+
+production:
+  <<: *anusf

@@ -127,6 +127,7 @@ class Study < ActiveRecord::Base
         write_file(dir, a.name, a.data)
       }
       update_attribute(:status, "submitted")
+      UserMailer.deliver_submission_notification(self)
     end
   end
 
