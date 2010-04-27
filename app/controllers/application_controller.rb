@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 
   # -- protects from CSRF attacks via an authenticity token
   protect_from_forgery
-  filter_parameter_logging :authenticity_token
+  filter_parameter_logging :authenticity_token, :licence_text
 
   # -- this handles session expiration, invalid IP addresses, etc.
   around_filter :validate_session
