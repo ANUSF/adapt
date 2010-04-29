@@ -1,0 +1,11 @@
+A study entitled
+
+'<%= h @study.title %>'
+
+by <%= h @study.owner.username %>
+
+has been approved for publication and assigned to you.
+
+The URL for the study is <%= @url %>.
+
+<%= render :partial => "noreply" %>

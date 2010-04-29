@@ -104,46 +104,6 @@ class Study < ActiveRecord::Base
     end
   end
 
-  include UniqueDirectory
-
-  def submit(licence, ddi)
-    def write_file(dir, filename, data)
-      File.open(File.join(dir, filename), "w", 0640) { |fp| fp.write(data) }
-    end
-
-    base_path = File.join(ENV['ADAPT_ASSET_PATH'], "Submission")
-    identifier = next_unique_directory_name(base_path, "deposit_")
-    update_attribute(:permanent_identifier, identifier.sub(/_/, ':'))
-    path = File.join(base_path, identifier)
-
-    data_path = File.join(path, "DataFiles")
-    doc_path = File.join(path, "Documentation")
-    FileUtils.mkdir_p(data_path, :mode => 0755)
-    FileUtils.mkdir_p(doc_path, :mode => 0755)
-
-    write_file(path, "Licence.txt", licence)
-    write_file(path, "Study.ddi", ddi)
-    write_file(path, "FileDescriptions.txt",
-               attachments.map { |a| a.metadata.to_yaml }.join("\n"))
-    attachments.each { |a|
-      dir = (a.category == "Documentation") ? doc_path : data_path
-      write_file(dir, a.name, a.data)
-    }
-
-    update_attribute(:status, "submitted")
-    UserMailer.deliver_submission_notification(self)
-  end
-
-  def approve(assigned_archivist)
-    self.status = "approved"
-    self.archivist = assigned_archivist
-    save
-  end
-
-  def reopen
-    update_attribute(:status, "unsubmitted")
-  end
-
   def can_be_viewed_by(person)
     case person && person.role
     when 'contributor' then person == owner
@@ -180,7 +140,85 @@ class Study < ActiveRecord::Base
     study_ready and licence_ready and attachments_ready
   end
 
+  def ddi
+    av = ActionView::Base.new(Rails::Configuration.new.view_path)
+    class << av
+      include StudiesHelper
+    end
+    av.assigns[:study] = self
+    av.render "studies/ddi.xml"
+  end
+
+  include UniqueDirectory
+
+  def submit(licence_text)
+    identifier = next_unique_directory_name(submission_path, "deposit_")
+
+    self.permanent_identifier = identifier.sub(/_/, ':')
+    self.status = "submitted"
+    save
+
+    write_files(File.join(submission_path, identifier), licence_text,
+                "Licence.txt", "Study.xml", "FileDescriptions.txt", "Files")
+
+    UserMailer.deliver_submission_notification(self)
+  end
+
+  def approve(assigned_archivist, range = "0")
+    licence_text = read_file(submission_path,
+                             permanent_identifier.sub(/:/, '_'),
+                             "Licence.txt")
+
+    identifier = next_unique_directory_name(archive_path, range, 5 - range.size)
+
+    self.permanent_identifier = identifier
+    self.status = "approved"
+    self.archivist = assigned_archivist
+    save
+
+    write_files(File.join(archive_path, identifier), licence_text,
+                "ASSDA.Deposit.Licence.#{identifier}.txt",
+                "au.edu.anu.assda.ddi.#{identifier}.xml",
+                "Original.File.Descriptions.txt", "Original")
+
+    UserMailer.deliver_archivist_assignment(self)
+  end
+
+  def reopen
+    update_attribute(:status, "unsubmitted")
+  end
+
   protected
+
+  def submission_path
+    base_path = File.join(ENV['ADAPT_ASSET_PATH'], "Submission")
+  end
+
+  def archive_path
+    base_path = File.join(ENV['ADAPT_ASSET_PATH'], "Archive")
+  end
+
+  def write_file(data, dir, filename)
+    File.open(File.join(dir, filename), "w", 0640) { |fp| fp.write(data) }
+  end
+
+  def read_file(*path_parts)
+    File.open(File.join(*path_parts)) { |fp| fp.read }
+  end
+
+  def write_files(path, licence_text,
+                  licence_filename, ddi_filename, descriptions_filename,
+                  original_dirname
+                  )
+    write_file(licence_text, path, licence_filename)
+    write_file(ddi, path, ddi_filename)
+    write_file(attachments.map { |a| a.metadata.to_yaml }.join("\n"),
+               path, descriptions_filename)
+
+    originals_path = File.join(path, original_dirname)
+    FileUtils.mkdir_p(originals_path, :mode => 0755)
+    attachments.each { |a| write_file(a.data, originals_path, a.name) }
+  end
 
   def self.annotate_with(name)
     define_method(name) do |column|
