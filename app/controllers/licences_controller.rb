@@ -46,8 +46,7 @@ class LicencesController < ApplicationController
   def accept
     if @study.status == "unsubmitted"
       if params[:result] == "Accept"
-        ddi = render_to_string :template => "studies/show.xml", :layout => false
-        if @study.submit(params[:licence_text], ddi)
+        if @study.submit(params[:licence_text])
           flash[:notice] = "Study submitted and pending approval."
         else
           flash[:error] = "Study submission failed for unknown reasons."
