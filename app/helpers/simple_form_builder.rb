@@ -68,7 +68,7 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
       multi = multi ? "multiple" : nil
       size = f.options.delete(:size) || (6 if multi)
 
-      current = @object.send(column) || []
+      current = try(column) || []
       current = [current] unless multi or current == []
       current_other = (current - selections.transpose[1]).join(", ") if other
       name = multi ? "#{f.name}[]" : f.name
