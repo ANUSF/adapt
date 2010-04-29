@@ -4,7 +4,7 @@
     %citation
       %titlStmt
         %titl= @study.title
-        %IDNo= @study.permanent_identifier || "au.edu.assda.ddi.xxxxx"
+        %IDNo= @study.long_identifier
       %prodStmt
         %producer{ :abbr => "ASSDA", |
                    :affiliation => "The Australian National University" } |
@@ -17,7 +17,7 @@
     %citation
       %titlStmt
         %titl= @study.title
-        %IDNo= @study.permanent_identifier || "au.edu.assda.ddi.xxxxx"
+        %IDNo= @study.long_identifier
       %rspStmt
         - each @study.principal_investigators do |author|
           %AuthEnty{ :affiliation => author['affiliation'] }
