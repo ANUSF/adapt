@@ -160,7 +160,9 @@ class StudiesController < ApplicationController
   end
 
   def approve
-    @study.approve User.archivists.find(params[:study][:archivist])
+    archivist = User.archivists.find(params[:study][:archivist])
+    range_prefix = params[:study][:id_range][0,1]
+    @study.approve archivist, range_prefix
     redirect_to studies_url
   end
 
