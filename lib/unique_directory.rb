@@ -14,14 +14,13 @@ module UniqueDirectory
   def with_lock_on(base, &block)
     raise "No block given." unless block_given?
 
-    lockfile = File.join(base, "lock")
-    FileUtils.touch(lockfile)
-
-    File.open(lockfile) { |fp|
-      fp.flock(File::LOCK_EX)
-      result = block.call
-      fp.flock(File::LOCK_UN)
-      result
-    }
+    File.open(File.join(base, "lock"), 'w+') do |fp|
+      begin
+        fp.flock(File::LOCK_EX)
+        block.call
+      ensure
+        fp.flock(File::LOCK_UN)
+      end
+    end
   end
 end

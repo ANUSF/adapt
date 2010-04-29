@@ -112,7 +112,8 @@ class Study < ActiveRecord::Base
     end
 
     base_path = File.join(ENV['ADAPT_ASSET_PATH'], "Submission")
-    identifier = next_unique_directory_name(base_path, "TMP")
+    identifier = next_unique_directory_name(base_path, "deposit_")
+    update_attribute(:permanent_identifier, identifier.sub(/_/, ':'))
     path = File.join(base_path, identifier)
 
     data_path = File.join(path, "DataFiles")
@@ -130,7 +131,6 @@ class Study < ActiveRecord::Base
     }
 
     update_attribute(:status, "submitted")
-    update_attribute(:permanent_identifier, identifier)
     UserMailer.deliver_submission_notification(self)
   end
 
