@@ -1,5 +1,6 @@
 class Study < ActiveRecord::Base
   include ModelSupport
+  include UniqueDirectory
 
   belongs_to :owner,     :class_name => 'User', :foreign_key => :user_id
   belongs_to :archivist, :class_name => 'User', :foreign_key => :archivist_id
@@ -140,6 +141,14 @@ class Study < ActiveRecord::Base
     study_ready and licence_ready and attachments_ready
   end
 
+  def identifier
+    permanent_identifier || temporary_identifier
+  end
+
+  def long_identifier
+    "au.edu.assda.ddi.#{identifier || "xxxxx"}"
+  end
+
   def ddi
     av = ActionView::Base.new(Rails::Configuration.new.view_path)
     class << av
@@ -149,12 +158,10 @@ class Study < ActiveRecord::Base
     av.render "studies/ddi.xml"
   end
 
-  include UniqueDirectory
-
   def submit(licence_text)
     identifier = next_unique_directory_name(submission_path, "deposit_")
 
-    self.permanent_identifier = identifier.sub(/_/, ':')
+    self.temporary_identifier = identifier.sub(/_/, ':')
     self.status = "submitted"
     save
 
@@ -166,26 +173,31 @@ class Study < ActiveRecord::Base
 
   def approve(assigned_archivist, range = "0")
     licence_text = read_file(submission_path,
-                             permanent_identifier.sub(/:/, '_'),
+                             temporary_identifier.sub(/:/, '_'),
                              "Licence.txt")
 
-    identifier = next_unique_directory_name(archive_path, range, 5 - range.size)
+    unless self.permanent_identifier
+      ident = next_unique_directory_name(archive_path, range, 5 - range.size)
+      self.permanent_identifier = ident
+    end
 
-    self.permanent_identifier = identifier
     self.status = "approved"
     self.archivist = assigned_archivist
     save
 
-    write_files(File.join(archive_path, identifier), licence_text,
+    write_files(File.join(archive_path, self.permanent_identifier),
+                licence_text,
                 "ASSDA.Deposit.Licence.#{identifier}.txt",
                 "au.edu.anu.assda.ddi.#{identifier}.xml",
-                "Original.File.Descriptions.txt", "Original")
+                "Original.File.Descriptions.txt",
+                "Original")
 
     UserMailer.deliver_archivist_assignment(self)
   end
 
   def reopen
-    update_attribute(:status, "unsubmitted")
+    self.status = "unsubmitted"
+    save
   end
 
   protected
