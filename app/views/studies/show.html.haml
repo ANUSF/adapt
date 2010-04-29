@@ -2,12 +2,17 @@
 
 - if @study.status == "submitted" and @study.can_be_approved_by current_user
   .box
-    Approve and assign to an archivist
-    %p
-      - make_form_for @study, :url => approve_study_path(@study), |
-                              :html => { :method => :post } do |f| |
-        = f.select :archivist, :label => "", :inline => true
-        = f.result_buttons %w{Assign}
+    - make_form_for @study, :url => approve_study_path(@study), |
+                            :html => { :method => :post } do |f| |
+      Archivist:
+      = f.select :archivist, :label => '', :inline => true
+      &nbsp; Number range for ID:
+      = f.select :id_range, "0234".each_char.map { |i| "#{i}0000-#{i}9999" }, |
+                 :label => '', :inline => true |
+      %hr
+      %p
+        Approve the study and assign to the selected archivist:
+        = f.result_buttons %w{Approve}
     or reopen so that depositor can add further information:
     %p
       - make_form_for @study, :url => reopen_study_path(@study), |
