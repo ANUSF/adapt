@@ -152,9 +152,7 @@ class Study < ActiveRecord::Base
 
   def ddi
     av = ActionView::Base.new(Rails::Configuration.new.view_path)
-    class << av
-      include StudiesHelper
-    end
+    av.extend StudiesHelper
     av.assigns[:study] = self
     av.render "studies/ddi.xml"
   end
@@ -241,8 +239,5 @@ class Study < ActiveRecord::Base
     end
   end
 
-  for name in %w{label_for help_on selections subfields is_repeatable?
-                 allow_other?}
-    annotate_with(name)
-  end
+  FIELD_ANNOTATIONS[:__defaults__].keys.each &self.method(:annotate_with)
 end
