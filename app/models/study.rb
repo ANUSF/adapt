@@ -190,12 +190,18 @@ class Study < ActiveRecord::Base
 
     base = File.join(archive_path, self.permanent_identifier, "Original")
     write_file(licence_text, base, "ASSDA.Deposit.Licence.#{identifier}.txt")
-    write_file(ddi, base, "au.edu.anu.assda.ddi.#{identifier}.xml")
-    write_file(attachments.map { |a| a.metadata.to_yaml }.join("\n"),
-               base, "Processing", "FileDescriptions.txt")
+    write_file(ddi, base, "#{long_identifier}.xml")
+
+    filedata = []
     attachments.each do |a|
-      write_file(a.data, base,  a.category.gsub(/\s/, '').pluralize, a.name)
+      ext = File.extname(a.name)
+      path = non_conflicting(File.join(base, "#{long_identifier}#{ext}"))
+      name = File.basename(path)
+      filedata << a.metadata.merge("Filename" => name,
+                                   "Original" => a.name).to_yaml
+      write_file(a.data, base, name)
     end
+    write_file(filedata.join("\n"), base, "Processing", "FileDescriptions.txt")
 
     UserMailer.deliver_archivist_assignment(self)
   end
