@@ -1,4 +1,6 @@
-module UniqueDirectory
+module UniqueFileNaming
+  include LazyEnumerable
+
   def next_unique_directory_name(base, prefix, number_length = 5)
     with_lock_on(base) do
       seen = Dir.new(base).grep(/^#{prefix}\d+$/o)
@@ -22,6 +24,16 @@ module UniqueDirectory
       ensure
         fp.flock(File::LOCK_UN)
       end
+    end
+  end
+
+  def non_conflicting(path)
+    if !File.exist?(path)
+      path
+    else
+      Stream.new('a', &:next).map { |s|
+        path.sub(/((\.[^.]*)?)$/, "-#{s}\\1")
+      }.find { |p| !File.exist?(p) }
     end
   end
 end

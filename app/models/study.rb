@@ -1,6 +1,6 @@
 class Study < ActiveRecord::Base
   include ModelSupport
-  include UniqueDirectory
+  include UniqueFileNaming
 
   belongs_to :owner,     :class_name => 'User', :foreign_key => :user_id
   belongs_to :archivist, :class_name => 'User', :foreign_key => :archivist_id
@@ -165,8 +165,14 @@ class Study < ActiveRecord::Base
     self.status = "submitted"
     save
 
-    write_files(File.join(submission_path, identifier), licence_text,
-                "Licence.txt", "Study.xml", "FileDescriptions.txt", "Files")
+    base = File.join(submission_path, identifier)
+    write_file(licence_text, base, "Licence.txt")
+    write_file(ddi, base, "Study.xml")
+    write_file(attachments.map { |a| a.metadata.to_yaml }.join("\n"),
+               base, "FileDescriptions.txt")
+    attachments.each do |a|
+      write_file(a.data, base, a.category.gsub(/\s/, '').pluralize, a.name)
+    end
 
     UserMailer.deliver_submission_notification(self)
   end
@@ -176,21 +182,20 @@ class Study < ActiveRecord::Base
                              temporary_identifier.sub(/:/, '_'),
                              "Licence.txt")
 
-    unless self.permanent_identifier
-      ident = next_unique_directory_name(archive_path, range, 5 - range.size)
-      self.permanent_identifier = ident
-    end
-
+    self.permanent_identifier ||=
+      next_unique_directory_name(archive_path, range, 5 - range.size)
     self.status = "approved"
     self.archivist = assigned_archivist
     save
 
-    write_files(File.join(archive_path, self.permanent_identifier),
-                licence_text,
-                "ASSDA.Deposit.Licence.#{identifier}.txt",
-                "au.edu.anu.assda.ddi.#{identifier}.xml",
-                "Original.File.Descriptions.txt",
-                "Original")
+    base = File.join(archive_path, self.permanent_identifier, "Original")
+    write_file(licence_text, base, "ASSDA.Deposit.Licence.#{identifier}.txt")
+    write_file(ddi, base, "au.edu.anu.assda.ddi.#{identifier}.xml")
+    write_file(attachments.map { |a| a.metadata.to_yaml }.join("\n"),
+               base, "Processing", "FileDescriptions.txt")
+    attachments.each do |a|
+      write_file(a.data, base,  a.category.gsub(/\s/, '').pluralize, a.name)
+    end
 
     UserMailer.deliver_archivist_assignment(self)
   end
@@ -210,26 +215,14 @@ class Study < ActiveRecord::Base
     base_path = File.join(ENV['ADAPT_ASSET_PATH'], "Archive")
   end
 
-  def write_file(data, dir, filename)
-    File.open(File.join(dir, filename), "w", 0640) { |fp| fp.write(data) }
+  def write_file(data, *path_parts)
+    path = File.join(*path_parts)
+    FileUtils.mkpath(File.dirname(path), :mode => 0755)
+    File.open(non_conflicting(path), "w", 0640) { |fp| fp.write(data) }
   end
 
   def read_file(*path_parts)
     File.open(File.join(*path_parts)) { |fp| fp.read }
-  end
-
-  def write_files(path, licence_text,
-                  licence_filename, ddi_filename, descriptions_filename,
-                  original_dirname
-                  )
-    write_file(licence_text, path, licence_filename)
-    write_file(ddi, path, ddi_filename)
-    write_file(attachments.map { |a| a.metadata.to_yaml }.join("\n"),
-               path, descriptions_filename)
-
-    originals_path = File.join(path, original_dirname)
-    FileUtils.mkdir_p(originals_path, :mode => 0755)
-    attachments.each { |a| write_file(a.data, originals_path, a.name) }
   end
 
   def self.annotate_with(name)
