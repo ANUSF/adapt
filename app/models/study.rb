@@ -188,18 +188,18 @@ class Study < ActiveRecord::Base
     self.archivist = assigned_archivist
     save
 
-    base = File.join(archive_path, self.permanent_identifier, "Original")
+    base = non_conflicting(File.join(archive_path,
+                                     self.permanent_identifier, "Original"))
     write_file(licence_text, base, "ASSDA.Deposit.Licence.#{identifier}.txt")
     write_file(ddi, base, "#{long_identifier}.xml")
 
     filedata = []
     attachments.each do |a|
-      ext = File.extname(a.name)
-      path = non_conflicting(File.join(base, "#{long_identifier}#{ext}"))
-      name = File.basename(path)
-      filedata << a.metadata.merge("Filename" => name,
+      name = "#{long_identifier}#{File.extname(a.name)}"
+      path = non_conflicting(File.join(base, name))
+      filedata << a.metadata.merge("Filename" => File.basename(path),
                                    "Original" => a.name).to_yaml
-      write_file(a.data, base, name)
+      write_file(a.data, path)
     end
     write_file(filedata.join("\n"), base, "Processing", "FileDescriptions.txt")
 
