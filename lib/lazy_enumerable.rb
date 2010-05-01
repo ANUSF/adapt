@@ -19,44 +19,21 @@ module LazyEnumerable
     end
   end
 
-  def with_index
+  def take_while(&block)
+    raise 'No block given.' unless block_given?
     Generator.new do |yielder|
-      i = 0
       self.each do |value|
-        yielder.yield([value, i])
-        i += 1
-      end
-    end
-  end
-
-  def take(n)
-    Generator.new do |yielder|
-      i = 0
-      self.each do |value|
-        if i < n
+        if block.call(value)
           yielder.yield(value)
-          i += 1
         else
-          return
+          break
         end
       end
     end
   end
 
-  def drop(n)
-    Generator.new do |yielder|
-      i = 0
-      self.each do |value|
-        if i >= n
-          yielder.yield(value)
-        else
-          i += 1
-        end
-      end
-    end
-  end
-
-  def fold(init, &block)
+  def accumulate(init, &block)
+    raise 'No block given.' unless block_given?
     Generator.new do |yielder|
       acc = init
       self.each do |value|
@@ -64,6 +41,30 @@ module LazyEnumerable
         yielder.yield(acc)
       end
     end
+  end
+
+  def with_accumulated(init, &block)
+    raise 'No block given.' unless block_given?
+    accumulate([nil, init]) { |acc, val| [val, block.call(acc[1], val)] }
+  end
+
+  def drop_while(&block)
+    raise 'No block given.' unless block_given?
+    with_accumulated(true) { |dropping, value|
+      dropping && block.call(value)
+    }.select { |val, dropping| not dropping }.map { |val, x| val }
+  end
+
+  def with_index
+    with_accumulated(-1) { |acc, value| acc + 1 }
+  end
+
+  def take(n)
+    with_index.take_while { |a, i| i < n }.map { |a, i| a }
+  end
+
+  def drop(n)
+    with_index.drop_while { |a, i| i < n }.map { |a, i| a }
   end
 
   class Yielder
