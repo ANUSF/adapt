@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
 
   # Whether to bypass OpenID verification.
   def bypass_openid
-    in_demo_mode
+    Rails.env == 'development' or in_local_mode
   end
 
   # Starts a new session in which the given user is logged in.
