@@ -194,7 +194,8 @@ class Study < ActiveRecord::Base
 
     filedata = []
     attachments.each do |a|
-      name = "#{long_identifier}#{File.extname(a.name)}"
+      #name = "#{long_identifier}#{File.extname(a.name)}"
+      name = a.name
       path = non_conflicting(File.join(base, name))
       filedata << a.metadata.merge("Filename" => File.basename(path),
                                    "Original" => a.name).to_yaml
