@@ -1,4 +1,4 @@
-<Context path="/adapt">
+<Context path="/adapt" docBase="/home/900/oxd900/adapt.war">
   <Parameter name="adapt.home"
 	     value="/opt/adapt"
 	     override="false"/>
