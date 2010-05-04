@@ -5,13 +5,19 @@ require File.join(File.dirname(__FILE__), 'boot')
 require 'java'
 
 # -- read some missing environment variables from the Java system properties
-for key in %w{ADAPT_HOME ADAPT_IS_LOCAL ADAPT_DB_ADAPTER
-              ADAPT_DB_PATH ADAPT_ASSET_PATH
-              ASSDA_OPENID_SERVER ASSDA_OPENID_LOGOUT ASSDA_REGISTRATION_URL}
-  ENV[key] ||= java.lang.System.getProperty(key)
+if defined?(JRUBY_VERSION)
+  for key in %w{ADAPT_HOME ADAPT_IS_LOCAL ADAPT_DB_ADAPTER
+                ADAPT_DB_PATH ADAPT_ASSET_PATH
+                ASSDA_OPENID_SERVER ASSDA_OPENID_LOGOUT
+                ASSDA_REGISTRATION_URL}
+    ENV[key] ||= java.lang.System.getProperty(key)
+    if defined?($servlet_context)
+      name = key.downcase.gsub(/_/, '.')
+      ENV[key] ||= $servlet_context.get_init_parameter(name)
+    end
+  end
+  ENV['HOME'] ||= java.lang.System.getProperty('user.home') || '.'
 end
-
-ENV['HOME'] ||= java.lang.System.getProperty('user.home') || '.'
 
 # -- set some values to their defaults if unspecified
 ENV['ADAPT_HOME'] ||= case ENV['RAILS_ENV']

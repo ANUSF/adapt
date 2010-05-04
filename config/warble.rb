@@ -13,5 +13,6 @@ Warbler::Config.new do |config|
   
   config.gem_dependencies = true
 
-  config.war_name = "adapt-#{Time.now.strftime("%Y%m%d%H%M%S")}"
+  #config.war_name = "adapt-#{Time.now.strftime("%Y%m%d%H%M%S")}"
+  config.war_name = "adapt"
 end
