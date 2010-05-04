@@ -1,11 +1,8 @@
 <Context path="/adapt">
   <Parameter name="adapt.home"
-	     value="/opt/adapt"
-	     override="false"/>
-  <Parameter name="adapt.db.path"
-	     value="/opt/adapt/db/db.sqlite3"
+	     value="/usr/share/tomcat6/webapps/adapt"
 	     override="false"/>
   <Parameter name="rails.env"
-	     value="stage"
+	     value="development"
 	     override="false"/>
 </Context>
