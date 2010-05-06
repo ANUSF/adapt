@@ -36,6 +36,7 @@ Rails::Initializer.run do |config|
   config.gem "RedCloth"
 
   # -- ANUSF gems
+  config.gem "lazy"
   config.gem "partial-date"
   config.gem "verboten"
 
