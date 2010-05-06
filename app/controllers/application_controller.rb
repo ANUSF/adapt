@@ -78,7 +78,7 @@ class ApplicationController < ActionController::Base
       # -- if someone is logged in, check some things
       begin
         SessionInfo.current_user = current_user
-        SessionInfo.host = request.host
+        SessionInfo.request_host = request.host_with_port
         # -- terminate session if expired or the IP address has changed
         if request.remote_ip != session[:ip]
           kill_session "Your network connection seems to have changed."

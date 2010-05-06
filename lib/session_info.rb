@@ -7,11 +7,11 @@ module SessionInfo
     Thread.current[:user] = user
   end
 
-  def host
+  def request_host
     Thread.current[:host]
   end
 
-  def self.host=(host)
+  def self.request_host=(host)
     Thread.current[:host] = host
   end
 end
