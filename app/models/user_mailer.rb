@@ -18,8 +18,7 @@ class UserMailer < ActionMailer::Base
   end
 
   def submission_notification(study)
-    recipients "grimley.fiendish@gmail.com"
-    #recipients ASSDA_EMAIL
+    recipients ASSDA_EMAIL
     from ASSDA_EMAIL
     subject "ADAPT: A new study was submitted"
     sent_on Time.now

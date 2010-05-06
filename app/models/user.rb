@@ -2,8 +2,6 @@ class User < ActiveRecord::Base
   has_many :studies, :dependent => :destroy
   has_many :studies_in_curation,  :class_name  => 'Study',
                                   :foreign_key => :archivist_id
-  has_many :studies_for_approval, :class_name  => 'Study',
-                                  :foreign_key => :manager_id
 
   attr_accessible(:email, :name, :address, :telephone, :fax)
 
@@ -29,7 +27,11 @@ class User < ActiveRecord::Base
     ROLES if column.to_sym == :role
   end
 
-  def is_admin
+  def is_archivist
     %w{archivist admin}.include? role
+  end
+
+  def is_admin
+    role == 'admin'
   end
 end
