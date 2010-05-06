@@ -5,8 +5,6 @@ Feature: Contributor creates study
 
   Background:
     Given there is a contributor account for Alice
-    And there is a contributor account for Bill
-    And Bill has a study entitled "My Study"
 
   Scenario: Successful creation
     Given I am logged in as Alice
@@ -20,7 +18,8 @@ Feature: Contributor creates study
     And the "Study abstract" field should contain "To be written"
 
   Scenario: Duplicate title
-    Given I am logged in as Bill
+    Given Alice has a study entitled "My Study"
+    And I am logged in as Alice
     When I follow "Add Study"
     And I fill in "Study title" with "My study"
     And I fill in "Study abstract" with "I will fill this in later"
@@ -65,3 +64,16 @@ Feature: Contributor creates study
     Given I am not logged in
     When I go to "/studies/new"
     Then I should see the error message "Must be logged in"
+
+  @focus
+  Scenario: Archivists can create and edit studies
+    Given there is an archivist account for Bill
+    And I am logged in as Bill
+    When I follow "Add Study"
+    And I fill in "Study title" with "My Study"
+    And I fill in "Study abstract" with "To be written"
+    And I press "Save"
+    Then I should see "Study entry created"
+    And I should see the page heading "Edit Study"
+    And the "Study title" field should contain "My Study"
+    And the "Study abstract" field should contain "To be written"

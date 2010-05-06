@@ -117,10 +117,12 @@ class Study < ActiveRecord::Base
 
   def can_be_edited_by(person)
     case person && person.role
-    when 'contributor' then person == owner and
-                            %w{incomplete unsubmitted}.include? status
-    when 'archivist'   then person == archivist
-    else                    false
+    when 'contributor'
+      person == owner and %w{incomplete unsubmitted}.include? status
+    when 'archivist', 'admin'
+      person == owner or person == archivist
+    else
+      false
     end
   end
 

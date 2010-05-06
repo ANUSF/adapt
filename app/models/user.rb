@@ -7,7 +7,6 @@ class User < ActiveRecord::Base
 
   attr_accessible(:email, :name, :address, :telephone, :fax)
 
-  #TODO exclude admins
   named_scope :archivists, :conditions => 'role != "contributor"'
 
   # -- the possible roles for a user
@@ -28,5 +27,9 @@ class User < ActiveRecord::Base
 
   def selections(column)
     ROLES if column.to_sym == :role
+  end
+
+  def is_admin
+    %w{archivist admin}.include? role
   end
 end
