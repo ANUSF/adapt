@@ -13,3 +13,6 @@ anusf: &anusf
 
 production:
   <<: *anusf
+
+development:
+  <<: *anusf
