@@ -38,11 +38,7 @@
           #header
             = image_tag "/images/minifantop.png"
             = image_tag "/images/assda-logo.png", :class => "logo"
-            %div
-              - if in_demo_mode
-                ADAPT Prototype (Demo mode)
-              - else
-                ADAPT Prototype (Production mode)
+            %div= "ADAPT Prototype (#{Rails.env} mode)"
 
         #content
           - flash.each do |name, msg|
