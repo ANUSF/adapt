@@ -11,6 +11,8 @@ class Study < ActiveRecord::Base
   accepts_nested_attributes_for :licence
   accepts_nested_attributes_for :attachments, :allow_destroy => true
 
+  before_create { |rec| rec.archivist = rec.owner if rec.owner.is_archivist }
+
   JSON_FIELDS = [:data_is_qualitative, :data_is_quantitative, :data_kind,
                  :time_method, :sample_population,
                  :sampling_procedure, :collection_method, :collection_start,
@@ -107,31 +109,23 @@ class Study < ActiveRecord::Base
   end
 
   def can_be_viewed_by(person)
-    case person && person.role
-    when 'contributor' then person == owner
-    when 'archivist'   then true
-    when 'admin'       then true
-    else                    false
-    end
+    person and (person.is_archivist or person == owner)
   end
 
   def can_be_edited_by(person)
-    case person && person.role
-    when 'contributor'
-      person == owner and %w{incomplete unsubmitted}.include? status
-    when 'archivist', 'admin'
-      person == owner or person == archivist
+    if person and person.is_archivist
+      person == archivist and status != 'submitted'
     else
-      false
+      person == owner and %w{incomplete unsubmitted}.include? status
     end
   end
 
   def can_be_submitted_by(person)
-    person == owner
+    person and (person == owner or person == archivist)
   end
   
   def can_be_approved_by(person)
-    (person && person.role) == 'admin' and (manager == person or manager.nil?)
+    person and person.is_admin
   end
   
   def ready_for_submission?
