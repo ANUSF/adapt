@@ -143,10 +143,7 @@
       - else
         %ul
           - for item in @study.references
-            %li
-              = "#{item["author"]}: " unless item["author"].blank?
-              %em= cleanup item["title"], "n.a."
-              = " (#{item["details"]})" unless item["details"].blank?
+            %li= cleanup item
 %hr
 %p.links>
   = link_to "Show DDI", study_path(@study, :format => :xml)

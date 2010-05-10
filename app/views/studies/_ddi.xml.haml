@@ -145,10 +145,7 @@
 
     %othrStdyMat
       - each @study.references do |ref|
-        %othRefs
+        %relPubl
           %citation
             %titlStmt
-              %titl= ref['title']
-            %rspStmt
-              %AuthEnty= ref['author']
-            %holdings{ :URI => ref['details'] }
+              %titl= ref

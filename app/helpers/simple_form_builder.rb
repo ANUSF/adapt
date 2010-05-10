@@ -16,7 +16,7 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
   extend ActionView::Helpers::TagHelper
   extend ActionView::Helpers::FormTagHelper
 
-  for name in field_helpers - %w{fields_for text_area hidden_field
+  for name in field_helpers - %w{fields_for text_area text_field hidden_field
                                  check_box select}
     create_tagged_field(name, :size => 40)
   end
@@ -87,6 +87,30 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
+  def text_field(column, *args)
+    create_field(column, {}, *args) do |f|
+      size = f.options.delete(:size) || 40
+      multi = f.options.delete(:repeatable) || try(:is_repeatable?, column)
+      current = @object.send(column) || (multi ? [] : {})
+
+      haml { '
+- if multi
+  - for i in 0..current.size
+    - ident = "#{f.ident}_#{i}"
+    - name  = "#{f.name}[#{i}]"
+    - value = current[i]
+    %input{ :id => ident, :type => "text", :name => name, |
+            :value => value, :size => size } |
+- else
+  - ident = "#{f.ident}"
+  - name  = "#{f.name}"
+  - value = current
+  %input{ :id => ident, :type => "text", :name => name, |
+          :value => value, :size => size } |
+' }
+    end
+  end
+
   def structured(column, *args)
     create_field(column, {}, *args) do |f|
       subfields = if f.args.empty? then try(:subfields, column)
@@ -101,7 +125,7 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
 .row
   - for sub in subfields
     .form-field
-      %label{ :for => f.ident }= sub.humanize
+      %label{ :for => f.ident }= sub.to_s.humanize
       - if multi
         - for i in 0..current.size
           - ident = "#{f.ident}_#{i}_#{sub}"
