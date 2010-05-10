@@ -182,7 +182,6 @@ number if appropriate)."
 played a significant role in the conduct of the study."
     },
     :references => {
-      :subfields => ["title", "author", "details"],
       :is_repeatable? => true,
       :help_on =>
 "Please provide the bibliographic details and, where available, online \

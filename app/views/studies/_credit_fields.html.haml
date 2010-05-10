@@ -5,7 +5,7 @@
   = @form.structured :data_producers
   = @form.structured :funding_agency
   = @form.structured :other_acknowledgements, :size => 22
-  = @form.structured :references, :size => 22
+  = @form.text_field :references, :size => 80
   %hr
   %p
     %strong Tips for completing this page:
