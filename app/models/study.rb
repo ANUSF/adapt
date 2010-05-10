@@ -22,7 +22,7 @@ class Study < ActiveRecord::Base
 
   attr_accessible(*(JSON_FIELDS +
                     [:name, :title, :abstract, :new_upload,
-                     :attachments_attributes, :licence_attributes,
+                     :attachments_attributes, :licence_attributes, :skip_licence,
                      :additional_metadata]))
 
   validates_presence_of :title, :message => 'May not be blank.'
@@ -108,15 +108,25 @@ class Study < ActiveRecord::Base
     end
   end
 
+  def is_submitted
+    %w{submitted approved}.include? status
+  end
+
   def can_be_viewed_by(person)
     person and (person.is_archivist or person == owner)
+  end
+
+  def is_listed_for(person)
+    person and (person == owner or
+                (person.is_archivist and person == archivist) or
+                (person.is_admin and is_submitted))
   end
 
   def can_be_edited_by(person)
     if person and person.is_archivist
       person == archivist and status != 'submitted'
     else
-      person == owner and %w{incomplete unsubmitted}.include? status
+      person == owner and not is_submitted
     end
   end
 
@@ -132,7 +142,11 @@ class Study < ActiveRecord::Base
     @checking = true
     study_ready = valid?
     @checking = false
-    licence_ready = licence && licence.ready_for_submission?
+    licence_ready = if owner.is_archivist and skip_licence
+                      true
+                    else
+                      licence && licence.ready_for_submission?
+                    end
     attachments_ready = attachments.map(&:ready_for_submission?).all?
 
     study_ready and licence_ready and attachments_ready
@@ -161,7 +175,9 @@ class Study < ActiveRecord::Base
     save
 
     base = File.join(submission_path, identifier)
-    write_file(licence_text, base, "Licence.txt")
+    unless licence_text.blank?
+      write_file(licence_text, base, "Licence.txt")
+    end
     write_file(ddi, base, "Study.xml")
     write_file(attachments.map { |a| a.metadata.to_yaml }.join("\n"),
                base, "FileDescriptions.txt")
@@ -185,12 +201,13 @@ class Study < ActiveRecord::Base
 
     base = non_conflicting(File.join(archive_path,
                                      self.permanent_identifier, "Original"))
-    write_file(licence_text, base, "ASSDA.Deposit.Licence.#{identifier}.txt")
+    unless licence_text.blank?
+      write_file(licence_text, base, "ASSDA.Deposit.Licence.#{identifier}.txt")
+    end
     write_file(ddi, base, "#{long_identifier}.xml")
 
     filedata = []
     attachments.each do |a|
-      #name = "#{long_identifier}#{File.extname(a.name)}"
       name = a.name
       path = non_conflicting(File.join(base, name))
       filedata << a.metadata.merge("Filename" => File.basename(path),
@@ -224,7 +241,8 @@ class Study < ActiveRecord::Base
   end
 
   def read_file(*path_parts)
-    File.open(File.join(*path_parts)) { |fp| fp.read }
+    path = File.join(*path_parts)
+    File.open(path) { |fp| fp.read } if File.exist?(path)
   end
 
   def self.annotate_with(name)

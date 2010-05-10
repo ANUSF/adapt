@@ -62,15 +62,7 @@ class StudiesController < ApplicationController
   public
 
   def index
-    @studies =
-      case current_user && current_user.role
-      when 'contributor'
-        current_user.studies
-      when 'archivist'
-        current_user.studies_in_curation
-      when 'admin'
-        Study.all.select { |s| %w{submitted approved}.include? s.status }
-      end
+    @studies = Study.all.select { |s| s.is_listed_for current_user }
   end
   
   def new
@@ -151,6 +143,13 @@ class StudiesController < ApplicationController
       render :action => :edit
     elsif @study.status != "unsubmitted"
       flash[:error] = "This study has already been submitted."
+      redirect_to @study
+    elsif @study.owner.is_archivist and @study.skip_licence
+      if @study.submit('')
+        flash[:notice] = "Study submitted and pending approval."
+      else
+        flash[:error] = "Study submission failed for unknown reasons."
+      end
       redirect_to @study
     else
       flash[:notice] = "Access to the data will be " +
