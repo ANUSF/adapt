@@ -1,11 +1,12 @@
 class Attachment < ActiveRecord::Base
   include ActionView::Helpers::NumberHelper
+  include FileHandling
 
   belongs_to :study
 
   attr_accessible :content, :category, :format, :description
 
-  after_create :write_file
+  after_create :write_data
   before_destroy :delete_file
 
   validates_inclusion_of :category, :if => :checking,
@@ -28,7 +29,7 @@ class Attachment < ActiveRecord::Base
   end
 
   def data
-    File.open(stored_path) { |f| f.read }
+    read_file(stored_path)
   end
 
   def metadata
@@ -61,20 +62,13 @@ class Attachment < ActiveRecord::Base
   end
 
   def stored_path
-    base = "#{ENV['ADAPT_ASSET_PATH']}/studies/#{study.id}/attachments"
-    FileUtils.mkdir_p(base, :mode => 0755) unless File.exist? base
-    "#{base}/#{stored_as}"
+    "#{ENV['ADAPT_ASSET_PATH']}/studies/#{study.id}/attachments/#{stored_as}"
   end
 
-  def write_file
+  def write_data
     self.stored_as = "#{self.id}__#{self.name}"
     self.save!
-    begin
-      File.open(stored_path, "w", 0640) { |fp| fp.write(@content) }
-    rescue Exception => ex
-      delete_file
-      raise ex
-    end
+    write_file(@content, stored_path)
   end
 
   def delete_file

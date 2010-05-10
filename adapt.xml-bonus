@@ -2,8 +2,14 @@
   <Parameter name="adapt.home"
 	     value="/opt/adapt"
 	     override="false"/>
+  <Parameter name="adapt.asset.path"
+	     value="/projects/d10/assda/publish/ANU/Adapt"
+	     override="false"/>
   <Parameter name="adapt.db.path"
 	     value="/opt/adapt/db/db.sqlite3"
+	     override="false"/>
+  <Parameter name="adapt.file.ownership"
+	     value="oxd900.d10"
 	     override="false"/>
   <Parameter name="rails.env"
 	     value="stage"

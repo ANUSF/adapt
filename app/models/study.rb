@@ -1,6 +1,6 @@
 class Study < ActiveRecord::Base
   include ModelSupport
-  include UniqueFileNaming
+  include FileHandling
   include StudyAnnotations
 
   belongs_to :owner,     :class_name => 'User', :foreign_key => :user_id
@@ -232,17 +232,6 @@ class Study < ActiveRecord::Base
 
   def archive_path
     base_path = File.join(ENV['ADAPT_ASSET_PATH'], "Archive")
-  end
-
-  def write_file(data, *path_parts)
-    path = File.join(*path_parts)
-    FileUtils.mkpath(File.dirname(path), :mode => 0755)
-    File.open(non_conflicting(path), "w", 0640) { |fp| fp.write(data) }
-  end
-
-  def read_file(*path_parts)
-    path = File.join(*path_parts)
-    File.open(path) { |fp| fp.read } if File.exist?(path)
   end
 
   def self.annotate_with(name)
