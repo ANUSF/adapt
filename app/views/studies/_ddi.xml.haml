@@ -146,6 +146,8 @@
     %othrStdyMat
       - each @study.references do |ref|
         %relPubl
+          = ref['description']
           %citation
             %titlStmt
-              %titl= ref
+              %titl= ref['citation']
+            %holdings{ :URI => ref['link'] }

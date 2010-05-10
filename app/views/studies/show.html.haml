@@ -143,7 +143,11 @@
       - else
         %ul
           - for item in @study.references
-            %li= cleanup item
+            %li
+              %p= h item['citation']
+              - unless item['link'].blank?
+                %p= link_to h(item['link']), h(item['link'])
+              = format_text item['description']
 %hr
 %p.links>
   = link_to "Show DDI", study_path(@study, :format => :xml)
