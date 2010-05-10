@@ -156,16 +156,14 @@ period does the data come from? "
       :label_for => "Principal Investigator(s):",
       :help_on =>
 "Please list the name(s) of each principal investigator and the \
-organisation with which they are associated. Click 'Refresh' for \
-additional lines."
+organisation with which they are associated."
     },
     :data_producers => {
       :subfields => %w{name affiliation},
       :is_repeatable? => true,
       :label_for => "Data Producer(s):",
       :help_on =>
-"List if different from the principal investigator(s). Click 'Refresh' \
-for additional lines."
+"List if different from the principal investigator(s)."
     },
     :funding_agency => {
       :subfields => %w{agency grant_number},
@@ -173,7 +171,7 @@ for additional lines."
       :label_for => "Funding:",
       :help_on =>
 "Please list then names(s) of all funding source(s) (include the grant \
-number if appropriate). Click 'Refresh' for additional lines."
+number if appropriate)."
     },
     :other_acknowledgements => {
       :subfields => %w{name affiliation role},
@@ -181,8 +179,7 @@ number if appropriate). Click 'Refresh' for additional lines."
       :label_for => "Other Acknowledgements:",
       :help_on =>
 "Please list the names of any other persons or organisations who \
-played a significant role in the conduct of the study. Click 'Refresh' \
-for additional lines."
+played a significant role in the conduct of the study."
     },
     :references => {
       :subfields => ["title", "author", "details"],
