@@ -8,6 +8,7 @@ require 'java'
 if defined?(JRUBY_VERSION)
   for key in %w{ADAPT_HOME ADAPT_IS_LOCAL ADAPT_DB_ADAPTER
                 ADAPT_DB_PATH ADAPT_ASSET_PATH
+                ADAPT_FILE_OWNERSHIP ADAPT_DIR_MODE ADAPT_FILE_MODE
                 ASSDA_OPENID_SERVER ASSDA_OPENID_LOGOUT
                 ASSDA_REGISTRATION_URL}
     ENV[key] ||= java.lang.System.getProperty(key)
@@ -26,6 +27,8 @@ ENV['ADAPT_HOME'] ||= case ENV['RAILS_ENV']
                       else                   RAILS_ROOT
                       end
 ENV['ADAPT_ASSET_PATH']       ||= "#{ENV['ADAPT_HOME']}/assets"
+ENV['ADAPT_DIR_MODE']         ||= "0775"
+ENV['ADAPT_FILE_MODE']        ||= "0660"
 ENV['ASSDA_OPENID_SERVER']    ||= "http://openid.assda.edu.au/joid/user/"
 ENV['ASSDA_OPENID_LOGOUT']    ||= "http://openid.assda.edu.au/joid/logout.jsp"
 ENV['ASSDA_REGISTRATION_URL'] ||= "http://assda.anu.edu.au/online_reg.php"
