@@ -20,6 +20,11 @@ Rails::Initializer.run do |config|
   config.time_zone = 'Canberra'
 
   config.after_initialize do
+    if defined?(JRUBY_VERSION) && defined?($servlet_context)
+      text = ADAPT::CONFIG.map { |k,v| "#{k} => #{v}" }.join("\n      ")
+      $servlet_context.log text
+    end
+
     FileUtils.mkdir_p(File.join(ADAPT::CONFIG['adapt.home'], "db"),
                       :mode => 0750)
 
