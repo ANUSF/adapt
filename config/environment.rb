@@ -2,38 +2,9 @@ RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
 
 require File.join(File.dirname(__FILE__), 'boot')
 
-require 'java'
-
-# -- read some missing environment variables from the Java system properties
-if defined?(JRUBY_VERSION)
-  for key in %w{ADAPT_HOME ADAPT_IS_LOCAL ADAPT_DB_ADAPTER
-                ADAPT_DB_PATH ADAPT_ASSET_PATH
-                ADAPT_FILE_OWNERSHIP ADAPT_DIR_MODE ADAPT_FILE_MODE
-                ASSDA_OPENID_SERVER ASSDA_OPENID_LOGOUT
-                ASSDA_REGISTRATION_URL}
-    ENV[key] ||= java.lang.System.getProperty(key)
-    if defined?($servlet_context)
-      name = key.downcase.gsub(/_/, '.')
-      ENV[key] ||= $servlet_context.get_init_parameter(name)
-    end
-  end
-  ENV['HOME'] ||= java.lang.System.getProperty('user.home') || '.'
-end
-
-# -- set some values to their defaults if unspecified
-ENV['ADAPT_HOME'] ||= case ENV['RAILS_ENV']
-                      when 'production' then "#{ENV['HOME']}/adapt"
-                      when 'stage'      then "#{ENV['HOME']}/adapt_stage"
-                      else                   RAILS_ROOT
-                      end
-ENV['ADAPT_ASSET_PATH']       ||= "#{ENV['ADAPT_HOME']}/assets"
-ENV['ADAPT_DIR_MODE']         ||= "0775"
-ENV['ADAPT_FILE_MODE']        ||= "0660"
-ENV['ASSDA_OPENID_SERVER']    ||= "http://openid.assda.edu.au/joid/user/"
-ENV['ASSDA_OPENID_LOGOUT']    ||= "http://openid.assda.edu.au/joid/logout.jsp"
-ENV['ASSDA_REGISTRATION_URL'] ||= "http://assda.anu.edu.au/online_reg.php"
-
 Rails::Initializer.run do |config|
+  require File.join(File.dirname(__FILE__), 'read_configuration')
+
   config.gem "haml"
   config.gem "ruby-openid", :lib => "openid"
   config.gem "RedCloth"
@@ -49,7 +20,8 @@ Rails::Initializer.run do |config|
   config.time_zone = 'Canberra'
 
   config.after_initialize do
-    FileUtils.mkdir_p("#{ENV['ADAPT_HOME']}/db", :mode => 0750)
+    FileUtils.mkdir_p(File.join(ADAPT::CONFIG['adapt.home'], "db"),
+                      :mode => 0750)
 
     # -- automatically migrate the database on startup
     migration_path = RAILS_ROOT + "/db/migrate"
