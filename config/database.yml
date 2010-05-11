@@ -1,55 +1,33 @@
-<%
-  @app     = "adapt"
-  @adapter = ENV['ADAPT_DB_ADAPTER'] || "sqlite3"
-  @home    = ENV['HOME']
-  @adapt   = ENV['ADAPT_HOME']
-  @db_path = ENV['ADAPT_DB_PATH']
-
-  def db_name(env)
-    suffix = (env == 'production') ? '' : "_#{env}"
-    if @db_path
-      @db_path
-    elsif %w{mysql postgresql}.include? @adapter
-      "#{@app}_#{env}"
-    else
-      "#{@adapt}/db/db#{suffix}.#{@adapter}"
-    end
-  end
-%>
-
 template: &template
-<% if @adapter == "sqlite3" %>
+  database: <%= ADAPT::CONFIG['adapt.db.path'] %>
+<% case ADAPT::CONFIG['adapt.db.adapter']; when "sqlite3" %>
   adapter:  jdbcsqlite3
   timeout:  5000
-<% elsif @adapter == "mysql" %>
+<% when "mysql" %>
   adapter: jdbcmysql
   encoding: utf8
   username: olaf
   password: g3h31m
-<% elsif @adapter == "postgresql" %>
+<% when "postgresql" %>
   adapter: jdbcpostgresql
   username: olaf
   password: g3h31m
-<% elsif @adapter == "derby" %>
+<% when "derby" %>
   adapter: jdbcderby
   username: app
   password: app
 <% end %>
 
 stage:
-  database: <%=db_name("stage")%>
   <<: *template
 
 production:
-  database: <%=db_name("production")%>
   <<: *template
 
 development:
-  database: <%=db_name("development")%>
   <<: *template
 
 test: &TEST
-  database: <%=db_name("test")%>
   <<: *template
   
 cucumber:

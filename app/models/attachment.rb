@@ -1,4 +1,6 @@
 class Attachment < ActiveRecord::Base
+  ASSET_PATH = ADAPT::CONFIG['adapt.asset.path']
+
   include ActionView::Helpers::NumberHelper
   include FileHandling
 
@@ -62,7 +64,7 @@ class Attachment < ActiveRecord::Base
   end
 
   def stored_path
-    "#{ENV['ADAPT_ASSET_PATH']}/studies/#{study.id}/attachments/#{stored_as}"
+    "#{ASSET_PATH}/studies/#{study.id}/attachments/#{stored_as}"
   end
 
   def write_data

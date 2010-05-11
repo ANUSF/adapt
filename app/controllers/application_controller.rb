@@ -35,12 +35,12 @@ class ApplicationController < ActionController::Base
 
   # Whether the application is being run in a special demo mode.
   def in_demo_mode
-    Rails.env != "production"
+    Rails.env != 'production'
   end
 
   # Whether the application is being run locally on the user's machine
   def in_local_mode
-    ENV['ADAPT_IS_LOCAL'] == 'true'
+    Rails.env == 'local' or ADAPT::CONFIG['adapt.is.local']
   end
 
   # Whether users may assume arbitrary roles.

@@ -164,7 +164,7 @@ public class DeploymentWrapper {
 	}
 
 	private void setAdaptSystemProperties() {
-		System.setProperty("ADAPT_IS_LOCAL", "true");
+		System.setProperty("adapt.is.local", "true");
 	}
 	
 	private void startServer() throws Exception {

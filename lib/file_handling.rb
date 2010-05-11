@@ -5,7 +5,9 @@ module FileHandling
     path = File.join(*path_parts)
     make_path(File.dirname(path))
     path = non_conflicting(path)
-    File.open(path, "w", ENV['ADAPT_FILE_MODE'].oct) { |fp| fp.write(data) }
+    File.open(path, "w", ADAPT::CONFIG['adapt.file.mode']) do |fp|
+      fp.write(data)
+    end
     set_ownership(path)
     path
   end
@@ -53,7 +55,7 @@ module FileHandling
     dir = File.dirname(path)
     make_path(dir) unless dir == path
     unless File.exist?(path)
-      FileUtils.mkdir(path, :mode => ENV['ADAPT_DIR_MODE'].oct)
+      FileUtils.mkdir(path, :mode => ADAPT::CONFIG['adapt.dir.mode'])
       set_ownership(path)
     end
   end
@@ -61,7 +63,7 @@ module FileHandling
   private
 
   def set_ownership(path)
-    user, group = (ENV['ADAPT_FILE_OWNERSHIP'] || '').split('.')
+    user, group = (ADAPT::CONFIG['adapt.file.ownership'] || '').split('.')
     user = nil if user.blank? or user == "*"
     group = nil if group.blank? or group == "*"
     FileUtils.chown(user, group, path)

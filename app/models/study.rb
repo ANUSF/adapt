@@ -227,11 +227,11 @@ class Study < ActiveRecord::Base
   protected
 
   def submission_path
-    base_path = File.join(ENV['ADAPT_ASSET_PATH'], "Submission")
+    base_path = File.join(ADAPT::CONFIG['adapt.asset.path'], "Submission")
   end
 
   def archive_path
-    base_path = File.join(ENV['ADAPT_ASSET_PATH'], "Archive")
+    base_path = File.join(ADAPT::CONFIG['adapt.asset.path'], "Archive")
   end
 
   def self.annotate_with(name)

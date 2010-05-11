@@ -5,7 +5,8 @@
 
 class UserSessionsController < ApplicationController
   # -- the OpenID provider we accept
-  OPENID_SERVER = ENV['ASSDA_OPENID_SERVER']
+  OPENID_SERVER = ADAPT::CONFIG['assda.openid.server']
+  OPENID_LOGOUT = ADAPT::CONFIG['assda.openid.logout']
 
   # -- declare access permissions via the 'verboten' plugin
   permit :new, :create, :if => :logged_out, :message => "Already logged in."
@@ -48,7 +49,7 @@ class UserSessionsController < ApplicationController
 
     # -- log out from OpenID provider (NOTE: this is specific for ASSDA server)
     back = URI.escape(root_url, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
-    redirect_to ENV['ASSDA_OPENID_LOGOUT'] + "?return_url=#{back}"
+    redirect_to OPENID_LOGOUT + "?return_url=#{back}"
   end
 
   # ----------------------------------------------------------------------------
