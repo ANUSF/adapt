@@ -47,9 +47,13 @@ class UserSessionsController < ApplicationController
     name = current_user ? current_user.username : ""
     flash[:notice] = params[:message] || "User #{name} logged out."
 
-    # -- log out from OpenID provider (NOTE: this is specific for ASSDA server)
-    back = URI.escape(root_url, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
-    redirect_to OPENID_LOGOUT + "?return_url=#{back}"
+    if bypass_openid
+      redirect_to login_url
+    else
+      # -- log out from OpenID provider (NOTE: this is specific for ASSDA server)
+      back = URI.escape(root_url, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+      redirect_to OPENID_LOGOUT + "?return_url=#{back}"
+    end
   end
 
   # ----------------------------------------------------------------------------
