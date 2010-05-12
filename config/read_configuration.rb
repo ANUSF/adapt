@@ -1,13 +1,17 @@
 require 'java'
 
+# -- we run this before Rails does its monkey-patching, and we want 'blank?'
 class Object
   def blank?
     respond_to?(:empty?) ? empty? : !self
   end
 end
 
-# -- reads configuration paramters from various sources
+# The body of this module reads configuration parameters from various
+# sources and collects them in the constant ADAPT::CONFIG. This code
+# is meant to be loaded once during the Rails initialization process.
 module ADAPT
+  # Converts its parameter to an integer.
   def self.make_integer(val)
     if val.is_a? String
       if val.start_with?('0x')
@@ -22,6 +26,7 @@ module ADAPT
     end
   end
 
+  # Converts its parameter to a boolean (true or false).
   def self.make_boolean(val)
     if val.is_a?(String)
       %w{true yes ok 1}.include? val.downcase
@@ -30,10 +35,11 @@ module ADAPT
     end
   end
 
+  # Normalizes a path value, using a default for empty values, and a
+  # base directory for relative paths.
   def self.make_path(val, default, base)
     val = default if val.blank?
-    val = File.join(base, val) unless val.blank? or val == File.expand_path(val)
-    val
+    (val.blank? or val == File.expand_path(val)) ? val : File.join(base, val)
   end
 
   # -- get application defaults
