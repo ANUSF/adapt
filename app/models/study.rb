@@ -131,6 +131,10 @@ class Study < ActiveRecord::Base
     end
   end
 
+  def can_be_destroyed_by(person)
+    can_be_edited_by(person) and not is_submitted
+  end
+
   def can_be_submitted_by(person)
     person and (person == owner or person == archivist)
   end

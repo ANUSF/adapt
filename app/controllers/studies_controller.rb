@@ -7,11 +7,12 @@ class StudiesController < ApplicationController
   before_authorization_filter :find_study, :except => [ :index, :new, :create ]
 
   # -- declare access permissions via the 'verboten' plugin
-  permit :index, :new, :create,    :if => :logged_in
-  permit :show,                    :if => :may_view
-  permit :edit, :update, :destroy, :if => :may_edit
-  permit :submit,                  :if => :may_submit
-  permit :approve, :reopen,        :if => :may_approve
+  permit :index, :new, :create, :if => :logged_in
+  permit :show,                 :if => :may_view
+  permit :edit, :update,        :if => :may_edit
+  permit :destroy,              :if => :may_destroy
+  permit :submit,               :if => :may_submit
+  permit :approve, :reopen,     :if => :may_approve
 
   before_filter :prepare_for_edit, :only => [ :edit, :update, :submit ]
   before_filter :ensure_licence,   :only => [ :edit, :submit ]
@@ -30,7 +31,18 @@ class StudiesController < ApplicationController
 
   # Whether the current user may edit the referenced study.
   def may_edit
-    @study and @study.can_be_edited_by current_user
+    allowed = @study and @study.can_be_edited_by current_user
+    if allowed and @study.is_submitted and current_user.is_archivist
+      "ADAPT does not yet offer any pre-publishing functionality. " +
+      "Please use Nesstar Publisher for now."
+    else
+      allowed
+    end
+  end
+
+  # Whether the current user may edit the referenced study.
+  def may_destroy
+    @study and @study.can_be_destroyed_by current_user
   end
 
   # Whether the current user may submit the referenced study.
