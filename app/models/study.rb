@@ -173,13 +173,13 @@ class Study < ActiveRecord::Base
   end
 
   def submit(licence_text)
-    identifier = next_unique_directory_name(submission_path, "deposit_")
+    ident = next_unique_directory_name(submission_path, "deposit_")
 
     self.temporary_identifier = identifier.sub(/_/, ':')
     self.status = "submitted"
     save
 
-    base = File.join(submission_path, identifier)
+    base = File.join(submission_path, ident)
     unless licence_text.blank?
       write_file(licence_text, base, "Licence.txt")
     end
