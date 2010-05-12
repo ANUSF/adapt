@@ -175,7 +175,7 @@ class Study < ActiveRecord::Base
   def submit(licence_text)
     ident = next_unique_directory_name(submission_path, "deposit_")
 
-    self.temporary_identifier = identifier.sub(/_/, ':')
+    self.temporary_identifier = ident.sub(/_/, ':')
     self.status = "submitted"
     save
 
