@@ -124,7 +124,8 @@ class Study < ActiveRecord::Base
 
   def can_be_edited_by(person)
     if person and person.is_archivist
-      person == archivist and status != 'submitted'
+      #TODO change this when editing of approved studies works correctly
+      person == archivist and not is_submitted
     else
       person == owner and not is_submitted
     end
