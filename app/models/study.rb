@@ -29,7 +29,8 @@ class Study < ActiveRecord::Base
   validates_uniqueness_of :title, :scope => :user_id,
                           :case_sensitive => false,
                           :message => 'You have another study with this title.'
-  validates_presence_of :abstract, :message => 'May not be blank.'
+  validates_presence_of :abstract, :if => :checking,
+                        :message => 'May not be blank.'
 
   validates_each :attachments, :if => :checking do |rec, attr, val|
     if val.select { |a| a.category == "Data File" }.empty?
