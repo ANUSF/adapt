@@ -10,7 +10,7 @@ class UserSessionsController < ApplicationController
 
   # -- declare access permissions via the 'verboten' plugin
   permit :new, :create, :if => :logged_out, :message => "Already logged in."
-  permit :destroy,      :if => :logged_in,  :message => "Already logged out."
+  permit :destroy
 
   # ----------------------------------------------------------------------------
   # The actions this controller implements.
