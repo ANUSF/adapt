@@ -8,7 +8,8 @@ module LicenceText
   Upon request, the Archive National Manager shall send to the
   undersigned (or an authorised representative) information regarding
   the supply of such data.
-  "
+  ".strip
+
   RESTRICTED_ACCESS = "
   No copies of the data in machine‑readable form, codebooks and/or other
   documents of assistance to the analysis of data (with the exception of
@@ -21,7 +22,8 @@ module LicenceText
   representative has replied within 30 days to an email to the last
   email address that he or she registered with the Australian Social
   Science Data Archive.
-  "
+  ".strip
+
   DEFERRED_ACCESS = "
   No copies of the data in machine‑readable form, codebooks and/or other
   documents of assistance to the analysis of data (with the exception of
@@ -30,7 +32,7 @@ module LicenceText
   Science Data Archive, except as specified by a separate agreement
   between the undersigned or the undersigned\'s authorised
   representative and the Australian Social Science Data Archive.
-  "
+  ".strip
 
   private
 

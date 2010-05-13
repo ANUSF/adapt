@@ -1,14 +1,7 @@
 #credit-fields
   %h3 Credits and Acknowledgements
-  = @form.structured :depositors, :required => true
-  = @form.structured :principal_investigators, :required => true
-  = @form.structured :data_producers
-  = @form.structured :funding_agency
-  = @form.structured :other_acknowledgements, :size => 22
-  = @form.structured :references, :size => 22
-  %hr
   %p
-    %strong Tips for completing this page:
+    %strong Tips for this page:
   .collapsible
     .box
       %ul
@@ -18,3 +11,10 @@
             'Depositor', are repeatable. Additional lines will appear
             as needed when 'Apply Changes' is pressed.
     .clear
+  %hr
+  = @form.structured :depositors, :required => true
+  = @form.structured :principal_investigators, :required => true
+  = @form.structured :data_producers
+  = @form.structured :funding_agency
+  = @form.structured :other_acknowledgements, :size => 22
+  = @form.structured :references, :size => 22

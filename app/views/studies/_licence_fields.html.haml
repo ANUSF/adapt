@@ -12,7 +12,7 @@
         = fields.errors_on(:access_mode)
     %p{ :title => LicenceText::UNRESTRICTED_ACCESS }
       = fields.radio_button :access_mode, 'A', :label => ''
-      Access may be granted freely to registered researchers or
+      Access may be granted freely to registered researchers and
       institutions.
     %p{ :title => LicenceText::RESTRICTED_ACCESS }
       = fields.radio_button :access_mode, 'B', :label => ''
