@@ -1,5 +1,37 @@
 # -*- coding: utf-8 -*-
 module LicenceText
+  UNRESTRICTED_ACCESS = "
+  Copies of the data in machine‑readable form, codebooks and/or other
+  documents of assistance to the analysis of data, and/or analyses of
+  data, may be supplied by the Archive National Manager to any person or
+  institution giving the undertakings referred to in Section (1) above.
+  Upon request, the Archive National Manager shall send to the
+  undersigned (or an authorised representative) information regarding
+  the supply of such data.
+  "
+  RESTRICTED_ACCESS = "
+  No copies of the data in machine‑readable form, codebooks and/or other
+  documents of assistance to the analysis of data (with the exception of
+  those described in Section (2) above) shall be supplied, and no
+  analysis of the data shall be carried out by the Australian Social
+  Science Data Archive, except with the written permission of the
+  undersigned or the undersigned\'s authorised representative in each
+  case or class of cases; it being understood that consent shall be
+  deemed to have been given unless the undersigned or an authorised
+  representative has replied within 30 days to an email to the last
+  email address that he or she registered with the Australian Social
+  Science Data Archive.
+  "
+  DEFERRED_ACCESS = "
+  No copies of the data in machine‑readable form, codebooks and/or other
+  documents of assistance to the analysis of data (with the exception of
+  those described in Section (2) above) shall be supplied, and no
+  analysis of the data shall be carried out by the Australian Social
+  Science Data Archive, except as specified by a separate agreement
+  between the undersigned or the undersigned\'s authorised
+  representative and the Australian Social Science Data Archive.
+  "
+
   private
 
   def full_text(access_type)
@@ -77,9 +109,9 @@ module LicenceText
 
   def access_text(access_type)
     case access_type
-    when 'A' then unrestricted_access_text
-    when 'B' then restricted_access_text
-    when 'S' then deferred_access_text
+    when 'A' then UNRESTRICTED_ACCESS
+    when 'B' then RESTRICTED_ACCESS
+    when 'S' then DEFERRED_ACCESS
     else          access_options_text
     end
   end
@@ -95,64 +127,12 @@ module LicenceText
 %dl
   %dt
     (i) Unrestricted access. (Access A)
-  %dd= unrestricted_access_text
+  %dd= UNRESTRICTED_ACCESS
 
   %dt
     (ii) Depositor required to give or withhold permission for access.
     (Access B)
-  %dd= restricted_access_text
-'
-    end
-  end
-
-  def unrestricted_access_text
-    haml do '
-%p
-
-  Copies of the data in machine‑readable form, codebooks and/or other
-  documents of assistance to the analysis of data, and/or analyses of
-  data, may be supplied by the Archive National Manager to any person or
-  institution giving the undertakings referred to in Section (1) above.
-  Upon request, the Archive National Manager shall send to the
-  undersigned (or an authorised representative) information regarding
-  the supply of such data.
-
-'
-    end
-  end
-
-  def restricted_access_text
-    haml do '
-%p
-
-  No copies of the data in machine‑readable form, codebooks and/or other
-  documents of assistance to the analysis of data (with the exception of
-  those described in Section (2) above) shall be supplied, and no
-  analysis of the data shall be carried out by the Australian Social
-  Science Data Archive, except with the written permission of the
-  undersigned or the undersigned\'s authorised representative in each
-  case or class of cases; it being understood that consent shall be
-  deemed to have been given unless the undersigned or an authorised
-  representative has replied within 30 days to an email to the last
-  email address that he or she registered with the Australian Social
-  Science Data Archive.
-
-'
-    end
-  end
-
-  def deferred_access_text
-    haml do '
-%p
-
-  No copies of the data in machine‑readable form, codebooks and/or other
-  documents of assistance to the analysis of data (with the exception of
-  those described in Section (2) above) shall be supplied, and no
-  analysis of the data shall be carried out by the Australian Social
-  Science Data Archive, except as specified by a separate agreement
-  between the undersigned or the undersigned\'s authorised
-  representative and the Australian Social Science Data Archive.
-
+  %dd= RESTRICTED_ACCESS
 '
     end
   end
