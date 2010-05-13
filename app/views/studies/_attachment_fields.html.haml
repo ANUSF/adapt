@@ -1,9 +1,6 @@
 #attachment-fields
   %h3 Attached Files
-  - unless @study.errors.on(:attachments).blank?
-    %label
-      %em.error= @study.errors.on(:attachments)
-
+  %p= @form.errors_on(:attachments)
   - unless @study.attachments.empty?
     %p
       %em
@@ -19,9 +16,7 @@
       &nbsp;
       = f.check_box :_destroy, :label => "Delete this file"
       %p
-        - unless f.object.errors.on(:category).blank?
-          %label
-            %em.error= f.object.errors.on(:category)
+        = f.errors_on(:category)
         = f.radio_button :category, "Data File"
         = f.radio_button :category, "Documentation"
       = f.text_area :description, :rows => 2

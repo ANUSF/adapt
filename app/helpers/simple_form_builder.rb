@@ -154,7 +154,7 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
       haml { '
 %label
   &nbsp;
-  %em= msg
+  %em.error= msg
 ' }
     end
   end
