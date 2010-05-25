@@ -3,13 +3,15 @@ module FileHandling
 
   def write_file(data, *path_parts)
     path = File.join(*path_parts)
-    make_path(File.dirname(path))
-    path = non_conflicting(path)
-    File.open(path, "w", ADAPT::CONFIG['adapt.file.mode']) do |fp|
-      fp.write(data)
+
+    with_lock_on(File.dirname(path)) do
+      path = non_conflicting(path)
+      File.open(path, "w", ADAPT::CONFIG['adapt.file.mode']) do |fp|
+        fp.write(data)
+      end
+      set_ownership(path)
+      path
     end
-    set_ownership(path)
-    path
   end
 
   def read_file(*path_parts)
@@ -17,14 +19,22 @@ module FileHandling
     File.open(path) { |fp| fp.read } if File.exist?(path)
   end
 
-  def next_unique_directory_name(base, prefix, number_length = 5)
-    with_lock_on(base) do
-      seen = Dir.new(base).grep(/^#{prefix}\d+$/o)
-      last = seen.map { |s| s.sub(prefix, '').to_i }.max
-      name = prefix + ((last || 0) + 1).to_s.rjust(number_length, "0")
-      make_path(File.join(base, name))
-      name
+  def create_directory(*path_parts)
+    path = File.join(*path_parts)
+
+    with_lock_on(File.dirname(path)) do
+      unless File.exist?(path)
+        FileUtils.mkdir(path, :mode => ADAPT::CONFIG['adapt.dir.mode'])
+        set_ownership(path)
+        path
+      end
     end
+  end
+
+  def next_directory_name(base, prefix, number_length = 5)
+    last = Dir.new(base).grep(/\A#{prefix}\d+\Z/o).max
+    num = last ? last.sub(prefix, '').to_i + 1 : 1
+    prefix + num.to_s.rjust(number_length, "0")
   end
 
   def with_lock_on(base, &block)

@@ -1,10 +1,12 @@
 !!! XML
+- ident = @identifier || @study.identifier || "xxxxx"
+- long_identifier = Study::ID_PREFIX + ident
 %codeBook
   %docDscr
     %citation
       %titlStmt
         %titl= @study.title
-        %IDNo= @study.long_identifier
+        %IDNo= long_identifier
       %prodStmt
         %producer{ :abbr => "ASSDA", |
                    :affiliation => "The Australian National University" } |
@@ -17,7 +19,7 @@
     %citation
       %titlStmt
         %titl= @study.title
-        %IDNo= @study.long_identifier
+        %IDNo= long_identifier
       %rspStmt
         - each @study.principal_investigators do |author|
           %AuthEnty{ :affiliation => author['affiliation'] }
