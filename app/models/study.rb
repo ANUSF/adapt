@@ -1,4 +1,6 @@
 class Study < ActiveRecord::Base
+  ID_PREFIX = "au.edu.assda.ddi."
+
   include ModelSupport
   include FileHandling
   include StudyAnnotations
@@ -163,27 +165,27 @@ class Study < ActiveRecord::Base
   end
 
   def long_identifier
-    "au.edu.assda.ddi.#{identifier || "xxxxx"}"
+    ID_PREFIX + (identifier || "xxxxx")
   end
 
-  def ddi
+  def ddi(with_id = nil)
     av = ActionView::Base.new(Rails::Configuration.new.view_path)
     av.extend StudiesHelper
     av.assigns[:study] = self
+    av.assigns[:identifier] = with_id || self.identifier
     av.render "studies/ddi.xml"
   end
 
   def submit(licence_text)
-    ident = next_unique_directory_name(submission_path, "deposit_")
+    ident = next_directory_name(submission_path, "deposit_")
+    base = create_directory(submission_path, ident)
+    raise 'Folder already exists.' unless base
 
     self.temporary_identifier = ident.sub(/_/, ':')
     self.status = "submitted"
     save
 
-    base = File.join(submission_path, ident)
-    unless licence_text.blank?
-      write_file(licence_text, base, "Licence.txt")
-    end
+    write_file(licence_text, base, "Licence.txt") unless licence_text.blank?
     write_file(ddi, base, "Study.xml")
     write_file(attachments.map { |a| a.metadata.to_yaml }.join("\n"),
                base, "FileDescriptions.txt")
@@ -195,21 +197,28 @@ class Study < ActiveRecord::Base
   end
 
   def approve(assigned_archivist, range = "0")
-    licence_text = read_file(submission_path,
-                             temporary_identifier.sub(/:/, '_'),
-                             "Licence.txt")
+    if permanent_identifier
+      base = File.join(archive_path, permanent_identifier)
+    else
+      ident = next_directory_name(archive_path, range, 5 - range.size)
+      base = create_directory(archive_path, ident)
+      raise 'Folder already exists.' unless base
+      self.permanent_identifier = ident
+    end
 
-    self.permanent_identifier ||=
-      next_unique_directory_name(archive_path, range, 5 - range.size)
     self.status = "approved"
     self.archivist = assigned_archivist
     save
 
-    base = non_conflicting(File.join(archive_path,
-                                     self.permanent_identifier, "Original"))
+    base = non_conflicting(File.join(base, "Original"))
+
+    licence_text = read_file(submission_path,
+                             temporary_identifier.sub(/:/, '_'),
+                             "Licence.txt")
     unless licence_text.blank?
       write_file(licence_text, base, "ASSDA.Deposit.Licence.#{identifier}.txt")
     end
+
     write_file(ddi, base, "#{long_identifier}.xml")
 
     filedata = []
