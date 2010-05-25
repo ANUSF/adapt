@@ -41,7 +41,7 @@ module StudyAnnotations
                       "Case study notes",
                       "Census data",
                       "Clinical data",
-                      "Coded documents ",
+                      "Coded documents",
                       "Correspondence",
                       "Educational test data",
                       "Election returns",

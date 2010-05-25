@@ -3,7 +3,7 @@ class Study < ActiveRecord::Base
 
   include ModelSupport
   include FileHandling
-  include StudyAnnotations
+  #include StudyAnnotations
 
   belongs_to :owner,     :class_name => 'User', :foreign_key => :user_id
   belongs_to :archivist, :class_name => 'User', :foreign_key => :archivist_id
@@ -242,21 +242,31 @@ class Study < ActiveRecord::Base
   protected
 
   def submission_path
-    base_path = File.join(ADAPT::CONFIG['adapt.asset.path'], "Submission")
+    File.join(ADAPT::CONFIG['adapt.asset.path'], "Submission")
   end
 
   def archive_path
-    base_path = File.join(ADAPT::CONFIG['adapt.asset.path'], "Archive")
+    File.join(ADAPT::CONFIG['adapt.asset.path'], "Archive")
   end
 
-  def self.annotate_with(name)
+  def self.annotate_with(name, settings)
     define_method(name) do |column|
-      props = FIELD_ANNOTATIONS[column.to_sym] || {}
-      key = name.to_sym
-      res = props[key] || FIELD_ANNOTATIONS[:__defaults__][key]
-      res.class == Proc ? res.call(self, column) : res
+      value = settings[column.to_sym]
+      value.class == Proc ? value.call(self, column) : value
     end
   end
 
-  FIELD_ANNOTATIONS[:__defaults__].keys.each &self.method(:annotate_with)
+  lambda {
+    result = {}
+    path = File.join(Rails.root, "config", "study_annotations.yml")
+    YAML::load(File.open(path)).each do |column, hash|
+      hash.each do |key, value|
+        (result[key] ||= {})[column] = value
+      end
+    end
+    result[:selections][:archivist] = lambda {
+      User.archivists.map { |a| [a.name, a.id] }
+    }
+    result.each { |key, hash| annotate_with(key, hash) }
+  }.call
 end
