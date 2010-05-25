@@ -40,6 +40,7 @@ class ApplicationController < ActionController::Base
     log_error(exception)
     @exception = exception
     render :template => "/errors/500.html.haml", :status => 500
+    UserMailer.deliver_error_notification(exception)
   end
 
   # Returns the current date as a nicely formatted string

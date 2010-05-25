@@ -1,0 +1,7 @@
+An error occurred.
+
+<%= @exception.class.name %>: <%= @exception.message %>
+
+<%= @exception.backtrace.join("\n") %>
+
+<%= render :partial => "noreply" %>
