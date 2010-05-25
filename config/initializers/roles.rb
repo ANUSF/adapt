@@ -1,4 +1,4 @@
-if RAILS_ENV != 'test'
+unless %w{test cucumber}.include? Rails.env
   roles_file = File.join(ADAPT::CONFIG['adapt.config.path'], 'roles.properties')
   for line in File.open(roles_file, &:read).split("\n")
     unless line.strip.blank?
