@@ -3,7 +3,6 @@ class Study < ActiveRecord::Base
 
   include ModelSupport
   include FileHandling
-  #include StudyAnnotations
 
   belongs_to :owner,     :class_name => 'User', :foreign_key => :user_id
   belongs_to :archivist, :class_name => 'User', :foreign_key => :archivist_id
@@ -249,24 +248,22 @@ class Study < ActiveRecord::Base
     File.join(ADAPT::CONFIG['adapt.asset.path'], "Archive")
   end
 
-  def self.annotate_with(name, settings)
-    define_method(name) do |column|
-      value = settings[column.to_sym]
-      value.class == Proc ? value.call(self, column) : value
-    end
-  end
-
   lambda {
-    result = {}
+    config = {}
     path = File.join(Rails.root, "config", "study_annotations.yml")
     YAML::load(File.open(path)).each do |column, hash|
       hash.each do |key, value|
-        (result[key] ||= {})[column] = value
+        (config[key] ||= {})[column] = value
       end
     end
-    result[:selections][:archivist] = lambda {
+    config[:selections][:archivist] = lambda {
       User.archivists.map { |a| [a.name, a.id] }
     }
-    result.each { |key, hash| annotate_with(key, hash) }
+    config.each do |name, settings|
+      define_method(name) do |column|
+        value = settings[column.to_sym]
+        value.class == Proc ? value.call(self, column) : value
+      end
+    end
   }.call
 end
