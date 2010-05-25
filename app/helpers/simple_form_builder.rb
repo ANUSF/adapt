@@ -30,7 +30,8 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
   
   # The new check_box helper uses a layout different from our generic one.
   def check_box(column, options = {})
-    label = options.delete(:label) || try(:label_for, column) || column
+    label = options.delete(:label) || try(:label_for, column) ||
+      column.to_s.humanize
     selections = try(:selections, column) || []
     unchecked_value = options.delete(:unchecked_value) || selections[0] || "0"
     checked_value = options.delete(:checked_value) || selections[1] || "1"
@@ -190,8 +191,9 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
     options = default_options.merge(args.last.is_a?(Hash) ? args.pop : {})
     inline = options.delete(:inline)
     label_inline = options.delete(:label_inline)
-    label = options.delete(:label) || try(:label_for, column) || column
-    title = options.delete(:title) || try(:help_on, column)
+    label = options.delete(:label) || try(:label_for, column) ||
+      column.to_s.humanize
+    title = options.delete(:title) || try(:help_on, column) || label
     required = options.delete(:required)
 
     ident = "#{object_ident}_#{column}"

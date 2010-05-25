@@ -66,7 +66,7 @@ module ADAPT
     user_home = tmp unless tmp.blank?
   end
 
-  # -- override with runimte environment settings
+  # -- override with runtime environment settings
   ENV.keys.each do |name|
     if name.start_with?('ADAPT') or name.start_with?('ASSDA')
       config[name.downcase.gsub(/_/, '.')] = ENV[name]

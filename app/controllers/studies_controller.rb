@@ -40,7 +40,7 @@ class StudiesController < ApplicationController
     end
   end
 
-  # Whether the current user may edit the referenced study.
+  # Whether the current user may destroy the referenced study.
   def may_destroy
     @study and @study.can_be_destroyed_by current_user
   end

@@ -6,7 +6,7 @@ module ANUSF
           if try(:is_repeatable?, name)
             # -- filters empty entries from a repeatable field
             value = value.values if value.is_a? Hash
-            value = if try(:subfields, name).empty?
+            value = if (try(:subfields, name) || []).empty?
               value.reject &:blank?
             else
               value.reject { |x| x.values.all? &:blank? }
