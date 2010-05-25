@@ -42,7 +42,6 @@ Feature: Contributor creates study
     Examples:
       | title    | abstract      |
       |          |               |
-      | My Study |               |
       |          | To be written |
 
   Scenario Outline: Creation cancelled
