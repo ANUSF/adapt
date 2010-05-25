@@ -56,15 +56,17 @@
         &mdash;
         %br
         Powered by Ruby on Rails
-        = link_to "Printer style preview", url_for(:printer_friendly => 1), |
-            :method => request.method |
-        - if in_demo_mode and current_user
-          - make_form_for current_user do |f|
-            %input{ :type => "hidden", :name => "last_url", :value => url_for }
-            = f.select :role, :label => "", :inline => true
-            = f.result_buttons "Change Role"
+        %br
+        - unless @exception
+          = link_to "Printer style preview", url_for(:printer_friendly => 1), |
+                    :method => request.method |
+          - if in_demo_mode and current_user
+            - make_form_for current_user do |f|
+              %input{ :type => "hidden", :name => "last_url", :value => url_for }
+              = f.select :role, :label => "", :inline => true
+              = f.result_buttons "Change Role"
 
     - if params.has_key?('printer_friendly')
       %br
       = link_to "Back to normal view", url_for(:printer_friendly => nil), |
-          :method => request.method |
+                :method => request.method |

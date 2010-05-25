@@ -3,6 +3,14 @@
 # (c)2010 ANUSF
 
 class ApplicationController < ActionController::Base
+  unless ActionController::Base.consider_all_requests_local
+    rescue_from Exception,                            :with => :render_error
+    rescue_from ActiveRecord::RecordNotFound,         :with => :render_not_found
+    rescue_from ActionController::RoutingError,       :with => :render_not_found
+    rescue_from ActionController::UnknownController,  :with => :render_not_found
+    rescue_from ActionController::UnknownAction,      :with => :render_not_found
+  end
+
   # -- makes all helpers available in controllers
   helper :all
 
@@ -21,6 +29,18 @@ class ApplicationController < ActionController::Base
 
   
   private
+
+  def render_not_found(exception)
+    log_error(exception)
+    @exception = exception
+    render :template => "/errors/404.html.haml", :status => 404
+  end
+
+  def render_error(exception)
+    log_error(exception)
+    @exception = exception
+    render :template => "/errors/500.html.haml", :status => 500
+  end
 
   # Returns the current date as a nicely formatted string
   def current_date
@@ -63,6 +83,10 @@ class ApplicationController < ActionController::Base
   # Forced logout for current user.
   def kill_session(message)
     redirect_to logout_url(:message => message + " Please log in again!")
+  end
+
+  def local_request?
+    request.remote_ip == "127.0.0.1"
   end
 
   # This is called as an around filter for all controller actions and

@@ -1,0 +1,14 @@
+- title "Internal error (500)", false
+
+#flash_error Sorry, something went wrong.
+
+%p
+  There was an unforeseen problem. We have been notified about this
+  issue and will take a look at it shortly.
+
+- if Rails.env == 'development'
+  %box
+    %tt
+      %p== #{@exception.class.name}: #{@exception.message} 
+      %small
+        %pre= @exception.backtrace.join("\n")
