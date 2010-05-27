@@ -6,7 +6,7 @@
   There was an unforeseen problem. We have been notified about this
   issue and will take a look at it shortly.
 
-- if Rails.env == 'development'
+- if @exception && Rails.env == 'development'
   %box
     %tt
       %p== #{@exception.class.name}: #{@exception.message} 
