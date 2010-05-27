@@ -12,15 +12,23 @@
         = fields.errors_on(:access_mode)
     %p{ :title => LicenceText::UNRESTRICTED_ACCESS }
       = fields.radio_button :access_mode, 'A', :label => ''
-      Access may be granted freely to registered researchers and
-      institutions.
+      Unrestricted – available to ASSDA registered users (see &nbsp;
+      %a{ :href => 'http://www.assda.edu.au/data.html' }<>
+        http://www.assda.edu.au/data.html
+      ).  Usage reports available to the depositor, or authorised
+      representative, upon request.
     %p{ :title => LicenceText::RESTRICTED_ACCESS }
       = fields.radio_button :access_mode, 'B', :label => ''
-      Access may only be given with prior written permission of the
-      undersigned.
+      Restricted – the depositor, or authorised representative, to be
+      informed by ASSDA of each request to use the data in order to
+      give or withhold permission.  Users must be registered with
+      ASSDA and complete the &nbsp;
+      %a{ :href => 'http://www.assda.edu.au/forms/ApplicationToAccessRestrictedData.pdf' }<>
+        Restricted Access Form
+      = '.'
     %p{ :title => LicenceText::DEFERRED_ACCESS }
       = fields.radio_button :access_mode, 'S', :label => ''
-      Access conditions are to be negotiated.
+      Special conditions of access to be negotiated with ASSDA.
   %hr
   %p
     %strong Full licence text based on the current selections:
