@@ -248,22 +248,29 @@ class Study < ActiveRecord::Base
     File.join(ADAPT::CONFIG['adapt.asset.path'], "Archive")
   end
 
-  lambda {
-    config = {}
-    path = File.join(Rails.root, "config", "study_annotations.yml")
-    YAML::load(File.open(path)).each do |column, hash|
-      hash.each do |key, value|
-        (config[key] ||= {})[column] = value
+  def self.transposed(hash)
+    result = {}
+    hash.each do |key1, inner|
+      inner.each do |key2, value|
+        (result[key2] ||= {})[key1] = value
       end
     end
+    result
+  end
+
+  def self.read_annotations
+    path = File.join(Rails.root, "config", "study_annotations.yml")
+    config = transposed(YAML::load(File.open(path)))
     config[:selections][:archivist] = lambda {
       User.archivists.map { |a| [a.name, a.id] }
     }
     config.each do |name, settings|
       define_method(name) do |column|
         value = settings[column.to_sym]
-        value.class == Proc ? value.call(self, column) : value
+        value.is_a?(Proc) ? value.call(self, column) : value
       end
     end
-  }.call
+  end
+
+  read_annotations
 end
