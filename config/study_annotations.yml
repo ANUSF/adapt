@@ -15,6 +15,9 @@
   :label_for: Qualitative
 :data_is_quantitative: 
   :label_for: Quantitative
+:data_relation:
+  :label_for: Related data
+  :help_on: If this study is related to data already in the ASSDA collection, provide details. Include the study number(s) if known.
 :data_kind: 
   :label_for: Kind of data
   :is_repeatable?: true

@@ -146,6 +146,8 @@
           material supplied.
 
     %othrStdyMat
+      - unless @study.data_relation.blank?
+        %relStudy= @study.data_relation
       - each @study.references do |ref|
         %relPubl
           = ref['description']

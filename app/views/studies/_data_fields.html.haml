@@ -31,6 +31,7 @@
     = @form.check_box :data_is_qualitative
     = @form.check_box :data_is_quantitative
     = @form.errors_on("Data Category")
+  %div= @form.text_area :data_relation
   .row
     = @form.select :data_kind, :required => true
     = @form.select :time_method
