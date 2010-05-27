@@ -81,6 +81,7 @@
     - purposive selection/case studies
     - volunteer sample
     - convenience sample
+    - snowball
 :collection_method: 
   :label_for: Method of data collection
   :is_repeatable?: true
@@ -149,9 +150,10 @@
   :label_for: "Other Acknowledgements:"
   :help_on: Please list the names of any other persons or organisations who played a significant role in the conduct of the study.
 :references: 
+  :label_for: "Related Publications:"
   :subfields: 
     - citation
     - link
     - description
   :is_repeatable?: true
-  :help_on: Please provide the bibliographic details and, where available, online links to any published work (including journal articles, books or book chapters, conference presentations, theses or any other publications or outputs) based wholly or in part on the material.
+  :help_on: Please provide the bibliographic details and, where available, online links to any published work (including journal articles, books or book chapters, conference presentations, theses or any other publications or outputs) based wholly or in part on the material. The link and description fields are optional.
