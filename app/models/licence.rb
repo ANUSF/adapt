@@ -26,7 +26,7 @@ class Licence < ActiveRecord::Base
     :if => :checking,
     :message => "Does not look like email address."
 
-  validates_inclusion_of :access_mode, :in => ['', 'A', 'B', 'S'],
+  validates_inclusion_of :access_mode, :in => [nil, 'A', 'B', 'S'],
                          :if => :checking,
                          :message => "Value must be A, B or S."
 
