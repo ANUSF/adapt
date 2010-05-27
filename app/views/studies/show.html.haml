@@ -72,6 +72,9 @@
       - tmp = tmp.empty? ? [] : [tmp.join(" and ")]
       = cleanup((tmp + (@study.data_kind || [])).join(", ").humanize)
     %li
+      %dfn Related data:
+      = cleanup @study.data_relation
+    %li
       %dfn Sample population:
       = cleanup @study.sample_population
     %li
@@ -94,7 +97,8 @@
   %ul
     %li
       %dfn Depositor:
-      - if @study.depositors
+      - unless @study.depositors["name"].blank? and |
+          @study.depositors["affiliation"].blank? |
         = "#{cleanup @study.depositors["name"]},"
         = cleanup @study.depositors["affiliation"]
       - else

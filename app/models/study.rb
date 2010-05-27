@@ -15,7 +15,7 @@ class Study < ActiveRecord::Base
   before_create { |rec| rec.archivist = rec.owner if rec.owner.is_archivist }
 
   JSON_FIELDS = [:data_is_qualitative, :data_is_quantitative, :data_kind,
-                 :time_method, :sample_population,
+                 :data_relation, :time_method, :sample_population,
                  :sampling_procedure, :collection_method, :collection_start,
                  :collection_end, :period_start, :period_end, :response_rate,
                  :depositors, :principal_investigators, :data_producers,
