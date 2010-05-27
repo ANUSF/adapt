@@ -64,7 +64,8 @@ class Attachment < ActiveRecord::Base
   end
 
   def stored_path
-    "#{ASSET_PATH}/studies/#{study.id}/attachments/#{stored_as}"
+    File.join(ASSET_PATH, "Temporary", study.owner.username,
+              study.id.to_s, "files", stored_as)
   end
 
   def write_data
