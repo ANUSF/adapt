@@ -81,9 +81,10 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
     %option{ :value => v, :selected => selected }= k
 - if other
   %br
-  Other:
-  %input{ :id => f.ident, :name => name, :type => "text", :size => 25, |
-          :value => current_other } |
+  %span{ :title => "Enter a comma-separated list of additional values here." }
+    Other:
+    %input{ :id => f.ident, :name => name, :type => "text", :size => 25, |
+            :value => current_other } |
 ' }
     end
   end
