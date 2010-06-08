@@ -97,12 +97,12 @@
   %ul
     %li
       %dfn Depositor:
-      - unless @study.depositors["name"].blank? and |
-          @study.depositors["affiliation"].blank? |
-        = "#{cleanup @study.depositors["name"]},"
-        = cleanup @study.depositors["affiliation"]
-      - else
+      - if @study.depositor_name.blank? and |
+          @study.depositor_affiliation.blank? |
         &mdash;
+      - else
+        = "#{cleanup @study.depositor_name},"
+        = cleanup @study.depositor_affiliation
     %li
       %dfn Principal Investigators:
       - if @study.principal_investigators.blank?

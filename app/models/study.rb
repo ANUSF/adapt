@@ -167,6 +167,14 @@ class Study < ActiveRecord::Base
     ID_PREFIX + (identifier || "xxxxx")
   end
 
+  def depositor_name
+    depositors and depositors["name"]
+  end
+
+  def depositor_affiliation
+    depositors and depositors["affiliation"]
+  end
+
   def ddi(with_id = nil)
     av = ActionView::Base.new(Rails::Configuration.new.view_path)
     av.extend StudiesHelper
