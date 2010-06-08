@@ -26,6 +26,24 @@
     return false;
   }
 
+  function file_selected() {
+    var elem = jQuery(this);
+    var input = elem.clone();
+    var id = elem.attr('id');
+    var name = elem.attr('name');
+    var n = parseInt(id.match(/\d+/)) + 1;
+    input.attr('value', '');
+    input.attr('id', id.replace(/\d+/, n));
+    input.attr('name', name.replace(/\d+/, n));
+    input.change(file_selected);
+    elem.after('<p><input type="checkbox" checked="" value="1" ' +
+	       'name="' + name.replace(/\[[^\[\]]*\]$/, '[use]') +
+	       '" id="' + id.replace(/_[^_]*$/, '_use') +
+	       '"/>' + elem.val() + '</p>');
+    elem.hide();
+    elem.parent().append(input);
+  }
+
   function onload(context) {
     fixPage();
 
@@ -68,6 +86,9 @@
 	.click(function() { jQuery('#flash_notice', context).hide(); })
 	.click(select_tab);
     });
+
+    // -- allows multiple file uploads
+    jQuery('input[type=file]').change(file_selected);
   }
 
   function fixPage() {

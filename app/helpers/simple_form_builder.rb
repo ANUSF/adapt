@@ -17,7 +17,7 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
   extend ActionView::Helpers::FormTagHelper
 
   for name in field_helpers - %w{fields_for text_area text_field hidden_field
-                                 check_box select}
+                                 check_box select file_field}
     create_tagged_field(name, :size => 40)
   end
 
@@ -27,6 +27,19 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
   create_tagged_field("datetime_select", :include_blank => true)
   create_tagged_field("select")
   create_tagged_field("text_area", :rows => 4, :cols => 60)
+  
+  def file_field(column, *args)
+    create_field(column, {}, *args) do |f|
+      klass = f.options.delete(:multi) ? "multi" : ""
+      size = f.options.delete(:size) || 40
+      args = f.args.clone
+      args << f.options unless f.options.empty?
+      haml { '
+%input{ :class => klass, :id => f.ident, :name => f.name, :type => "file", |
+        :size => size }
+' }
+    end
+  end
   
   # The new check_box helper uses a layout different from our generic one.
   def check_box(column, options = {})

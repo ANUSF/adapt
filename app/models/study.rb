@@ -22,7 +22,7 @@ class Study < ActiveRecord::Base
                  :funding_agency, :other_acknowledgements, :references]
 
   attr_accessible(*(JSON_FIELDS +
-                    [:name, :title, :abstract, :new_upload,
+                    [:name, :title, :abstract, :uploads_attributes,
                      :attachments_attributes, :licence_attributes, :skip_licence,
                      :additional_metadata]))
 
@@ -86,14 +86,22 @@ class Study < ActiveRecord::Base
 
   json_fields(*JSON_FIELDS)
 
-  def new_upload=(params)
-    content = params[:content]
-    if content.original_filename.ends_with? '.zip'
-      each_zip_entry(content.read) do |name, data|
-        attachments << Attachment.make(File.basename(name), data)
+  def uploads
+    [Attachment.new]
+  end
+
+  def uploads_attributes=(data)
+    data.each do |key, params|
+      if params[:use] == "1"
+        content = params[:content]
+        if content.original_filename.ends_with? '.zip'
+          each_zip_entry(content.read) do |name, data|
+            attachments << Attachment.make(File.basename(name), data)
+          end
+        else
+          attachments.create(params)
+        end
       end
-    else
-      attachments.create(params)
     end
   end
 
