@@ -2,52 +2,56 @@
 
 ''(These instructions presume you are working on a Unix/Linux OS and install jruby locally. For other environments the commands to be executed may vary slightly.)''
 
-0. Install a sufficiently recent JDK.
+0.  Install a sufficiently recent JDK.
 
-1. Install jruby from http://jruby.org
+1.  Install jruby from http://jruby.org
 
-2. Install Rails and some additional Ruby packages:
+2.  Install Rails and some additional Ruby packages:
 
     jruby -S gem install rails activerecord-jdbcsqlite3-adapter jruby-openssl
 
-3. Install git (from the appropriate package under Linux, or from http://git-scm.com).
+3.  Install git (from the appropriate package under Linux, or from http://git-scm.com).
 
-4. Get the adapt code from the git repository (IMPORTANT: don't keep the source code in a folder called 'adapt' in your home directory):
+4.  Get the adapt code from the git repository (IMPORTANT: don't keep the source code in a folder called 'adapt' in your home directory):
 
     git clone ssh://<user>@dc2//projects/u47/usr/oxd900/git/adapt adapt-source
 
-5. Move into the adapt source directory thus created:
+5.  Move into the adapt source directory thus created:
 
     cd adapt-source
 
-6. Install extra packages required by adapt:
+6.  Install extra packages required by adapt:
 
     jruby -S rake gems:install
 
-7. Start the web server:
+    (If this fails, try 'jruby -S gem install haml' and then repeat the command above.)
+
+7.  Start the web server:
 
     ./script/server
 
-8. To see if everything worked, hit the URL http://localhost:3000 with your browser.
+8.  To see if everything worked, direct your web browser to the URL http://localhost:3000.
 
 ==== Further steps to create war files: ====
 
-9. Install warbler:
+9.  Install warbler:
 
     jruby -S gem install warbler
 
-10. Run it:
+10. Create the CSS files:
+
+    jruby -S sass -q -C --update public/stylesheets/sass:public/stylesheets
+
+11. Run it:
 
     jruby -S warble
 
-You should now have a file named 'adapt-<timestamp>.war'.
+You should now have a file named 'adapt.war'.
 
 ==== Re-building when source code has changed: ====
 
-11. Update your source code:
+12. Update your source code:
 
     git pull
 
-12. Re-run warble:
-
-    jruby -S warble
+13. Repeat steps 10 and 11 in that order.
