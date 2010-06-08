@@ -34,6 +34,6 @@
       = f.text_area :description, :rows => 2
     %hr
 
-  %h3 Select a file to upload:
-  - @form.fields_for :new_upload, Attachment.new do |f|
-    = f.file_field :content, :label => ''
+  %h3 Select files to upload:
+  - @form.fields_for :uploads, Attachment.new do |f|
+    = f.file_field :content, :label => '', :multi => true
