@@ -88,7 +88,7 @@
     });
 
     // -- allows multiple file uploads
-    jQuery('input[type=file]').change(file_selected);
+    jQuery('input:file.multi').change(file_selected);
   }
 
   function fixPage() {
