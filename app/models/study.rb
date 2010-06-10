@@ -14,6 +14,8 @@ class Study < ActiveRecord::Base
 
   before_create { |rec| rec.archivist = rec.owner if rec.owner.is_archivist }
 
+  before_save { |rec| rec.attachments.each { |a| a.destroy if a.extracted } }
+
   JSON_FIELDS = [:data_is_qualitative, :data_is_quantitative, :data_kind,
                  :data_relation, :time_method, :sample_population,
                  :sampling_procedure, :collection_method, :collection_start,
@@ -86,23 +88,20 @@ class Study < ActiveRecord::Base
 
   json_fields(*JSON_FIELDS)
 
+  # We override this to prevent premature destruction of ZIP attachments.
+  def update_attributes(attributes)
+    attributes['attachments_attributes'].each do |key, value|
+      value['_destroy'] = '0' if value['extract'] == '1'
+    end
+    super
+  end
+
   def uploads
     [Attachment.new]
   end
 
   def uploads_attributes=(data)
-    data.each do |key, params|
-      if params[:use] == "1"
-        content = params[:content]
-        if content.original_filename.ends_with? '.zip'
-          each_zip_entry(content.read) do |name, data|
-            attachments << Attachment.make(File.basename(name), data)
-          end
-        else
-          attachments.create(params)
-        end
-      end
-    end
+    data.each { |k, params| attachments.create(params) if params[:use] == "1" }
   end
 
   def status

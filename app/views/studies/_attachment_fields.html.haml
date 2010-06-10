@@ -27,6 +27,8 @@
       %em== (#{number_to_human_size f.object.data.size})
       &nbsp;
       = f.check_box :_destroy, :label => "Delete this file"
+      - if f.object.name.ends_with?('.zip')
+        = f.check_box :extract, :label => "Extract this ZIP file"
       %p
         = f.errors_on(:category)
         = f.radio_button :category, "Data File"
