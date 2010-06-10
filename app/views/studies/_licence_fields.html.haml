@@ -29,10 +29,12 @@
     %p{ :title => LicenceText::DEFERRED_ACCESS }
       = fields.radio_button :access_mode, 'S', :label => ''
       Special conditions of access to be negotiated with ASSDA.
-  %hr
-  %p
-    %strong Full licence text based on the current selections:
-  .collapsible
-    .box
-      %pre= @study.licence.text false
-    .clear
+
+    -#
+      %hr
+      %p
+        %strong Full licence text based on the current selections:
+      .collapsible
+        .box
+          %pre= @study.licence.text false
+        .clear
