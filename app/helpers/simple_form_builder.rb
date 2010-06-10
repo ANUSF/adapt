@@ -137,22 +137,27 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
       current = @object.send(column) || (multi ? [] : {})
 
       haml { '
-.row
-  - for sub in subfields
-    .form-field
-      %label{ :for => f.ident }= sub.to_s.humanize
-      - if multi
-        - for i in 0..current.size
+- if multi
+  - for i in 0..current.size
+    .row
+      - for sub in subfields
+        .form-field
           - ident = "#{f.ident}_#{i}_#{sub}"
           - name  = "#{f.name}[#{i}][#{sub}]"
           - value = (current[i] || {})[sub]
+          %label{ :for => f.ident }= sub.to_s.humanize
           %br
           %input{ :id => ident, :type => "text", :name => name, |
                   :value => value, :size => size } |
-      - else
+    .clear
+- else
+  .row
+    - for sub in subfields
+      .form-field
         - ident = "#{f.ident}_#{sub}"
         - name  = "#{f.name}[#{sub}]"
         - value = current[sub]
+        %label{ :for => f.ident }= sub.to_s.humanize
         %br
         %input{ :id => ident, :type => "text", :name => name, |
                 :value => value, :size => size } |
