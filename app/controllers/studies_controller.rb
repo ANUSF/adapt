@@ -56,7 +56,7 @@ class StudiesController < ApplicationController
   end
 
   def prepare_for_edit
-    @button_texts = [ 'Apply Changes', 'Undo Changes', 'Save and Exit' ]
+    @button_texts = [ 'Apply Changes', 'Discard Changes', 'Save and Exit' ]
     session['active-tab'] = params['active-tab'] if params['active-tab']
     @active_tab = session['active-tab'] || "#title-fields"
   end
@@ -113,7 +113,7 @@ class StudiesController < ApplicationController
   
   def update
     result = params[:result]
-    if result.starts_with? "Undo"
+    if result.starts_with? "Discard"
       flash[:notice] = "Reverted to previously saved state."
       redirect_to edit_study_url
     else
