@@ -90,7 +90,7 @@ class Study < ActiveRecord::Base
 
   # We override this to prevent premature destruction of ZIP attachments.
   def update_attributes(attributes)
-    attributes['attachments_attributes'].each do |key, value|
+    (attributes['attachments_attributes'] || {}).each do |key, value|
       value['_destroy'] = '0' if value['extract'] == '1'
     end
     super
@@ -192,7 +192,7 @@ class Study < ActiveRecord::Base
 
   def submit(licence_text)
     ident = next_directory_name(submission_path, "deposit_")
-    base = create_directory(submission_path, ident)
+    base = make_path(submission_path, ident)
     raise 'Folder already exists.' unless base
 
     self.temporary_identifier = ident.sub(/_/, ':')
@@ -215,7 +215,7 @@ class Study < ActiveRecord::Base
       base = File.join(archive_path, permanent_identifier)
     else
       ident = next_directory_name(archive_path, range, 5 - range.size)
-      base = create_directory(archive_path, ident)
+      base = make_path(archive_path, ident)
       raise 'Folder already exists.' unless base
       self.permanent_identifier = ident
     end

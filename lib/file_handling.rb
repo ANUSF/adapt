@@ -19,21 +19,13 @@ module FileHandling
     File.open(path) { |fp| fp.read } if File.exist?(path)
   end
 
-  def create_directory(*path_parts)
-    path = File.join(*path_parts)
-
-    with_lock_on(File.dirname(path)) do
-      unless File.exist?(path)
-        FileUtils.mkdir(path, :mode => ADAPT::CONFIG['adapt.dir.mode'])
-        set_ownership(path)
-        path
-      end
-    end
-  end
-
   def next_directory_name(base, prefix, number_length = 5)
-    last = Dir.new(base).grep(/\A#{prefix}\d+\Z/o).max
-    num = last ? last.sub(prefix, '').to_i + 1 : 1
+    num = if File.exists?(base)
+            last = Dir.new(base).grep(/\A#{prefix}\d+\Z/o).max
+            last ? last.sub(prefix, '').to_i + 1 : 1
+          else
+            1
+          end
     prefix + num.to_s.rjust(number_length, "0")
   end
 
@@ -61,7 +53,8 @@ module FileHandling
     end
   end
 
-  def make_path(path)
+  def make_path(*path_parts)
+    path = File.join(*path_parts)
     dir = File.dirname(path)
     make_path(dir) unless dir == path
     unless File.exist?(path)
