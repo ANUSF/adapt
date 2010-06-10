@@ -1,17 +1,6 @@
 #attachment-fields
   %h3 Attached Files
-  %p
-    %strong Tips for this page:
-  .collapsible
-    .box
-      %ul
-        %li
-          %p
-            If you need to attach a large number of files, consider
-            creating and uploading a ZIP archive. ADAPT will extract
-            the individual files for you automatically.
-    .clear
-  %hr
+
   %p= @form.errors_on(:attachments)
   - unless @study.attachments.empty?
     %p
@@ -37,5 +26,10 @@
     %hr
 
   %h3 Select files to upload:
+  %p
+    %em
+      (You can upload files individually or in batches packaged as ZIP
+      files. The latter can be submitted as is or the contained files
+      extracted after uploading.)
   - @form.fields_for :uploads, Attachment.new do |f|
     = f.file_field :content, :label => '', :multi => true
