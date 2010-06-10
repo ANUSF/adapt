@@ -2,11 +2,14 @@ class Attachment < ActiveRecord::Base
   ASSET_PATH = ADAPT::CONFIG['adapt.asset.path']
 
   include ActionView::Helpers::NumberHelper
+  include ModelSupport
   include FileHandling
 
   belongs_to :study
 
-  attr_accessible :content, :category, :format, :description
+  attr_accessible :content, :category, :format, :description, :extract
+
+  attr_reader :extracted
 
   after_create :write_data
   before_destroy :delete_file
@@ -41,6 +44,18 @@ class Attachment < ActiveRecord::Base
       "Comments" => description }
   end
   
+  def extract
+  end
+
+  def extract=(value)
+    if name.ends_with?('.zip') and value == '1' and not @extracted
+      each_zip_entry(data) do |name, data|
+        study.attachments << Attachment.make(File.basename(name), data)
+      end
+      @extracted = true
+    end
+  end
+
   def self.make(name, data)
     self.new(:content => Struct.new(:original_filename, :read).new(name, data))
   end
