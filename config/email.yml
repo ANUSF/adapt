@@ -13,6 +13,3 @@ anusf: &anusf
 
 production:
   <<: *anusf
-
-stage:
-  <<: *anusf
