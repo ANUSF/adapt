@@ -139,7 +139,7 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
       haml { '
 - if multi
   - for i in 0..current.size
-    .row
+    .row.multi
       - for sub in subfields
         .form-field
           - ident = "#{f.ident}_#{i}_#{sub}"
