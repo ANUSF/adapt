@@ -141,7 +141,7 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
   %thead
     %tr
       - for sub in subfields
-        %td
+        %th
           %label= sub.to_s.humanize
   %tbody
     - if multi
