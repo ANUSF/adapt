@@ -28,20 +28,43 @@
 
   function file_selected() {
     var elem = jQuery(this);
-    var input = elem.clone();
+    var input = elem.clone(true);
     var id = elem.attr('id');
     var name = elem.attr('name');
     var n = parseInt(id.match(/\d+/)) + 1;
     input.attr('value', '');
     input.attr('id', id.replace(/\d+/, n));
     input.attr('name', name.replace(/\d+/, n));
-    input.change(file_selected);
     elem.after('<p><input type="checkbox" checked="" value="1" ' +
 	       'name="' + name.replace(/\[[^\[\]]*\]$/, '[use]') +
 	       '" id="' + id.replace(/_[^_]*$/, '_use') +
 	       '"/>' + elem.val() + '</p>');
     elem.hide();
     elem.parent().append(input);
+  }
+
+  function multitext_edited() {
+    var row  = jQuery(this).parent().closest('.multi');
+    var is_last = row.nextAll('.multi').length == 0;
+    var is_empty = row.find('input:text[value]').length == 0;
+    if (!is_empty && is_last) {
+      var new_row = row.clone(true);
+      jQuery('input:text', new_row).each(function() {
+	var field = jQuery(this);
+	var n = parseInt(field.attr('id').match(/\d+/)) + 1;
+	field.attr('id', field.attr('id').replace(/\d+/, n));
+	field.attr('name', field.attr('name').replace(/\d+/, n));
+	field.val('');
+      });
+      row.parent().append(new_row);
+    }
+  }
+
+  function multitext_cleanup() {
+    var row  = jQuery(this).parent().closest('.multi');
+    var is_last = row.nextAll('.multi').length == 0;
+    var is_empty = row.find('input:text[value]').length == 0;
+    if (is_empty && !is_last) row.remove();
   }
 
   function onload(context) {
@@ -88,7 +111,11 @@
     });
 
     // -- allows multiple file uploads
-    jQuery('input:file.multi').change(file_selected);
+    jQuery('input:file.multi', context).change(file_selected);
+
+    // -- automatic extension of multiple text input field collections
+    jQuery('.multi input:text', context)
+      .keyup(multitext_edited).blur(multitext_cleanup);
   }
 
   function fixPage() {
