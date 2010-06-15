@@ -137,30 +137,32 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
       current = @object.send(column) || (multi ? [] : {})
 
       haml { '
-- if multi
-  - for i in 0..current.size
-    .row.multi
+%table.input-table
+  %thead
+    %tr
       - for sub in subfields
-        .form-field
-          - ident = "#{f.ident}_#{i}_#{sub}"
-          - name  = "#{f.name}[#{i}][#{sub}]"
-          - value = (current[i] || {})[sub]
-          %label{ :for => f.ident }= sub.to_s.humanize
-          %br
-          %input{ :id => ident, :type => "text", :name => name, |
-                  :value => value, :size => size } |
-    .clear
-- else
-  .row
-    - for sub in subfields
-      .form-field
-        - ident = "#{f.ident}_#{sub}"
-        - name  = "#{f.name}[#{sub}]"
-        - value = current[sub]
-        %label{ :for => f.ident }= sub.to_s.humanize
-        %br
-        %input{ :id => ident, :type => "text", :name => name, |
-                :value => value, :size => size } |
+        %td
+          %label= sub.to_s.humanize
+  %tbody
+    - if multi
+      - for i in 0..current.size
+        %tr.multi
+          - for sub in subfields
+            - ident = "#{f.ident}_#{i}_#{sub}"
+            - name  = "#{f.name}[#{i}][#{sub}]"
+            - value = (current[i] || {})[sub]
+            %td
+              %input{ :id => ident, :type => "text", :name => name, |
+                      :value => value, :size => size } |
+    - else
+      %tr
+        - for sub in subfields
+          - ident = "#{f.ident}_#{sub}"
+          - name  = "#{f.name}[#{sub}]"
+          - value = current[sub]
+          %td
+            %input{ :id => ident, :type => "text", :name => name, |
+                    :value => value, :size => size } |
 ' }
     end
   end
