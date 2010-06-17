@@ -2,8 +2,8 @@
 - stylesheet :forms
 
 - make_form_for @user do |f|
-  = f.text_field :name
-  = f.text_area :address, :rows => 6
-  = f.text_field :telephone
-  = f.text_field :fax
+  %p= f.text_field :name
+  %p= f.text_area :address, :rows => 6
+  %p= f.text_field :telephone
+  %p= f.text_field :fax
   %p= f.result_buttons "Save"

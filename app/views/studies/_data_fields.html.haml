@@ -22,33 +22,33 @@
             date. Providing a four-digit year and three-letter month
             as in 'Jan 2010' helps avoid ambiguities, but other
             formats are also accepted.
-    .clear
   %hr
-  %div
+  %p
     %label
       Data is
       %em *
     = @form.check_box :data_is_qualitative
     = @form.check_box :data_is_quantitative
     = @form.errors_on("Data Category")
-  %div= @form.text_area :data_relation
-  .row
+  %p= @form.text_area :data_relation
+  %p
     = @form.select :data_kind, :required => true
     = @form.select :time_method
     = @form.select :sampling_procedure
     = @form.select :collection_method
-  .clear
-  %div= @form.text_area :sample_population
-  %div= @form.text_field :response_rate, :inline => true, :label_inline => true
-  %div
+  %p= @form.text_area :sample_population
+  %p= @form.text_field :response_rate, :label_left => true
+  %p
     %label Time period data refers to:
-    = @form.text_field :period_start, :size => 12, :inline => true
+    = @form.text_field :period_start, :size => 12
     &mdash;
-    = @form.text_field :period_end, :size => 12, :inline => true
+    = @form.text_field :period_end, :size => 12
     = @form.errors_on("period")
-  %div
+  %p
     %label Data collection period:
-    = @form.text_field :collection_start, :size => 12, :inline => true
+    = @form.text_field :collection_start, :size => 12
     &mdash;
-    = @form.text_field :collection_end, :size => 12, :inline => true
+    = @form.text_field :collection_end, :size => 12
     = @form.errors_on("collection")
+
+  .clear
