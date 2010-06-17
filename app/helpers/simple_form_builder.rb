@@ -128,9 +128,24 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
                   else f.args end
       subfields = [column] if subfields.empty?
       size = f.options.delete(:size) || 30
+      rows = f.options.delete(:rows) || 0
       multi = f.options.delete(:repeatable) || try(:is_repeatable?, column)
 
       current = @object.send(column) || (multi ? [] : {})
+
+      make_field = lambda do |ident, name, value, size, rows|
+        if rows <= 0
+          haml { '
+%input{ :id => ident, :type => "text", :name => name, 
+                      :value => value, :size => size } |
+' }
+        else
+          haml { '
+%textarea{ :id => ident, :name => name, :cols => size, :rows => rows }
+  = value
+' }
+        end
+      end
 
       haml { '
 %table.input-table
@@ -147,18 +162,14 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
             - ident = "#{f.ident}_#{i}_#{sub}"
             - name  = "#{f.name}[#{i}][#{sub}]"
             - value = (current[i] || {})[sub]
-            %td
-              %input{ :id => ident, :type => "text", :name => name, |
-                      :value => value, :size => size } |
+            %td= make_field.call(ident, name, value, size, rows)
     - else
       %tr
         - for sub in subfields
           - ident = "#{f.ident}_#{sub}"
           - name  = "#{f.name}[#{sub}]"
           - value = current[sub]
-          %td
-            %input{ :id => ident, :type => "text", :name => name, |
-                    :value => value, :size => size } |
+          %td= make_field.call(ident, name, value, size, rows)
 ' }
     end
   end
