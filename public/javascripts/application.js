@@ -43,13 +43,19 @@
     elem.parent().append(input);
   }
 
+  function is_last(row) {
+    return row.nextAll('.multi').length == 0;
+  }
+
+  function is_empty(row) {
+    return row.find('input:text[value],textarea[value]').length == 0;
+  }
+
   function multitext_edited() {
     var row  = jQuery(this).parent().closest('.multi');
-    var is_last = row.nextAll('.multi').length == 0;
-    var is_empty = row.find('input:text[value]').length == 0;
-    if (!is_empty && is_last) {
+    if (!is_empty(row) && is_last(row)) {
       var new_row = row.clone(true);
-      jQuery('input:text', new_row).each(function() {
+      jQuery('input:text,textarea', new_row).each(function() {
 	var field = jQuery(this);
 	var n = parseInt(field.attr('id').match(/\d+/)) + 1;
 	field.attr('id', field.attr('id').replace(/\d+/, n));
@@ -62,9 +68,7 @@
 
   function multitext_cleanup() {
     var row  = jQuery(this).parent().closest('.multi');
-    var is_last = row.nextAll('.multi').length == 0;
-    var is_empty = row.find('input:text[value]').length == 0;
-    if (is_empty && !is_last) row.remove();
+    if (is_empty(row) && !is_last(row)) row.remove();
   }
 
   function onload(context) {
@@ -114,7 +118,7 @@
     jQuery('input:file.multi', context).change(file_selected);
 
     // -- automatic extension of multiple text input field collections
-    jQuery('.multi input:text', context)
+    jQuery('.multi', context).find('input:text,textarea')
       .keyup(multitext_edited).blur(multitext_cleanup);
   }
 
