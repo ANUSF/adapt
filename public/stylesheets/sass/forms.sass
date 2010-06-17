@@ -8,27 +8,8 @@ form
   h3
     :padding 0
       :bottom 1.5em
-
-.form-field .row
-  :margin 0
-  :padding 0
-    :left 1em
-
-.row .form-field
-  :display block
-  :float left
-  :margin 0
-  :padding
-    :right 2em
-
-.form-field .input
-  :float left
-
-.fieldWithErrors
-  :margin 0
-  :padding 0
-  :border 1px solid
-    :color = !signal_color
+  p, hr
+    :clear both
 
 label
   :font-style italic
@@ -51,3 +32,8 @@ select
   :border 1px solid gray
   option:hover
     :background-color #F0F0F0
+
+.form-field
+  :display inline
+  :float left
+  :padding-right 1em

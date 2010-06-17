@@ -12,11 +12,12 @@
             All fields on this page, with the exception of
             'Depositor', are repeatable. Additional lines will appear
             as needed when 'Apply Changes' is pressed.
-    .clear
   %hr
-  = @form.structured :depositors, :required => true
-  = @form.structured :principal_investigators, :required => true
-  = @form.structured :data_producers
-  = @form.structured :funding_agency
-  = @form.structured :other_acknowledgements, :size => 22
-  = @form.structured :references, :size => 22
+  %p= @form.structured :depositors, :required => true
+  %p= @form.structured :principal_investigators, :required => true
+  %p= @form.structured :data_producers
+  %p= @form.structured :funding_agency
+  %p= @form.structured :other_acknowledgements, :size => 22
+  %p= @form.structured :references, :size => 22
+
+  .clear

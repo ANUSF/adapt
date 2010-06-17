@@ -41,25 +41,21 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
     end
   end
   
-  # The new check_box helper uses a layout different from our generic one.
+  # The check_box helper needs slightly different treatment.
   def check_box(column, options = {})
-    label = options.delete(:label) || try(:label_for, column) ||
-      column.to_s.humanize
     selections = try(:selections, column) || []
     unchecked_value = options.delete(:unchecked_value) || selections[0] || "0"
     checked_value = options.delete(:checked_value) || selections[1] || "1"
-    haml { '
-%span
-  = super(column, options, checked_value, unchecked_value)
-  = label
-' }
+    create_field(column, { :label_right => true }, [], options) do |f|
+      super(column, f.options, checked_value, unchecked_value)
+    end
   end
 
   # The new radio_button helper uses a layout different from our generic one.
   def radio_button(column, value, options = {})
     ident = "#{object_ident}_#{column}"
     name  = "#{@object_name}[#{column}]"
-    msg   = @object.errors.on(column)
+    msg   = @object.errors[column]
     check = (@object.send(column) == value)
     label = options.delete(:label) || value
     haml { '
@@ -168,7 +164,7 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def errors_on(column)
-    msg = @object.errors.on(column)
+    msg = @object.errors[column]
     msg = msg.join(" ") unless msg.nil? or msg.is_a? String
     if msg.blank?
       ''
@@ -184,7 +180,7 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
   def result_buttons(values = %w{Save Cancel})
     values = [values] if values.is_a? String
     haml { '
-%p.submit
+%span.submit
   - for val in values
     %span
       %input{ :name => "result", :type => "submit", :value => "#{val}" }
@@ -210,8 +206,8 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
     raise ArgumentError, "Missing block" unless block_given?
 
     options = default_options.merge(args.last.is_a?(Hash) ? args.pop : {})
-    inline = options.delete(:inline)
-    label_inline = options.delete(:label_inline)
+    label_left = options.delete(:label_left)
+    label_right = options.delete(:label_right)
     label = options.delete(:label) || try(:label_for, column) ||
       column.to_s.humanize
     title = options.delete(:title) || try(:help_on, column) || label
@@ -219,30 +215,42 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
 
     ident = "#{object_ident}_#{column}"
     name  = "#{@object_name}[#{column}]"
-    msg   = @object.errors.on(column)
+    msg   = @object.errors[column]
+    klass = "input" + (msg.blank? ? "" : " with_error")
+    skip_label = label.blank? and msg.blank? and not required
 
-    content = haml { '
-- unless label.blank? and msg.blank? and not required
+    label_content = haml { '
+- unless skip_label
   %label{ :for => ident }
-    - unless label.blank?
-      = label.to_s.humanize
+    = label.to_s.humanize unless label.blank?
     - if required
       %em *
     - unless msg.blank?
       %em.error= msg
-  - unless label_inline
-    %br
-%span.input= yield Descriptor.new(name, ident, args, options)
 ' }
 
-    haml { '
-- if inline
-  %span{ :title => title }= content
-- else
-  %div{ :title => title, :class => "form-field" }
-    = content
-    %span.clear
+    field_content = haml { '
+%span{ :class => klass }= yield Descriptor.new(name, ident, args, options)
 ' }
+
+    if label_left or label_right or skip_label
+      haml {'
+%span{ :title => title }
+  - if label_right
+    = field_content
+    = label_content
+  - else
+    = label_content
+    = field_content
+'}
+    else
+      haml { '
+.form-field{ :title => title }
+  = label_content
+  %br
+  = field_content
+' }
+    end
   end
 
   def object_ident

@@ -12,18 +12,20 @@
     - make_form_for @study, :url => approve_study_path(@study), |
                             :html => { :method => :post } do |f| |
       Archivist:
-      = f.select :archivist, :label => '', :inline => true
+      = f.select :archivist, :label => ''
       &nbsp; Number range for ID:
       = f.select :id_range, "0234".each_char.map { |i| "#{i}0000-#{i}9999" }, |
-                 :label => '', :inline => true |
+                 :label => '' |
       %hr
       %p
-        Approve the study and assign to the selected archivist:
+        Approve the study and assign to the selected archivist
+        &nbsp;
         = f.result_buttons %w{Approve}
-    or reopen so that depositor can add further information:
-    %p
-      - make_form_for @study, :url => reopen_study_path(@study), |
-                              :html => { :method => :post } do |f| |
+    - make_form_for @study, :url => reopen_study_path(@study), |
+                            :html => { :method => :post } do |f| |
+      %p
+        or reopen so that depositor can add further information
+        &nbsp;
         = f.result_buttons %w{Reopen}
   .clear
   %hr

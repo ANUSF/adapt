@@ -63,7 +63,7 @@
           - if in_demo_mode and current_user
             - make_form_for current_user do |f|
               %input{ :type => "hidden", :name => "last_url", :value => url_for }
-              = f.select :role, :label => "", :inline => true
+              = f.select :role, :label => ""
               = f.result_buttons "Change Role"
 
     - if params.has_key?('printer_friendly')
