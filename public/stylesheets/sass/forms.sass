@@ -42,3 +42,10 @@ select
   :display inline
   :float left
   :padding-right 1em
+
+select.predefined
+  :display none
+
+*:focus + select.predefined, select.predefined:focus
+  :display block
+  :position absolute
