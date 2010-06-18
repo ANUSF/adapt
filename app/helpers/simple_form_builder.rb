@@ -126,18 +126,19 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
     create_field(column, {}, *args) do |f|
       subfields = if f.args.empty? then try(:subfields, column)
                   else f.args end
-      subfields = [column] if subfields.empty?
       size = f.options.delete(:size) || 30
       rows = f.options.delete(:rows) || 0
       multi = f.options.delete(:repeatable) || try(:is_repeatable?, column)
       selections = selections_for(column)
+      selections = { nil => selections } if subfields.blank?
 
       current = @object.send(column) || (multi ? [] : {})
 
       make_field = lambda do |sub, i|
-        ident = i ? "#{f.ident}_#{i}_#{sub}"  : "#{f.ident}_#{sub}"
-        name  = i ? "#{f.name}[#{i}][#{sub}]" : "#{f.name}[#{sub}]"
-        value = i ? (current[i] || {})[sub]   : current[sub]
+        ident = f.ident + (i ? "_#{i}" : "") + (sub ? "_#{sub}" : "")
+        name  = f.name + (i ? "[#{i}]" : "") + (sub ? "[#{sub}]" : "")
+        this_row = i ? (current[i] || {}) : current
+        value = sub ? this_row[sub] : this_row
 
         haml { '
 - if rows <= 0
@@ -156,14 +157,15 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
       haml { '
 %table.input-table
   %thead
-    %tr
-      - for sub in subfields
-        %th
-          %label= sub.to_s.humanize
+    - unless subfields.blank?
+      %tr
+        - for sub in subfields
+          %th
+            %label= sub.to_s.humanize
   %tbody
     - for i in (multi ? 0..current.size : [nil])
       %tr{ :class => multi ? "multi" : "" }
-        - for sub in subfields
+        - for sub in (subfields.blank? ? [nil] : subfields)
           %td= make_field.call(sub, i)
 ' }
     end
@@ -241,7 +243,7 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
 
     if label_left or label_right or skip_label
       haml {'
-%span{ :title => title }
+%span.form-field{ :title => title }
   - if label_right
     = field_content
     = label_content
