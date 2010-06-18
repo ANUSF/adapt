@@ -32,10 +32,11 @@
     = @form.errors_on("Data Category")
   %p= @form.text_area :data_relation
   %p
-    = @form.select :data_kind, :required => true
-    = @form.select :time_method
-    = @form.select :sampling_procedure
-    = @form.select :collection_method
+    = @form.tabular :data_kind, :required => true
+    = @form.tabular :time_method
+  %p
+    = @form.tabular :sampling_procedure
+    = @form.tabular :collection_method
   %p= @form.text_area :sample_population
   %p= @form.text_field :response_rate, :label_left => true
   %p

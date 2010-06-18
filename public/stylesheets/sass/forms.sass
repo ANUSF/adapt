@@ -13,7 +13,10 @@ form
 
 label
   :font-style italic
-  :padding-right 1em
+
+span,p
+  label
+    :padding-right 1em
 
 label em, label .error
   :color = !signal_color
@@ -38,10 +41,10 @@ select
   option:hover
     :background-color #F0F0F0
 
-.form-field
+div.form-field
   :display inline
   :float left
-  :padding-right 1em
+  :padding-right 2em
 
 select.predefined
   :display none
