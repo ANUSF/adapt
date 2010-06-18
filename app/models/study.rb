@@ -273,12 +273,58 @@ class Study < ActiveRecord::Base
     result
   end
 
-  def self.read_annotations
+  def self.set_annotations
     path = File.join(Rails.root, "config", "study_annotations.yml")
     config = transposed(YAML::load(File.open(path)))
+
     config[:selections][:archivist] = lambda {
       User.archivists.map { |a| [a.name, a.id] }
     }
+    [:depositors, :principal_investigators,
+     :data_producers, :other_acknowledgements].each do |field|
+      config[:selections][field] = { :affiliation =>
+        [ [ "Australian Catholic University", "[ACU]" ],
+          [ "Australian National University", "[ANU]" ],
+          [ "Bond University", "[Bond]" ],
+          [ "Central Queensland University", "[CQU]" ],
+          [ "Charles Darwin University", "[CDU]" ],
+          [ "Charles Sturt University", "[CSU]" ],
+          [ "Curtin University of Technology", "[CURTIN]" ],
+          [ "Deakin University", "[Deakin]" ],
+          [ "Edith Cowan University", "[ECU]" ],
+          [ "Flinders University", "[FLINDERS]" ],
+          [ "Griffith University", "[GRIFFITH]" ],
+          [ "James Cook University", "[JCU]" ],
+          [ "La Trobe University", "[LATROBE]" ],
+          [ "Macquarie University", "[MACQUARIE]" ],
+          [ "Monash University", "[MONASH]" ],
+          [ "Murdoch University", "[MURDOCH]" ],
+          [ "Queensland University of Technology", "[QUT]" ],
+          [ "RMIT University", "[RMIT]" ],
+          [ "Southern Cross University", "[SCU]" ],
+          [ "Swinburne University of Technology", "[SWINBURNE]" ],
+          [ "University of Adelaide", "[ADELAIDE]" ],
+          [ "University of Ballarat", "[BALLARAT]" ],
+          [ "University of Canberra", "[CANBERRA]" ],
+          [ "University of Melbourne", "[MELBOURNE]" ],
+          [ "University of New England", "[UNE]" ],
+          [ "University of New South Wales", "[UNSW]" ],
+          [ "University of Newcastle", "[NEWCASTLE]" ],
+          [ "University of Notre Dame Australia", "[UNDA]" ],
+          [ "University of Queensland", "[QUEENSLAND]" ],
+          [ "University of South Australia", "[UniSA]" ],
+          [ "University of Southern Queensland", "[USQ]" ],
+          [ "University of Sydney", "[SYDNEY]" ],
+          [ "University of Tasmania", "[TASMANIA]" ],
+          [ "University of Technology Sydney", "[UTS]" ],
+          [ "University of the Sunshine Coast", "[USC]" ],
+          [ "University of Western Australia", "[UWA]" ],
+          [ "University of Western Sydney", "[UWS]" ],
+          [ "University of Wollongong", "[UOW]" ],
+          [ "Victoria University", "[VU]" ]
+        ]}
+    end
+
     config.each do |name, settings|
       define_method(name) do |column|
         value = settings[column.to_sym]
@@ -287,5 +333,5 @@ class Study < ActiveRecord::Base
     end
   end
 
-  read_annotations
+  set_annotations
 end
