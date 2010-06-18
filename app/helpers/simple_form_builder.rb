@@ -130,6 +130,7 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
       size = f.options.delete(:size) || 30
       rows = f.options.delete(:rows) || 0
       multi = f.options.delete(:repeatable) || try(:is_repeatable?, column)
+      selections = selections_for(column)
 
       current = @object.send(column) || (multi ? [] : {})
 
@@ -138,16 +139,18 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
         name  = i ? "#{f.name}[#{i}][#{sub}]" : "#{f.name}[#{sub}]"
         value = i ? (current[i] || {})[sub]   : current[sub]
 
-        if rows <= 0
-          haml { '
-%input{ :id => ident, :type => "text", :name => name, |
-                      :value => value, :size => size } |
+        haml { '
+- if rows <= 0
+  %input{ :id => ident, :type => "text", :name => name, |
+                        :value => value, :size => size } |
+- else
+  %textarea{ :id => ident, :name => name, :cols => size, :rows => rows }= value
+- if selections.is_a?(Hash) and selections[sub]
+  %select{ :id => ident, :name => name, :multiple => "multiple", |
+           :class => "predefined" }
+    - for (k, v) in selections[sub]
+      %option{ :value => v }= k
 ' }
-        else
-          haml { '
-%textarea{ :id => ident, :name => name, :cols => size, :rows => rows }= value
-' }
-        end
       end
 
       haml { '
@@ -261,8 +264,22 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def selections_for(column)
-    (try(:selections, column) || []).map do |x|
-      if x.is_a?(Array) then x else [x.to_s.humanize, x] end
+    normalized = lambda do |x|
+      x.is_a?(Array) ? x : [ x.is_a?(String) ? x : x.to_s.humanize, x ]
+    end
+
+    selections = try(:selections, column)
+    case selections
+    when Array
+      selections.map &normalized
+    when Hash
+      result = {}
+      selections.each do |key, val|
+        result[key] = val.map &normalized if val.is_a?(Array)
+      end
+      result
+    when nil
+      []
     end
   end
 

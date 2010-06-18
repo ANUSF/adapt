@@ -52,7 +52,8 @@
   }
 
   function multitext_edited() {
-    var row  = jQuery(this).parent().closest('.multi');
+    var item = jQuery(this);
+    var row  = item.parent().closest('.multi');
     if (!is_empty(row) && is_last(row)) {
       var new_row = row.clone(true);
       jQuery('input:text,textarea', new_row).each(function() {
@@ -64,11 +65,20 @@
       });
       row.parent().append(new_row);
     }
+    var succ = item.next();
+    if (succ.is('select.predefined'))
+      succ.blur().find('option[selected]').attr('selected', '');
   }
 
   function multitext_cleanup() {
-    var row  = jQuery(this).parent().closest('.multi');
+    var item = jQuery(this);
+    var row  = item.parent().closest('.multi');
     if (is_empty(row) && !is_last(row)) row.remove();
+  }
+
+  function predefined_selected() {
+    var item = jQuery(this);
+    item.prev().val(item.selected().val()).keyup();
   }
 
   function onload(context) {
@@ -120,6 +130,8 @@
     // -- automatic extension of multiple text input field collections
     jQuery('.multi', context).find('input:text,textarea')
       .keyup(multitext_edited).blur(multitext_cleanup);
+
+    jQuery('select.predefined', context).change(predefined_selected);
   }
 
   function fixPage() {
