@@ -122,7 +122,7 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
-  def tabular(column, *args)
+  def structured(column, *args)
     create_field(column, {}, *args) do |f|
       subfields = if f.args.empty? then try(:subfields, column)
                   else f.args end
@@ -133,19 +133,16 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
 
       current = @object.send(column) || (multi ? [] : {})
 
-      make_field = lambda do |sub, i|
-        ident = i ? "#{f.ident}_#{i}_#{sub}"  : "#{f.ident}_#{sub}"
-        name  = i ? "#{f.name}[#{i}][#{sub}]" : "#{f.name}[#{sub}]"
-        value = i ? (current[i] || {})[sub]   : current[sub]
-
+      make_field = lambda do |ident, name, value, size, rows|
         if rows <= 0
           haml { '
-%input{ :id => ident, :type => "text", :name => name, |
+%input{ :id => ident, :type => "text", :name => name, 
                       :value => value, :size => size } |
 ' }
         else
           haml { '
-%textarea{ :id => ident, :name => name, :cols => size, :rows => rows }= value
+%textarea{ :id => ident, :name => name, :cols => size, :rows => rows }
+  = value
 ' }
         end
       end
@@ -158,10 +155,21 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
         %th
           %label= sub.to_s.humanize
   %tbody
-    - for i in (multi ? 0..current.size : [nil])
-      %tr{ :class => multi ? "multi" : "" }
+    - if multi
+      - for i in 0..current.size
+        %tr.multi
+          - for sub in subfields
+            - ident = "#{f.ident}_#{i}_#{sub}"
+            - name  = "#{f.name}[#{i}][#{sub}]"
+            - value = (current[i] || {})[sub]
+            %td= make_field.call(ident, name, value, size, rows)
+    - else
+      %tr
         - for sub in subfields
-          %td= make_field.call(sub, i)
+          - ident = "#{f.ident}_#{sub}"
+          - name  = "#{f.name}[#{sub}]"
+          - value = current[sub]
+          %td= make_field.call(ident, name, value, size, rows)
 ' }
     end
   end
