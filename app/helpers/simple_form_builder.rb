@@ -227,14 +227,13 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
     klass = "input" + (msg.blank? ? "" : " with_error")
     skip_label = label.blank? and msg.blank? and not required
 
-    label_content = haml { '
-- unless skip_label
-  %label{ :for => ident }
-    = label.to_s.humanize unless label.blank?
-    - if required
-      %em *
-    - unless msg.blank?
-      %em.error= msg
+    label_content = skip_label ? '' : haml { '
+%label{ :for => ident }
+  = label.to_s.humanize unless label.blank?
+  - if required
+    %em *
+  - unless msg.blank?
+    %em.error= msg
 ' }
 
     field_content = haml { '
@@ -255,7 +254,6 @@ class SimpleFormBuilder < ActionView::Helpers::FormBuilder
       haml { '
 .form-field{ :title => title }
   = label_content
-  %br
   = field_content
 ' }
     end
