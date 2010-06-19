@@ -14,16 +14,18 @@ form
 label
   :font-style italic
 
-span,p
-  label
-    :padding-right 1em
+label
+  :padding-right 1em
+
+div > label
+  :padding-right 0
 
 label em, label .error
   :color = !signal_color
 
 input[type=text],textarea
   :border 1px solid gray
-  :padding 0
+  :padding 2px
   :margin 0
   :background-color #F0F0F0
   :font
