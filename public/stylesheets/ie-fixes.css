@@ -1,0 +1,14 @@
+#top, #main, .tabs-container, .tabs-container div {
+  zoom: 1; }
+
+#navigation {
+  margin-right: -3px; }
+
+th {
+  background-color: #f0f0f0; }
+
+td {
+  background-color: white; }
+
+tr.even td {
+  background-color: #f8f8f8; }
