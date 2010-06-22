@@ -52,3 +52,41 @@ select.predefined {
 *:focus + select.predefined, select.predefined:focus {
   display: block;
   position: absolute; }
+
+form table {
+  width: auto;
+  margin: 1em 0;
+  border: none; }
+  form table tbody tr {
+    border: 1px solid gray; }
+  form table th {
+    background-color: inherit;
+    padding: 3px 8px;
+    font-size: 90%;
+    font-weight: normal;
+    font-style: italic; }
+  form table td {
+    padding: 0 8px; }
+  form table input[type=text], form table textarea {
+    margin: 0;
+    border-width: 0 1px;
+    display: block; }
+
+.input-table {
+  font-size: 100%;
+  margin: 0; }
+  .input-table thead {
+    font-size: 90%; }
+  .input-table th, .input-table td {
+    padding: 0;
+    margin: 0;
+    background: none; }
+  .input-table th {
+    border: none;
+    font-weight: normal; }
+  .input-table td {
+    border: 1px solid gray; }
+  .input-table input, .input-table textarea {
+    border: none;
+    margin: 0;
+    display: block; }
