@@ -2,7 +2,6 @@ class Attachment < ActiveRecord::Base
   ASSET_PATH = ADAPT::CONFIG['adapt.asset.path']
 
   include ActionView::Helpers::NumberHelper
-  include ModelSupport
   include FileHandling
 
   belongs_to :study
@@ -49,8 +48,11 @@ class Attachment < ActiveRecord::Base
 
   def extract=(value)
     if name.ends_with?('.zip') and value == '1' and not @extracted
-      each_zip_entry(data) do |name, data|
-        study.attachments << Attachment.make(File.basename(name), data)
+      Zip::ZipInputStream::open(stored_path) do |io|
+        while (entry = io.get_next_entry)
+          name = File.basename(entry.name)
+          study.attachments << Attachment.make(name, io.read)
+        end
       end
       @extracted = true
     end
