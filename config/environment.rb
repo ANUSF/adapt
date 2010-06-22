@@ -13,6 +13,7 @@ Rails::Initializer.run do |config|
 
   # -- ANUSF gems
   config.gem "formular"
+  config.gem "json-accessors"
   config.gem "lazy"
   config.gem "partial-date"
   config.gem "verboten"
