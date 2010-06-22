@@ -29,7 +29,7 @@
 = button_to "Submit this study", submit_study_path(@study), :disabled => wait
 %br
 
-- make_form_for @study, :html => {:multipart => true} do |form|
+- formular_for @study, :html => {:multipart => true} do |form|
   - @form = form
 
   .tabs-container
