@@ -10,6 +10,7 @@ Rails::Initializer.run do |config|
   config.gem "haml"
   config.gem "ruby-openid", :lib => "openid"
   config.gem "RedCloth"
+  config.gem "rubyzip", :lib => "zip/zip"
 
   # -- ANUSF gems
   config.gem "formular"
