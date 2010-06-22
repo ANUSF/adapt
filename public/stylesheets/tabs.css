@@ -1,0 +1,55 @@
+.tabs-container {
+  display: inline;
+  position: relative;
+  margin: 0;
+  padding: 0; }
+  .tabs-container > div {
+    clear: both;
+    border: solid #aaaaaa;
+    border-width: 1px;
+    padding: 1em 2em;
+    overflow: auto; }
+  .tabs-container > ul {
+    list-style: none;
+    padding: 0;
+    margin: 0; }
+  .tabs-container > ul > li {
+    float: left;
+    margin: 0 -1px -1px 0; }
+    .tabs-container > ul > li a {
+      float: left;
+      display: block;
+      position: relative;
+      width: 10em;
+      margin: 0 auto;
+      font-weight: normal;
+      font-size: 90%;
+      text-align: center;
+      text-decoration: none;
+      padding: 0;
+      border: solid #aaaaaa 1px;
+      background: #eeeeee;
+      color: black; }
+      .tabs-container > ul > li a span {
+        display: block;
+        margin: -1px;
+        padding: 3px 6px;
+        background: url(../images/corner-eee.png) no-repeat right top; }
+    .tabs-container > ul > li a:hover {
+      background: #888888;
+      color: white; }
+      .tabs-container > ul > li a:hover span {
+        background-image: url(../images/corner-888.png); }
+    .tabs-container > ul > li a.current-tab {
+      background: #ffffcc;
+      border-bottom-color: #ffffcc; }
+      .tabs-container > ul > li a.current-tab span {
+        background-image: url(../images/corner-ffc.png); }
+    .tabs-container > ul > li a.current-tab:hover {
+      background: #f4ee99;
+      border-bottom-color: #f4ee99;
+      color: black; }
+      .tabs-container > ul > li a.current-tab:hover span {
+        background-image: url(../images/corner-f4ee99.png); }
+    .tabs-container > ul > li a.with-error, .tabs-container > ul > li a.with-error:hover {
+      color: red; }

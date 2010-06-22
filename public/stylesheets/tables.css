@@ -1,0 +1,54 @@
+table {
+  margin: 0;
+  padding: 0;
+  empty-cells: show;
+  border: 1px solid;
+  border-collapse: collapse;
+  border-color: black;
+  font-size: 90%;
+  line-height: 135%;
+  text-align: center;
+  width: 100%; }
+
+th {
+  border-style: solid;
+  border-width: 0 0 1px 0;
+  background-color: rgba(240, 240, 240, 0.9);
+  padding: 5px 12px;
+  vertical-align: middle;
+  font-weight: bold; }
+
+td {
+  border-style: solid;
+  border-width: 1px 0 0 0;
+  border-color: #aaaaaa;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 5px 12px;
+  vertical-align: middle;
+  font-weight: normal; }
+  td p {
+    margin: 0;
+    text-align: left; }
+
+tr.even td {
+  background-color: rgba(248, 248, 248, 0.9); }
+
+.input-table {
+  font-size: 100%;
+  border: none;
+  width: auto; }
+  .input-table thead {
+    font-size: 90%; }
+  .input-table th, .input-table td {
+    padding: 0;
+    margin: 0;
+    background: none; }
+  .input-table th {
+    border: none;
+    font-weight: normal; }
+  .input-table td {
+    border: 1px solid gray; }
+  .input-table input, .input-table textarea {
+    border: none;
+    margin: 0;
+    display: block; }

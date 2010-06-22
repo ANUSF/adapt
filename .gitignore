@@ -3,7 +3,6 @@
 
 /coverage/*
 /db/db_*
-/public/stylesheets/*.css
 
 /java/bin/*
 /java/build/dist.jar
