@@ -1,15 +1,8 @@
 # Methods added to this helper will be available to all templates in the
 # application.
 module ApplicationHelper
-  # Helper method for creating forms using our own custom form builder
-  def make_form_for(name, *args, &block)
-    # -- modify the arguments so that our form builder is specified
-    options = args.last.is_a?(Hash) ? args.pop : {}
-    args = (args << options.merge(:builder => SimpleFormBuilder))
-
-    # -- now call the standard form_for helper
-    form_for(name, *args, &block)
-  end
+  # -- make the formular_for helper method from the formular gem available
+  include Formular::Helper
 
   # Trims strings longer than the given size.
   def clip_text(text, size)
