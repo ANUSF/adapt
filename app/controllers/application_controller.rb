@@ -11,6 +11,9 @@ class ApplicationController < ActionController::Base
     rescue_from ActionController::UnknownAction,      :with => :render_not_found
   end
 
+  # -- the standard layout
+  layout ADAPT::CONFIG['adapt.layout'] || 'application'
+
   # -- makes all helpers available in controllers
   helper :all
 

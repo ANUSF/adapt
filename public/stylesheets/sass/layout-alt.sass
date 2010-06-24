@@ -1,0 +1,97 @@
+@import definitions
+
+#header
+  :display block
+  :height 81px
+  :position relative
+  :margin 0
+  :padding 0
+  :background-color #F0F0F0
+  :text-align center
+  :color = !primary_color
+  img
+    :padding 1px
+    :margin 6px 2em
+    :float left
+    :border 1px solid gray
+  h1
+    :float left
+    :font
+      :size 160%
+      :weight bold
+    :margin
+      :top 30px
+    :padding 0 2em
+
+#navigation
+  :display block
+  :position absolute
+  :bottom 0
+  :right 0
+  ul
+    :display block
+    :float right
+    :margin 0
+    :list-style none
+    :clear both
+    :position relative
+  li
+    :margin 0
+    :padding 0 0 0 1px
+    :float left
+    a
+      :border 1px solid gray
+      :margin 0
+      :padding 3px 6px
+      :color white
+      :background-color = !primary_color
+      :text
+        :decoration none
+        :transform uppercase
+      :font
+        :size 90%
+        :weight bolder
+      :display block
+    a:hover
+      :background-color white
+      :color = !primary_color
+
+#content
+  :clear both
+  :margin 0
+  :min-height 400px
+  :height auto !important
+  :height 400px
+  :background url(../images/house.jpg) no-repeat right bottom
+  :padding 0 2em
+  :border none
+    :top 4px solid
+    :bottom 2px solid
+    :color = !primary_darker
+
+#page
+  :padding-bottom 20px
+  ul
+    :margin-right = !list_indent
+  p
+    :max-width = !paragraph_width
+  li,dd
+    p
+      :max-width = !paragraph_width - !list_indent
+    li,dd
+      p
+        :max-width = !paragraph_width - 2 * !list_indent
+
+#footer
+  :position relative
+  :clear both
+  :padding 10px
+  :text-align center
+  a
+    :position absolute
+    :right 2em
+    :top 1ex
+  form
+    :position absolute
+    :left 2em
+    :top 1ex

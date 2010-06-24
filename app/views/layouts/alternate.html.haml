@@ -10,7 +10,7 @@
         = stylesheet_link_tag 'application-print', :media => 'all'
         %style{:type => "text/css"} body { padding: 2em; width: 80%; }
       - else
-        = stylesheet_link_tag 'application', 'layout'
+        = stylesheet_link_tag 'application', 'layout-alt'
         = stylesheet_link_tag 'application-print', :media => 'print'
       /[if IE]
         = stylesheet_link_tag 'ie-fixes', :media => 'all'
@@ -19,10 +19,11 @@
       = yield(:head)
   
   %body
-    #top
-      - unless stripped
+    - unless stripped
+      #header
+        = image_tag "/images/assda-logo.png"
+        %h1= "ADAPT Prototype (#{Rails.env} mode)"
         #navigation
-          = image_tag "/images/minifantopleft.png"
           %ul
             - if current_user
               %li= link_to "View deposits", studies_path
@@ -32,22 +33,15 @@
               %li= link_to "Register", ADAPT::CONFIG['assda.registration.url']
               %li= link_to "Login", login_path
             %li= link_to "Logout", logout_path
-    
-      #main
-        - unless stripped
-          #header
-            = image_tag "/images/minifantop.png"
-            = image_tag "/images/assda-logo.png", :class => "logo"
-            %div= "ADAPT Prototype (#{Rails.env} mode)"
 
-        #content
-          - flash.each do |name, msg|
-            %div{ :id => "flash_#{name}" }= h(msg).gsub(/\n/, '<br/>')
-      
-          - if show_title? and not stripped
-            %h1=h yield(:title)
-        
-          #page= yield
+    #content
+      - flash.each do |name, msg|
+        %div{ :id => "flash_#{name}" }= h(msg).gsub(/\n/, '<br/>')
+    
+      - if show_title? and not stripped
+        %h1=h yield(:title)
+    
+      #page= yield
   
     - unless stripped
       #footer
