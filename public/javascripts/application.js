@@ -84,6 +84,9 @@
   function onload(context) {
     fixPage();
 
+    // -- auto-resize certain textareas (must be done before hiding content)
+    jQuery('table textarea').TextAreaExpander(40, 200);
+
     // -- deals with collapsible page content
     jQuery('.collapsible', context).wrap("<div/>").each(function() {
       var content = jQuery(this);
@@ -131,6 +134,7 @@
     jQuery('.multi', context).find('input:text,textarea')
       .keyup(multitext_edited).blur(multitext_cleanup);
 
+    // -- update textfields with selection dropdowns
     jQuery('select.predefined', context).change(predefined_selected);
   }
 
