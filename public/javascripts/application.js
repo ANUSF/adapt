@@ -135,9 +135,6 @@
   }
 
   function fixPage() {
-    jQuery('table.zebra')
-      .find('tr:nth-child(odd)').removeClass('odd').addClass('even').end()
-      .find('tr:nth-child(even)').removeClass('even').addClass('odd');
   }
 
   jQuery(document).ready(function() {

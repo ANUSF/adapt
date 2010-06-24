@@ -171,7 +171,7 @@ td {
     margin: 0;
     text-align: left; }
 
-tr.odd td {
+tr:nth-child(even) td {
   background-color: rgba(248, 248, 248, 0.9); }
 
 form div {
@@ -243,10 +243,11 @@ form table {
     font-style: italic; }
   form table td {
     padding: 0 8px; }
-  form table input[type=text], form table textarea {
+  form table td.with_input input[type=text], form table textarea {
     margin: 0;
     border-width: 0 1px;
-    display: block; }
+    display: block;
+    font-size: 105%; }
 
 .input-table {
   font-size: 100%;
