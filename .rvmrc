@@ -1,1 +1,2 @@
 rvm use jruby
+rvm gemset use adapt

@@ -12,15 +12,12 @@ Rails::Initializer.run do |config|
   config.gem "RedCloth"
   config.gem "rubyzip", :lib => "zip/zip"
 
-  # -- ANUSF gems
+  # -- ANUSF gems; these need to be installed by hand
   config.gem "formular"
   config.gem "json-accessors"
   config.gem "lazy"
   config.gem "partial-date"
   config.gem "verboten"
-
-  # -- this must be set in warble.rb for some reason
-  #config.gem "activerecord-jdbcsqlite3-adapter"
 
   # -- sets the time zone for this application
   config.time_zone = 'Canberra'
