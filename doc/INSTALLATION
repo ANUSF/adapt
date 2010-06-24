@@ -8,7 +8,7 @@
 
 2.  Install Rails and some additional Ruby packages:
 
-    jruby -S gem install rails activerecord-jdbcsqlite3-adapter jruby-openssl
+    jruby -S gem install rails activerecord-jdbcsqlite3-adapter
 
 3.  Install git (from the appropriate package under Linux, or from http://git-scm.com).
 
@@ -25,6 +25,8 @@
     jruby -S rake gems:install
 
     (If this fails, try 'jruby -S gem install haml' and then repeat the command above.)
+
+6a. (FIXME!) Some extra in-house gems are needed. How should we distribute them?
 
 7.  Start the web server:
 
