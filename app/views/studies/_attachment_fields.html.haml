@@ -9,7 +9,7 @@
         "Documentation" box and provide a short description of the
         contents.)
 
-    %table.zebra
+    %table
       %thead
         %tr
           %th Name
@@ -27,8 +27,12 @@
           %tr
             %td=h f.object.name
             %td=h number_to_human_size(f.object.data.size)
-            %td= f.text_area :description, :label => '', :cols => 35, :rows => 1
-            %td= f.errors_on(:category)
+            %td.with_input
+              = f.text_area :description, :label => '', :cols => 30, :rows => 1
+            %td
+              - unless f.errors_on(:category).blank?
+                %label
+                  %em.error Select:
             %td= f.radio_button :category, "Data File", :label => ''
             %td= f.radio_button :category, "Documentation", :label => ''
             %td
