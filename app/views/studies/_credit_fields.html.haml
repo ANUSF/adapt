@@ -13,12 +13,12 @@
             'Depositor', are repeatable. Additional lines will appear
             as needed when 'Apply Changes' is pressed.
   %hr
-  %p= @form.tabular :depositors, :required => true
-  %p= @form.tabular :principal_investigators, :required => true
-  %p= @form.tabular :data_producers
-  %p= @form.tabular :funding_agency
+  %p= @form.tabular :depositors, :required => true, :size => 35
+  %p= @form.tabular :principal_investigators, :required => true, :size => 35
+  %p= @form.tabular :data_producers, :size => 35
+  %p= @form.tabular :funding_agency, :size => 35
   %p= @form.tabular :other_acknowledgements, :size => 25
-  %p= @form.tabular :references, :size => 23, :rows => 1
+  %p= @form.tabular :references, :size => 25, :rows => 1
 
   .clear
  
