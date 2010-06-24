@@ -249,6 +249,9 @@ form table {
     display: block;
     font-size: 105%; }
 
+table textarea {
+  resize: none; }
+
 .input-table {
   font-size: 100%;
   margin: 0; }
