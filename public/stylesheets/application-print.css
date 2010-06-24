@@ -262,7 +262,10 @@ form table {
     border: none;
     font-weight: normal; }
   .input-table td {
-    border: 1px solid gray; }
+    border: 1px solid gray;
+    background-color: #f0f0f0; }
+  .input-table td:hover, .input-table td:focus {
+    background-color: #fafafa; }
   .input-table input, .input-table textarea {
     border: none;
     margin: 0;
