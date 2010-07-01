@@ -1,8 +1,9 @@
 module FileHandling
   include LazyEnumerable
 
-  def write_file(data, *path_parts)
-    path = File.join(*path_parts)
+  def write_file(data, base, *path_parts)
+    make_parent(base, *path_parts)
+    path = File.expand_path(File.join(base, *path_parts))
 
     with_lock_on(File.dirname(path)) do
       path = non_conflicting(path)
@@ -19,27 +20,16 @@ module FileHandling
     File.open(path) { |fp| fp.read } if File.exist?(path)
   end
 
-  def next_directory_name(base, prefix, number_length = 5)
-    num = if File.exists?(base)
-            last = Dir.new(base).grep(/\A#{prefix}\d+\Z/o).max
-            last ? last.sub(prefix, '').to_i + 1 : 1
-          else
-            1
-          end
-    prefix + num.to_s.rjust(number_length, "0")
-  end
-
-  def with_lock_on(base, &block)
-    raise "No block given." unless block_given?
-
-    make_path(base)
-    File.open(File.join(base, "lock"), 'w+') do |fp|
-      begin
-        fp.flock(File::LOCK_EX)
-        block.call
-      ensure
-        fp.flock(File::LOCK_UN)
-      end
+  def create_unique_id_and_directory(base, prefix, range, number_length = 5)
+    with_lock_on(base) do
+      existing = Dir.new(base).grep(/\A#{prefix}\d+\Z/o).map { |name|
+        name.sub(/\A#{prefix}/o, '').to_i
+      }.select { |n| range.include? n }
+      num = (existing.max || 0) + 1
+      raise 'No more numbers available.' unless range.include? num
+      name = prefix + num.to_s.rjust(number_length, "0")
+      make_directory(base, name)
+      name
     end
   end
 
@@ -53,10 +43,10 @@ module FileHandling
     end
   end
 
-  def make_path(*path_parts)
-    path = File.join(*path_parts)
-    dir = File.dirname(path)
-    make_path(dir) unless dir == path
+  def make_directory(base, *path_parts)
+    make_parent(base, *path_parts)
+    path = File.expand_path(File.join(base, *path_parts))
+
     unless File.exist?(path)
       FileUtils.mkdir(path, :mode => ADAPT::CONFIG['adapt.dir.mode'])
       set_ownership(path)
@@ -64,6 +54,40 @@ module FileHandling
   end
 
   private
+
+  def with_lock_on(base, &block)
+    raise "No block given." unless block_given?
+
+    lock_file = File.join(base, 'lock')
+    fp = create_lock_file(lock_file)
+
+    begin
+      fp.flock(File::LOCK_EX)
+      block.call
+    ensure
+      fp.close
+      File.unlink(lock_file)
+    end
+  end
+
+  def create_lock_file(lock_file, retries = 12)
+    retries.times do
+      begin
+        return File.open(lock_file, File::CREAT|File::EXCL|File::WRONLY, 0600)
+      rescue Errno::EEXIST => ex
+        sleep 5
+      end
+    end
+    raise 'Could not obtain directory access.'
+  end
+
+  def make_parent(base, *path_parts)
+    rest = File.join(*path_parts)
+    up = File.dirname(rest)
+    path = File.expand_path(File.join(base, rest))
+    dir = File.expand_path(File.join(base, up))
+    make_directory(base, up) unless dir.starts_with?(path)
+  end
 
   def set_ownership(path)
     user, group = (ADAPT::CONFIG['adapt.file.ownership'] || '').split('.')

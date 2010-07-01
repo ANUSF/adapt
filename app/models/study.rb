@@ -191,9 +191,8 @@ class Study < ActiveRecord::Base
   end
 
   def submit(licence_text)
-    ident = next_directory_name(submission_path, "deposit_")
-    base = make_path(submission_path, ident)
-    raise 'Folder already exists.' unless base
+    ident = create_unique_id_and_directory(submission_path, "deposit_", 1..99999)
+    base = File.join(submission_path, ident)
 
     self.temporary_identifier = ident.sub(/_/, ':')
     self.status = "submitted"
@@ -210,13 +209,18 @@ class Study < ActiveRecord::Base
     UserMailer.deliver_submission_notification(self)
   end
 
-  def approve(assigned_archivist, range = "0")
-    if permanent_identifier
-      base = File.join(archive_path, permanent_identifier)
-    else
-      ident = next_directory_name(archive_path, range, 5 - range.size)
-      base = make_path(archive_path, ident)
-      raise 'Folder already exists.' unless base
+  def approve(assigned_archivist, range = '0')
+    unless permanent_identifier
+      range = case range
+              when '0'
+                1..7999
+              when /[1-9]/
+                n = range.to_i * 10000
+                n..(n+9999)
+              else
+                raise 'Invalid range.'
+              end
+      ident = create_unique_id_and_directory(archive_path, '', range)
       self.permanent_identifier = ident
     end
 
@@ -224,7 +228,9 @@ class Study < ActiveRecord::Base
     self.archivist = assigned_archivist
     save
 
-    base = non_conflicting(File.join(base, "Original"))
+    base = non_conflicting(File.join(archive_path,
+                                     permanent_identifier, "Original"))
+    make_directory(base)
 
     licence_text = read_file(submission_path,
                              temporary_identifier.sub(/:/, '_'),
