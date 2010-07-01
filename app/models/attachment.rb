@@ -80,15 +80,19 @@ class Attachment < ActiveRecord::Base
     super
   end
 
+  def path_components
+    [ASSET_PATH, "Temporary",
+     study.owner.username, study.id.to_s, "files", stored_as]
+  end
+
   def stored_path
-    File.join(ASSET_PATH, "Temporary", study.owner.username,
-              study.id.to_s, "files", stored_as)
+    File.join(*path_components)
   end
 
   def write_data
     self.stored_as = "#{self.id}__#{self.name}"
     self.save!
-    write_file(@content, stored_path)
+    write_file(@content, *path_components)
   end
 
   def delete_file
