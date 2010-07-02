@@ -70,12 +70,12 @@ module FileHandling
     end
   end
 
-  def create_lock_file(lock_file, retries = 12)
+  def create_lock_file(lock_file, retries = 10)
     retries.times do
       begin
         return File.open(lock_file, File::CREAT|File::EXCL|File::WRONLY, 0600)
       rescue Errno::EEXIST => ex
-        sleep 5
+        sleep 1
       end
     end
     raise 'Could not obtain directory access.'

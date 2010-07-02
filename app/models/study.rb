@@ -191,66 +191,39 @@ class Study < ActiveRecord::Base
   end
 
   def submit(licence_text)
+    Rails.logger.info 'Creating a temporary study id'
     ident = create_unique_id_and_directory(submission_path, "deposit_", 1..99999)
-    base = File.join(submission_path, ident)
-
     self.temporary_identifier = ident.sub(/_/, ':')
+
+    Rails.logger.info 'Writing the files'
+    write_files_on_submission(licence_text, File.join(submission_path, ident))
+
+    Rails.logger.info 'Saving the record'
     self.status = "submitted"
     save
 
-    write_file(licence_text, base, "Licence.txt") unless licence_text.blank?
-    write_file(ddi, base, "Study.xml")
-    write_file(attachments.map { |a| a.metadata.to_yaml }.join("\n"),
-               base, "FileDescriptions.txt")
-    attachments.each do |a|
-      write_file(a.data, base, a.category.gsub(/\s/, '').pluralize, a.name)
-    end
-
+    Rails.logger.info 'Sending notification email'
     UserMailer.deliver_submission_notification(self)
   end
 
   def approve(assigned_archivist, range = '0')
     unless permanent_identifier
-      range = case range
-              when '0'
-                1..7999
-              when /[1-9]/
-                n = range.to_i * 10000
-                n..(n+9999)
-              else
-                raise 'Invalid range.'
-              end
-      ident = create_unique_id_and_directory(archive_path, '', range)
-      self.permanent_identifier = ident
+      Rails.logger.info 'Creating a study id'
+      self.permanent_identifier = create_permanent_id(range)
     end
 
+    Rails.logger.info 'Writing the files'
+    base = non_conflicting(File.join(archive_path,
+                                     permanent_identifier, "Original"))
+    make_directory(base)
+    write_files_on_approval(read_licence_file, base)
+
+    Rails.logger.info 'Saving the record'
     self.status = "approved"
     self.archivist = assigned_archivist
     save
 
-    base = non_conflicting(File.join(archive_path,
-                                     permanent_identifier, "Original"))
-    make_directory(base)
-
-    licence_text = read_file(submission_path,
-                             temporary_identifier.sub(/:/, '_'),
-                             "Licence.txt")
-    unless licence_text.blank?
-      write_file(licence_text, base, "ASSDA.Deposit.Licence.#{identifier}.txt")
-    end
-
-    write_file(ddi, base, "#{long_identifier}.xml")
-
-    filedata = []
-    attachments.each do |a|
-      name = a.name
-      path = non_conflicting(File.join(base, name))
-      filedata << a.metadata.merge("Filename" => File.basename(path),
-                                   "Original" => a.name).to_yaml
-      write_file(a.data, path)
-    end
-    write_file(filedata.join("\n"), base, "Processing", "FileDescriptions.txt")
-
+    Rails.logger.info 'Sending notification email'
     UserMailer.deliver_archivist_assignment(self)
   end
 
@@ -260,6 +233,48 @@ class Study < ActiveRecord::Base
   end
 
   protected
+
+  def create_permanent_id(range)
+    create_unique_id_and_directory(archive_path, '',
+                                   case range
+                                   when '0'
+                                     1..7999
+                                   when /[1-9]/
+                                     n = range.to_i * 10000
+                                     n..(n+9999)
+                                   else
+                                     raise 'Invalid range.'
+                                   end)
+  end
+
+  def read_licence_file
+    read_file(submission_path, temporary_identifier.sub(/:/, '_'), "Licence.txt")
+  end
+
+  def write_files_on_submission(licence_text, base)
+    write_file(licence_text, base, "Licence.txt") unless licence_text.blank?
+    write_file(ddi, base, "Study.xml")
+
+    attachments.each do |a|
+      write_file(a.data, base, a.category.gsub(/\s/, '').pluralize, a.name)
+    end
+    write_file(attachments.map { |a| a.metadata.to_yaml }.join("\n"),
+               base, "FileDescriptions.txt")
+  end
+
+  def write_files_on_approval(licence_text, base)
+    licence_file = "ASSDA.Deposit.Licence.#{identifier}.txt"
+    write_file(licence_text, base, licence_file) unless licence_text.blank?
+    write_file(ddi, base, "#{long_identifier}.xml")
+
+    filedata = attachments.map do |a|
+      path = non_conflicting(File.join(base, a.name))
+      write_file(a.data, path)
+      a.metadata.merge("Filename" => File.basename(path), "Original" => a.name
+                       ).to_yaml
+    end
+    write_file(filedata.join("\n"), base, "Processing", "FileDescriptions.txt")
+  end
 
   def submission_path
     File.join(ADAPT::CONFIG['adapt.asset.path'], "Submission")

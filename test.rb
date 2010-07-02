@@ -1,6 +1,8 @@
 include FileHandling
+
+puts 'Trying to obtain lock...'
 with_lock_on('xxx') do
-  puts 'Type something:'
+  puts 'Lock obtained! Press return to continue:'
   gets
 end
-puts 'Done!'
+puts 'Lock released!'
