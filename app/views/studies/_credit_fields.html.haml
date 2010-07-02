@@ -2,17 +2,7 @@
 
 #credit-fields
   %h3 Credits and Acknowledgements
-  %p
-    %strong Tips for this page:
-  .collapsible
-    .box
-      %ul
-        %li
-          %p
-            All fields on this page, with the exception of
-            'Depositor', are repeatable. Additional lines will appear
-            as needed when 'Apply Changes' is pressed.
-  %hr
+
   %p= @form.tabular :depositors, :required => true, :size => 35
   %p= @form.tabular :principal_investigators, :required => true, :size => 35
   %p= @form.tabular :data_producers, :size => 35

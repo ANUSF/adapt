@@ -5,26 +5,13 @@
 
 %em
   %p
-    Please supply as many details as possible.
-    - if @study.can_be_submitted_by(current_user) and not @can_submit
-      %span{ :style => "color: red;" } Red text
-      indicates required information that has not yet been
-      provided or input that does not seem valid.
-    - else
+    Please supply as many details as possible. See the
+    %em 'Help'
+    tab for general instructions.
+  - if @can_submit
+    %p
       Before submitting, make sure that all information given is
       complete and correct.
-  %p 
-    Some fields are normalized by the system. Press
-    %em 'Apply Changes'
-    at any time to verify that your inputs were taken as intended.
-  %p
-    To save this form for later completion, select
-    %em 'Save and Exit'
-    at the bottom of this page.
-  %p
-    To delete studies, visit
-    %em 'View Deposits'
-    via the menu bar on the left.
 
 = button_to "Submit this study", submit_study_path(@study), :disabled => wait
 %br
@@ -40,10 +27,12 @@
       = tab_link('#credit-fields', 'Credits')
       = tab_link('#attachment-fields', 'Attached Files')
       = tab_link('#licence-fields', 'Licence Details')
+      = tab_link('#edit-help', 'Help')
 
     = render 'title_fields'
     = render 'data_fields'
     = render 'credit_fields'
     = render 'attachment_fields'
     = render 'licence_fields'
+    = render 'edit_help'
   %p= form.result_buttons @button_texts
