@@ -15,8 +15,9 @@ Feature: Contributor submits study
     When I go to the study edit page for "First Study"
     And I press "Submit this study"
     Then I should see the page heading "Deposit Licence"
-    And I should see "Please review and confirm."
+    And I should see the notice "Please review and confirm."
     And I should see "Signed: Alice"
+    And I should see an "Accept" button
 
   Scenario: Incomplete study
     Given the study "First Study" has status "incomplete"
@@ -36,3 +37,20 @@ Feature: Contributor submits study
     And I am logged in as Bob
     And I submit the study "First Study"
     Then I should see the error message "Access denied"
+
+  Scenario: Licence accepted
+    Given the study "First Study" is ready for submission
+    When I go to the study edit page for "First Study"
+    And I press "Submit this study"
+    And I press "Accept"
+    Then I should see the page heading "Study Summary"
+    And I should see the notice "Study submitted and pending approval"
+
+  Scenario: Licence declined
+    Given the study "First Study" is ready for submission
+    When I go to the study edit page for "First Study"
+    And I press "Submit this study"
+    And I press "Cancel"
+    Then I should see the page heading "Edit Study"
+    And I should see the notice "Study submission has been cancelled"
+

@@ -31,6 +31,10 @@ Then /^(?:|I )should see (?:a|an|the) error message (.*)$/ do |pattern|
   Then "I should see #{pattern} within \"#flash_error\""
 end
 
+Then /^(?:|I )should see (?:a|the) notice (.*)$/ do |pattern|
+  Then "I should see #{pattern} within \"#flash_notice\""
+end
+
 Then /^(?:|I )should see a table with (\d+) row(?:s?)$/ do |n|
   response.should have_selector("table tbody tr", :count => n.to_i)
 end

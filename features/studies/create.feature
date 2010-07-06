@@ -64,7 +64,6 @@ Feature: Contributor creates study
     When I go to "/studies/new"
     Then I should see the error message "Must be logged in"
 
-  @focus
   Scenario: Archivists can create and edit studies
     Given there is an archivist account for Bill
     And I am logged in as Bill
