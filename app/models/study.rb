@@ -200,10 +200,14 @@ class Study < ActiveRecord::Base
 
     Rails.logger.info 'Saving the record'
     self.status = "submitted"
-    save
+    save!
 
-    Rails.logger.info 'Sending notification email'
-    UserMailer.deliver_submission_notification(self)
+    begin
+      Rails.logger.info 'Sending notification email'
+      UserMailer.deliver_submission_notification(self)
+    rescue
+      Rails.logger.info('Failed to send notification email.')
+    end
   end
 
   def approve(assigned_archivist, range = '0')
@@ -219,10 +223,14 @@ class Study < ActiveRecord::Base
     Rails.logger.info 'Saving the record'
     self.status = "approved"
     self.archivist = assigned_archivist
-    save
+    save!
 
-    Rails.logger.info 'Sending notification email'
-    UserMailer.deliver_archivist_assignment(self)
+    begin
+      Rails.logger.info 'Sending notification email'
+      UserMailer.deliver_archivist_assignment(self)
+    rescue
+      Rails.logger.info('Failed to send notification email.')
+    end
   end
 
   def reopen

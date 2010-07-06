@@ -13,11 +13,11 @@
       Before submitting, make sure that all information given is
       complete and correct.
 
-= button_to "Submit this study", submit_study_path(@study), :disabled => wait
-%br
-
 - formular_for @study, :html => {:multipart => true} do |form|
   - @form = form
+
+  %div= submit_tag "Submit this study", :disabled => wait
+  %br
 
   .tabs-container
     %input{ :type => 'hidden' }
