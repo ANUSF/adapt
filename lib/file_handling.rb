@@ -62,7 +62,6 @@ module FileHandling
     fp = create_lock_file(lock_file)
 
     begin
-      fp.flock(File::LOCK_EX)
       block.call
     ensure
       fp.close
