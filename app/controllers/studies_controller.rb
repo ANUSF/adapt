@@ -88,7 +88,8 @@ class StudiesController < ApplicationController
       @study = current_user.studies.new(params[:study])
 
       if @study.save
-        goto :edit, :notice => 'Study entry created.'
+        flash[:notice] = 'Study entry created.'
+        redirect_to edit_study_url(@study)
       else
         flash.now[:error] =
           "Study creation failed. Please correct the fields marked in red."
