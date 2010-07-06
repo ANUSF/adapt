@@ -207,10 +207,8 @@ class Study < ActiveRecord::Base
   end
 
   def approve(assigned_archivist, range = '0')
-    unless permanent_identifier
-      Rails.logger.info 'Creating a study id'
-      self.permanent_identifier = create_permanent_id(range)
-    end
+    Rails.logger.info 'Creating a study id'
+    self.permanent_identifier = create_permanent_id(range)
 
     Rails.logger.info 'Writing the files'
     base = non_conflicting(File.join(archive_path,
