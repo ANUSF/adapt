@@ -17,7 +17,7 @@ class StudiesController < ApplicationController
   before_filter :prepare_for_edit, :only => [ :edit, :update, :submit ]
   before_filter :ensure_licence,   :only => [ :edit, :submit ]
 
-  protected
+  private
 
   # Finds the study with the id specified in the request.
   def find_study
@@ -83,16 +83,14 @@ class StudiesController < ApplicationController
   
   def create
     if params[:result] == "Cancel"
-      flash[:notice] = "Study creation cancelled."
-      redirect_to studies_url
+      goto :index, :notice => 'Study creation cancelled.'
     else
       @study = current_user.studies.new(params[:study])
 
       if @study.save
-        flash[:notice] = "Study entry created."
-        redirect_to edit_study_url(@study)
+        goto :edit, :notice => 'Study entry created.'
       else
-        flash[:error] =
+        flash.now[:error] =
           "Study creation failed. Please correct the fields marked in red."
         render :action => :new
       end
@@ -112,33 +110,22 @@ class StudiesController < ApplicationController
   end
   
   def update
-    result = params[:result]
-    if result.starts_with? "Discard"
-      flash[:notice] = "Reverted to previously saved state."
-      redirect_to edit_study_url
+    result = params[:result] || ''
+    if result.starts_with? 'Discard'
+      goto :edit, :notice => 'Reverted to previously saved state.'
+    elsif params[:commit] == 'Submit this study' and may_submit
+      submit
+    elsif @study.update_attributes(params[:study])
+      next_action = result.ends_with?("Exit") ? :show : :edit
+      goto next_action, :notice => 'Changes were saved succesfully.'
     else
-      success = @study.update_attributes(params[:study])
-      if success
-        flash[:notice] = "Changes were saved succesfully."
-        if result.ends_with? "Exit"
-          redirect_to @study
-        else
-          redirect_to edit_study_url
-        end
-      else
-        flash.now[:error] = "Changes could not be saved:\n\n" +
-          @study.errors.map { |attr, txt|
-            "#{attr.humanize} - #{txt.downcase}"
-          }.join("\n")
-        render :action => :edit
-      end
+      goto :edit, :error => 'Changes could not be saved.'
     end
   end
   
   def destroy
     @study.destroy
-    flash[:notice] = "Successfully destroyed study."
-    redirect_to studies_url
+    goto :index, :notice => 'Successfully destroyed study.'
   end
 
   # ----------------------------------------------------------------------------
@@ -146,27 +133,28 @@ class StudiesController < ApplicationController
   # ----------------------------------------------------------------------------
 
   def submit
-    if @study.status == "incomplete"
-      flash.now[:error] =
-        "This study is not yet ready for submission:\n\n" +
-        (@study.errors.map + @study.licence.errors.map).map { |attr, txt|
-        "#{attr.humanize} - #{txt.downcase}"
-      }.join("\n")
-      render :action => :edit
-    elsif @study.status != "unsubmitted"
-      flash[:error] = "This study has already been submitted."
-      redirect_to @study
-    elsif @study.owner.is_archivist and @study.skip_licence
-      if @study.submit('')
-        flash[:notice] = "Study submitted and pending approval."
-      else
-        flash[:error] = "Study submission failed for unknown reasons."
-      end
-      redirect_to @study
+    if @study.status == 'incomplete'
+      goto :edit, :error => 'This study is not yet ready for submission.'
+    elsif @study.status != 'unsubmitted'
+      goto :show, :error => 'This study has already been submitted.'
     else
-      flash[:notice] = "Access to the data will be " +
-        @study.licence.access_phrase + ". Please review and confirm."
-      redirect_to @study.licence
+      if params[:study] and not @study.update_attributes(params[:study])
+        goto :edit, :error => 'Changes could not be saved.'
+      elsif licence_okay
+        begin
+          @study.submit(params[:licence_text] || '')
+        rescue
+          goto :edit, :error => 'An error occurred. Please try again later.'
+        else
+          goto :show, :notice => 'Study submitted and pending approval.'
+        end
+      elsif not params[:result].blank?
+        goto :edit, :notice => 'Study submission has been cancelled.'
+      else
+        flash[:notice] = "Access to the data will be " +
+          @study.licence.access_phrase + ". Please review and confirm."
+        redirect_to @study.licence
+      end
     end
   end
 
@@ -180,5 +168,20 @@ class StudiesController < ApplicationController
   def reopen
     @study.reopen
     redirect_to studies_url
+  end
+
+  private
+
+  def goto(action, flash_options)
+    flash_options.each { |key, val| flash[key] = val }
+    redirect_to :action => action
+  end
+
+  def licence_okay
+    if params[:licence_text].blank?
+      @study.owner.is_archivist and @study.skip_licence
+    else
+      params[:result] == 'Accept'
+    end
   end
 end
