@@ -43,6 +43,17 @@ module FileHandling
     end
   end
 
+  def make_fresh_directory(base, *path_parts)
+    make_parent(base, *path_parts)
+    path = File.expand_path(File.join(base, *path_parts))
+
+    with_lock_on(File.dirname(path)) do
+      raise "File '#{path}' already exists." if File.exists?(path)
+      FileUtils.mkdir(path, :mode => ADAPT::CONFIG['adapt.dir.mode'])
+      set_ownership(path)
+    end
+  end
+
   def make_directory(base, *path_parts)
     make_parent(base, *path_parts)
     path = File.expand_path(File.join(base, *path_parts))

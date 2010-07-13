@@ -162,8 +162,18 @@ class StudiesController < ApplicationController
   def approve
     archivist = User.archivists.find(params[:study][:archivist])
     range_prefix = params[:study][:id_range][0,1]
-    @study.approve archivist, range_prefix
-    redirect_to studies_url
+    begin
+      @study.approve archivist, range_prefix
+    rescue Exception => ex
+      flash.now[:error] = """
+The following error occurred: #{ex.to_s}.
+Please try again in a little while.
+If you still get an error, please notify the developer.
+"""
+    else
+      flash.now[:notice] = "Study approval successful!"
+    end
+    render :action => :show
   end
 
   def reopen
