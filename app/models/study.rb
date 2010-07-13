@@ -215,9 +215,9 @@ class Study < ActiveRecord::Base
     self.permanent_identifier = create_permanent_id(range)
 
     Rails.logger.info 'Writing the files'
-    base = non_conflicting(File.join(archive_path,
-                                     permanent_identifier, "Original"))
-    make_directory(base)
+    base = File.join(archive_path, permanent_identifier, "Original")
+    make_fresh_directory(base)
+    make_fresh_directory(base, "Processing")
     write_files_on_approval(read_licence_file, base)
 
     Rails.logger.info 'Saving the record'
