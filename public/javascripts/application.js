@@ -132,7 +132,7 @@
 
     // -- automatic extension of multiple text input field collections
     jQuery('.multi', context).find('input:text,textarea')
-      .keyup(multitext_edited).blur(multitext_cleanup);
+      .keyup(multitext_edited).change(multitext_edited).blur(multitext_cleanup);
 
     // -- update textfields with selection dropdowns
     jQuery('select.predefined', context).change(predefined_selected);
