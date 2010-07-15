@@ -23,7 +23,7 @@ class UserMailer < ActionMailer::Base
     from ASSDA_EMAIL
     subject "ADAPT: A new study was submitted"
     sent_on Time.now
-    body(:study => study, :url => edit_study_url(study, :host => request_host))
+    body(:study => study, :url => study_url(study, :host => request_host))
   end
 
   def archivist_assignment(study)
@@ -31,7 +31,7 @@ class UserMailer < ActionMailer::Base
     from ASSDA_EMAIL
     subject "ADAPT: A new study was assigned to you"
     sent_on Time.now
-    body(:study => study, :url => edit_study_url(study, :host => request_host))
+    body(:study => study, :url => study_url(study, :host => request_host))
   end
 
   def error_notification(exception)

@@ -207,12 +207,14 @@ class Study < ActiveRecord::Base
     self.status = "submitted"
     save!
 
-    begin
-      UserMailer.deliver_submission_notification(self)
-    rescue
-      Rails.logger.info 'Failed to send notification email.'
-    else
-      Rails.logger.info 'Notification email was sent.'
+    unless owner.is_archivist
+      begin
+        UserMailer.deliver_submission_notification(self)
+      rescue
+        Rails.logger.info 'Failed to send notification email.'
+      else
+        Rails.logger.info 'Notification email was sent.'
+      end
     end
   end
 
