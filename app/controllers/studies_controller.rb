@@ -12,7 +12,8 @@ class StudiesController < ApplicationController
   permit :edit, :update,        :if => :may_edit
   permit :destroy,              :if => :may_destroy
   permit :submit,               :if => :may_submit
-  permit :approve, :reopen,     :if => :may_approve
+  permit :approve,              :if => :may_approve
+  permit :store,                :if => :may_store
 
   before_filter :prepare_for_edit, :only => [ :edit, :update, :submit ]
   before_filter :ensure_licence,   :only => [ :edit, :submit ]
@@ -53,6 +54,11 @@ class StudiesController < ApplicationController
   # Whether the current user may approve the referenced study.
   def may_approve
     @study and @study.can_be_approved_by current_user
+  end
+
+  # Whether the current user may store the referenced study.
+  def may_store
+    @study and @study.can_be_stored_by current_user
   end
 
   def prepare_for_edit
@@ -144,7 +150,8 @@ class StudiesController < ApplicationController
       elsif licence_okay
         begin
           @study.submit(params[:licence_text] || '')
-        rescue
+        rescue Exception => ex
+          log_error ex
           goto :edit, :error => 'An error occurred. Please try again later.'
         else
           goto :show, :notice => 'Study submitted and pending approval.'
@@ -160,28 +167,51 @@ class StudiesController < ApplicationController
   end
 
   def approve
-    archivist = User.archivists.find(params[:study][:archivist])
-    range_prefix = params[:study][:id_range][0,1]
-    begin
-      @study.approve archivist, range_prefix
-    rescue Exception => ex
-      flash.now[:error] = """
-The following error occurred: #{ex.to_s}.
-Please try again in a little while.
-If you still get an error, please notify the developer.
-"""
+    if params[:result] == 'Reopen'
+      reopen
     else
-      flash.now[:notice] = "Study approval successful!"
+      begin
+        @study.approve User.archivists.find(params[:study][:archivist])
+      rescue Exception => ex
+        log_error ex
+        flash_error ex
+      else
+        flash.now[:notice] = "Study approval successful!"
+      end
     end
     render :action => :show
   end
 
-  def reopen
-    @study.reopen
-    redirect_to studies_url
+  def store
+    if params[:result] == 'Reopen'
+      reopen
+    else
+      begin
+        @study.store params[:study][:id_range][0,1]
+      rescue Exception => ex
+        log_error
+        flash_error(ex)
+      else
+        flash.now[:notice] = "Study stored successfully!"
+      end
+    end
+    render :action => :show
   end
 
   private
+
+  def reopen
+    @study.reopen
+    flash.now[:notice] = 'Study reopened for editing be depositor.'
+  end
+
+  def flash_error(ex)
+    flash.now[:error] = """
+The following error occurred: #{ex.to_s}.
+Please try again in a little while.
+If you still get an error, please notify the developer.
+"""
+  end
 
   def goto(action, flash_options)
     flash_options.each { |key, val| flash[key] = val }

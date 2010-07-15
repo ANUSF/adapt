@@ -118,7 +118,7 @@ class Study < ActiveRecord::Base
   end
 
   def is_submitted
-    %w{submitted approved}.include? status
+    %w{submitted approved stored}.include? status
   end
 
   def can_be_viewed_by(person)
@@ -149,9 +149,14 @@ class Study < ActiveRecord::Base
   end
   
   def can_be_approved_by(person)
-    person and person.is_admin
+    person and person.is_admin and status == 'submitted'
   end
   
+  def can_be_stored_by(person)
+    person and person.is_archivist and person == archivist and
+      %w{submitted approved}.include? status
+  end
+
   def ready_for_submission?
     @checking = true
     study_ready = valid?
@@ -203,14 +208,30 @@ class Study < ActiveRecord::Base
     save!
 
     begin
-      Rails.logger.info 'Sending notification email'
       UserMailer.deliver_submission_notification(self)
     rescue
-      Rails.logger.info('Failed to send notification email.')
+      Rails.logger.info 'Failed to send notification email.'
+    else
+      Rails.logger.info 'Notification email was sent.'
     end
   end
 
-  def approve(assigned_archivist, range = '0')
+  def approve(assigned_archivist)
+    Rails.logger.info 'Assigning study to archivist'
+    self.status = "approved"
+    self.archivist = assigned_archivist
+    save!
+
+    begin
+      UserMailer.deliver_archivist_assignment(self)
+    rescue
+      Rails.logger.info 'Failed to send notification email.'
+    else
+      Rails.logger.info 'Notification email was sent.'
+    end
+  end
+
+  def store(range = '0')
     Rails.logger.info 'Creating a study id'
     self.permanent_identifier = create_permanent_id(range)
 
@@ -221,16 +242,8 @@ class Study < ActiveRecord::Base
     write_files_on_approval(read_licence_file, base)
 
     Rails.logger.info 'Saving the record'
-    self.status = "approved"
-    self.archivist = assigned_archivist
+    self.status = 'stored'
     save!
-
-    begin
-      Rails.logger.info 'Sending notification email'
-      UserMailer.deliver_archivist_assignment(self)
-    rescue
-      Rails.logger.info('Failed to send notification email.')
-    end
   end
 
   def reopen
