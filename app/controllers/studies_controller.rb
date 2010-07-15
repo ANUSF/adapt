@@ -176,10 +176,10 @@ class StudiesController < ApplicationController
         log_and_notify_of_error ex
         show_error ex
       else
-        flash.now[:notice] = "Study approval successful!"
+        flash[:notice] = "Study approval successful!"
       end
     end
-    render :action => :show
+    redirect_to @study
   end
 
   def store
@@ -192,25 +192,25 @@ class StudiesController < ApplicationController
         log_and_notify_of_error ex
         show_error ex
       else
-        flash.now[:notice] = "Study stored successfully!"
+        flash[:notice] = "Study stored successfully!"
       end
     end
-    render :action => :show
+    redirect_to @study
   end
 
   private
 
   def reopen
     @study.reopen
-    flash.now[:notice] = 'Study reopened for editing be depositor.'
+    flash[:notice] = 'Study reopened for editing be depositor.'
   end
 
   def show_error(ex)
-    flash.now[:error] = """
-The following error occurred: #{ex.to_s}.
+    flash[:error] = 
+"""The following error occurred: \"#{ex.to_s}\"
+
 Please try again in a little while.
-If you still get an error, please notify the developer.
-"""
+If you still get an error, please notify the developer."""
   end
 
   def log_and_notify_of_error(ex)

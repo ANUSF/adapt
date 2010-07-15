@@ -256,16 +256,21 @@ class Study < ActiveRecord::Base
   protected
 
   def create_permanent_id(range)
-    create_unique_id_and_directory(archive_path, '',
-                                   case range
-                                   when '0'
-                                     1..7999
-                                   when /[1-9]/
-                                     n = range.to_i * 10000
-                                     n..(n+9999)
-                                   else
-                                     raise 'Invalid range.'
-                                   end)
+    if range == 'T'
+      create_unique_id_and_directory(archive_path, 'test', 99000..99999)
+    else
+      effective_range =
+        case range
+        when '0'
+          1..7999
+        when /[1-9]/
+          n = range.to_i * 10000
+          n..(n+9999)
+        else
+          raise 'Invalid range.'
+        end
+      create_unique_id_and_directory(archive_path, '', effective_range)
+    end
   end
 
   def read_licence_file
@@ -322,6 +327,8 @@ class Study < ActiveRecord::Base
     config[:selections][:archivist] = lambda {
       User.archivists.map { |a| [a.name, a.id] }
     }
+    config[:selections][:id_range] =
+      ["Test only"] + "0234".each_char.map { |i| "#{i}0000-#{i}9999" }
     [:depositors, :principal_investigators,
      :data_producers, :other_acknowledgements].each do |field|
       config[:selections][field] = { 'affiliation' =>

@@ -25,7 +25,7 @@ module FileHandling
       existing = Dir.new(base).grep(/\A#{prefix}\d+\Z/o).map { |name|
         name.sub(/\A#{prefix}/o, '').to_i
       }.select { |n| range.include? n }
-      num = (existing.max || 0) + 1
+      num = (existing.max || (range.first - 1)) + 1
       raise 'No more numbers available.' unless range.include? num
       name = prefix + num.to_s.rjust(number_length, "0")
       make_directory(base, name)
