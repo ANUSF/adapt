@@ -151,7 +151,7 @@ class StudiesController < ApplicationController
         begin
           @study.submit(params[:licence_text] || '')
         rescue Exception => ex
-          log_error ex
+          log_and_notify_of_error ex
           goto :edit, :error => 'An error occurred. Please try again later.'
         else
           goto :show, :notice => 'Study submitted and pending approval.'
@@ -173,8 +173,8 @@ class StudiesController < ApplicationController
       begin
         @study.approve User.archivists.find(params[:study][:archivist])
       rescue Exception => ex
-        log_error ex
-        flash_error ex
+        log_and_notify_of_error ex
+        show_error ex
       else
         flash.now[:notice] = "Study approval successful!"
       end
@@ -189,8 +189,8 @@ class StudiesController < ApplicationController
       begin
         @study.store params[:study][:id_range][0,1]
       rescue Exception => ex
-        log_error
-        flash_error(ex)
+        log_and_notify_of_error ex
+        show_error ex
       else
         flash.now[:notice] = "Study stored successfully!"
       end
@@ -205,12 +205,19 @@ class StudiesController < ApplicationController
     flash.now[:notice] = 'Study reopened for editing be depositor.'
   end
 
-  def flash_error(ex)
+  def show_error(ex)
     flash.now[:error] = """
 The following error occurred: #{ex.to_s}.
 Please try again in a little while.
 If you still get an error, please notify the developer.
 """
+  end
+
+  def log_and_notify_of_error(ex)
+    Rails.logger.error(ex)
+    unless Rails.env == 'development'
+      UserMailer.deliver_error_notification(exception)
+    end
   end
 
   def goto(action, flash_options)
