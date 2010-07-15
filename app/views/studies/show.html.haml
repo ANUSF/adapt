@@ -29,8 +29,7 @@
     - formular_for @study, :url => store_study_path(@study), |
                            :html => { :method => :post } do |f| |
       Number range for ID:
-      = f.select :id_range, "0234".each_char.map { |i| "#{i}0000-#{i}9999" }, |
-                            :label => '' |
+      = f.select :id_range, :label => ''
       %hr
       %p
         Generate a study id and create files for processing
