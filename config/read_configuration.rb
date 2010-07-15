@@ -79,6 +79,8 @@ module ADAPT
   config['adapt.home'] = make_path(config['adapt.home'], RAILS_ROOT, user_home)
   config['adapt.asset.path'] = make_path(config['adapt.asset.path'], 'assets',
                                          config['adapt.home'])
+  config['adapt.archive.path'] = make_path(config['adapt.archive.path'],
+                                           'Archive', config['adapt.asset.path'])
   config['adapt.config.path'] = make_path(config['adapt.config.path'], 'config',
                                          config['adapt.home'])
   config['adapt.db.path'] = make_path(config['adapt.db.path'], '',
