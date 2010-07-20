@@ -154,7 +154,11 @@ class StudiesController < ApplicationController
           log_and_notify_of_error ex
           goto :edit, :error => 'An error occurred. Please try again later.'
         else
-          goto :show, :notice => 'Study submitted and pending approval.'
+          goto :show, :notice => if current_user == @study.archivist
+                                   'Study submitted successfully.'
+                                 else
+                                   'Study submitted and pending approval.'
+                                 end
         end
       elsif not params[:result].blank?
         goto :edit, :notice => 'Study submission has been cancelled.'
