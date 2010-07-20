@@ -149,12 +149,13 @@ class Study < ActiveRecord::Base
   end
   
   def can_be_approved_by(person)
-    person and person.is_admin and status == 'submitted'
+    person and person.is_admin and status == 'submitted' and archivist.nil?
   end
   
   def can_be_stored_by(person)
     person and person.is_archivist and person == archivist and
-      %w{submitted approved}.include? status
+      ( %w{submitted approved}.include? status or 
+        ( status == 'stored' and permanent_identifier.starts_with? 'test') )
   end
 
   def ready_for_submission?
