@@ -1,0 +1,13 @@
+Dear <%=h @study.owner.name %>,
+
+Your submission to ASSDA entitled
+
+'<%=h @study.title %>'
+
+has been approved for publication and assigned to an archivist for
+further processing.
+
+The permanent identification number <%=h @study.identifier %> was
+assigned to your submission.
+
+<%= render :partial => "noreply" %>

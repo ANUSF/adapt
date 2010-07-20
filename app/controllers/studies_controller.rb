@@ -214,13 +214,13 @@ class StudiesController < ApplicationController
 """The following error occurred: \"#{ex.to_s}\"
 
 Please try again in a little while.
-If you still get an error, please notify the developer."""
+If this problem persists, please notify the developer."""
   end
 
   def log_and_notify_of_error(ex)
     Rails.logger.error(ex)
     unless Rails.env == 'development'
-      UserMailer.deliver_error_notification(exception)
+      UserMailer.deliver_error_notification(ex)
     end
   end
 
