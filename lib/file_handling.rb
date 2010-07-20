@@ -22,11 +22,13 @@ module FileHandling
 
   def create_unique_id_and_directory(base, prefix, range, number_length = 5)
     with_lock_on(base) do
-      existing = Dir.new(base).grep(/\A#{prefix}\d+\Z/o).map { |name|
-        name.sub(/\A#{prefix}/o, '').to_i
-      }.select { |n| range.include? n }
-      num = (existing.max || (range.first - 1)) + 1
+      files = Dir.new(base).grep(/\A#{prefix}\d+\Z/)
+      numbers = files.map { |name| name.sub(/\A#{prefix}/, '').to_i }
+      existing = numbers.select { |n| range.include? n }
+
+      num = if existing.empty? then range.first else existing.max + 1 end
       raise 'No more numbers available.' unless range.include? num
+
       name = prefix + num.to_s.rjust(number_length, "0")
       make_directory(base, name)
       name
