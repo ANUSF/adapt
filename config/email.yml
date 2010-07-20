@@ -11,5 +11,8 @@ anusf: &anusf
   :port: 25
   :domain: assda.anu.edu.au
 
+stage:
+  <<: *anusf
+
 production:
   <<: *anusf

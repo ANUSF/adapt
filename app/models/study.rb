@@ -247,6 +247,16 @@ class Study < ActiveRecord::Base
     Rails.logger.info 'Saving the record'
     self.status = 'stored'
     save!
+
+    unless identifier.starts_with?('test')
+      begin
+        UserMailer.deliver_approval_notification(self)
+      rescue
+        Rails.logger.info 'Failed to send notification email.'
+      else
+        Rails.logger.info 'Notification email was sent.'
+      end
+    end
   end
 
   def reopen

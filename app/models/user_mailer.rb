@@ -26,6 +26,14 @@ class UserMailer < ActionMailer::Base
     body(:study => study, :url => study_url(study, :host => request_host))
   end
 
+  def approval_notification(study)
+    recipients(study.owner.email)
+    from ASSDA_EMAIL
+    subject "Your submission via ADAPT was approved"
+    sent_on Time.now
+    body(:study => study, :url => study_url(study, :host => request_host))
+  end
+
   def archivist_assignment(study)
     recipients(study.archivist.email || ASSDA_EMAIL)
     from ASSDA_EMAIL
