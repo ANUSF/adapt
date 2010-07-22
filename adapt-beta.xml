@@ -1,4 +1,4 @@
-<Context path="/adapt-beta" docBase="/opt/adapt/adapt-production.war">
+<Context path="/adapt-beta" docBase="/opt/adapt/adapt-beta.war">
   <Parameter name="adapt.home"
 	     value="/opt/adapt"
 	     override="false"/>
