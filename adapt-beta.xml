@@ -3,7 +3,7 @@
 	     value="/opt/adapt"
 	     override="false"/>
   <Parameter name="adapt.asset.path"
-	     value="/projects/d10/assda/publish/ANU/Adapt"
+	     value="/projects/d10/assda/publish/ANU/Adapt/Production"
 	     override="false"/>
   <Parameter name="adapt.archive.path"
 	     value="/projects/d10/assda/publish/ANU/Archive"

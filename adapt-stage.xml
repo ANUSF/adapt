@@ -1,12 +1,12 @@
-<Context path="/adapt-stage" docBase="/home/900/oxd900/adapt-stage.war">
+<Context path="/adapt-stage" docBase="/opt/adapt/adapt-stage.war">
   <Parameter name="adapt.home"
 	     value="/opt/adapt"
 	     override="false"/>
   <Parameter name="adapt.asset.path"
-	     value="/projects/d10/assda/publish/ANU/Adapt"
+	     value="/projects/d10/assda/publish/ANU/Adapt/Stage"
 	     override="false"/>
   <Parameter name="adapt.db.path"
-	     value="/opt/adapt/db/db.sqlite3"
+	     value="/opt/adapt/db/db-stage.sqlite3"
 	     override="false"/>
   <Parameter name="adapt.file.ownership"
 	     value="oxd900.d10"
