@@ -1,4 +1,4 @@
-<Context path="/adapt" docBase="/opt/adapt/adapt.war">
+<Context path="/adapt-beta" docBase="/opt/adapt/adapt-production.war">
   <Parameter name="adapt.home"
 	     value="/opt/adapt"
 	     override="false"/>
@@ -15,6 +15,6 @@
 	     value="oxd900.d10"
 	     override="false"/>
   <Parameter name="rails.env"
-	     value="stage"
+	     value="production"
 	     override="false"/>
 </Context>
