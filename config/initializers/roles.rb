@@ -19,7 +19,13 @@ unless %w{test cucumber}.include? Rails.env
         names << username
       end
     end
-    obsolete = User.all.select { |user| not names.include?(user.username) }.to_a
-    obsolete.each { |user| user.destroy }
+    unless names.empty?
+      User.all.each do |user|
+        if user.role != 'contributor' and not names.include?(user.username)
+          user.role = 'contributor'
+          user.save!
+        end
+      end
+    end
   end
 end
