@@ -318,7 +318,7 @@ class Study < ActiveRecord::Base
   end
 
   def archive_path
-    File.join(ADAPT::CONFIG['adapt.asset.path'], "Archive")
+    ADAPT::CONFIG['adapt.archive.path']
   end
 
   def self.transposed(hash)
