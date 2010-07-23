@@ -41,9 +41,13 @@
             = image_tag "/images/assda-logo.png", :class => "logo"
             %div= "ADAPT Prototype (#{Rails.env} mode)"
 
-        #content
-          - flash.each do |name, msg|
-            %div{ :id => "flash_#{name}" }= h(msg).gsub(/\n/, '<br/>')
+        - image_name = Rails.env.production? ? 'house' : 'testing'
+        - image = image_path("#{image_name}.jpg")
+        #content{ :style => "background: url(#{image}) no-repeat right bottom" }
+          #messages.dj-replace.dj-anchor
+            = yield(:messages)
+            - flash.each do |name, msg|
+              %div{ :id => "flash_#{name}" }= h(msg).gsub(/\n/, '<br/>')
       
           - if show_title? and not stripped
             %h1=h yield(:title)
