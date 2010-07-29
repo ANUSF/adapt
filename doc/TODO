@@ -1,0 +1,22 @@
+Quick tweaks:
+------------
+- do not show paths for files selected for upload (Windows 'fakepath' issue)
+- use Windows-compliant line-endings in files intended to be read by humans
+- instruct depositors to describe parts if study has multiple
+- add info on what kind of documentation should be provided with studies
+
+More substantial, but somewhat urgent:
+-------------------------------------
+- provide automatic virus scanning
+- implement some kind up quota policy for uploading files
+
+Other improvements:
+------------------
+- allow admins to add or remove archivists (also admins?)
+- allow depositors to describe files they will submit by other means
+- allow depositors to use an existing study as template (?)
+- context help ('question mark' links or suchlike)
+- more detailed categories for attached files: Questionaire, Report, Notes
+- copy attached files to processing folder with standard naming
+- fill in "Related Materials" with info on attached files (?)
+- add a tagging system to support studies with multiple parts
