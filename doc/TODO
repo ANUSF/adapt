@@ -1,6 +1,5 @@
 Quick tweaks:
 ------------
-- do not show paths for files selected for upload (Windows 'fakepath' issue)
 - use Windows-compliant line-endings in files intended to be read by humans
 - instruct depositors to describe parts if study has multiple
 - add info on what kind of documentation should be provided with studies

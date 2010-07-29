@@ -17,7 +17,7 @@ module StudiesHelper
 
   def tab_link(ref, text)
     the_class = (ref == @active_tab) ? "current-tab" : ""
-    "<li>
+    "<li class='tab-entry'>
        <a href='#{ref}' class='#{the_class}'>
          <span>#{text}</span>
        </a>

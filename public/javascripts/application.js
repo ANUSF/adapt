@@ -38,7 +38,7 @@
     elem.after('<p><input type="checkbox" checked="" value="1" ' +
 	       'name="' + name.replace(/\[[^\[\]]*\]$/, '[use]') +
 	       '" id="' + id.replace(/_[^_]*$/, '_use') +
-	       '"/>' + elem.val() + '</p>');
+	       '"/>' + elem.val().replace(/^.*[\/\\]/, '') + '</p>');
     elem.hide();
     elem.parent().append(input);
   }

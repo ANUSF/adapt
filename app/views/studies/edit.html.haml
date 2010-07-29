@@ -21,7 +21,7 @@
 
   .tabs-container
     %input{ :type => 'hidden' }
-    %ul{ :style => 'display: none' }
+    %ul.tab-headers
       = tab_link('#title-fields', 'Title and Abstract')
       = tab_link('#data-fields', 'Data Description')
       = tab_link('#credit-fields', 'Credits')
