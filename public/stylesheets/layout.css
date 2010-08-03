@@ -57,7 +57,7 @@
     float: right; }
   #header div {
     float: left;
-    margin-top: 30px; }
+    padding-top: 30px; }
 
 #content {
   margin: 0;
