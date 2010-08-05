@@ -32,7 +32,7 @@ class StudiesController < ApplicationController
 
   # Whether the current user may edit the referenced study.
   def may_edit
-    allowed = @study and @study.can_be_edited_by current_user
+    allowed = (@study and @study.can_be_edited_by current_user)
     if allowed and @study.is_submitted and current_user.is_archivist
       "ADAPT does not yet offer any pre-publishing functionality. " +
       "Please use Nesstar Publisher for now."
