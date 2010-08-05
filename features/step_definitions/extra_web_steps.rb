@@ -8,19 +8,19 @@ Then /^(?:|I )should not be on (.+)$/ do |page_name|
 end
 
 Then /^(?:|I )should see (?:a|an) "([^\"]*)" link$/ do |text|
-  response.should have_selector("a[href]", :content => text)
+  page.should have_css("a[href]", :content => text)
 end
 
 Then /^(?:|I )should not see (?:a|an) "([^\"]*)" link$/ do |text|
-  response.should_not have_selector("a[href]", :content => text)
+  page.should have_no_css("a[href]", :content => text)
 end
 
 Then /^(?:|I )should see (?:a|an) "([^\"]*)" button$/ do |text|
-  response.should have_selector("input[value=\"#{text}\"]")
+  page.should have_css("input[value=\"#{text}\"]")
 end
 
 Then /^(?:|I )should not see (?:a|an) "([^\"]*)" button$/ do |text|
-  response.should_not have_selector("input[value=\"#{text}\"]")
+  page.should have_no_css("input[value=\"#{text}\"]")
 end
 
 Then /^(?:|I )should see (?:a|an|the) page heading (.*)$/ do |pattern|
@@ -36,25 +36,25 @@ Then /^(?:|I )should see (?:a|the) notice (.*)$/ do |pattern|
 end
 
 Then /^(?:|I )should see a table with (\d+) row(?:s?)$/ do |n|
-  response.should have_selector("table tbody tr", :count => n.to_i)
+  page.should have_css("table tbody tr", :count => n.to_i)
 end
 
 Then /^(?:|I )should see "([^\"]*)" in the "([^\"]*)" column$/ do
   |text, col|
-  column_contents(col).should contain(text)
+  column_contents(col).should include(text)
 end
 
 Then /^(?:|I )should see \/([^\"\/]*)\/ in the "([^\"]*)" column$/ do
   |regexp, col|
-  column_contents(col).should contain(Regexp.new(regexp))
+  column_contents(col).should include(Regexp.new(regexp))
 end
 
 Then /^(?:|I )should not see "([^\"]*)" in the "([^\"]*)" column$/ do
   |text, col|
-  column_contents(col).should_not contain(text)
+  column_contents(col).should_not include(text)
 end
 
 Then /^(?:|I )should not see \/([^\"\/]*)\/ in the "([^\"]*)" column$/ do
   |regexp, col|
-  column_contents(col).should_not contain(Regexp.new(regexp))
+  column_contents(col).should_not include(Regexp.new(regexp))
 end

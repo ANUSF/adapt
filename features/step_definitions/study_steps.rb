@@ -38,5 +38,6 @@ Given /^the study "([^\"]*)" is ready for submission$/ do |title|
 end
 
 When /^I submit the study "([^\"]*)"$/ do |title|
-  visit submit_study_path(model("study: \"#{title}\"")), :post
+  visit edit_study_path(model("study: \"#{title}\""))
+  click_button "Submit this study"
 end
