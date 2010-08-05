@@ -1,3 +1,4 @@
+@focus
 Feature: Contributor submits study
   In order to have my work added to ASSDA's collection and to understand
     ASSDA's policies regarding the data I submit

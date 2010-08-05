@@ -38,6 +38,6 @@ Given /^the study "([^\"]*)" is ready for submission$/ do |title|
 end
 
 When /^I submit the study "([^\"]*)"$/ do |title|
-  visit edit_study_path(model("study: \"#{title}\""))
-  click_button "Submit this study"
+  driver = Capybara.current_session.driver
+  driver.process :post, submit_study_path(model("study: \"#{title}\""))
 end
