@@ -1,4 +1,3 @@
-@focus
 Feature: Contributors cannot see or edit each others studies
   As a contributor
   I want to have exclusive edits to submissions I am working on

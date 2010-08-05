@@ -47,6 +47,7 @@
       files. The latter can be submitted as is or the contained files
       extracted after uploading.)
   - @form.fields_for :uploads, Attachment.new do |f|
-    = f.file_field :content, :label => '', :multi => true, :size => 0
+    - label = Rails.env.cucumber? ? 'Upload' : ''
+    = f.file_field :content, :label => label, :multi => true, :size => 0
 
   .clear

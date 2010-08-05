@@ -25,6 +25,7 @@ config.action_mailer.delivery_method = :test
 # -- Additional gems required for testing
 config.gem "cucumber", :lib => false
 config.gem "capybara"
+config.gem "celerity"
 config.gem "culerity"
 config.gem "machinist", :source => "http://gemcutter.org"
 config.gem "faker"
