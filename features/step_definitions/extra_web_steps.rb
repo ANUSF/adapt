@@ -3,6 +3,12 @@ def column_contents(name)
   (t.transpose)[t[0].index(name)].join('"')
 end
 
+When /^(?:|I )click on "([^"]*)"(?: within "([^"]*)")?$/ do |field, selector|
+  with_scope(selector) do
+    find_field(field).trigger('focus')
+  end
+end
+
 Then /^(?:|I )should not be on (.+)$/ do |page_name|
   URI.parse(current_url).path.should_not == path_to(page_name)
 end
@@ -57,4 +63,22 @@ end
 Then /^(?:|I )should not see \/([^\"\/]*)\/ in the "([^\"]*)" column$/ do
   |regexp, col|
   column_contents(col).should_not include(Regexp.new(regexp))
+end
+
+Then /^the "([^"]*)" field(?: within "([^"]*)")? should be empty$/ do |field, selector|
+  with_scope(selector) do
+    field = find_field(field)
+    field_value = (field.tag_name == 'textarea') ? field.text : field.value
+    if field_value.respond_to? :should
+      field_value.should_not =~ /.+/
+    else
+      assert_no_match(/.+/, field_value)
+    end
+  end
+end
+
+Then /^there should be no "([^"]*)" field(?: within "([^"]*)")?$/ do |field, selector|
+  with_scope(selector) do
+    find_field(field).should == nil
+  end
 end
