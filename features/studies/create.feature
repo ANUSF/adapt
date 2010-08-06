@@ -8,7 +8,7 @@ Feature: Contributor creates study
 
   Scenario: Successful creation
     Given I am logged in as Alice
-    When I follow "Add Study"
+    When I follow "Add study"
     And I fill in "Study title" with "My Study"
     And I fill in "Study abstract" with "To be written"
     And I press "Save"
@@ -20,7 +20,7 @@ Feature: Contributor creates study
   Scenario: Duplicate title
     Given Alice has a study entitled "My Study"
     And I am logged in as Alice
-    When I follow "Add Study"
+    When I follow "Add study"
     And I fill in "Study title" with "My study"
     And I fill in "Study abstract" with "I will fill this in later"
     And I press "Save"
@@ -29,7 +29,7 @@ Feature: Contributor creates study
 
   Scenario Outline: Missing data
     Given I am logged in as Alice
-    When I follow "Add Study"
+    When I follow "Add study"
     And I fill in "Study title" with "<title>"
     And I fill in "Study abstract" with "<abstract>"
     And I press "Save"
@@ -46,7 +46,7 @@ Feature: Contributor creates study
 
   Scenario Outline: Creation cancelled
     Given I am logged in as Alice
-    When I follow "Add Study"
+    When I follow "Add study"
     And I fill in "Study title" with "<title>"
     And I fill in "Study abstract" with "<abstract>"
     And I press "Cancel"
@@ -67,7 +67,7 @@ Feature: Contributor creates study
   Scenario: Archivists can create and edit studies
     Given there is an archivist account for Bill
     And I am logged in as Bill
-    When I follow "Add Study"
+    When I follow "Add study"
     And I fill in "Study title" with "My Study"
     And I fill in "Study abstract" with "To be written"
     And I press "Save"

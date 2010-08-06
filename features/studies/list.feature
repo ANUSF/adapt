@@ -12,7 +12,7 @@ Feature: Contributor views deposit list
 
   Scenario: Alice can see her deposits, but not Bill's
     Given I am logged in as Alice
-    When I follow "View Deposits"
+    When I follow "View deposits"
     Then I should be on the study index page
     And I should see the page heading "Deposits"
     And I should see a table with 2 rows
@@ -24,7 +24,7 @@ Feature: Contributor views deposit list
 
   Scenario: Bill can see his deposits, but not Alice's
     Given I am logged in as Bill
-    When I follow "View Deposits"
+    When I follow "View deposits"
     Then I should be on the study index page
     And I should see the page heading "Deposits"
     And I should see a table with 1 rows
