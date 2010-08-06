@@ -28,13 +28,12 @@ Given /^the study "([^\"]*)" is ready for submission$/ do |title|
   Given "the study \"#{title}\" has access mode \"A\""
   Given "the study \"#{title}\" has an attached data file \"test\""
   study = model("study: \"#{title}\"")
-  study.update_attribute :data_kind, "unknown"
-  study.update_attribute :data_is_quantitative, "1"
-  study.update_attribute :depositors,
-                         { "name" => "me", "affiliation" => "my uni" }
-  study.update_attribute :principal_investigators,
-                         [{ "name" => "me", "affiliation" => "my uni" }]
-  raise "Ouch!" unless study.status == "unsubmitted"
+  study.data_kind = "unknown"
+  study.data_is_quantitative = "1"
+  study.depositors = { "name" => "me", "affiliation" => "my uni" }
+  study.principal_investigators = [{ "name" => "me", "affiliation" => "my uni" }]
+  study.save!
+  throw "Ouch!" unless Study.find(study.id).ready_for_submission?
 end
 
 When /^I submit the study "([^\"]*)"$/ do |title|
