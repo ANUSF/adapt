@@ -7,8 +7,6 @@ Warbler::Config.new do |config|
 
   config.pathmaps.java_classes << "%{java/bin/,}p"
 
-  config.gems += [ "activerecord-jdbcsqlite3-adapter", "jruby-openssl" ]
-  
   config.gem_dependencies = true
 
   config.war_name = "adapt-#{Time.now.strftime("%Y%m%d%H%M%S")}"

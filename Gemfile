@@ -1,9 +1,12 @@
+# CAVEAT: need to use bundler 1.0.0.rc.3 or higher for warbler support
+
 MYGEMS = "#{ENV['HOME']}/Rails/my-gems"
 
 source 'http://rubygems.org'
 
 gem 'rails', '~> 2.3.8'
 gem 'activerecord-jdbcsqlite3-adapter'
+gem 'jruby-openssl'
 
 gem "haml"
 gem "ruby-openid", :require => "openid"
