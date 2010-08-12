@@ -47,10 +47,7 @@ div.form-field {
   padding-right: 2em; }
 
 select.predefined {
-  display: none; }
-
-*:focus + select.predefined, select.predefined:focus {
-  display: block;
+  display: none;
   position: absolute; }
 
 form table {
