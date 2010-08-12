@@ -206,7 +206,7 @@ class StudiesController < ApplicationController
 
   def reopen
     @study.reopen
-    flash[:notice] = 'Study reopened for editing be depositor.'
+    flash[:notice] = 'Study reopened for editing by depositor.'
   end
 
   def show_error(ex)
