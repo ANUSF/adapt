@@ -51,6 +51,11 @@
     return row.find('input:text[value],textarea[value]').length == 0;
   }
 
+  function cleanup_predefined(item) {
+    item.next().filter('select.predefined')
+      .blur().find('option[selected]').attr('selected', '');
+  }
+
   function multitext_edited() {
     var item = jQuery(this);
     var row  = item.parent().closest('.multi');
@@ -65,9 +70,7 @@
       });
       row.parent().append(new_row);
     }
-    var succ = item.next();
-    if (succ.is('select.predefined'))
-      succ.blur().find('option[selected]').attr('selected', '');
+    cleanup_predefined(item);
   }
 
   function multitext_cleanup() {
