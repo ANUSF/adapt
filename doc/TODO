@@ -1,8 +1,17 @@
+Bugs:
+----
+- Some drop-down boxes do not appear or don't close (IE8)
+- Some resizable text area boxes are bad at gaining focus on clicks (IE8)
+- abstract gets truncated in study summary
+
 Quick tweaks:
 ------------
-- use Windows-compliant line-endings in files intended to be read by humans
+- generate a file contents.txt (see study 01190 for format)
+- preserve paragraph breaks in abstract in DDI for Nesstar Publisher
+- allow affiliations to be left out (or advise to type 'n.a.'?)
+- in attachment tab, say what kind of documentation is needed
 - instruct depositors to describe parts if study has multiple
-- add info on what kind of documentation should be provided with studies
+- use Windows-style line-endings in files to be read by humans (?)
 
 More substantial, but somewhat urgent:
 -------------------------------------
