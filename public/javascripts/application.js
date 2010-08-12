@@ -72,7 +72,8 @@
   function multitext_cleanup() {
     var item = jQuery(this);
     var row  = item.parent().closest('.multi');
-    if (is_empty(row) && !is_last(row)) row.remove();
+    if (is_empty(row) && !is_last(row))
+      setTimeout(function() { row.remove(); }, 200);
   }
 
   function onload(context) {
@@ -140,6 +141,10 @@
 	jQuery(this).next().show();
       })
       .blur(function() {
+	var dropdown = jQuery(this).next();
+	setTimeout(function() { dropdown.hide(); }, 200);
+      })
+      .keyup(function() {
 	var dropdown = jQuery(this).next();
 	setTimeout(function() { dropdown.hide(); }, 200);
       });
