@@ -55,4 +55,5 @@
   clear: both;
   border: 1px solid #aaaaaa;
   padding: 1em 2em;
-  overflow: auto; }
+  overflow: auto;
+  margin-bottom: 5px; }

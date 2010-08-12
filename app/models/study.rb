@@ -101,7 +101,7 @@ class Study < ActiveRecord::Base
   end
 
   def uploads_attributes=(data)
-    data.each { |k, params| attachments.create(params) if params[:use] == "1" }
+    data.each { |k, params| attachments.create(params) if params[:use] != "0" }
   end
 
   def status
