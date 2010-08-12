@@ -131,6 +131,9 @@
 
     // -- update textfields with selection dropdowns
     jQuery('select.predefined', context)
+      .blur(function() {
+	jQuery(this).hide();
+      })
       .change(function() {
 	var item = jQuery(this);
 	item.prev().val(item.selected().val()).keyup();
@@ -142,7 +145,11 @@
       })
       .blur(function() {
 	var dropdown = jQuery(this).next();
-	setTimeout(function() { dropdown.hide(); }, 200);
+	  setTimeout(function() {
+	    if (jQuery("*:focus").attr('id') != dropdown.attr('id')) {
+	      dropdown.hide();
+	    }
+	  }, 200);
       })
       .keyup(function() {
 	var dropdown = jQuery(this).next();
