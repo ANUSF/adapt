@@ -51,15 +51,11 @@
     return row.find('input:text[value],textarea[value]').length == 0;
   }
 
-  function cleanup_predefined(item) {
-    item.next().filter('select.predefined')
-      .blur().find('option[selected]').attr('selected', '');
-  }
-
   function multitext_edited() {
     var item = jQuery(this);
     var row  = item.parent().closest('.multi');
     if (!is_empty(row) && is_last(row)) {
+      item.blur();
       var new_row = row.clone(true);
       jQuery('input:text,textarea', new_row).each(function() {
 	var field = jQuery(this);
@@ -69,19 +65,14 @@
 	field.val('');
       });
       row.parent().append(new_row);
+      item.focus();
     }
-    cleanup_predefined(item);
   }
 
   function multitext_cleanup() {
     var item = jQuery(this);
     var row  = item.parent().closest('.multi');
     if (is_empty(row) && !is_last(row)) row.remove();
-  }
-
-  function predefined_selected() {
-    var item = jQuery(this);
-    item.prev().val(item.selected().val()).keyup();
   }
 
   function onload(context) {
@@ -138,7 +129,20 @@
       .keyup(multitext_edited).change(multitext_edited).blur(multitext_cleanup);
 
     // -- update textfields with selection dropdowns
-    jQuery('select.predefined', context).change(predefined_selected);
+    jQuery('select.predefined', context)
+      .change(function() {
+	var item = jQuery(this);
+	item.prev().val(item.selected().val()).keyup();
+      })
+      .prev()
+      .focus(function() {
+	jQuery('select.predefined', context).hide();
+	jQuery(this).next().show();
+      })
+      .blur(function() {
+	var dropdown = jQuery(this).next();
+	setTimeout(function() { dropdown.hide(); }, 200);
+      });
   }
 
   function fixPage() {
