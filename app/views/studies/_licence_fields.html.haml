@@ -1,7 +1,8 @@
 #licence-fields.tab-body
   %h3 Licence Details
   - if @study.owner.is_archivist
-    %p= @form.check_box :skip_licence
+    - skip = "Licence will be obtained separately (archivists only)"
+    %p= @form.check_box :skip_licence, :label => skip
   - @form.fields_for :licence do |fields|
     %p= fields.text_field :signed_by, :required => true
     %p= fields.text_field :signed_date, :required => true

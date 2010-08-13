@@ -23,4 +23,10 @@ module StudiesHelper
        </a>
      </li>"
   end
+
+  # Preserves paragraph breaks in Nesstar Publisher
+  def format_for_Nesstar(text)
+    chunks = sanitize(text).split("\n").reject(&:blank?)
+    chunks.join("\n<![CDATA[\n]]><![CDATA[\n]]>\n").html_safe
+  end
 end
