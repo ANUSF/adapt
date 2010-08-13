@@ -14,12 +14,21 @@ module ApplicationHelper
     text.blank? ? default : h(text)
   end
 
-  # Formats text using the RedCloth markup engine, then sanitizes.
+  # Translates some formatting into HTML
   def format_text(text)
+    #TODO We'd like to do something more extensive like this:
+    #
+    #     sanitize(RedCloth.new(text).to_html)
+    #
+    # (but RedCloth on jruby apparently chokes on non-ASCII characters)
+
     chunks = text.split("\n").reject(&:blank?)
     sanitize(chunks.map { |p| "<p>#{p}</p>" }.join("\n"))
+  end
 
-    #TODO RedCloth on jruby apparently choke on non-ASCII characters
-    #sanitize(RedCloth.new(text).to_html).untaint
+  # Preserves paragraph breaks in Nesstar Publisher
+  def format_for_Nesstar(text)
+    chunks = sanitize(text).split("\n").reject(&:blank?)
+    chunks.join("\n<![CDATA[\n]]><![CDATA[\n]]>\n").html_safe
   end
 end
