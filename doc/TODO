@@ -1,8 +1,6 @@
 Bugs:
 ----
-- Some drop-down boxes do not appear or don't close (IE8)
-- Some resizable text area boxes are bad at gaining focus on clicks (IE8)
-- abstract gets truncated in study summary
+- Resizable text area boxes don't gain focus (could not reproduce)
 
 Quick tweaks:
 ------------

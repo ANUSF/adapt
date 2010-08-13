@@ -16,6 +16,10 @@ module ApplicationHelper
 
   # Formats text using the RedCloth markup engine, then sanitizes.
   def format_text(text)
-    sanitize(RedCloth.new(text).to_html).untaint
+    chunks = text.split("\n").reject(&:blank?)
+    sanitize(chunks.map { |p| "<p>#{p}</p>" }.join("\n"))
+
+    #TODO RedCloth on jruby apparently choke on non-ASCII characters
+    #sanitize(RedCloth.new(text).to_html).untaint
   end
 end
