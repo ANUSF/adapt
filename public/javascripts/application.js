@@ -64,6 +64,7 @@
 	field.attr('name', field.attr('name').replace(/\d+/, n));
 	field.val('');
       });
+      new_row.find('textarea').TextAreaExpander(40, 200);
       row.parent().append(new_row);
       item.focus();
     }
