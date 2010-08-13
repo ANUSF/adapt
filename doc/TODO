@@ -1,15 +1,17 @@
 Bugs:
 ----
-- Resizable text area boxes don't gain focus (could not reproduce)
+- resizable text area boxes don't work properly in repeatable fields
 
 Quick tweaks:
 ------------
 - generate a file contents.txt (see study 01190 for format)
-- preserve paragraph breaks in abstract in DDI for Nesstar Publisher
-- allow affiliations to be left out (or advise to type 'n.a.'?)
+- allow affiliations to be left out in 'primary investigator' fields
 - in attachment tab, say what kind of documentation is needed
 - instruct depositors to describe parts if study has multiple
 - use Windows-style line-endings in files to be read by humans (?)
+- add next/previous button to move between tabs
+- more prominent help (how?)
+- add option to review attached files before finalizing submission
 
 More substantial, but somewhat urgent:
 -------------------------------------

@@ -25,10 +25,4 @@ module ApplicationHelper
     chunks = text.split("\n").reject(&:blank?)
     sanitize(chunks.map { |p| "<p>#{p}</p>" }.join("\n"))
   end
-
-  # Preserves paragraph breaks in Nesstar Publisher
-  def format_for_Nesstar(text)
-    chunks = sanitize(text).split("\n").reject(&:blank?)
-    chunks.join("\n<![CDATA[\n]]><![CDATA[\n]]>\n").html_safe
-  end
 end
