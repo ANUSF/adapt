@@ -140,9 +140,15 @@
 	item.prev().val(item.selected().val()).keyup();
       })
       .prev()
+      .mousedown(function() {
+	jQuery('select.predefined', context).hide();
+      })
       .focus(function() {
 	jQuery('select.predefined', context).hide();
-	jQuery(this).next().show();
+	jQuery(this).next().show().each(function () {
+	  var item = jQuery(this);
+	  item.css("left", item.prev().position().left);
+	});
       })
       .blur(function() {
 	var dropdown = jQuery(this).next();
