@@ -69,16 +69,17 @@ class Study < ActiveRecord::Base
   validates_each :depositors, :if => :checking do |rec, attr, val|
     if val.nil? or (val['affiliation'].blank? and val['name'].blank?)
       rec.errors.add attr, 'May not be blank.'
-    elsif val['affiliation'].blank? or val['name'].blank?
-      rec.errors.add attr, 'Please provide both a name and an affiliation.'
+    elsif val['name'].blank?
+      rec.errors.add attr,
+        'Please use the name field if depositor is an institution.'
     end
   end
 
   validates_each :principal_investigators, :if => :checking do |rec, attr, val|
     if val.blank?
       rec.errors.add attr, 'Please list at least one.'
-    elsif val.any? { |pi| pi['name'].blank? or pi['affiliation'].blank? }
-      rec.errors.add attr, 'Please provide both names and affiliations.'
+    elsif val.any? { |pi| pi['name'].blank? }
+      rec.errors.add attr, 'Please use the name field if p.i. is an institution.'
     end
   end
 
