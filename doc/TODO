@@ -8,7 +8,6 @@ Quick tweaks:
 - allow affiliations to be left out in 'primary investigator' fields
 - in attachment tab, say what kind of documentation is needed
 - instruct depositors to describe parts if study has multiple
-- use Windows-style line-endings in files to be read by humans (?)
 - add next/previous button to move between tabs
 - more prominent help (how?)
 - add option to review attached files before finalizing submission
