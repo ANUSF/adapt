@@ -24,9 +24,10 @@
           %th Delete
       %tbody
         - @form.fields_for :attachments do |f|
+          - attachment = f.object
           %tr
-            %td=h f.object.name
-            %td=h number_to_human_size(f.object.data.size)
+            %td=link_to h(attachment.name), download_attachment_path(attachment)
+            %td=h number_to_human_size(attachment.data.size)
             %td.with_input
               = f.text_area :description, :label => '', :cols => 30
             %td
@@ -36,7 +37,7 @@
             %td= f.radio_button :category, "Data File", :label => ''
             %td= f.radio_button :category, "Documentation", :label => ''
             %td
-              - if f.object.name.ends_with?('.zip')
+              - if attachment.name.ends_with?('.zip')
                 = f.check_box :extract, :label => ''
             %td= f.check_box :_destroy, :label => ''
 
