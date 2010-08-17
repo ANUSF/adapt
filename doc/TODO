@@ -4,7 +4,6 @@ Bugs:
 
 Quick tweaks:
 ------------
-- generate a file contents.txt (see study 01190 for format)
 - allow affiliations to be left out in 'primary investigator' fields
 - in attachment tab, say what kind of documentation is needed
 - instruct depositors to describe parts if study has multiple
