@@ -243,10 +243,15 @@ class Study < ActiveRecord::Base
     self.permanent_identifier = create_permanent_id(range)
 
     Rails.logger.info 'Writing the files'
-    base = File.join(archive_path, permanent_identifier, "Original")
-    make_fresh_directory(base)
-    make_fresh_directory(base, "Processing")
-    write_files_on_approval(read_licence_file, base)
+    base = File.join(archive_path, permanent_identifier)
+    make_fresh_directory(base, "Original")
+    make_fresh_directory(base, "Original", "Processing")
+    write_files_on_approval(read_licence_file, File.join(base, "Original"))
+
+    write_file(["StudyID=#{identifier}",
+                "Title=#{title}",
+                "#{long_identifier}=#{title}"].join("\r\n") + "\r\n",
+               base, "contents.txt")
 
     Rails.logger.info 'Saving the record'
     self.status = 'stored'
@@ -314,7 +319,8 @@ class Study < ActiveRecord::Base
       a.metadata.merge("Filename" => File.basename(path), "Original" => a.name
                        ).to_yaml
     end
-    write_file(filedata.join("\n"), base, "Processing", "FileDescriptions.txt")
+    write_file(filedata.join("\n").split("\n").join("\r\n") + "\r\n",
+               base, "Processing", "FileDescriptions.txt")
   end
 
   def submission_path
