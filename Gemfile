@@ -21,9 +21,11 @@ gem 'persistent',     :git => "#{MYGEMS}/persistent"
 gem 'verboten',       :git => "#{MYGEMS}/verboten"
 
 group :test do
-  gem "webrat",           :require => false
   gem "cucumber",         :require => false
   gem 'cucumber-rails',   :require => false
+  gem "capybara"
+  gem "celerity"
+  gem "culerity"
   gem 'database_cleaner', :require => false
   gem "machinist"
   gem "faker"
