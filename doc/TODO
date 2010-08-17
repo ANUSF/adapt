@@ -6,13 +6,14 @@ Quick tweaks:
 ------------
 - in attachment tab, say what kind of documentation is needed
 - add a dropdown box for specifying kind of documentation
-- instruct depositors to describe parts if study has multiple
 - add next/previous button to move between tabs
 - save data when changing tabs
+- instruct depositors to describe parts if study has multiple
 - more prominent help (how?)
 
 More substantial, but somewhat urgent:
 -------------------------------------
+- set up a context help system
 - provide automatic virus scanning
 - implement some kind up quota policy for uploading files
 
