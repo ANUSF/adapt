@@ -141,7 +141,7 @@
       })
       .prev()
       .mousedown(function() {
-	jQuery('select.predefined', context).hide();
+	jQuery(this).next().toggle();
       })
       .focus(function() {
 	jQuery('select.predefined', context).hide();
