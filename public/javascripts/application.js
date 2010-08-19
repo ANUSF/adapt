@@ -1,19 +1,4 @@
 (function() {
-  function toggle(item) {
-    var link = jQuery(item);
-    var placeholder = link.parent().find('.proxy');
-    var content = link.parent().find('.collapsible');
-    if (content.is(':visible')) {
-      content.hide();
-      placeholder.show();
-      link.html('[+]');
-    } else {
-      content.show();
-      placeholder.hide();
-      link.html('[&ndash;]');
-    }
-  }
-
   function select_tab() {
     var link = jQuery(this);
     var ref = link.attr('href');
@@ -82,28 +67,6 @@
 
     // -- auto-resize certain textareas (must be done before hiding content)
     jQuery('table textarea').TextAreaExpander(40, 200);
-
-    // -- deals with collapsible page content
-    jQuery('.collapsible', context).wrap("<div/>").each(function() {
-      var content = jQuery(this);
-      content.before('<div class="proxy">&hellip;</div><div class="clear"/>');
-      var link = jQuery('<a href="" class="toggle noprint"/>');
-      content.parent().prepend(link);
-      if (content.hasClass('start-open')) content.hide();
-      toggle(link);
-    });
-    jQuery('.toggle', context).click(function() {
-      toggle(this);
-      return false;
-    });
-    jQuery('.toggle', context).hover(function() {
-      jQuery(this).parent().find('.proxy').addClass('toggle-show');
-      jQuery(this).parent().find('.collapsible').addClass('toggle-hide');
-      return false;
-    }, function() {
-      jQuery(this).parent().find('.proxy').removeClass('toggle-show');
-      jQuery(this).parent().find('.collapsible').removeClass('toggle-hide');
-    });
 
     // -- handles tabs
     jQuery('.tabs-container', context).each(function() {
