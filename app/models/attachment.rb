@@ -1,6 +1,9 @@
 class Attachment < ActiveRecord::Base
   ASSET_PATH = ADAPT::CONFIG['adapt.asset.path']
 
+  VALID_CATEGORIES = ["Data File", "Questionnaire", "Report", "Coding Frame",
+                      "Codebook", "Notes", "Other Documentation"]
+
   include ActionView::Helpers::NumberHelper
   include FileHandling
 
@@ -13,14 +16,17 @@ class Attachment < ActiveRecord::Base
   after_create :write_data
   before_destroy :delete_file
 
-  validates_inclusion_of :category, :if => :checking,
-    :in => ['Data File', 'Documentation'],
+  validates_inclusion_of :category, :if => :checking, :in => VALID_CATEGORIES,
     :message => "Please select one."
 
   attr_reader :checking
 
+  def empty_selection(column)
+    column.to_sym == :category ? '-- Please select --' : nil
+  end
+
   def selections(column)
-    column.to_sym == :category ? [ "Documentation", "Data File" ] : []
+    column.to_sym == :category ? VALID_CATEGORIES : []
   end
 
   def label_for(column)

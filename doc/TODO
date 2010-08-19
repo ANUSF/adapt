@@ -2,28 +2,28 @@ Bugs:
 ----
 (none currently known)
 
-Quick tweaks:
-------------
-- in attachment tab, say what kind of documentation is needed
-- add a dropdown box for specifying kind of documentation
-- add next/previous button to move between tabs
+High priority:
+-------------
+- add next/previous buttons to move between tabs
 - save data when changing tabs
-- instruct depositors to describe parts if study has multiple
-- more prominent help (how?)
 
-More substantial, but somewhat urgent:
--------------------------------------
+Medium priority:
+---------------
 - set up a context help system
 - provide automatic virus scanning
 - implement some kind up quota policy for uploading files
+- copy attached files to processing folder with standard naming
+- fill in "Related Materials" with info on attached files (?)
 
-Other improvements:
-------------------
+Lower priority:
+--------------
 - allow admins to add or remove archivists (also admins?)
 - allow depositors to describe files they will submit by other means
 - allow depositors to use an existing study as template (?)
-- context help ('question mark' links or suchlike)
-- more detailed categories for attached files: Questionaire, Report, Notes
-- copy attached files to processing folder with standard naming
-- fill in "Related Materials" with info on attached files (?)
 - add a tagging system to support studies with multiple parts
+
+Help and documentation:
+----------------------
+- in attachment tab, say what kind of documentation is needed
+- instruct depositors to describe parts if study has multiple
+- more prominent help (how?)
