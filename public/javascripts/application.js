@@ -1,8 +1,24 @@
 (function() {
+  function send_form_data() {
+    var container = jQuery(this);
+    var form = container.closest('form');
+    var data = new Array();
+    container.find('input,textarea,select').each(function() {
+      var item = jQuery(this);
+      data[item.attr('name')] = item.attr('value');
+    });
+    var text = "";
+    for (var i in data)
+      text = text + i + " => " + data[i] + "\n";
+    alert(text);
+  }
+
   function select_tab() {
     var link = jQuery(this);
     var ref = link.attr('href');
     var container = link.closest('.tabs-container', link);
+    var oldref = container.find('> ul a.current-tab').attr('href');
+    //jQuery('> div' + oldref, container).each(send_form_data);
     jQuery('> div', container).hide();
     jQuery('> div' + ref, container).show();
     jQuery('> ul a', container).removeClass('current-tab');
