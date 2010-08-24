@@ -8,4 +8,20 @@ Rails::Initializer.run do |config|
 
   # -- sets the time zone for this application
   config.time_zone = 'Canberra'
+
+  # -- gems we use
+  config.gem 'activerecord-jdbcsqlite3-adapter', :lib => false
+  config.gem 'jruby-openssl', :lib => false
+
+  config.gem "haml"
+  config.gem "ruby-openid", :lib => "openid"
+  config.gem "RedCloth"
+  config.gem "rubyzip", :lib => "zip/zip"
+
+  config.gem 'formular'
+  config.gem 'json-accessors'
+  config.gem 'lazy'
+  config.gem 'partial-date'
+  config.gem 'persistent'
+  config.gem 'verboten'
 end
