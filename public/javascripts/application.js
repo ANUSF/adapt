@@ -1,24 +1,24 @@
 (function() {
-  function send_form_data() {
-    var container = jQuery(this);
-    var form = container.closest('form');
-    var data = new Array();
-    container.find('input,textarea,select').each(function() {
-      var item = jQuery(this);
-      data[item.attr('name')] = item.attr('value');
+  function select_tab_with_data_refresh() {
+    var link = jQuery(this);
+    var ref = link.attr('href');
+    var container = link.closest('.tabs-container', link);
+    var form = link.closest('form');
+    form.ajaxSubmit({
+      type: 'PUT',
+      url: form.attr('action'),
+      success: function(html, status) {
+	jQuery.djtch.update(container, html);
+	jQuery('.tabs-container> ul a[href=' + ref + ']:first').each(select_tab);
+      }
     });
-    var text = "";
-    for (var i in data)
-      text = text + i + " => " + data[i] + "\n";
-    alert(text);
+    return false;
   }
 
   function select_tab() {
     var link = jQuery(this);
     var ref = link.attr('href');
     var container = link.closest('.tabs-container', link);
-    var oldref = container.find('> ul a.current-tab').attr('href');
-    //jQuery('> div' + oldref, container).each(send_form_data);
     jQuery('> div', container).hide();
     jQuery('> div' + ref, container).show();
     jQuery('> ul a', container).removeClass('current-tab');
@@ -98,8 +98,7 @@
 	  var err = jQuery('> div' + link.attr('href') + ' .error', container);
 	  if (err.size() > 0) link.addClass("with-error");
 	})
-	.click(function() { jQuery('#flash_notice', context).hide(); })
-	.click(select_tab);
+	.click(select_tab_with_data_refresh);
     });
 
     // -- allows multiple file uploads
@@ -152,7 +151,7 @@
     // -- enable ajax templating via jquery.djtch.js
     jQuery.djtch.setup({
       preUpdateHook:  onload,
-      postUpdateHook: fixPage
+      postUpdateHook: onload
     });
     jQuery(document).djtchEnable();
   });
