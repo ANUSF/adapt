@@ -5,7 +5,10 @@
     var container = link.closest('.tabs-container', link);
     var form = link.closest('form');
     form.find('input[name=active_tab]').attr('value', chosen_tab);
-    if (jQuery.browser.msie) {
+
+    if (form.find('.dirty').length == 0) {
+      link.each(select_tab);
+    } else if (jQuery.browser.msie) {
       form.submit();
     } else {
       form.ajaxSubmit({
@@ -44,11 +47,12 @@
     input.attr('value', '');
     input.attr('id', id.replace(/\d+/, n));
     input.attr('name', name.replace(/\d+/, n));
-    elem.after('<p><input type="checkbox" checked="" value="1" ' +
+    input.removeClass('dirty');
+    elem.after('<p><input type="checkbox" class="dirty" checked="" value="1" ' +
 	       'name="' + name.replace(/\[[^\[\]]*\]$/, '[use]') +
 	       '" id="' + id.replace(/_[^_]*$/, '_use') +
 	       '"/>' + elem.val().replace(/^.*[\/\\]/, '') + '</p>');
-    elem.hide();
+    elem.addClass('dirty').hide();
     elem.parent().append(input);
   }
 
@@ -75,15 +79,18 @@
       });
       new_row.find('textarea').TextAreaExpander(40, 200);
       row.parent().append(new_row);
-      item.focus();
+      item.focus().addClass('dirty');
     }
   }
 
   function multitext_cleanup() {
     var item = jQuery(this);
     var row  = item.parent().closest('.multi');
-    if (is_empty(row) && !is_last(row))
+    if (is_empty(row) && !is_last(row)) {
+      row.removeClass('dirty')
+	.nextAll('.multi').find('input,textarea').addClass('dirty');
       setTimeout(function() { row.remove(); }, 200);
+    }
   }
 
   function onload(context) {
@@ -107,6 +114,9 @@
 	  if (err.size() > 0) link.addClass("with-error");
 	})
 	.click(select_tab_with_data_refresh);
+      container.find('input,textarea,select')
+	.change(function() { jQuery(this).addClass('dirty'); })
+	.keyup(function() { jQuery(this).addClass('dirty'); });
     });
 
     // -- allows multiple file uploads
@@ -123,7 +133,8 @@
       })
       .change(function() {
 	var item = jQuery(this);
-	item.prev().val(item.selected().val()).keyup();
+	item.removeClass('dirty');
+	item.prev().val(item.selected().val()).keyup().addClass('dirty');
       })
       .prev()
       .mousedown(function() {
@@ -148,6 +159,9 @@
 	var dropdown = jQuery(this).next();
 	setTimeout(function() { dropdown.hide(); }, 200);
       });
+
+    // -- remove flash notices after some time
+    jQuery('#flash_notice').animate({ opacity: 0 }, 10000);
   }
 
   function fixPage() {

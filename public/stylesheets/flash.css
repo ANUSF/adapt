@@ -1,8 +1,10 @@
 #flash_notice,
 #flash_error {
-  width: 75%;
+  width: 50%;
   padding: 5px 8px;
-  margin: 10px 0; }
+  margin: 10px 0;
+  position: absolute;
+  right: 20px; }
 
 #flash_notice {
   background-color: #ffffcc;

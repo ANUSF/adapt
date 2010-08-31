@@ -125,7 +125,7 @@ class StudiesController < ApplicationController
       submit
     elsif @study.update_attributes(params[:study])
       next_action = result.ends_with?("Exit") ? :show : :edit
-      goto next_action, :notice => 'Changes were saved succesfully.'
+      goto next_action, :notice => 'Changes were saved successfully.'
     else
       goto :edit, :error => 'Changes could not be saved.'
     end
