@@ -1,8 +1,8 @@
 /**
  * jquery.djtch.js - Dynamic Javascript Templating in Client-side HTML
- * 
+ *
  * Requires jquery (>= 1.3) and jquery.forms
- * 
+ *
  * @author olaf.delgado-friedrichs@anu.edu.au
  */
 jQuery.djtch = {

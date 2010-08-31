@@ -226,7 +226,8 @@ If this problem persists, please notify the developer."""
 
   def goto(action, flash_options)
     flash_options.each { |key, val| flash[key] = val }
-    redirect_to :action => action
+    redirect_to :action => action,
+                :stripped => (request.xhr? || params[:stripped]) && "1"
   end
 
   def licence_okay

@@ -1,15 +1,27 @@
 (function() {
   function select_tab_with_data_refresh() {
+    if (jQuery.browser.msie) {
+      jQuery(this).each(select_tab);
+      return false;
+    }
     var link = jQuery(this);
     var ref = link.attr('href');
     var container = link.closest('.tabs-container', link);
     var form = link.closest('form');
+    var action = form.attr('action') + '?stripped=1';
+    var select = function() {
+      jQuery('.tabs-container> ul a[href=' + ref + ']:first').each(select_tab);
+    };
     form.ajaxSubmit({
       type: 'PUT',
-      url: form.attr('action'),
+      url: action,
+      timeout: 20000,
       success: function(html, status) {
 	jQuery.djtch.update(container, html);
-	jQuery('.tabs-container> ul a[href=' + ref + ']:first').each(select_tab);
+	setTimeout(select, 200);
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+	alert("Something went wrong: " + textStatus);
       }
     });
     return false;
@@ -150,7 +162,7 @@
 
     // -- enable ajax templating via jquery.djtch.js
     jQuery.djtch.setup({
-      preUpdateHook:  onload,
+      preUpdateHook:  fixPage,
       postUpdateHook: onload
     });
     jQuery(document).djtchEnable();
