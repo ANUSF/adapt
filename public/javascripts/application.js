@@ -1,29 +1,25 @@
 (function() {
   function select_tab_with_data_refresh() {
-    if (jQuery.browser.msie) {
-      jQuery(this).each(select_tab);
-      return false;
-    }
     var link = jQuery(this);
-    var ref = link.attr('href');
+    var chosen_tab = link.attr('href').replace(/.*#/, '#');
     var container = link.closest('.tabs-container', link);
     var form = link.closest('form');
-    var action = form.attr('action') + '?stripped=1';
-    var select = function() {
-      jQuery('.tabs-container> ul a[href=' + ref + ']:first').each(select_tab);
-    };
-    form.ajaxSubmit({
-      type: 'PUT',
-      url: action,
-      timeout: 20000,
-      success: function(html, status) {
-	jQuery.djtch.update(container, html);
-	setTimeout(select, 200);
-      },
-      error: function(XMLHttpRequest, textStatus, errorThrown) {
-	alert("Something went wrong: " + textStatus);
-      }
-    });
+    form.find('input[name=active_tab]').attr('value', chosen_tab);
+    if (jQuery.browser.msie) {
+      form.submit();
+    } else {
+      form.ajaxSubmit({
+	type: 'PUT',
+	url: form.attr('action') + '?stripped=1',
+	timeout: 20000,
+	success: function(html, status) {
+	  jQuery.djtch.update(container, html);
+	},
+	error: function(XMLHttpRequest, textStatus, errorThrown) {
+	  alert("Something went wrong: " + textStatus);
+	}
+      });
+    }
     return false;
   }
 
@@ -101,7 +97,7 @@
       var container = jQuery(this);
       jQuery('> ul', container).show();
       jQuery('> div', container).hide();
-      jQuery('> input:first', container).attr('name', 'active-tab');
+      jQuery('> input:first', container).attr('name', 'active_tab');
       jQuery('> ul a.current-tab:first', container).each(select_tab);
       jQuery('> ul a', container)
 	.each(function() {

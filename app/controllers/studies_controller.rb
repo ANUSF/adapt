@@ -63,8 +63,9 @@ class StudiesController < ApplicationController
 
   def prepare_for_edit
     @button_texts = [ 'Apply Changes', 'Discard Changes', 'Save and Exit' ]
-    session['active-tab'] = params['active-tab'] if params['active-tab']
-    @active_tab = session['active-tab'] || "#title-fields"
+    session[:active_tab] = params[:active_tab] if params[:active_tab]
+    session[:active_tab] = "#title-fields" if session[:active_tab].blank?
+    @active_tab = session[:active_tab]
   end
 
   def ensure_licence
@@ -227,7 +228,8 @@ If this problem persists, please notify the developer."""
   def goto(action, flash_options)
     flash_options.each { |key, val| flash[key] = val }
     redirect_to :action => action,
-                :stripped => (request.xhr? || params[:stripped]) && "1"
+                :stripped => (request.xhr? || params[:stripped]) && "1",
+                :active_tab => params[:active_tab]
   end
 
   def licence_okay
