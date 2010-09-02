@@ -3,12 +3,12 @@
 #credit-fields.tab-body
   %h3 Credits and Acknowledgements
 
-  %p= @form.tabular :depositors, :required => true, :size => 35
-  %p= @form.tabular :principal_investigators, :required => true, :size => 35
-  %p= @form.tabular :data_producers, :size => 35
-  %p= @form.tabular :funding_agency, :size => 35
-  %p= @form.tabular :other_acknowledgements, :size => 25
-  %p= @form.tabular :references, :size => 25, :rows => 1
+  = @form.tabular :depositors, :required => true, :size => 35
+  = @form.tabular :principal_investigators, :required => true, :size => 35
+  = @form.tabular :data_producers, :size => 35
+  = @form.tabular :funding_agency, :size => 35
+  = @form.tabular :other_acknowledgements, :size => 25
+  = @form.tabular :references, :size => 25, :rows => 1
 
   .clear
  

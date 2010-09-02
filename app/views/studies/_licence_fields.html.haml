@@ -2,11 +2,14 @@
   %h3 Licence Details
   - if @study.owner.is_archivist
     - skip = "Licence will be obtained separately (archivists only)"
-    %p= @form.check_box :skip_licence, :label => skip
+    %div= @form.check_box :skip_licence, :label => skip
+    .clear
   - @form.fields_for :licence do |fields|
-    %p= fields.text_field :signed_by, :required => true
-    %p= fields.text_field :signed_date, :required => true
-    %p= fields.text_field :email, :required => true
+    = fields.text_field :signed_by, :required => true
+    .clear
+    = fields.text_field :signed_date, :required => true
+    .clear
+    = fields.text_field :email, :required => true
     %p
       %label
         Access conditions:

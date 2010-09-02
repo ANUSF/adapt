@@ -1,6 +1,5 @@
 #title-fields.tab-body
   %h3 Title and Abstract
-  %p= @form.text_area :title, :rows => 4, :required => true
-  %p= @form.text_area :abstract, :rows => 16, :required => true
-
+  = @form.text_area :title, :rows => 4, :required => true
+  = @form.text_area :abstract, :rows => 16, :required => true
   .clear

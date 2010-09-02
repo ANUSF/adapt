@@ -1,33 +1,38 @@
 #data-fields.tab-body
   %h3 Data Description
 
-  %p
-    %label
-      Data is
-      %em *
-    = @form.check_box :data_is_qualitative
-    = @form.check_box :data_is_quantitative
-    = @form.errors_on("Data Category")
-  %p= @form.text_area :data_relation
-  %p
-    = @form.tabular :data_kind, :required => true, :size => 40
-    = @form.tabular :time_method, :size => 40
-  %p
-    = @form.tabular :sampling_procedure, :size => 40
-    = @form.tabular :collection_method, :size => 40
-  %p= @form.text_area :sample_population
-  %p= @form.text_field :response_rate, :label_left => true
-  %p
-    %label Time period data refers to:
-    = @form.text_field :period_start, :size => 12
+  %div
+    %p
+      %label
+        Data is
+        %em *
+      = @form.check_box :data_is_qualitative
+      = @form.check_box :data_is_quantitative
+      = @form.errors_on("Data Category")
+  .clear
+  = @form.text_area :data_relation
+  .clear
+  = @form.tabular :data_kind, :required => true, :size => 40
+  = @form.tabular :time_method, :size => 40
+  .clear
+  = @form.tabular :sampling_procedure, :size => 40
+  = @form.tabular :collection_method, :size => 40
+  .clear
+  = @form.text_area :sample_population
+  .clear
+  %div= @form.text_field :response_rate, :label_left => true
+  .clear
+  %div
+    = @form.text_field :period_start, :size => 12, |
+        :label => 'Time period data refers to:', :label_left => true |
     &mdash;
     = @form.text_field :period_end, :size => 12
     = @form.errors_on("period")
-  %p
-    %label Data collection period:
-    = @form.text_field :collection_start, :size => 12
+  .clear
+  %div
+    = @form.text_field :collection_start, :size => 12, |
+        :label => 'Data collection period:', :label_left => true |
     &mdash;
     = @form.text_field :collection_end, :size => 12
     = @form.errors_on("collection")
-
   .clear
