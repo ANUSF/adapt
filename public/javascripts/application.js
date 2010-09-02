@@ -30,9 +30,9 @@
     var link = jQuery(this);
     var ref = link.attr('href');
     var container = link.closest('.tabs-container', link);
-    jQuery('> div', container).hide();
-    jQuery('> div' + ref, container).show();
-    jQuery('> ul a', container).removeClass('current-tab');
+    jQuery('.tab-body', container).css({ display: 'none' });
+    jQuery('.tab-body' + ref, container).css({ display: 'block' });
+    jQuery('.tab-entry a', container).removeClass('current-tab');
     link.addClass('current-tab');
     jQuery('> input:first', container).attr('value', ref);
     return false;
@@ -52,7 +52,7 @@
 	       'name="' + name.replace(/\[[^\[\]]*\]$/, '[use]') +
 	       '" id="' + id.replace(/_[^_]*$/, '_use') +
 	       '"/>' + elem.val().replace(/^.*[\/\\]/, '') + '</p>');
-    elem.addClass('dirty').hide();
+    elem.addClass('dirty').css({ display: 'none' });
     elem.parent().append(input);
   }
 
@@ -102,11 +102,11 @@
     // -- handles tabs
     jQuery('.tabs-container', context).each(function() {
       var container = jQuery(this);
-      jQuery('> ul', container).show();
-      jQuery('> div', container).hide();
+      jQuery('.tab-headers', container).css({ display: 'block' });
+      jQuery('.tab-body', container).css({ display: 'none' });
       jQuery('> input:first', container).attr('name', 'active_tab');
-      jQuery('> ul a.current-tab:first', container).each(select_tab);
-      jQuery('> ul a', container)
+      jQuery('.tab-entry a.current-tab:first', container).each(select_tab);
+      jQuery('.tab-entry a', container)
 	.each(function() {
 	  var link = jQuery(this);
 	  var container = link.closest('.tabs-container', link);
@@ -129,7 +129,7 @@
     // -- update textfields with selection dropdowns
     jQuery('select.predefined', context)
       .blur(function() {
-	jQuery(this).hide();
+	jQuery(this).css({ display: 'none' });
       })
       .change(function() {
 	var item = jQuery(this);
@@ -141,8 +141,8 @@
 	jQuery(this).next().toggle();
       })
       .focus(function() {
-	jQuery('select.predefined', context).hide();
-	jQuery(this).next().show().each(function () {
+	jQuery('select.predefined', context).css({ display: 'none' });
+	jQuery(this).next().css({ display: 'block' }).each(function () {
 	  var item = jQuery(this);
 	  item.css("left", item.prev().position().left);
 	});
@@ -151,13 +151,13 @@
 	var dropdown = jQuery(this).next();
 	  setTimeout(function() {
 	    if (jQuery("*:focus").attr('id') != dropdown.attr('id')) {
-	      dropdown.hide();
+	      dropdown.css({ display: 'none' });
 	    }
 	  }, 200);
       })
       .keyup(function() {
 	var dropdown = jQuery(this).next();
-	setTimeout(function() { dropdown.hide(); }, 200);
+	setTimeout(function() { dropdown.css({ display: 'none' }); }, 200);
       });
 
     // -- remove flash notices after some time
