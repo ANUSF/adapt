@@ -178,7 +178,9 @@
 	.delay(1000)
 	.fadeIn('slow');
     }, function() {
-      jQuery('#tooltip').stop(true, true).text('').hide();
+      jQuery('#tooltip').stop(true, true).fadeOut('fast');
+    }).click(function() {
+      jQuery('#tooltip').stop(true, true).fadeOut('fast');
     }).mousemove(function(e) {
       jQuery('#tooltip')
 	.css({ top: (e.pageY + 10) + 'px',
