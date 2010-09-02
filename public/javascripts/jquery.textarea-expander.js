@@ -18,9 +18,8 @@
  * - the formatting was changed
  * - no class name magic for setting height bounds individually
  * - the TextAreaExpander() method is not called automatically
- * - commented the code that sets the padding to 0 (=> problems on Safari?)
  *
- * Olaf Delgado-Friedrichs, ANUSF, 2010-06-24
+ * Olaf Delgado-Friedrichs, ANUSF, 2010-09-02
  */
 
 /**
@@ -75,7 +74,7 @@
       // zero vertical padding and add events
       if (!this.Initialized) {
 	this.Initialized = true;
-	//$(this).css("padding-top", 0).css("padding-bottom", 0);
+	$(this).css("padding-top", 0).css("padding-bottom", 0);
 	$(this).bind("keyup", ResizeTextarea).bind("focus", ResizeTextarea);
       }
     });
