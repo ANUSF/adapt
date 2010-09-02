@@ -239,3 +239,10 @@ a.toggle {
   background-color: #f8f8f8;
   padding: 0 0.2em;
   margin: 0 0.2em; }
+
+#tooltip {
+  position: absolute;
+  width: 20%;
+  background-color: #ffffcc;
+  padding: 2px;
+  border: 1px solid #cccccc; }

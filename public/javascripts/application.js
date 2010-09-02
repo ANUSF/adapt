@@ -162,6 +162,29 @@
 
     // -- remove flash notices after some time
     jQuery('#flash_notice').animate({ opacity: 0 }, 10000);
+
+    // -- nicer tooltips
+    jQuery('*[title]').each(function() {
+      jQuery(this)
+	.data('tipText', jQuery(this).attr('title'))
+	.removeAttr('title');
+    }).hover(function(e) {
+      jQuery('#tooltip')
+	.stop(true, true)
+	.css('display', 'none')
+	.text(jQuery(this).data('tipText'))
+	.css({ top: (e.pageY + 10) + 'px',
+	       left: (e.pageX + 20) + 'px' })
+	.delay(1000)
+	.fadeIn('slow');
+    }, function() {
+      jQuery('#tooltip').stop(true, true).text('').hide();
+    }).mousemove(function(e) {
+      jQuery('#tooltip')
+	.css({ top: (e.pageY + 10) + 'px',
+	       left: (e.pageX + 20) + 'px' });
+    });
+    jQuery('<p id="tooltip"/>').css('display', 'none').appendTo('body');
   }
 
   function fixPage() {
