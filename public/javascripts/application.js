@@ -103,9 +103,9 @@
     jQuery('.tabs-container', context).each(function() {
       var container = jQuery(this);
       jQuery('.tab-headers', container).css({ display: 'block' });
-      jQuery('.tab-body', container).css({ display: 'none' });
+      jQuery('.tab-body:not[:first]', container).css({ display: 'none' });
       jQuery('> input:first', container).attr('name', 'active_tab');
-      jQuery('.tab-entry a.current-tab:first', container).each(select_tab);
+      jQuery('.tab-entry a.current-tab', container).each(select_tab);
       jQuery('.tab-entry a', container)
 	.each(function() {
 	  var link = jQuery(this);
