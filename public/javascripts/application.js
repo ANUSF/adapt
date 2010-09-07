@@ -196,7 +196,7 @@
     onload(document);
 
     // -- disable the return key in text fields
-    jQuery('input:text').live('keypress', function(ev) {
+    jQuery('form').delegate('input:text', 'keypress', function(ev) {
       return (ev.keyCode != 13);
     });
 
