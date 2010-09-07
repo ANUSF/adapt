@@ -7,23 +7,11 @@
     var form = link.closest('form');
     form.find('input[name=active_tab]').attr('value', ref);
 
-    if (form.find('.dirty').length == 0) {
+    if (form.find('.dirty').length == 0)
       link.each(select_tab);
-    } else if (jQuery.browser.msie) {
+    else
       form.submit();
-    } else {
-      form.ajaxSubmit({
-	type: 'PUT',
-	url: form.attr('action') + '?stripped=1',
-	timeout: 20000,
-	success: function(html, status) {
-	  jQuery.djtch.update(container, html);
-	},
-	error: function(XMLHttpRequest, textStatus, errorThrown) {
-	  alert("Something went wrong: " + textStatus);
-	}
-      });
-    }
+
     return false;
   }
 
@@ -143,9 +131,10 @@
       })
       .focus(function() {
 	jQuery('select.predefined', context).css({ display: 'none' });
-	jQuery(this).next().css({ display: 'block' }).each(function () {
+	jQuery(this).next().each(function () {
 	  var item = jQuery(this);
-	  item.css("left", item.prev().position().left);
+	  var pos = item.prev().position();
+	  item.css({ display: 'block', left: pos.left, top:  pos.bottom });
 	});
       })
       .blur(function() {

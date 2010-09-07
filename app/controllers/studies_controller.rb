@@ -128,7 +128,7 @@ Submit this study now?
     if params[:commit] == 'Submit this study' and may_submit
       submit
     elsif @study.update_attributes(params[:study])
-      next_action = result == "Refresh" ? :edit : :show
+      next_action = result == "Show Summary" ? :show : :edit
       goto next_action, :notice => 'Changes were saved successfully.'
     else
       goto :edit, :error => 'Changes could not be saved.'
