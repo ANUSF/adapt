@@ -1,10 +1,11 @@
 (function() {
   function select_tab_with_data_refresh() {
-    var link = jQuery(this);
-    var chosen_tab = link.attr('href').replace(/.*#/, '#');
-    var container = link.closest('.tabs-container', link);
+    var ref = jQuery(this).attr('href');
+    var selected = jQuery('.tab-body' + ref);
+    var container = selected.closest('.tabs-container');
+    var link = container.find('a.tab-link[href=' + ref + ']');
     var form = link.closest('form');
-    form.find('input[name=active_tab]').attr('value', chosen_tab);
+    form.find('input[name=active_tab]').attr('value', ref);
 
     if (form.find('.dirty').length == 0) {
       link.each(select_tab);
@@ -27,11 +28,12 @@
   }
 
   function select_tab() {
-    var link = jQuery(this);
-    var ref = link.attr('href');
-    var container = link.closest('.tabs-container', link);
+    var ref = jQuery(this).attr('href');
+    var selected = jQuery('.tab-body' + ref);
+    var container = selected.closest('.tabs-container');
+    var link = container.find('a.tab-link[href=' + ref + ']');
     jQuery('.tab-body', container).css({ display: 'none' });
-    jQuery('.tab-body' + ref, container).css({ display: 'block' });
+    selected.css({ display: 'block' });
     jQuery('.tab-entry a', container).removeClass('current-tab');
     link.addClass('current-tab');
     jQuery('> input:first', container).attr('value', ref);
@@ -106,18 +108,17 @@
       jQuery('.tab-body:not[:first]', container).css({ display: 'none' });
       jQuery('> input:first', container).attr('name', 'active_tab');
       jQuery('.tab-entry a.current-tab', container).each(select_tab);
-      jQuery('.tab-entry a', container)
-	.each(function() {
-	  var link = jQuery(this);
-	  var container = link.closest('.tabs-container', link);
-	  var err = jQuery('> div' + link.attr('href') + ' .error', container);
-	  if (err.size() > 0) link.addClass("with-error");
-	})
-	.click(select_tab_with_data_refresh);
+      jQuery('.tab-entry a', container).each(function() {
+	var link = jQuery(this);
+	var container = link.closest('.tabs-container', link);
+	var err = jQuery('> div' + link.attr('href') + ' .error', container);
+	if (err.size() > 0) link.addClass("with-error");
+      });
       container.find('input,textarea,select')
 	.change(function() { jQuery(this).addClass('dirty'); })
 	.keyup(function() { jQuery(this).addClass('dirty'); });
     });
+    jQuery('a.tab-link', context).click(select_tab_with_data_refresh);
 
     // -- allows multiple file uploads
     jQuery('input:file.multi', context).change(file_selected);
