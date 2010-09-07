@@ -62,7 +62,7 @@ class StudiesController < ApplicationController
   end
 
   def prepare_for_edit
-    @button_texts = [ 'Apply Changes', 'Discard Changes', 'Save and Exit' ]
+    @button_texts = [ 'Refresh', 'Show Summary' ]
     session[:active_tab] = params[:active_tab] if params[:active_tab]
     session[:active_tab] = "#title-fields" if session[:active_tab].blank?
     @active_tab = session[:active_tab]
@@ -125,12 +125,10 @@ Submit this study now?
   
   def update
     result = params[:result] || ''
-    if result.starts_with? 'Discard'
-      goto :edit, :notice => 'Reverted to previously saved state.'
-    elsif params[:commit] == 'Submit this study' and may_submit
+    if params[:commit] == 'Submit this study' and may_submit
       submit
     elsif @study.update_attributes(params[:study])
-      next_action = result.ends_with?("Exit") ? :show : :edit
+      next_action = result == "Refresh" ? :edit : :show
       goto next_action, :notice => 'Changes were saved successfully.'
     else
       goto :edit, :error => 'Changes could not be saved.'
