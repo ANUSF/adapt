@@ -113,6 +113,12 @@ class StudiesController < ApplicationController
   end
   
   def edit
+    @warning = """
+Before submitting, please make sure that all information given is
+complete and correct.
+
+Submit this study now?
+"""
     @can_submit = (@study.can_be_submitted_by(current_user) and
                    @study.status == "unsubmitted")
   end

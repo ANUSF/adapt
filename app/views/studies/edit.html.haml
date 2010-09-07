@@ -6,17 +6,13 @@
 %em
   %p
     Please supply as many details as possible. See the
-    %em 'Help'
-    tab for general instructions.
-  - if @can_submit
-    %p
-      Before submitting, make sure that all information given is
-      complete and correct.
+    %a{ :href => '#edit-help', :class => 'tab-link' } Help
+    tab for tips and instructions.
 
 - formular_for @study, :html => {:multipart => true} do |form|
   - @form = form
 
-  %div= submit_tag "Submit this study", :disabled => wait
+  %div= submit_tag "Submit this study", :disabled => wait, :confirm => @warning
   %br
 
   .tabs-container.dj-replace.dj-anchor
