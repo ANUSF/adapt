@@ -149,11 +149,11 @@
       })
       .blur(function() {
 	var dropdown = jQuery(this).next();
-	  setTimeout(function() {
-	    if (jQuery("*:focus").attr('id') != dropdown.attr('id')) {
-	      dropdown.css({ display: 'none' });
-	    }
-	  }, 200);
+	setTimeout(function() {
+	  if (jQuery("*:focus").attr('id') != dropdown.attr('id')) {
+	    dropdown.css({ display: 'none' });
+	  }
+	}, 200);
       })
       .keyup(function() {
 	var dropdown = jQuery(this).next();
