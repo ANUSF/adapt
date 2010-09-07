@@ -12,13 +12,8 @@
       %p
         You can move between tabs and enter information in any
         order. In addition, you can save this form at any time and
-        return to it later.
-    %li
-      %p
-        %span{ :style => "color: red;" } Red text
-        indicates required information that has not yet been
-        provided or input that does not look valid. You will not be
-        able to submit before all red items are cleared.
+        return to it later. Please note however that once you have
+        submitted a study, you will no longer be able to edit it.
     %li
       %p
         Your changes are saved to the server whenever you select a tab
@@ -30,14 +25,16 @@
         server at that point.
     %li
       %p
-        Please note however that once you have submitted a study, you
-        will no longer be able to edit it.
+        %span{ :style => "color: red;" } Red text
+        indicates required information that has not yet been
+        provided or input that does not look valid. You will not be
+        able to submit before all red items are cleared.
     %li
       %p
         Some fields in this form are repeatable. With Javascript
         enabled, additional lines should appear automatically as
         needed. Alternatively, you can press
-        %em 'Apply Changes'
+        %em 'Refresh'
         to see the extra lines.
     %li
       %p
@@ -48,9 +45,17 @@
     %li
       %p
         Dates can be specified as a year, year and month, or full
-        date. Providing a four-digit year and three-letter month
-        as in 'Jan 2010' helps avoid ambiguities, but other
-        formats are also accepted.
+        date. Please use an unambiguous form, as for example
+        %tt '11 Dec 1913'
+        or
+        %tt '1913'
+        (rather than, say
+        %tt '11/12/13'
+        or&nbsp;
+        %tt> '13'
+        ).
+        Dates entered are normalized automatically once you hit
+        %em 'Refresh'.
     %li
       %p
         To delete a study, visit
