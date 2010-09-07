@@ -97,7 +97,7 @@
     fixPage();
 
     // -- auto-resize certain textareas (must be done before hiding content)
-    jQuery('table textarea').TextAreaExpander(40, 200);
+    jQuery('table textarea', context).TextAreaExpander(40, 200);
 
     // -- handles tabs
     jQuery('.tabs-container', context).each(function() {
@@ -161,10 +161,10 @@
       });
 
     // -- remove flash notices after some time
-    jQuery('#flash_notice').animate({ opacity: 0 }, 10000);
+    jQuery('#flash_notice', context).animate({ opacity: 0 }, 10000);
 
     // -- nicer tooltips
-    jQuery('*[title]').each(function() {
+    jQuery('*[title]', context).each(function() {
       jQuery(this)
 	.data('tipText', jQuery(this).attr('title'))
 	.removeAttr('title');
@@ -194,6 +194,11 @@
 
   jQuery(document).ready(function() {
     onload(document);
+
+    // -- disable the return key in text fields
+    jQuery('input:text').live('keypress', function(ev) {
+      return (ev.keyCode != 13);
+    });
 
     // -- enable ajax templating via jquery.djtch.js
     jQuery.djtch.setup({
