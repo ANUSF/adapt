@@ -93,8 +93,7 @@
     jQuery('.tabs-container', context).each(function() {
       var container = jQuery(this);
       jQuery('.tab-headers', container).css({ display: 'block' });
-      jQuery('.tab-body', container).css({ display: 'none' });
-      jQuery('.tab-body:first', container).css({ display: 'block' });
+      jQuery('.tab-body', container).not(':first').css({ display: 'none' });
       jQuery('> input:first', container).attr('name', 'active_tab');
       jQuery('.tab-entry a.current-tab', container).each(select_tab);
       jQuery('.tab-entry a', container).each(function() {
@@ -103,7 +102,7 @@
 	var err = jQuery('> div' + link.attr('href') + ' .error', container);
 	if (err.size() > 0) link.addClass("with-error");
       });
-      container.find('input,textarea,select')
+      container.find('input,textarea,select').not('select.predefined')
 	.change(function() { jQuery(this).addClass('dirty'); })
 	.keyup(function() { jQuery(this).addClass('dirty'); });
     });
@@ -123,8 +122,7 @@
       })
       .change(function() {
 	var item = jQuery(this);
-	item.removeClass('dirty');
-	item.prev().val(item.selected().val()).keyup().addClass('dirty');
+	item.prev().val(item.selected().val()).trigger('keyup');
       })
       .prev()
       .mousedown(function() {
