@@ -27,7 +27,6 @@ Feature: Contributor edits study
     When I follow "Data Description"
     And click on "study_time_method_0"
     And select "time series" from "study_time_method_x_0"
-    And select "time series" from "study_time_method_x_0"
     And fill in "study_time_method_1" with "something else"
     Then the "study_time_method_0" field should contain "time series"
     And the "study_time_method_1" field should contain "something else"

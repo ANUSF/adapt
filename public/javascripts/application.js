@@ -79,7 +79,7 @@
     if (is_empty(row) && !is_last(row)) {
       row.removeClass('dirty')
 	.nextAll('.multi').find('input,textarea').addClass('dirty');
-      setTimeout(function() { row.remove(); }, 200);
+      setTimeout(function() { row.remove(); }, 100);
     }
   }
 
@@ -120,9 +120,11 @@
       .blur(function() {
 	jQuery(this).css({ display: 'none' });
       })
-      .change(function() {
-	var item = jQuery(this);
-	item.prev().val(item.selected().val()).trigger('keyup');
+      .click(function() { // change does not seem to work properly on IE
+      	var item = jQuery(this);
+	setTimeout(function() {
+	  item.prev().val(item.selected().val()).trigger('keyup');
+	}, 100);
       })
       .prev()
       .mousedown(function() {
@@ -142,11 +144,11 @@
 	  if (jQuery("*:focus").attr('id') != dropdown.attr('id')) {
 	    dropdown.css({ display: 'none' });
 	  }
-	}, 200);
+	}, 100);
       })
       .keyup(function() {
 	var dropdown = jQuery(this).next();
-	setTimeout(function() { dropdown.css({ display: 'none' }); }, 200);
+	setTimeout(function() { dropdown.css({ display: 'none' }); }, 100);
       });
 
     // -- remove flash notices after some time
