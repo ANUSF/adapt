@@ -93,7 +93,8 @@
     jQuery('.tabs-container', context).each(function() {
       var container = jQuery(this);
       jQuery('.tab-headers', container).css({ display: 'block' });
-      jQuery('.tab-body:not[:first]', container).css({ display: 'none' });
+      jQuery('.tab-body', container).css({ display: 'none' });
+      jQuery('.tab-body:first', container).css({ display: 'block' });
       jQuery('> input:first', container).attr('name', 'active_tab');
       jQuery('.tab-entry a.current-tab', container).each(select_tab);
       jQuery('.tab-entry a', container).each(function() {
@@ -134,7 +135,7 @@
 	jQuery(this).next().each(function () {
 	  var item = jQuery(this);
 	  var pos = item.prev().position();
-	  item.css({ display: 'block', left: pos.left, top:  pos.bottom });
+	  item.css({ display: 'block', left: pos.left });
 	});
       })
       .blur(function() {
