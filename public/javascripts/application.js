@@ -123,7 +123,7 @@
       .click(function() { // change does not seem to work properly on IE
       	var item = jQuery(this);
 	setTimeout(function() {
-	  item.prev().val(item.selected().val()).trigger('keyup');
+	  item.prev().val(item.val()).trigger('keyup');
 	}, 100);
       })
       .prev()
