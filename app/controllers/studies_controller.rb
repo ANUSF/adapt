@@ -62,7 +62,7 @@ class StudiesController < ApplicationController
   end
 
   def prepare_for_edit
-    @button_texts = [ 'Refresh', 'Show Summary' ]
+    @button_texts = [ 'Apply', 'Revert', 'Show Summary' ]
     session[:active_tab] = params[:active_tab] if params[:active_tab]
     session[:active_tab] = "#edit-help" if session[:active_tab].blank?
     @active_tab = session[:active_tab]
@@ -125,7 +125,9 @@ Submit this study now?
   
   def update
     result = params[:result] || ''
-    if params[:commit] == 'Submit this study' and may_submit
+    if result =~ /Discard|Revert/i
+      goto :edit, :notice => 'Reverted to previous state'
+    elsif params[:commit] == 'Submit this study' and may_submit
       submit
     elsif @study.update_attributes(params[:study])
       next_action = result == "Show Summary" ? :show : :edit
