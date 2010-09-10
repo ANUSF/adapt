@@ -1,16 +1,13 @@
 (function() {
   function tooltip_css(tooltip, mouse_x, mouse_y) {
-    var result = {};
     var win = jQuery(window);
-    var left = mouse_x + 20;
-    var top = mouse_y + 10;
+    var left = Math.min(mouse_x + 20, win.width() - tooltip.outerWidth());
+    var top = Math.min(mouse_y + 10,
+		       win.height() + win.scrollTop() - tooltip.outerHeight());
+    if (mouse_x + 20 > left && mouse_y + 10 > top)
+      left = mouse_x - tooltip.outerWidth() - 20;
 
-    if (left + tooltip.outerWidth() > win.width())
-      left -= (tooltip.outerWidth() + 40);
-    if (top + tooltip.outerHeight() > win.height() + win.scrollTop())
-      top -= (tooltip.outerHeight() + 20);
-
-    return { left: left, top: top };
+    return { left: left, top:  top };
   }
 
   function select_tab_with_data_refresh() {
