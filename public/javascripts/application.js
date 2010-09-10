@@ -1,4 +1,18 @@
 (function() {
+  function tooltip_css(tooltip, mouse_x, mouse_y) {
+    var result = {};
+    var win = jQuery(window);
+    var left = mouse_x + 20;
+    var top = mouse_y + 10;
+
+    if (left + tooltip.outerWidth() > win.width())
+      left -= (tooltip.outerWidth() + 40);
+    if (top + tooltip.outerHeight() > win.height() + win.scrollTop())
+      top -= (tooltip.outerHeight() + 20);
+
+    return { left: left, top: top };
+  }
+
   function select_tab_with_data_refresh() {
     var ref = jQuery(this).attr('href');
     var selected = jQuery('.tab-body' + ref);
@@ -160,22 +174,24 @@
 	.data('tipText', jQuery(this).attr('title'))
 	.removeAttr('title');
     }).hover(function(e) {
-      jQuery('#tooltip')
-	.stop(true, true)
-	.css('display', 'none')
-	.text(jQuery(this).data('tipText'))
-	.css({ top: (e.pageY + 10) + 'px',
-	       left: (e.pageX + 20) + 'px' })
-	.delay(1000)
-	.fadeIn('slow');
+      var tipText = jQuery(this).data('tipText');
+      if (tipText != null && tipText.length > 0) {
+	var tooltip = jQuery('#tooltip');
+	tooltip
+	  .stop(true, true)
+	  .css('display', 'none')
+	  .text(tipText)
+	  .css(tooltip_css(tooltip, e.pageX, e.pageY))
+	  .delay(1000)
+	  .fadeIn('slow');
+      }
     }, function() {
       jQuery('#tooltip').stop(true, true).fadeOut('fast');
     }).click(function() {
       jQuery('#tooltip').stop(true, true).fadeOut('fast');
     }).mousemove(function(e) {
-      jQuery('#tooltip')
-	.css({ top: (e.pageY + 10) + 'px',
-	       left: (e.pageX + 20) + 'px' });
+      var tooltip = jQuery('#tooltip');
+      tooltip.css(tooltip_css(tooltip, e.pageX, e.pageY));
     });
     jQuery('<p id="tooltip"/>').css('display', 'none').appendTo('body');
   }
