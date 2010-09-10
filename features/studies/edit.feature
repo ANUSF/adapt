@@ -10,7 +10,7 @@ Feature: Contributor edits study
     And I am on the study edit page for "First Study"
 
   Scenario: Applying changes
-    When I press "Refresh"
+    When I press "Apply"
     Then I should be on the study edit page for "First Study"
 
   @javascript
