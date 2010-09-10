@@ -44,20 +44,25 @@
 
   function file_selected() {
     var elem = jQuery(this);
-    var input = elem.clone(true);
     var id = elem.attr('id');
     var name = elem.attr('name');
     var n = parseInt(id.match(/\d+/)) + 1;
-    input.attr('value', '');
-    input.attr('id', id.replace(/\d+/, n));
-    input.attr('name', name.replace(/\d+/, n));
-    input.removeClass('dirty');
-    elem.after('<p><input type="checkbox" class="dirty" checked="" value="1" ' +
-	       'name="' + name.replace(/\[[^\[\]]*\]$/, '[use]') +
-	       '" id="' + id.replace(/_[^_]*$/, '_use') +
-	       '"/>' + elem.val().replace(/^.*[\/\\]/, '') + '</p>');
-    elem.addClass('dirty').css({ display: 'none' });
-    elem.parent().append(input);
+    var checkbox = jQuery('<input type="checkbox" checked=""/>')
+      .attr('value', '1')
+      .attr('name', name.replace(/\[[^\[\]]*\]$/, '[use]'))
+      .attr('id', id.replace(/_[^_]*$/, '_use'));
+    var input = elem.clone(true)
+      .attr('value', '')
+      .attr('id', id.replace(/\d+/, n))
+      .attr('name', name.replace(/\d+/, n))
+      .removeClass('dirty');
+    elem
+      .addClass('dirty')
+      .css({ display: 'none' })
+      .after('<p/>').next()
+      .append(checkbox)
+      .append(elem.val().replace(/^.*[\/\\]/, ''))
+      .after(input);
   }
 
   function is_last(row) {
