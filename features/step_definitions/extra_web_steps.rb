@@ -9,6 +9,14 @@ When /^(?:|I )click on "([^"]*)"(?: within "([^"]*)")?$/ do |field, selector|
   end
 end
 
+When /^(?:|I )hover on "([^\"]*)"$/ do |selector|
+  page.locate(:css, selector).trigger(:mouseover)
+end
+
+When /^(?:|I )pause for ([\d]+) second(?:s)$/ do |seconds|
+  sleep(seconds.to_i)
+end
+
 Then /^(?:|I )should not be on (.+)$/ do |page_name|
   URI.parse(current_url).path.should_not == path_to(page_name)
 end
@@ -65,7 +73,8 @@ Then /^(?:|I )should not see \/([^\"\/]*)\/ in the "([^\"]*)" column$/ do
   column_contents(col).should_not include(Regexp.new(regexp))
 end
 
-Then /^the "([^"]*)" field(?: within "([^"]*)")? should be empty$/ do |field, selector|
+Then /^the "([^\"]*)" field(?: within "([^\"]*)")? should be empty$/ do
+  |field, selector|
   with_scope(selector) do
     field = find_field(field)
     field_value = (field.tag_name == 'textarea') ? field.text : field.value
@@ -77,8 +86,13 @@ Then /^the "([^"]*)" field(?: within "([^"]*)")? should be empty$/ do |field, se
   end
 end
 
-Then /^there should be no "([^"]*)" field(?: within "([^"]*)")?$/ do |field, selector|
+Then /^there should be no "([^\"]*)" field(?: within "([^\"]*)")?$/ do
+  |field, selector|
   with_scope(selector) do
     find_field(field).should == nil
   end
+end
+
+Then /^show me the content of "([^\"]*)"$/ do |selector|
+  puts "\n!!! \"#{selector}\" has content \"#{find(selector).text}\" !!!"
 end
