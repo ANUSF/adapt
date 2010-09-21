@@ -5,7 +5,7 @@
 %hr
 - if @study.status == "unsubmitted"
   %fieldset
-    - form_tag submit_study_url(@study) do
+    = form_tag submit_study_url(@study) do
       %p
         %input{ :name => "licence_text", :type => "hidden", :value => @text }
         %input{ :name => "result", :type => "submit", :value => "Cancel" }

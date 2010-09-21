@@ -39,6 +39,7 @@ module ADAPT
   # base directory for relative paths.
   def self.make_path(val, default, base)
     val = default if val.blank?
+    val = val.to_s
     (val.blank? or val == File.expand_path(val)) ? val : File.join(base, val)
   end
 
@@ -76,7 +77,8 @@ module ADAPT
   end
 
   # -- handle relative paths
-  config['adapt.home'] = make_path(config['adapt.home'], Rails.root, user_home)
+  config['adapt.home'] = make_path(config['adapt.home'],
+                                   Rails.root.to_s, user_home)
   config['adapt.asset.path'] = make_path(config['adapt.asset.path'], 'assets',
                                          config['adapt.home'])
   config['adapt.archive.path'] = make_path(config['adapt.archive.path'],
