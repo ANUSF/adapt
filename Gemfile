@@ -17,7 +17,8 @@ gem 'partial-date',   :git => "#{ENV['HOME']}/Rails/my-gems/partial-date"
 gem 'persistent',     :git => "#{ENV['HOME']}/Rails/my-gems/persistent"
 gem 'verboten',       :git => "#{ENV['HOME']}/Rails/my-gems/verboten"
 
-group :test do
+group :development, :test do
+  gem 'test-unit', '1.2.3'
   gem 'capybara'
   gem 'cucumber-rails'
   gem 'cucumber'
