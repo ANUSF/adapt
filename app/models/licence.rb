@@ -69,8 +69,6 @@ class Licence < ActiveRecord::Base
     end
   end
   
-  protected
-
   def ready_for_submission?
     @checking = true
     result = valid?

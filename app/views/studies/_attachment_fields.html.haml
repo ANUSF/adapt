@@ -44,8 +44,8 @@
       (You can upload files either separately or in batches packaged
       as ZIP files. The latter can be submitted as is or the
       individual files extracted after uploading.)
-  - @form.fields_for :uploads, Attachment.new do |f|
-    - label = Rails.env.cucumber? ? 'Upload' : ''
+  = @form.fields_for :uploads, Attachment.new do |f|
+    - label = Rails.env.test? ? 'Upload' : ''
     = f.file_field :content, :label => label, :multi => true, :size => 0
 
   .clear

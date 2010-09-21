@@ -10,6 +10,17 @@ Feature: Dynamic behaviour when editing a study
     And I am logged in as Alice
     And I am on the study edit page for "First Study"
 
+  Scenario: Edits are saved when a new tab is selected
+    When I follow "Data Description"
+    And fill in "Response rate:" with "90%"
+    And I follow "Credits"
+    Then I should see a notice "Changes were saved"
+
+  Scenario: Nothing is saved on tab change if there were no edits
+    When I follow "Data Description"
+    And I follow "Credits"
+    Then I should not see "Changes were saved"
+
   Scenario: Attaching a file
     When I follow "Attached Files"
     And attach the file "/home/olaf/vapour.c" to "Upload"
@@ -27,18 +38,6 @@ Feature: Dynamic behaviour when editing a study
     And the "study_time_method_2" field should be empty
     And there should be no "study_time_method_3" field
 
-  Scenario: Edits are saved when a new tab is selected
-    When I follow "Data Description"
-    And fill in "Response rate:" with "90%"
-    And I follow "Credits"
-    Then I should see a notice "Changes were saved"
-
-  Scenario: Nothing is saved on tab change if there were no edits
-    When I follow "Data Description"
-    And I follow "Credits"
-    Then I should not see "Changes were saved"
-
-  @focus
   Scenario: Tool tips are shown when the mouse pointer stays over a field
     When I follow "Data Description"
     And I hover on "#study_data_relation"

@@ -28,7 +28,7 @@ Given /^the study "([^\"]*)" is ready for submission$/ do |title|
   Given "the study \"#{title}\" has access mode \"A\""
   Given "the study \"#{title}\" has an attached data file \"test\""
   study = model("study: \"#{title}\"")
-  study.data_kind = "unknown"
+  study.data_kind = ["unknown"]
   study.data_is_quantitative = "1"
   study.depositors = { "name" => "me", "affiliation" => "my uni" }
   study.principal_investigators = [{ "name" => "me", "affiliation" => "my uni" }]
