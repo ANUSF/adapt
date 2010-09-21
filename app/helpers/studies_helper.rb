@@ -21,7 +21,7 @@ module StudiesHelper
        <a href='#{ref}' class='#{the_class}'>
          <span>#{text}</span>
        </a>
-     </li>"
+     </li>".html_safe
   end
 
   # Preserves paragraph breaks in Nesstar Publisher
