@@ -208,6 +208,7 @@ class Study < ActiveRecord::Base
   def ddi(with_id = nil)
     av = ActionView::Base.new(*Rails.configuration.paths.app.views)
     av.extend StudiesHelper
+    #FIXME what to use instead of assigns in Rails 3?
     av.assigns[:study] = self
     av.assigns[:identifier] = with_id || self.identifier
     av.render 'studies/ddi.xml'
