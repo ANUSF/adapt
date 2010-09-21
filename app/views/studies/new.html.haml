@@ -1,7 +1,7 @@
 - title "New Study"
 - stylesheet :forms
 
-- formular_for @study do |f|
+= formular_for @study do |f|
   %p= f.text_area :title, :rows => 4, :required => true
   %p= f.text_area :abstract, :rows => 16, :required => true
 

@@ -9,7 +9,7 @@
 
 - if @study.status == "submitted" and @study.can_be_approved_by current_user
   .box
-    - formular_for @study, :url => approve_study_path(@study), |
+    = formular_for @study, :url => approve_study_path(@study), |
                            :html => { :method => :post } do |f| |
       Archivist:
       = f.select :archivist, :label => ''
@@ -26,7 +26,7 @@
   %hr
 - elsif @study.can_be_stored_by current_user
   .box
-    - formular_for @study, :url => store_study_path(@study), |
+    = formular_for @study, :url => store_study_path(@study), |
                            :html => { :method => :post } do |f| |
       Number range for ID:
       = f.select :id_range, :label => ''

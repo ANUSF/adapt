@@ -3,7 +3,7 @@
 # (c)2010 ANUSF
 
 class ApplicationController < ActionController::Base
-  unless ActionController::Base.consider_all_requests_local
+  unless Rails.application.config.consider_all_requests_local
     rescue_from Exception,                            :with => :render_error
     rescue_from ActiveRecord::RecordNotFound,         :with => :render_not_found
     rescue_from ActionController::RoutingError,       :with => :render_not_found
@@ -25,7 +25,6 @@ class ApplicationController < ActionController::Base
 
   # -- protects from CSRF attacks via an authenticity token
   protect_from_forgery
-  filter_parameter_logging :authenticity_token, :licence_text
 
   # -- this handles session expiration, invalid IP addresses, etc.
   around_filter :validate_session
