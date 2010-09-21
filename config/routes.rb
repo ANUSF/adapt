@@ -1,16 +1,22 @@
-ActionController::Routing::Routes.draw do |map|
-  map.resources :user_sessions
-  map.resources :users
-  map.resources :studies, :shallow => true,
-                :member => { :approve => :post,
-                             :store   => :post,
-                             :submit  => :post } do |studies|
-    studies.resources :attachments, :member => { :download => :get }
-    studies.resources :licences, :member => { :accept => :post }
+Adapt::Application.routes.draw do
+  resources :user_sessions
+  resources :users
+  resources :studies do
+    member do
+      post 'approve'
+      post 'store'
+      post 'submit'
+    end
+    resources :attachments do
+      get 'download'
+    end
+    resources :licences do
+      post 'accept'
+    end
   end
 
-  map.login "login", :controller => 'user_sessions', :action => 'new'
-  map.logout "logout", :controller => 'user_sessions', :action => 'destroy'
+  match 'login', :to => 'user_sessions#new'
+  match 'logout', :to => 'user_sessions#destroy'
 
-  map.root :login
+  root :to => 'user_sessions#new'
 end
