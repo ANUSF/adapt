@@ -21,7 +21,7 @@
               Extract
           %th Delete
       %tbody
-        - @form.fields_for :attachments do |f|
+        = @form.fields_for :attachments do |f|
           - attachment = f.object
           %tr
             %td=link_to h(attachment.name), download_attachment_path(attachment)

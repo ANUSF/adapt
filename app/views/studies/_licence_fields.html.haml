@@ -4,7 +4,7 @@
     - skip = "Licence will be obtained separately (archivists only)"
     %div= @form.check_box :skip_licence, :label => skip
     .clear
-  - @form.fields_for :licence do |fields|
+  = @form.fields_for :licence do |fields|
     = fields.text_field :signed_by, :required => true
     .clear
     = fields.text_field :signed_date, :required => true

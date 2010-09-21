@@ -10,7 +10,6 @@ Feature: Contributor submits study
     And Alice has a study entitled "First Study"
     And I am logged in as Alice
 
-  @focus
   Scenario: License form is shown for review
     Given the study "First Study" is ready for submission
     When I go to the study edit page for "First Study"
