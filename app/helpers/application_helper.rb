@@ -10,7 +10,7 @@ module ApplicationHelper
   end
 
   # Does normal html encoding plus replaces blank text with a default value.
-  def cleanup(text, default = "&mdash;")
+  def cleanup(text, default = "&mdash;".html_safe)
     text.blank? ? default : h(text)
   end
 

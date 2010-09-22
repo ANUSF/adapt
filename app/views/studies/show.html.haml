@@ -96,7 +96,8 @@
       = cleanup @study.sample_population
     %li
       %dfn Time period:
-      = [h(@study.period_start), h(@study.period_end)].join(" &mdash; ")
+      - range = [h(@study.period_start), h(@study.period_end)]
+      = range.join(" &mdash; ").html_safe
     %li
       %dfn Response rate:
       = cleanup @study.response_rate
@@ -108,7 +109,8 @@
       = cleanup((@study.collection_method || []).join(", ").humanize)
     %li
       %dfn Collection period:
-      = [h(@study.collection_start), h(@study.collection_end)].join(" &mdash; ")
+      - range = [h(@study.collection_start), h(@study.collection_end)]
+      = range.join(" &mdash; ").html_safe
 
   %hr
   %ul
