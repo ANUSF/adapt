@@ -357,7 +357,7 @@ class Study < ActiveRecord::Base
     path = File.join(Rails.root, "config", "study_annotations.yml")
     config = transposed(YAML::load(File.open(path)))
 
-    config[:selections][:archivist] = lambda {
+    config[:selections][:archivist] = lambda { |item, col|
       User.archivists.map { |a| [a.name, a.id] }
     }
     config[:selections][:id_range] =
