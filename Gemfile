@@ -1,9 +1,9 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.0'
+gem 'rails', '~> 3.0.0'
 
 gem 'haml'
-gem 'mongrel', '1.2.0.pre2'
+gem 'mongrel', '~> 1.2.0.pre2'
 gem 'RedCloth'
 gem 'ruby-openid',  :require => 'openid'
 gem 'rubyzip',      :require => 'zip/zip'
@@ -18,11 +18,11 @@ gem 'persistent',     :git => "#{ENV['HOME']}/Rails/my-gems/persistent"
 gem 'verboten',       :git => "#{ENV['HOME']}/Rails/my-gems/verboten"
 
 group :development, :test do
-  gem 'test-unit', '1.2.3'
+  gem 'test-unit', '~> 1.2.3'
   gem 'capybara'
   gem 'cucumber-rails'
   gem 'cucumber'
-  gem 'rspec-rails', '>= 2.0.0.beta.20'
+  gem 'rspec-rails', '~> 2.0.0.beta.20'
   gem 'database_cleaner'
   gem 'launchy'    # So you can do Then show me the page
   gem 'machinist'
