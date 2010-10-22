@@ -126,22 +126,34 @@ class Study < ActiveRecord::Base
     %w{submitted approved stored}.include? status
   end
 
+  def is_owned_by(person)
+    person.is_a? User and owner and person.id == owner.id
+  end
+
+  def is_curated_by(person)
+    person.is_a? User and archivist and person.id == archivist.id
+  end
+
+  def is_managed_by(person)
+    person.is_a? User and manager and person.id == manager.id
+  end
+
   def can_be_viewed_by(person)
-    person and (person.is_archivist or person == owner)
+    person and (person.is_archivist or is_owned_by(person))
   end
 
   def is_listed_for(person)
-    person and (person == owner or
-                (person.is_archivist and person == archivist) or
+    person and (is_owned_by(person) or
+                (person.is_archivist and is_curated_by(person)) or
                 (person.is_admin and is_submitted))
   end
 
   def can_be_edited_by(person)
     if person and person.is_archivist
       #TODO change this when editing of approved studies works correctly
-      person == archivist and not is_submitted
+      is_curated_by(person) and not is_submitted
     else
-      person == owner and not is_submitted
+      is_owned_by(person) and not is_submitted
     end
   end
 
@@ -150,7 +162,7 @@ class Study < ActiveRecord::Base
   end
 
   def can_be_submitted_by(person)
-    person and (person == owner or person == archivist)
+    person and (is_owned_by(person) or is_curated_by(person))
   end
   
   def can_be_approved_by(person)
@@ -158,7 +170,7 @@ class Study < ActiveRecord::Base
   end
   
   def can_be_stored_by(person)
-    person and person.is_archivist and person == archivist and
+    person and person.is_archivist and is_curated_by(person) and
       ( %w{submitted approved}.include? status or 
         ( status == 'stored' and permanent_identifier.starts_with? 'test') )
   end
@@ -198,7 +210,7 @@ class Study < ActiveRecord::Base
     av.extend StudiesHelper
     av.assigns[:study] = self
     av.assigns[:identifier] = with_id || self.identifier
-    av.render "studies/ddi.xml"
+    av.render 'studies/ddi.xml'
   end
 
   def submit(licence_text)
@@ -346,7 +358,7 @@ class Study < ActiveRecord::Base
     path = File.join(Rails.root, "config", "study_annotations.yml")
     config = transposed(YAML::load(File.open(path)))
 
-    config[:selections][:archivist] = lambda {
+    config[:selections][:archivist] = lambda { |item, col|
       User.archivists.map { |a| [a.name, a.id] }
     }
     config[:selections][:id_range] =

@@ -34,13 +34,13 @@ class ApplicationController < ActionController::Base
   private
 
   def render_not_found(exception)
-    log_error(exception)
+    Rails.logger.error(exception)
     @exception = exception
     render :template => "/errors/404.html.haml", :status => 404
   end
 
   def render_error(exception)
-    log_error(exception)
+    Rails.logger.error(exception)
     @exception = exception
     render :template => "/errors/500.html.haml", :status => 500
     unless Rails.env == 'development'

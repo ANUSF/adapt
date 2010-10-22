@@ -225,7 +225,7 @@ If this problem persists, please notify the developer."""
   end
 
   def log_and_notify_of_error(ex)
-    Rails.logger.error(ex)
+    Rails.logger.error(ex.to_s + "\n" + ex.backtrace[0..50].join("\n"))
     unless Rails.env == 'development'
       UserMailer.deliver_error_notification(ex)
     end

@@ -11,7 +11,7 @@ class Attachment < ActiveRecord::Base
 
   attr_accessible :content, :category, :format, :description, :extract
 
-  attr_reader :extracted
+  attr_reader :extracted, :checking, :content
 
   after_create :write_data
   before_destroy :delete_file
@@ -19,7 +19,11 @@ class Attachment < ActiveRecord::Base
   validates_inclusion_of :category, :if => :checking, :in => VALID_CATEGORIES,
     :message => "Please select one."
 
-  attr_reader :checking
+  validates_presence_of :name, :on => :create,
+    :message => "Please select a file."
+
+  validates_presence_of :content, :on => :create,
+    :message => "The selected file '#{self.name}' seems empty." 
 
   def empty_selection(column)
     column.to_sym == :category ? '-- Please select --' : nil
@@ -68,8 +72,6 @@ class Attachment < ActiveRecord::Base
     self.new(:content => Struct.new(:original_filename, :read).new(name, data))
   end
 
-  protected
-
   def ready_for_submission?
     @checking = true
     result = valid?
@@ -77,14 +79,7 @@ class Attachment < ActiveRecord::Base
     result
   end
 
-  def validate_on_create
-    if self.name.blank?
-      errors.add("content", "Please select a file.")
-    elsif @content.blank?
-      errors.add("content", "The selected file '#{self.name}' seems empty.")
-    end
-    super
-  end
+  protected
 
   def path_components
     [ASSET_PATH, "Temporary",
