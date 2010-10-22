@@ -1,4 +1,4 @@
-require 'java'
+require 'java' if defined?(JRUBY_VERSION)
 
 # -- we run this before Rails does its monkey-patching, and we want 'blank?'
 class Object
@@ -39,14 +39,15 @@ module ADAPT
   # base directory for relative paths.
   def self.make_path(val, default, base)
     val = default if val.blank?
+    val = val.to_s
     (val.blank? or val == File.expand_path(val)) ? val : File.join(base, val)
   end
 
   # -- get application defaults
-  defaults = YAML::load(File.open(File.join(RAILS_ROOT, "config",
+  defaults = YAML::load(File.open(File.join(Rails.root, "config",
                                             "adapt_defaults.yml")))
   config = defaults[RAILS_ENV] || {}
-  user_home = RAILS_ROOT
+  user_home = Rails.root.to_s
 
   # -- override with servlet context if any
   if defined?(JRUBY_VERSION) && defined?($servlet_context)
@@ -76,7 +77,8 @@ module ADAPT
   end
 
   # -- handle relative paths
-  config['adapt.home'] = make_path(config['adapt.home'], RAILS_ROOT, user_home)
+  config['adapt.home'] = make_path(config['adapt.home'],
+                                   Rails.root.to_s, user_home)
   config['adapt.asset.path'] = make_path(config['adapt.asset.path'], 'assets',
                                          config['adapt.home'])
   config['adapt.archive.path'] = make_path(config['adapt.archive.path'],
