@@ -21,6 +21,7 @@ Feature: Dynamic behaviour when editing a study
     And I follow "Credits"
     Then I should not see "Changes were saved"
 
+  @js-advanced
   Scenario: Attaching a file
     When I follow "Attached Files"
     And attach the file "/home/olaf/vapour.c" to "Upload"
@@ -28,6 +29,7 @@ Feature: Dynamic behaviour when editing a study
     Then I should see "vapour.c"
     And I should see "warez.c"
 
+  @js-advanced
   Scenario: Filling in repeatable fields with drop-down selections
     When I follow "Data Description"
     And click on "study_time_method_0"
@@ -38,6 +40,7 @@ Feature: Dynamic behaviour when editing a study
     And the "study_time_method_2" field should be empty
     And there should be no "study_time_method_3" field
 
+  @js-advanced
   Scenario: Tool tips are shown when the mouse pointer stays over a field
     When I follow "Data Description"
     And I hover on "#study_data_relation"
