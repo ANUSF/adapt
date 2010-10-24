@@ -38,5 +38,5 @@ end
 
 When /^I submit the study "([^\"]*)"$/ do |title|
   driver = Capybara.current_session.driver
-  driver.process :post, submit_study_path(model("study: \"#{title}\""))
+  driver.process :post, submit_adapt_study_path(model("study: \"#{title}\""))
 end

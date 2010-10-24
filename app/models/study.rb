@@ -209,7 +209,7 @@ class Study < ActiveRecord::Base
     av = ActionView::Base.new(*Rails.configuration.paths.app.views)
     av.extend StudiesHelper
     av.assign :study => self, :identifier => (with_id || self.identifier)
-    av.render 'studies/ddi.xml'
+    av.render 'adapt/studies/ddi.xml'
   end
 
   def submit(licence_text)

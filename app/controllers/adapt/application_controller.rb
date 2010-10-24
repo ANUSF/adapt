@@ -2,7 +2,7 @@
 #
 # (c)2010 ANUSF
 
-class ApplicationController < ActionController::Base
+class Adapt::ApplicationController < ActionController::Base
   unless Rails.application.config.consider_all_requests_local
     rescue_from Exception,                            :with => :render_error
     rescue_from ActiveRecord::RecordNotFound,         :with => :render_not_found
@@ -35,13 +35,13 @@ class ApplicationController < ActionController::Base
   def render_not_found(exception)
     Rails.logger.error(exception)
     @exception = exception
-    render :template => "/errors/404.html.haml", :status => 404
+    render :template => "adapt/errors/404.html.haml", :status => 404
   end
 
   def render_error(exception)
     Rails.logger.error(exception)
     @exception = exception
-    render :template => "/errors/500.html.haml", :status => 500
+    render :template => "adapt/errors/500.html.haml", :status => 500
     unless Rails.env == 'development'
       UserMailer.deliver_error_notification(exception)
     end

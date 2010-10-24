@@ -24,7 +24,8 @@
         = @form.fields_for :attachments do |f|
           - attachment = f.object
           %tr
-            %td=link_to h(attachment.name), download_attachment_path(attachment)
+            %td=link_to h(attachment.name), |
+                  download_adapt_attachment_path(attachment) |
             %td=h number_to_human_size(attachment.data.size)
             %td.with_input
               = f.text_area :description, :label => '', :cols => 30

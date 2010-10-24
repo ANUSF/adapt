@@ -1,5 +1,5 @@
 # The controller for editing and displaying user profiles.
-class UsersController < ApplicationController
+class Adapt::UsersController < Adapt::ApplicationController
   # -- declare access permissions via the 'verboten' plugin
   permit :edit, :update, :if => :logged_in
 
@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     end
     if @user.save
       flash[:notice] = "Successfully updated profile."
-      redirect_to params[:last_url] || studies_url
+      redirect_to params[:last_url] || adapt_studies_url
     else
       render :action => 'edit'
     end

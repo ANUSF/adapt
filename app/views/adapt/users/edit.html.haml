@@ -1,7 +1,7 @@
 - title "Edit User Profile"
 - stylesheet :forms
 
-= formular_for @user do |f|
+= formular_for @user, :url => adapt_user_path(@user) do |f|
   %p= f.text_field :name
   %p= f.text_area :address, :rows => 6
   %p= f.text_field :telephone

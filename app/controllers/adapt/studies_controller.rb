@@ -1,4 +1,4 @@
-class StudiesController < ApplicationController
+class Adapt::StudiesController < Adapt::ApplicationController
   # ----------------------------------------------------------------------------
   # Authorization and other filtering.
   # ----------------------------------------------------------------------------
@@ -96,7 +96,7 @@ class StudiesController < ApplicationController
 
       if @study.save
         flash[:notice] = 'Study entry created.'
-        redirect_to edit_study_url(@study)
+        redirect_to edit_adapt_study_url(@study)
       else
         flash.now[:error] =
           "Study creation failed. Please correct the fields marked in red."
@@ -172,7 +172,7 @@ Submit this study now?
       else
         flash[:notice] = "Access to the data will be " +
           @study.licence.access_phrase + ". Please review and confirm."
-        redirect_to @study.licence
+        redirect_to adapt_licence_url(@study.licence)
       end
     end
   end

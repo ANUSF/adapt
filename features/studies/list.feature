@@ -35,5 +35,5 @@ Feature: Contributor views deposit list
 
   Scenario: One must be logged in to see any deposits
     Given I am not logged in
-    When I go to "/studies"
+    When I go to the study index page
     Then I should see the error message "Must be logged in"

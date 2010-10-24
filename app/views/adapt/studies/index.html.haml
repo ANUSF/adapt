@@ -17,12 +17,12 @@
       %tr
         %td.noprint
           - if study.can_be_edited_by(current_user)
-            = link_to "Edit", edit_study_url(study)
+            = link_to "Edit", edit_adapt_study_path(study)
           - else
-            = link_to "Summary", study
+            = link_to "Summary", adapt_study_path(study)
         %td.noprint
           - if study.can_be_edited_by(current_user)
-            = link_to "Delete", study, |
+            = link_to "Delete", adapt_study_path(study), |
                       'data-confirm' => 'Really delete this study?', |
                       'data-method' => :delete |
         %td

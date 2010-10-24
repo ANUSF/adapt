@@ -1,4 +1,4 @@
-class LicencesController < ApplicationController
+class Adapt::LicencesController < Adapt::ApplicationController
   # ----------------------------------------------------------------------------
   # Authorization and other filtering.
   # ----------------------------------------------------------------------------

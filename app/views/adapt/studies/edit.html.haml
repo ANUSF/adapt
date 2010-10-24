@@ -10,7 +10,8 @@
     %a{ :href => '#edit-help', :class => 'tab-link' } Help
     tab for further tips and instructions.
 
-= formular_for @study, :html => {:multipart => true} do |form|
+= formular_for @study, :url => adapt_study_path(@study), |
+    :html => {:multipart => true} do |form| |
   - @form = form
 
   %div= submit_tag "Submit this study", :disabled => wait, :confirm => @warning

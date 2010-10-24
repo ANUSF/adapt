@@ -3,7 +3,7 @@
 # controller accepts OpenID's from a single provider as the only valid
 # form of authentication.
 
-class UserSessionsController < ApplicationController
+class Adapt::UserSessionsController < Adapt::ApplicationController
   # -- the OpenID provider we accept
   OPENID_SERVER = ADAPT::CONFIG['assda.openid.server']
   OPENID_LOGOUT = ADAPT::CONFIG['assda.openid.logout']
@@ -80,7 +80,7 @@ class UserSessionsController < ApplicationController
     # -- create a new session for the given user
     if user && new_session(user)
       flash[:notice] = options[:message] || "Login successful."
-      redirect_to studies_url
+      redirect_to adapt_studies_url
     else
       flash.now[:error] = "Sorry, something went wrong. Please try again later!"
       render :action => 'new'
