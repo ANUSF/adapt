@@ -1,7 +1,10 @@
-class Study < ActiveRecord::Base
+class Adapt::Study < ActiveRecord::Base
+  User = Adapt::User
+  Licence = Adapt::Licence
+
   ID_PREFIX = "au.edu.assda.ddi."
 
-  include ModelSupport
+  include Adapt::ModelSupport
   include FileHandling
 
   belongs_to :owner,     :class_name => 'User', :foreign_key => :user_id
@@ -30,10 +33,10 @@ class Study < ActiveRecord::Base
 
   validates_presence_of :title, :message => 'May not be blank.'
   validates_uniqueness_of :title, :scope => :user_id,
-                          :case_sensitive => false,
-                          :message => 'You have another study with this title.'
+  :case_sensitive => false,
+  :message => 'You have another study with this title.'
   validates_presence_of :abstract, :if => :checking,
-                        :message => 'May not be blank.'
+  :message => 'May not be blank.'
 
   validates_each :attachments, :if => :checking do |rec, attr, val|
     if val.select { |a| a.category == "Data File" }.empty?
@@ -48,10 +51,10 @@ class Study < ActiveRecord::Base
   end
 
   validates_presence_of :data_kind, :if => :checking,
-                        :message => 'Please specify at least one.'
+  :message => 'Please specify at least one.'
 
   validates_each :collection_start, :collection_end,
-                 :period_start, :period_end, :if => :checking do |rec, attr, val|
+  :period_start, :period_end, :if => :checking do |rec, attr, val|
     range, part = attr.to_s.split("_")
     if (not val.blank?) and (date = rec.parse_and_validate_date(range, val))
       rec.send(attr.to_s + "=", date.pretty)
@@ -71,7 +74,7 @@ class Study < ActiveRecord::Base
       rec.errors.add attr, 'May not be blank.'
     elsif val['name'].blank?
       rec.errors.add attr,
-        'Please use the name field if depositor is an institution.'
+      'Please use the name field if depositor is an institution.'
     end
   end
 

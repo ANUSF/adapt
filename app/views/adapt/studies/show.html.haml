@@ -60,7 +60,8 @@
       - if @study.attachments.empty?
         &mdash;
       - else
-        %ul= render @study.attachments
+        %ul= render :partial => 'adapt/attachments/attachment', |
+                    :collection => @study.attachments |
   %hr
   %ul
     %li

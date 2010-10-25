@@ -1,4 +1,4 @@
-class Attachment < ActiveRecord::Base
+class Adapt::Attachment < ActiveRecord::Base
   ASSET_PATH = ADAPT::CONFIG['adapt.asset.path']
 
   VALID_CATEGORIES = ["Data File", "Questionnaire", "Report", "Coding Frame",
@@ -17,13 +17,13 @@ class Attachment < ActiveRecord::Base
   before_destroy :delete_file
 
   validates_inclusion_of :category, :if => :checking, :in => VALID_CATEGORIES,
-    :message => "Please select one."
+  :message => "Please select one."
 
   validates :name, :on => :create,
-    :presence => { :message => "Please select a file." }
+  :presence => { :message => "Please select a file." }
 
   validates :content, :on => :create,
-    :presence => { :message => "The selected file '#{self.name}' seems empty." }
+  :presence => { :message => "The selected file '#{self.name}' seems empty." }
 
   def empty_selection(column)
     column.to_sym == :category ? '-- Please select --' : nil

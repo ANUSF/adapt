@@ -2,6 +2,8 @@ require 'rubygems'
 require 'machinist/active_record'
 require 'faker'
 
+include Adapt
+
 Before { Sham.reset } # reset Shams in between scenarios
 
 Sham.name { Faker::Name.name }

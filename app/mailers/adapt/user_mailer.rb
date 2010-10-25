@@ -1,4 +1,4 @@
-class UserMailer < ActionMailer::Base
+class Adapt::UserMailer < ActionMailer::Base
   include SessionInfo
 
   ASSDA_EMAIL = "assda@anu.edu.au"

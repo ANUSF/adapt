@@ -3,6 +3,8 @@
 # (c)2010 ANUSF
 
 class Adapt::ApplicationController < ActionController::Base
+  User = Adapt::User
+
   unless Rails.application.config.consider_all_requests_local
     rescue_from Exception,                            :with => :render_error
     rescue_from ActiveRecord::RecordNotFound,         :with => :render_not_found

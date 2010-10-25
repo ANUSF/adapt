@@ -19,6 +19,8 @@ class Adapt::UserSessionsController < Adapt::ApplicationController
   end
   
   def create
+    process_roles_file
+
     # -- construct the OpenID URL to authenticate
     openID_url = params[:login] ? OPENID_SERVER + params[:login] : nil
 
@@ -84,6 +86,43 @@ class Adapt::UserSessionsController < Adapt::ApplicationController
     else
       flash.now[:error] = "Sorry, something went wrong. Please try again later!"
       render :action => 'new'
+    end
+  end
+
+  def process_roles_file
+    unless %w{test cucumber}.include? Rails.env
+      roles_file = File.join(ADAPT::CONFIG['adapt.config.path'],
+                             'roles.properties')
+      if File.exist?(roles_file)
+        names = []
+        for line in File.open(roles_file, &:read).split("\n")
+          unless line.strip.blank? or line.strip.starts_with?('#')
+            fields = line.split(',').map do |s|
+              s.sub /^\s*"\s*(.*\S)\s*"\s*$/, '\1'
+            end
+            username, firstname, lastname, email, role = fields
+            role = case role
+                   when 'publisher'     then 'archivist'
+                   when 'administrator' then 'admin'
+                   else                      'contributor'
+                   end
+            user = User.find_or_create_by_username username
+            user.name = "#{firstname} #{lastname}"
+            user.email = email
+            user.role = role
+            user.save!
+            names << username
+          end
+        end
+        unless names.empty?
+          User.all.each do |user|
+            if user.role != 'contributor' and not names.include?(user.username)
+              user.role = 'contributor'
+              user.save!
+            end
+          end
+        end
+      end
     end
   end
 end

@@ -1,7 +1,7 @@
-class User < ActiveRecord::Base
+class Adapt::User < ActiveRecord::Base
   has_many :studies, :dependent => :destroy
   has_many :studies_in_curation,  :class_name  => 'Study',
-                                  :foreign_key => :archivist_id
+  :foreign_key => :archivist_id
 
   attr_accessible(:email, :name, :address, :telephone, :fax)
 
@@ -20,9 +20,9 @@ class User < ActiveRecord::Base
   PHONE = /\A ((#{WORLD}|#{AREA}) #{SEP} #{LINE} #{EXT}?)? \Z/xo
 
   validates_format_of   :telephone, :with => PHONE,
-                        :message => "Does not look like a phone number."
+  :message => "Does not look like a phone number."
   validates_format_of   :fax, :with => PHONE,
-                        :message => "Does not look like a phone number."
+  :message => "Does not look like a phone number."
 
   def selections(column)
     ROLES if column.to_sym == :role

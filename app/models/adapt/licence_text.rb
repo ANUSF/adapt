@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-module LicenceText
+module Adapt::LicenceText
   UNRESTRICTED_ACCESS = "
   Copies of the data in machine‑readable form, codebooks and/or other
   documents of assistance to the analysis of data, and/or analyses of

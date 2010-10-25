@@ -1,4 +1,4 @@
-class Licence < ActiveRecord::Base
+class Adapt::Licence < ActiveRecord::Base
   include ModelSupport
   include LicenceText
 
@@ -7,28 +7,28 @@ class Licence < ActiveRecord::Base
   attr_accessible :signed_by, :email, :access_mode, :signed_date
 
   validates_presence_of :signed_by, :if => :checking,
-    :message => "Name required."
+  :message => "Name required."
   validates_presence_of :email, :if => :checking,
-    :message => "Contact email required."
+  :message => "Contact email required."
   validates_presence_of :access_mode, :if => :checking,
-    :message => "Please select one."
+  :message => "Please select one."
   validates_presence_of :signed_date, :if => :checking,
-    :message => "Date required."
+  :message => "Date required."
 
   validates_format_of   :signed_by, :with => /\A[\w -]*\Z/,
-    :if => :checking,
-    :message => "Only letters, spaces and hyphens are allowed."
+  :if => :checking,
+  :message => "Only letters, spaces and hyphens are allowed."
   validates_format_of   :signed_by, :with => /\A[^\d_]*\Z/,
-    :if => :checking,
-    :message => "Only letters, spaces and hyphens are allowed."
+  :if => :checking,
+  :message => "Only letters, spaces and hyphens are allowed."
   validates_format_of   :email,
-    :with => /\A([A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4})?\Z/i,
-    :if => :checking,
-    :message => "Does not look like email address."
+  :with => /\A([A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4})?\Z/i,
+  :if => :checking,
+  :message => "Does not look like email address."
 
   validates_inclusion_of :access_mode, :in => [nil, 'A', 'B', 'S'],
-                         :if => :checking,
-                         :message => "Value must be A, B or S."
+  :if => :checking,
+  :message => "Value must be A, B or S."
 
   validates_each :signed_date, :if => :checking do |record, attr, value|
     date = record.parse_and_validate_date(attr, value, Date.today.year - 1)
