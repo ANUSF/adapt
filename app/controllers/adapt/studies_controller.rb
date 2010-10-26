@@ -152,7 +152,8 @@ Submit this study now?
     elsif @study.status != 'unsubmitted'
       goto :show, :error => 'This study has already been submitted.'
     else
-      if params[:study] and not @study.update_attributes(params[:study])
+      if params[:adapt_study] and
+          not @study.update_attributes(params[:adapt_study])
         goto :edit, :error => 'Changes could not be saved.'
       elsif licence_okay
         begin
