@@ -182,7 +182,8 @@ Submit this study now?
       reopen
     else
       begin
-        @study.approve User.archivists.find(params[:study][:archivist])
+        @study.approve Adapt::User.archivists.
+          find(params[:adapt_study][:archivist])
       rescue Exception => ex
         log_and_notify_of_error ex
         show_error ex
