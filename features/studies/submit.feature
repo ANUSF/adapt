@@ -56,4 +56,3 @@ Feature: Contributor submits study
     And I press "Submit this study"
     And I press "Accept"
     Then I should see "Gallia est omnis"
-

@@ -27,3 +27,8 @@ Feature: Manager approves study
     And I select "Celine" from "adapt_study_archivist"
     And I press "Approve"
     Then I should see "approved"
+
+  Scenario: Admin cannot approve unsubmitted studies
+    Given the study "First Study" has status "incomplete"
+    When I go to the study details page for "First Study"
+    Then I should not see "Approve"
