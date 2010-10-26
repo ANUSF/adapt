@@ -1,5 +1,6 @@
 class Adapt::Study < ActiveRecord::Base
   User = Adapt::User
+  Attachment = Adapt::Attachment
   Licence = Adapt::Licence
 
   ID_PREFIX = "au.edu.assda.ddi."

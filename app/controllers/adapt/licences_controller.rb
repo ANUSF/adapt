@@ -14,7 +14,7 @@ class Adapt::LicencesController < Adapt::ApplicationController
 
   # Finds the licence specified in the request and the study it belongs to.
   def find_licence
-    @licence = Licence.find_by_id(params[:id])
+    @licence = Adapt::Licence.find_by_id(params[:id])
     @study = @licence.study if @licence
   end
 

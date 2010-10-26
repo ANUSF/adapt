@@ -22,7 +22,7 @@ class Adapt::StudiesController < Adapt::ApplicationController
 
   # Finds the study with the id specified in the request.
   def find_study
-    @study = Study.find_by_id(params[:id])
+    @study = Adapt::Study.find_by_id(params[:id])
   end
 
   # Whether the current user may view the referenced study.
@@ -69,9 +69,9 @@ class Adapt::StudiesController < Adapt::ApplicationController
   end
 
   def ensure_licence
-    @study.licence ||= Licence.new(:signed_by => current_user.name,
-                                   :email => current_user.email,
-                                   :signed_date => current_date)
+    @study.licence ||= Adapt::Licence.new(:signed_by => current_user.name,
+                                          :email => current_user.email,
+                                          :signed_date => current_date)
   end
 
   # ----------------------------------------------------------------------------
@@ -81,7 +81,7 @@ class Adapt::StudiesController < Adapt::ApplicationController
   public
 
   def index
-    @studies = Study.all.select { |s| s.is_listed_for current_user }
+    @studies = Adapt::Study.all.select { |s| s.is_listed_for current_user }
   end
   
   def new
@@ -92,7 +92,7 @@ class Adapt::StudiesController < Adapt::ApplicationController
     if params[:result] == "Cancel"
       goto :index, :notice => 'Study creation cancelled.'
     else
-      @study = current_user.studies.new(params[:study])
+      @study = current_user.studies.new(params[:adapt_study])
 
       if @study.save
         flash[:notice] = 'Study entry created.'
@@ -129,7 +129,7 @@ Submit this study now?
       goto :edit, :notice => 'Reverted to previous state'
     elsif params[:commit] == 'Submit this study' and may_submit
       submit
-    elsif @study.update_attributes(params[:study])
+    elsif @study.update_attributes(params[:adapt_study])
       next_action = result == "Show Summary" ? :show : :edit
       goto next_action, :notice => 'Changes were saved successfully.'
     else
@@ -227,7 +227,7 @@ If this problem persists, please notify the developer."""
   def log_and_notify_of_error(ex)
     Rails.logger.error(ex.to_s + "\n" + ex.backtrace[0..50].join("\n"))
     unless Rails.env == 'development'
-      UserMailer.deliver_error_notification(ex)
+      Adapt::UserMailer.deliver_error_notification(ex)
     end
   end
 

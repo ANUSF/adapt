@@ -15,9 +15,9 @@ Feature: Contributor edits study
 
   Scenario Outline: Dates are normalized automatically
     When I follow "Data Description"
-    And fill in "study_period_start" with "<date typed>"
+    And fill in "adapt_study_period_start" with "<date typed>"
     And press "Apply"
-    Then the "study_period_start" field should contain "<date shown>"
+    Then the "adapt_study_period_start" field should contain "<date shown>"
 
   Examples:
     | date typed   | date shown  |
@@ -27,7 +27,7 @@ Feature: Contributor edits study
 
   Scenario Outline: Ambiguous or indecypherable dates are rejected
     When I follow "Data Description"
-    And fill in "study_period_start" with "<date typed>"
+    And fill in "adapt_study_period_start" with "<date typed>"
     And press "Apply"
     Then I should see "Invalid" within "label .error"
 
