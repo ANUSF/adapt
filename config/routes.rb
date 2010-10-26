@@ -1,7 +1,6 @@
 Adapt::Application.routes.draw do
   namespace :adapt do
     resources :user_sessions
-    resources :users
 
     resources :studies do
       member do

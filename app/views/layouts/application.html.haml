@@ -35,7 +35,6 @@
             - if current_user
               %li= link_to "View deposits", adapt_studies_path
               %li= link_to "Add study", new_adapt_study_path
-              %li= link_to "Edit profile", edit_adapt_user_path(:current)
             - else
               %li= link_to "Register", ADAPT::CONFIG['assda.registration.url']
               %li= link_to "Login", login_path
@@ -74,7 +73,7 @@
                     :method => request.method |
           - if in_demo_mode and current_user
             = formular_for current_user, |
-                :url => adapt_user_path(current_user) do |f| |
+              :url => adapt_user_session_path(current_user) do |f| |
               %input{ :type => "hidden", :name => "last_url", :value => url_for }
               = f.select :role, :label => ""
               = f.result_buttons "Change Role"

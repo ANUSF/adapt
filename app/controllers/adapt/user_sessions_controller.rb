@@ -11,6 +11,7 @@ class Adapt::UserSessionsController < Adapt::ApplicationController
   # -- declare access permissions via the 'verboten' plugin
   permit :new, :create, :if => :logged_out, :message => "Already logged in."
   permit :destroy
+  permit :update do users_may_change_roles and logged_in end
 
   # ----------------------------------------------------------------------------
   # The actions this controller implements.
@@ -55,6 +56,19 @@ class Adapt::UserSessionsController < Adapt::ApplicationController
       # -- log out from OpenID provider (NOTE: this is specific for ASSDA server)
       back = URI.escape(root_url, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
       redirect_to OPENID_LOGOUT + "?return_url=#{back}"
+    end
+  end
+
+  def update
+    @user = current_user
+    if @user and params[:adapt_user][:role]
+      @user.role = params[:adapt_user][:role]
+      if @user.save
+        flash[:notice] = "Successfully changed role."
+      else
+        flash[:error] = "Error in role change."
+      end
+      redirect_to params[:last_url] || adapt_studies_url
     end
   end
 
