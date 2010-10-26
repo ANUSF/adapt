@@ -13,8 +13,8 @@ Feature: Manager approves study
   Scenario: Admin can see submitted studies
     Given the study "First Study" has status "submitted"
     When I go to the study index page
-    Then I should see "First Study"
-    And I should see "submitted"
+    Then I should see "First Study" in the "Title" column
+    And I should see "submitted" in the "Status" column
 
   Scenario: Admin cannot see unsubmitted studies
     Given the study "First Study" has status "incomplete"
