@@ -3,7 +3,7 @@
 # controller accepts OpenID's from a single provider as the only valid
 # form of authentication.
 
-class Adapt::UserSessionsController < Adapt::ApplicationController
+class Adapt::UserSessionsController < Adapt::Controller
   # -- the OpenID provider we accept
   OPENID_SERVER = ADAPT::CONFIG['assda.openid.server']
   OPENID_LOGOUT = ADAPT::CONFIG['assda.openid.logout']

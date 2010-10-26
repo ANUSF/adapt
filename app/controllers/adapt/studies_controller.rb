@@ -1,4 +1,4 @@
-class Adapt::StudiesController < Adapt::ApplicationController
+class Adapt::StudiesController < Adapt::Controller
   # ----------------------------------------------------------------------------
   # Authorization and other filtering.
   # ----------------------------------------------------------------------------
