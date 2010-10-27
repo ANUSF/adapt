@@ -1,5 +1,5 @@
 class Adapt::UserMailer < ActionMailer::Base
-  include SessionInfo
+  include Adapt::SessionInfo
 
   ASSDA_EMAIL = "assda@anu.edu.au"
   WEBMASTER = "olaf.delgado-friedrichs@anu.edu.au"

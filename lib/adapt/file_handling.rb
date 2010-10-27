@@ -1,4 +1,4 @@
-module FileHandling
+module Adapt::FileHandling
   include LazyEnumerable
 
   def write_file(data, base, *path_parts)

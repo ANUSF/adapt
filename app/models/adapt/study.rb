@@ -6,7 +6,7 @@ class Adapt::Study < ActiveRecord::Base
   ID_PREFIX = "au.edu.assda.ddi."
 
   include Adapt::ModelSupport
-  include FileHandling
+  include Adapt::FileHandling
 
   belongs_to :owner,     :class_name => 'User', :foreign_key => :user_id
   belongs_to :archivist, :class_name => 'User', :foreign_key => :archivist_id

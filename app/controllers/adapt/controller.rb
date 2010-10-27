@@ -108,8 +108,8 @@ class Adapt::Controller < ActionController::Base
     elsif current_user
       # -- if someone is logged in, check some things
       begin
-        SessionInfo.current_user = current_user
-        SessionInfo.request_host = request.host_with_port
+        Adapt::SessionInfo.current_user = current_user
+        Adapt::SessionInfo.request_host = request.host_with_port
         # -- terminate session if expired or the IP address has changed
         if request.remote_ip != session[:ip]
           kill_session "Your network connection seems to have changed."

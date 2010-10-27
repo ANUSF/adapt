@@ -5,7 +5,7 @@ class Adapt::Attachment < ActiveRecord::Base
                       "Codebook", "Notes", "Other Documentation"]
 
   include ActionView::Helpers::NumberHelper
-  include FileHandling
+  include Adapt::FileHandling
 
   belongs_to :study
 

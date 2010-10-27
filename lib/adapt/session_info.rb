@@ -1,4 +1,4 @@
-module SessionInfo
+module Adapt::SessionInfo
   def current_user
     Thread.current[:user]
   end
