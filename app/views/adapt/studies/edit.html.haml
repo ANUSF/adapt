@@ -1,0 +1,36 @@
+- title "Edit Study #{@study.name||""}"
+- stylesheet :forms
+- stylesheet :tabs
+- wait = ! @can_submit
+
+%em
+  %p
+    Please supply as many details as possible. You can fill out this
+    form in any order by simply moving between the tabs below. See the
+    %a{ :href => '#edit-help', :class => 'tab-link' } Help
+    tab for further tips and instructions.
+
+= formular_for @study, :url => adapt_study_path(@study), |
+    :html => {:multipart => true} do |form| |
+  - @form = form
+
+  %div= submit_tag "Submit this study", :disabled => wait, :confirm => @warning
+  %br
+
+  .tabs-container.dj-replace.dj-anchor
+    %input{ :type => 'hidden' }
+    %ul.tab-headers
+      = tab_link('#title-fields', 'Title and Abstract')
+      = tab_link('#data-fields', 'Data Description')
+      = tab_link('#credit-fields', 'Credits')
+      = tab_link('#attachment-fields', 'Attached Files')
+      = tab_link('#licence-fields', 'Licence Details')
+      = tab_link('#edit-help', 'Help')
+
+    = render 'edit_help'
+    = render 'title_fields'
+    = render 'data_fields'
+    = render 'credit_fields'
+    = render 'attachment_fields'
+    = render 'licence_fields'
+  %p= form.result_buttons @button_texts

@@ -48,3 +48,11 @@ Feature: Contributor submits study
     Then I should see the page heading "Edit Study"
     And I should see the notice "Study submission has been cancelled"
 
+  Scenario: Last minute changes are saved on submission
+    Given the study "First Study" is ready for submission
+    When I go to the study edit page for "First Study"
+    And I follow "Title and Abstract"
+    And I fill in "Study abstract" with "Gallia est omnis divisa in partes tres"
+    And I press "Submit this study"
+    And I press "Accept"
+    Then I should see "Gallia est omnis"
