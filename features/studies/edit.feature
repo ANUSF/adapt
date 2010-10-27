@@ -29,7 +29,7 @@ Feature: Contributor edits study
     When I follow "Data Description"
     And fill in "adapt_study_period_start" with "<date typed>"
     And press "Apply"
-    Then I should see "Invalid" within "label .error"
+    Then I should see "Invalid"
 
   Examples:
     | date typed  |
