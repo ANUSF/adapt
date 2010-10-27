@@ -25,13 +25,6 @@ GIT
     partial-date (0.1.0)
 
 GIT
-  remote: /home/olaf/Rails/my-gems/persistent
-  revision: e360a83c970a453a4dde9049a03e75e527756aa5
-  specs:
-    persistent (0.1.0)
-      lazy
-
-GIT
   remote: git@github.com:odf/verboten.git
   revision: 2f9998fbb3a7002e4196455a55340e07f39f79a6
   specs:
@@ -196,7 +189,6 @@ DEPENDENCIES
   machinist
   mongrel (~> 1.2.0.pre2)
   partial-date!
-  persistent!
   pickle
   rails (~> 3.0.0)
   rspec-rails (~> 2.0.0.beta.20)

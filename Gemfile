@@ -14,7 +14,6 @@ gem 'formular',       :git => "#{ENV['HOME']}/Rails/my-gems/formular"
 gem 'json-accessors', :git => "#{ENV['HOME']}/Rails/my-gems/json-accessors"
 gem 'lazy',           :git => "#{ENV['HOME']}/Rails/my-gems/lazy"
 gem 'partial-date',   :git => "#{ENV['HOME']}/Rails/my-gems/partial-date"
-gem 'persistent',     :git => "#{ENV['HOME']}/Rails/my-gems/persistent"
 
 # -- my ANU gems on github
 gem 'verboten',       :git => "git@github.com:odf/verboten.git"
