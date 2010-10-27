@@ -7,6 +7,7 @@ class Adapt::Study < ActiveRecord::Base
 
   include Adapt::ModelSupport
   include Adapt::FileHandling
+  include JsonAccessors
 
   belongs_to :owner,     :class_name => 'User', :foreign_key => :user_id
   belongs_to :archivist, :class_name => 'User', :foreign_key => :archivist_id
@@ -87,10 +88,9 @@ class Adapt::Study < ActiveRecord::Base
     end
   end
 
-  accesses_via_json :additional_metadata
-
   attr_reader :checking
 
+  self.json_column_name = :additional_metadata
   json_fields(*JSON_FIELDS)
 
   # We override this to prevent premature destruction of ZIP attachments.
