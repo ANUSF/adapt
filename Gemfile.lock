@@ -33,7 +33,7 @@ GIT
 
 GIT
   remote: git@github.com:odf/verboten.git
-  revision: 6170dbecab68e30961138763f02a8f1c618d2281
+  revision: 2f9998fbb3a7002e4196455a55340e07f39f79a6
   specs:
     verboten (0.1.0)
 
