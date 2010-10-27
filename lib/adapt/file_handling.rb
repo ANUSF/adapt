@@ -1,3 +1,5 @@
+require 'lazy_enumerable'
+
 module Adapt::FileHandling
   include LazyEnumerable
 

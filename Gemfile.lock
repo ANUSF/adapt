@@ -14,7 +14,7 @@ GIT
 
 GIT
   remote: /home/olaf/Rails/my-gems/lazy
-  revision: e20e28c1822b6ecde632ca43bb2f29f55b2073a7
+  revision: 63dbd6f4c36e465648e7899c664b20e21f2da893
   specs:
     lazy (0.1.0)
 
