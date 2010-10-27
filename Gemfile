@@ -9,13 +9,15 @@ gem 'ruby-openid',  :require => 'openid'
 gem 'rubyzip',      :require => 'zip/zip'
 gem 'sqlite3-ruby', :require => 'sqlite3'
 
-# ANUSF gems
+# -- my ANU gems stored locally
 gem 'formular',       :git => "#{ENV['HOME']}/Rails/my-gems/formular"
 gem 'json-accessors', :git => "#{ENV['HOME']}/Rails/my-gems/json-accessors"
 gem 'lazy',           :git => "#{ENV['HOME']}/Rails/my-gems/lazy"
 gem 'partial-date',   :git => "#{ENV['HOME']}/Rails/my-gems/partial-date"
 gem 'persistent',     :git => "#{ENV['HOME']}/Rails/my-gems/persistent"
-gem 'verboten',       :git => "#{ENV['HOME']}/Rails/my-gems/verboten"
+
+# -- my ANU gems on github
+gem 'verboten',       :git => "git@github.com:odf/verboten.git"
 
 group :development, :test do
   gem 'test-unit', '~> 1.2.3'

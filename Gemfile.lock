@@ -32,8 +32,8 @@ GIT
       lazy
 
 GIT
-  remote: /home/olaf/Rails/my-gems/verboten
-  revision: 4b9e6cc7f1fd6abfc5facd7517b144729b188556
+  remote: git@github.com:odf/verboten.git
+  revision: 6170dbecab68e30961138763f02a8f1c618d2281
   specs:
     verboten (0.1.0)
 
