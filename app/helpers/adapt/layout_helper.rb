@@ -1,6 +1,6 @@
 # These helper methods can be called in templates to set variables to be used in
 # the layout.
-module LayoutHelper
+module Adapt::LayoutHelper
   def title(page_title, show_title = true)
     content_for(:title) { page_title.to_s }
     @show_title = show_title
