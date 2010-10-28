@@ -1,9 +1,7 @@
 class UserAccount < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable, :lockable and :timeoutable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  devise :openid_authenticatable
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  def self.create_from_identity_url(identity_url)
+    UserAccount.create(:identity_url => identity_url)
+  end
 end

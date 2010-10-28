@@ -9,6 +9,8 @@ gem 'ruby-openid',  :require => 'openid'
 gem 'rubyzip',      :require => 'zip/zip'
 gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'devise'
+gem 'rack-openid'
+gem 'devise_openid_authenticatable'
 
 # -- my ANU gems stored locally
 gem 'formular',       :git => "#{ENV['HOME']}/Rails/my-gems/formular"

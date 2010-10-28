@@ -50,23 +50,10 @@ ActiveRecord::Schema.define(:version => 20101028012853) do
   end
 
   create_table "user_accounts", :force => true do |t|
-    t.string   "email",                               :default => "", :null => false
-    t.string   "encrypted_password",   :limit => 128, :default => "", :null => false
-    t.string   "password_salt",                       :default => "", :null => false
-    t.string   "reset_password_token"
-    t.string   "remember_token"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                       :default => 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string "identity_url"
   end
 
-  add_index "user_accounts", ["email"], :name => "index_user_accounts_on_email", :unique => true
-  add_index "user_accounts", ["reset_password_token"], :name => "index_user_accounts_on_reset_password_token", :unique => true
+  add_index "user_accounts", ["identity_url"], :name => "index_user_accounts_on_identity_url", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "openid_identifier"
