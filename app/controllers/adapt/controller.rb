@@ -26,7 +26,10 @@ class Adapt::Controller < ApplicationController
 
     if not defined?(@current_user) and user_account_signed_in?
       user = Adapt::User.find_or_create_by_email(current_user_account.email)
-      user.attribute(:role, "contributor") if user.role.nil?
+      if user.role.nil?
+        user.role = "contributor"
+        user.save!
+      end
       #user.name  = profile["fullname"] unless profile["fullname"].blank?
       #user.openid_identifier = ident_url
 

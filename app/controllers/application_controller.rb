@@ -16,9 +16,6 @@ class ApplicationController < ActionController::Base
   # -- protects from CSRF attacks via an authenticity token
   protect_from_forgery
 
-  # -- this handles session expiration, invalid IP addresses, etc.
-  around_filter :validate_session
-
   
   private
 
@@ -55,40 +52,5 @@ class ApplicationController < ActionController::Base
   # Whether to bypass OpenID verification.
   def bypass_openid
     %{development test cucumber}.include?(Rails.env)
-  end
-
-  # Forced logout for current user.
-  def kill_session(message)
-    redirect_to destroy_user_account_session(:message =>
-                                             message + " Please log in again!")
-  end
-
-  def local_request?
-    request.remote_ip == "127.0.0.1"
-  end
-
-  # This is called as an around filter for all controller actions and
-  # handles session expiration, invalid IP addresses, etc.
-  def validate_session
-    if user_account_signed_in?
-      # -- if someone is logged in, check some things
-      begin
-        # -- terminate session if expired or the IP address has changed
-        if request.remote_ip != session[:ip]
-          kill_session "Your network connection seems to have changed."
-        elsif !session[:expires_at] or session[:expires_at] < Time.now
-          kill_session "Your session has expired."
-        end
-      rescue ActiveRecord::RecordNotFound
-        # -- handle stale session cookies
-        kill_session "You seem to have a stale session cookie."
-      end
-    end
-
-    # -- call the controller action
-    yield
-
-    # -- make session expire after an hour of inactivity
-    session[:expires_at] = 1.hour.since
   end
 end
