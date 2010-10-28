@@ -2,8 +2,6 @@ Adapt::Application.routes.draw do
   devise_for :user_accounts
 
   namespace :adapt do
-    resources :user_sessions
-
     resources :studies do
       member do
         post 'approve'
@@ -21,8 +19,5 @@ Adapt::Application.routes.draw do
     end
   end
 
-  match 'login', :to => 'adapt/user_sessions#new'
-  match 'logout', :to => 'adapt/user_sessions#destroy'
-
-  root :to => 'adapt/user_sessions#new'
+  root :to => 'adapt/studies#index'
 end
