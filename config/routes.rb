@@ -2,6 +2,8 @@ Adapt::Application.routes.draw do
   devise_for :user_accounts
 
   namespace :adapt do
+    resources :user_sessions
+    
     resources :studies do
       member do
         post 'approve'

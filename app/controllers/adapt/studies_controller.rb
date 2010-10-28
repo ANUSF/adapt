@@ -7,13 +7,14 @@ class Adapt::StudiesController < Adapt::Controller
   before_authorization_filter :find_study, :except => [ :index, :new, :create ]
 
   # -- declare access permissions via the 'verboten' plugin
-  permit :index, :new, :create, :if => :logged_in
-  permit :show,                 :if => :may_view
-  permit :edit, :update,        :if => :may_edit
-  permit :destroy,              :if => :may_destroy
-  permit :submit,               :if => :may_submit
-  permit :approve,              :if => :may_approve
-  permit :store,                :if => :may_store
+  permit :index
+  permit :new, :create,  :if => :logged_in
+  permit :show,          :if => :may_view
+  permit :edit, :update, :if => :may_edit
+  permit :destroy,       :if => :may_destroy
+  permit :submit,        :if => :may_submit
+  permit :approve,       :if => :may_approve
+  permit :store,         :if => :may_store
 
   before_filter :prepare_for_edit, :only => [ :edit, :update, :submit ]
   before_filter :ensure_licence,   :only => [ :edit, :submit ]
