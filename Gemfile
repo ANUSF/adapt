@@ -8,6 +8,7 @@ gem 'RedCloth'
 gem 'ruby-openid',  :require => 'openid'
 gem 'rubyzip',      :require => 'zip/zip'
 gem 'sqlite3-ruby', :require => 'sqlite3'
+gem 'devise'
 
 # -- my ANU gems stored locally
 gem 'formular',       :git => "#{ENV['HOME']}/Rails/my-gems/formular"
