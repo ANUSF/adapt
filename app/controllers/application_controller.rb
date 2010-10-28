@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   end
 
   # -- makes some controller methods available in views
-  helper_method :current_user, :in_demo_mode, :users_may_change_roles
+  helper_method :current_user_account, :in_demo_mode, :users_may_change_roles
 
   # -- makes all helpers available in controllers
   helper :all
@@ -42,11 +42,6 @@ class ApplicationController < ActionController::Base
     Date.today.strftime("%d %B %Y")
   end
 
-  # # The logged in user for the current session, or nil if none.
-  def current_user
-    current_user_account
-  end
-
   # Whether the application is being run in a special demo mode.
   def in_demo_mode
     Rails.env != 'production'
@@ -75,7 +70,7 @@ class ApplicationController < ActionController::Base
   # This is called as an around filter for all controller actions and
   # handles session expiration, invalid IP addresses, etc.
   def validate_session
-    if current_user
+    if user_account_signed_in?
       # -- if someone is logged in, check some things
       begin
         # -- terminate session if expired or the IP address has changed

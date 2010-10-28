@@ -72,7 +72,7 @@
         - unless @exception
           = link_to "Printer style preview", url_for(:printer_friendly => 1), |
                     :method => request.method |
-          - if in_demo_mode and current_user
+          -# if in_demo_mode and current_user
             = formular_for current_user, |
               :url => adapt_user_session_path(current_user) do |f| |
               %input{ :type => "hidden", :name => "last_url", :value => url_for }
