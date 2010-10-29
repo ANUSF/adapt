@@ -31,6 +31,7 @@ class Adapt::Controller < ApplicationController
         user = Adapt::User.new(:name  => current_user_account.name,
                                :email => current_user_account.email)
         user.openid_identifier = url
+        user.username = url.sub(/^#{ADAPT::CONFIG['assda.openid.server']}/, '')
         user.role = "contributor"
         user.save!
       end
