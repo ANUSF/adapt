@@ -37,8 +37,8 @@
               %li= link_to "Add study", new_adapt_study_path
             - else
               %li= link_to "Register", ADAPT::CONFIG['assda.registration.url']
-              %li= link_to "Login", new_user_account_session_path
-            %li= link_to "Logout", destroy_user_account_session_path
+              %li= link_to "Login", login_path
+            %li= link_to "Logout", logout_path
     
       #main
         - unless stripped

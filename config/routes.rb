@@ -1,5 +1,8 @@
 Adapt::Application.routes.draw do
-  devise_for :user_accounts
+  devise_for :user_accounts do
+    get "login",  :to => "devise/sessions#new"
+    get "logout", :to => "devise/sessions#destroy"
+  end
 
   namespace :adapt do
     resources :user_sessions
