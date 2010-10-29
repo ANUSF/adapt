@@ -26,14 +26,14 @@ class Adapt::Controller < ApplicationController
 
     if not defined?(@current_user) and user_account_signed_in?
       url = current_user_account.identity_url
-      user = Adapt::User.find_or_create_by_openid_identifier(url)
-      if user.role.nil?
+      user = Adapt::User.find_by_openid_identifier(url)
+      unless user
+        user = Adapt::User.new(:name  => current_user_account.name,
+                               :email => current_user_account.email)
+        user.openid_identifier = url
         user.role = "contributor"
         user.save!
       end
-      #user.name  = profile["fullname"] unless profile["fullname"].blank?
-      #user.openid_identifier = ident_url
-
       @current_user = user
     end
     @current_user
