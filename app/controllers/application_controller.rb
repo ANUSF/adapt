@@ -48,9 +48,4 @@ class ApplicationController < ActionController::Base
   def users_may_change_roles
     in_demo_mode
   end
-
-  # Whether to bypass OpenID verification.
-  def bypass_openid
-    %{development test cucumber}.include?(Rails.env)
-  end
 end
