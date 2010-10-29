@@ -1,7 +1,7 @@
 class UnifyOpenids < ActiveRecord::Migration
   def self.up
     obsolete = []
-    User.all.group_by(&:username).each do |name, users|
+    Adapt::User.all.group_by(&:username).each do |name, users|
       kept = users[0]
       for other in users[1..-1]
         other.studies.each { |s| kept.studies << s }

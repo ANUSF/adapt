@@ -3,7 +3,7 @@ class UsersAddRole < ActiveRecord::Migration
     change_table :users do |t|
       t.string :role
     end
-    for user in User.all
+    for user in Adapt::User.all
       user.role = "contributor"
       user.save!
     end

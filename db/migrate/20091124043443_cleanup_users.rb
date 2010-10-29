@@ -18,7 +18,7 @@ class CleanupUsers < ActiveRecord::Migration
       t.datetime :updated_at
     end
     
-    User.all.each do |user|
+    Adapt::User.all.each do |user|
       attributes = user.attributes.reject do |k, v|
         %w{crypted_password password_salt persistence_token}.include? k
       end

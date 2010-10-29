@@ -1,6 +1,6 @@
 class StudyChangeJsonFields < ActiveRecord::Migration
   def self.up
-    for study in Study.all
+    for study in Adapt::Study.all
       fields = study.read_json
       fields["data_producers"] = (fields["data_collectors"] || []) +
         (fields["research_initiators"] || [])
@@ -18,7 +18,7 @@ class StudyChangeJsonFields < ActiveRecord::Migration
   end
 
   def self.down
-    for study in Study.all
+    for study in Adapt::Study.all
       fields = study.read_json
       fields["data_collectors"] = fields["data_producers"]
       fields["research_initiators"] = []

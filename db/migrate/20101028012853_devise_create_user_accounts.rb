@@ -2,6 +2,8 @@ class DeviseCreateUserAccounts < ActiveRecord::Migration
   def self.up
     create_table :user_accounts do |t|
       t.openid_authenticatable
+      t.string :name
+      t.string :email
     end
 
     add_index :user_accounts, :identity_url, :unique => true
