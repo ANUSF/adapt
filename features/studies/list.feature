@@ -32,8 +32,3 @@ Feature: Contributor views deposit list
     And I should see "Advanced Ham" in the "Title" column
     But I should not see "Study" in the "Title" column
     And I should not see "Alice" in the "Created by" column
-
-  Scenario: One must be logged in to see any deposits
-    Given I am not logged in
-    When I go to the study index page
-    Then I should see the error message "Must be logged in"

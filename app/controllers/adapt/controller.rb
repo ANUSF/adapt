@@ -25,13 +25,15 @@ class Adapt::Controller < ApplicationController
     end
 
     if not defined?(@current_user) and user_account_signed_in?
-      url = current_user_account.identity_url
-      user = Adapt::User.find_by_openid_identifier(url)
+      # -- create an ADAPT user entry from scratch
+      identifier = current_user_account.identity_url
+      username = identifier.sub(/^#{ADAPT::CONFIG['assda.openid.server']}/, '')
+      user = Adapt::User.find_by_username(username)
       unless user
         user = Adapt::User.new(:name  => current_user_account.name,
                                :email => current_user_account.email)
-        user.openid_identifier = url
-        user.username = url.sub(/^#{ADAPT::CONFIG['assda.openid.server']}/, '')
+        user.openid_identifier = identifier
+        user.username = username
         user.role = "contributor"
         user.save!
       end
