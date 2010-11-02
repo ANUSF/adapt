@@ -7,6 +7,13 @@ Given /^the study "([^\"]*)" has status "([^\"]*)"$/ do |title, status|
   model("study: \"#{title}\"").update_attribute(:status, status)
 end
 
+Given /^the study "([^\"]*)" has been assigned to (.*)$/ do |title, name|
+  study = model("study: \"#{title}\"")
+  study.archivist = model("user: \"#{name}\"")
+  study.temporary_identifier = "deposit_99999" # Hack to make store go through!
+  study.save!
+end
+
 Given /^the study "([^\"]*)" has access mode "([^\"]*)"$/ do |title, mode|
   study = model("study: \"#{title}\"")
   user = study.owner

@@ -61,7 +61,7 @@ Feature: Contributor creates study
 
   Scenario: One cannot create a study without logging in
     Given I am not logged in
-    When I go to "/studies/new"
+    When I go to the new study page
     Then I should see the error message "Must be logged in"
 
   Scenario: Archivists can create and edit studies
