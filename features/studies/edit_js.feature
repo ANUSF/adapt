@@ -32,17 +32,17 @@ Feature: Dynamic behaviour when editing a study
   @js-advanced
   Scenario: Filling in repeatable fields with drop-down selections
     When I follow "Data Description"
-    And click on "study_time_method_0"
-    And select "time series" from "study_time_method_x_0"
-    And fill in "study_time_method_1" with "something else"
-    Then the "study_time_method_0" field should contain "time series"
-    And the "study_time_method_1" field should contain "something else"
-    And the "study_time_method_2" field should be empty
-    And there should be no "study_time_method_3" field
+    And click on "adapt_study_time_method_0"
+    And select "time series" from "adapt_study_time_method_x_0"
+    And fill in "adapt_study_time_method_1" with "something else"
+    Then the "adapt_study_time_method_0" field should contain "time series"
+    And the "adapt_study_time_method_1" field should contain "something else"
+    And the "adapt_study_time_method_2" field should be empty
+    And there should be no "adapt_study_time_method_3" field
 
   @js-advanced
   Scenario: Tool tips are shown when the mouse pointer stays over a field
     When I follow "Data Description"
-    And I hover on "#study_data_relation"
+    And I hover on "#adapt_study_data_relation"
     And I pause for 2 seconds
     Then I should see "If this study is related" within "#tooltip"

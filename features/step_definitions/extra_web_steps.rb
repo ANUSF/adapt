@@ -10,7 +10,7 @@ When /^(?:|I )click on "([^"]*)"(?: within "([^"]*)")?$/ do |field, selector|
 end
 
 When /^(?:|I )hover on "([^\"]*)"$/ do |selector|
-  page.locate(:css, selector).trigger(:mouseover)
+  page.find(:css, selector).trigger(:mouseover)
 end
 
 When /^(?:|I )pause for ([\d]+) second(?:s)$/ do |seconds|
@@ -88,9 +88,7 @@ end
 
 Then /^there should be no "([^\"]*)" field(?: within "([^\"]*)")?$/ do
   |field, selector|
-  with_scope(selector) do
-    find_field(field).should == nil
-  end
+  page.should have_no_selector([selector, "##{field}"].compact.join(' '))
 end
 
 Then /^show me the content of "([^\"]*)"$/ do |selector|

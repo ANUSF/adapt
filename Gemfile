@@ -2,12 +2,22 @@ source 'http://rubygems.org'
 
 gem 'rails', '~> 3.0.0'
 
+if defined?(JRUBY_VERSION)
+  gem 'jdbc-sqlite3'
+  gem 'activerecord-jdbc-adapter'
+  gem 'activerecord-jdbcsqlite3-adapter'
+  gem 'jruby-openssl'
+  gem 'jruby-rack'
+  gem 'warbler'
+else
+  gem 'mongrel', '~> 1.2.0.pre2'
+  gem 'sqlite3-ruby', :require => 'sqlite3'
+end
+
 gem 'haml'
-gem 'mongrel', '~> 1.2.0.pre2'
 gem 'RedCloth'
 gem 'ruby-openid',  :require => 'openid'
 gem 'rubyzip',      :require => 'zip/zip'
-gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'devise'
 gem 'rack-openid'
 gem 'devise_openid_authenticatable'
