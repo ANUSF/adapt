@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :in_demo_mode, :users_may_change_roles
  
   # -- forbids all access not explicitly granted ('verboten' plugin)
-  forbid_everything
+  include Verboten
 
   # -- protects from CSRF attacks via an authenticity token
   protect_from_forgery

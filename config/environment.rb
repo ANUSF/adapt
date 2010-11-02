@@ -1,4 +1,4 @@
-RAILS_GEM_VERSION = '2.3.9' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.10' unless defined? RAILS_GEM_VERSION
 
 require File.join(File.dirname(__FILE__), 'boot')
 
@@ -20,8 +20,7 @@ Rails::Initializer.run do |config|
 
   config.gem 'formular'
   config.gem 'json-accessors'
-  config.gem 'lazy'
+  config.gem 'lazy', :lib => false
   config.gem 'partial-date'
-  config.gem 'persistent'
   config.gem 'verboten'
 end

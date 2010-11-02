@@ -1,6 +1,7 @@
 class Study < ActiveRecord::Base
   ID_PREFIX = "au.edu.assda.ddi."
 
+  include JsonAccessors
   include ModelSupport
   include FileHandling
 
@@ -83,10 +84,9 @@ class Study < ActiveRecord::Base
     end
   end
 
-  accesses_via_json :additional_metadata
-
   attr_reader :checking
 
+  self.json_column_name = :additional_metadata
   json_fields(*JSON_FIELDS)
 
   # We override this to prevent premature destruction of ZIP attachments.
