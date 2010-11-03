@@ -13,16 +13,16 @@ GIT
       haml
 
 GIT
-  remote: /home/olaf/Rails/my-gems/lazy
-  revision: 63dbd6f4c36e465648e7899c664b20e21f2da893
-  specs:
-    lazy (0.1.0)
-
-GIT
   remote: /home/olaf/Rails/my-gems/partial-date
   revision: 1d12c5c1b232e04a0408e670886c23ec028cdeaf
   specs:
     partial-date (0.1.0)
+
+GIT
+  remote: git@github.com:ANUSF/pazy.git
+  revision: b31619007c451a14dbd30a467de09a1bf2b44229
+  specs:
+    pazy (0.1.0)
 
 GIT
   remote: git@github.com:odf/verboten.git
@@ -205,10 +205,10 @@ DEPENDENCIES
   haml
   json-accessors!
   launchy
-  lazy!
   machinist
   mongrel (~> 1.2.0.pre2)
   partial-date!
+  pazy!
   pickle
   rack-openid
   rails (~> 3.0.1)

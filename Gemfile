@@ -20,11 +20,11 @@ gem 'devise_openid_authenticatable'
 # -- my ANU gems stored locally
 gem 'formular',       :git => "#{ENV['HOME']}/Rails/my-gems/formular"
 gem 'json-accessors', :git => "#{ENV['HOME']}/Rails/my-gems/json-accessors"
-gem 'lazy',           :git => "#{ENV['HOME']}/Rails/my-gems/lazy"
 gem 'partial-date',   :git => "#{ENV['HOME']}/Rails/my-gems/partial-date"
 
 # -- my ANU gems on github
-gem 'verboten',       :git => "git@github.com:odf/verboten.git"
+gem 'pazy',           :git => 'git@github.com:ANUSF/pazy.git'
+gem 'verboten',       :git => 'git@github.com:odf/verboten.git'
 
 group :development, :test do
   gem 'test-unit', '~> 1.2.3'

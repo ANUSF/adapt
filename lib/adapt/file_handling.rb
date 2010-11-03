@@ -1,7 +1,7 @@
-require 'lazy_enumerable'
+require 'pazy/enumerable'
 
 module Adapt::FileHandling
-  include LazyEnumerable
+  include Pazy::Enumerable
 
   def write_file(data, base, *path_parts)
     make_parent(base, *path_parts)
