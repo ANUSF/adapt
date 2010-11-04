@@ -4,9 +4,12 @@ class Adapt::UserMailer < ActionMailer::Base
   ASSDA_EMAIL = "assda@anu.edu.au"
   WEBMASTER = "olaf.delgado-friedrichs@anu.edu.au"
 
+  default :from => ASSDA_EMAIL
+  default_url_options[:host] = request_host
+
   def create!(*args)
     super
-    if Rails.env != 'production'
+    unless Rails.env.production?
       original_to = if @recipients.is_a? Array
                       @recipients.join(", ")
                     else
@@ -19,34 +22,33 @@ class Adapt::UserMailer < ActionMailer::Base
   end
 
   def submission_notification(study)
-    recipients ASSDA_EMAIL
-    from ASSDA_EMAIL
-    subject "ADAPT: A new study was submitted"
-    sent_on Time.now
-    body(:study => study, :url => adapt_study_url(study, :host => request_host))
+    @study = study
+    @url   = adapt_study_url(study)
+
+    mail(:to      => ASSDA_EMAIL,
+         :subject => "ADAPT: A new study was submitted")
   end
 
   def approval_notification(study)
-    recipients(study.owner.email)
-    from ASSDA_EMAIL
-    subject "Your submission via ADAPT was approved"
-    sent_on Time.now
-    body(:study => study, :url => adapt_study_url(study, :host => request_host))
+    @study = study
+    @url   = adapt_study_url(study)
+
+    mail(:to      => study.owner.email,
+         :subject => "Your submission via ADAPT was approved")
   end
 
   def archivist_assignment(study)
-    recipients(study.archivist.email || ASSDA_EMAIL)
-    from ASSDA_EMAIL
-    subject "ADAPT: A new study was assigned to you"
-    sent_on Time.now
-    body(:study => study, :url => adapt_study_url(study, :host => request_host))
+    @study = study
+    @url   = adapt_study_url(study)
+
+    mail(:to      => study.archivist.email || ASSDA_EMAIL,
+         :subject => "ADAPT: A new study was assigned to you")
   end
 
   def error_notification(exception)
-    recipients WEBMASTER
-    from ASSDA_EMAIL
-    subject "ADAPT: Error notification"
-    sent_on Time.now
-    body(:exception => exception)
+    @exception = exception
+
+    mail(:to      => WEBMASTER,
+         :subject => "ADAPT: Error notification")
   end
 end

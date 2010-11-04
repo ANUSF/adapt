@@ -11,8 +11,23 @@ anusf: &anusf
   :port: 25
   :domain: assda.anu.edu.au
 
+default: &default
+  smtp:
+    <<: *anusf
+  method: :test
+
+test:
+  <<: *default
+
+cucumber:
+  <<: *default
+
+development:
+  <<: *default
+
 stage:
-  <<: *anusf
+  <<: *default
 
 production:
-  <<: *anusf
+  <<: *default
+  method: :smtp

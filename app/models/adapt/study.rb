@@ -230,7 +230,7 @@ class Adapt::Study < ActiveRecord::Base
 
     unless owner.is_archivist
       begin
-        UserMailer.deliver_submission_notification(self)
+        UserMailer.submission_notification(self).deliver
       rescue
         Rails.logger.info 'Failed to send notification email.'
       else
@@ -246,7 +246,7 @@ class Adapt::Study < ActiveRecord::Base
     save!
 
     begin
-      UserMailer.deliver_archivist_assignment(self)
+      UserMailer.archivist_assignment(self).deliver
     rescue
       Rails.logger.info 'Failed to send notification email.'
     else
@@ -275,7 +275,7 @@ class Adapt::Study < ActiveRecord::Base
 
     unless identifier.starts_with?('test')
       begin
-        UserMailer.deliver_approval_notification(self)
+        UserMailer.approval_notification(self).deliver
       rescue
         Rails.logger.info 'Failed to send notification email.'
       else

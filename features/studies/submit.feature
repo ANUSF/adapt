@@ -32,6 +32,7 @@ Feature: Contributor submits study
     Then I should be on the study details page for "First Study" 
     And I should see an error message "This study has already been submitted."
 
+  @focus
   Scenario: Licence accepted
     Given the study "First Study" is ready for submission
     When I go to the study edit page for "First Study"
@@ -39,6 +40,7 @@ Feature: Contributor submits study
     And I press "Accept"
     Then I should see the page heading "Study Summary"
     And I should see the notice "Study submitted and pending approval"
+    And a submission notification for "First Study" should be sent
 
   Scenario: Licence declined
     Given the study "First Study" is ready for submission
