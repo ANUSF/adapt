@@ -6,13 +6,6 @@ GIT
       haml
 
 GIT
-  remote: /home/olaf/Rails/my-gems/json-accessors
-  revision: 746879b83a2b62b33734129e63135198c2bca3ae
-  specs:
-    json-accessors (0.1.0)
-      haml
-
-GIT
   remote: /home/olaf/Rails/my-gems/partial-date
   revision: 1d12c5c1b232e04a0408e670886c23ec028cdeaf
   specs:
@@ -203,7 +196,6 @@ DEPENDENCIES
   faker
   formular!
   haml
-  json-accessors!
   launchy
   machinist
   mongrel (~> 1.2.0.pre2)

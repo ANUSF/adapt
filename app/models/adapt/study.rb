@@ -7,7 +7,7 @@ class Adapt::Study < ActiveRecord::Base
 
   include Adapt::ModelSupport
   include Adapt::FileHandling
-  include JsonAccessors
+  include Adapt::JsonAccessors
 
   belongs_to :owner,     :class_name => 'User', :foreign_key => :user_id
   belongs_to :archivist, :class_name => 'User', :foreign_key => :archivist_id
