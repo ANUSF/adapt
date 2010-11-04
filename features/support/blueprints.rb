@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'machinist/active_record'
-require 'faker'
+require 'ffaker'
 
 Before { Sham.reset } # reset Shams in between scenarios
 

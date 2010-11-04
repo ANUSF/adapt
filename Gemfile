@@ -34,6 +34,6 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'launchy'    # So you can do Then show me the page
   gem 'machinist'
-  gem 'faker'
+  gem 'ffaker'
   gem 'pickle'
 end
