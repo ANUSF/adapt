@@ -30,7 +30,7 @@ group :development, :test do
   gem 'capybara'
   gem 'cucumber-rails'
   gem 'cucumber'
-  gem 'rspec-rails', '~> 2.0.0.beta.20'
+  gem 'rspec-rails', '~> 2.0.1'
   gem 'database_cleaner'
   gem 'launchy'    # So you can do Then show me the page
   gem 'machinist'

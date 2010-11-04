@@ -204,7 +204,7 @@ DEPENDENCIES
   pickle
   rack-openid
   rails (~> 3.0.1)
-  rspec-rails (~> 2.0.0.beta.20)
+  rspec-rails (~> 2.0.1)
   ruby-openid
   rubyzip
   sqlite3-ruby
