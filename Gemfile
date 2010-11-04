@@ -18,12 +18,12 @@ gem 'rack-openid'
 gem 'devise_openid_authenticatable'
 
 # -- gems stored locally
-gem 'formular',       :git => "#{ENV['HOME']}/Rails/my-gems/formular"
 gem 'partial-date',   :git => "#{ENV['HOME']}/Rails/my-gems/partial-date"
 
 # -- ANUSF gems on github
+gem 'formular',       :git => 'git@github.com:ANUSF/formular.git'
 gem 'pazy',           :git => 'git@github.com:ANUSF/pazy.git'
-gem 'verboten',       :git => 'git@github.com:odf/verboten.git'
+gem 'verboten',       :git => 'git@github.com:ANUSF/verboten.git'
 
 group :development, :test do
   gem 'test-unit', '~> 1.2.3'
