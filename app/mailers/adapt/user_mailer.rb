@@ -5,25 +5,10 @@ class Adapt::UserMailer < ActionMailer::Base
   WEBMASTER = "olaf.delgado-friedrichs@anu.edu.au"
 
   default :from => ASSDA_EMAIL
-  default_url_options[:host] = request_host
-
-  def create!(*args)
-    super
-    unless Rails.env.production?
-      original_to = if @recipients.is_a? Array
-                      @recipients.join(", ")
-                    else
-                      @recipients
-                    end
-      @subject += " [to: #{original_to}]"
-      @recipients = current_user.email
-      @mail = create_mail
-    end
-  end
 
   def submission_notification(study)
     @study = study
-    @url   = adapt_study_url(study)
+    @url   = adapt_study_url(study, :host => request_host)
 
     mail(:to      => ASSDA_EMAIL,
          :subject => "ADAPT: A new study was submitted")
@@ -31,7 +16,7 @@ class Adapt::UserMailer < ActionMailer::Base
 
   def approval_notification(study)
     @study = study
-    @url   = adapt_study_url(study)
+    @url   = adapt_study_url(study, :host => request_host)
 
     mail(:to      => study.owner.email,
          :subject => "Your submission via ADAPT was approved")
@@ -39,7 +24,7 @@ class Adapt::UserMailer < ActionMailer::Base
 
   def archivist_assignment(study)
     @study = study
-    @url   = adapt_study_url(study)
+    @url   = adapt_study_url(study, :host => request_host)
 
     mail(:to      => study.archivist.email || ASSDA_EMAIL,
          :subject => "ADAPT: A new study was assigned to you")

@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
     @exception = exception
     render :template => "/errors/500.html.haml", :status => 500
     unless Rails.env == 'development'
-      UserMailer.error_notification(exception).deliver
+      Adapt::UserMailer.error_notification(exception).deliver
     end
   end
 
