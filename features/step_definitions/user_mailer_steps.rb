@@ -17,3 +17,21 @@ Then /^a submission notification for "([^\"]*)" should be sent$/ do |title|
                            study.owner.username,
                            adapt_study_path(study))
 end
+
+Then /^an archivist notification for "([^\"]*)" should be sent$/ do |title|
+  study = model("adapt_study: \"#{title}\"")
+  check_study_notification(study, study.archivist.email,
+                           'ADAPT: A new study was assigned to you',
+                           study.title,
+                           study.owner.username,
+                           adapt_study_path(study))
+end
+
+Then /^an approval notification for "([^\"]*)" should be sent$/ do |title|
+  study = model("adapt_study: \"#{title}\"")
+  check_study_notification(study, study.owner.email,
+                           'ADAPT: A new study was assigned to you',
+                           study.title,
+                           study.owner.name,
+                           study.identifier)
+end
