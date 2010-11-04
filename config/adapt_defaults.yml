@@ -12,9 +12,6 @@ common: &common
   assda.openid.logout:    http://openid.assda.edu.au/joid/logout.jsp
   assda.registration.url: http://assda.anu.edu.au/online_reg.php
 
-cucumber:
-  <<: *common
-
 development:
   <<: *common
 
@@ -26,5 +23,9 @@ stage:
   <<: *common
   adapt.home: adapt_stage
 
-test:
+test: &test
   <<: *common
+  adapt.asset.path:       tmp/test_assets
+
+cucumber:
+  <<: *test
