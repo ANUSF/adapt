@@ -32,7 +32,6 @@ Feature: Contributor submits study
     Then I should be on the study details page for "First Study" 
     And I should see an error message "This study has already been submitted."
 
-  @focus
   Scenario: Licence accepted
     Given the study "First Study" is ready for submission
     When I go to the study edit page for "First Study"

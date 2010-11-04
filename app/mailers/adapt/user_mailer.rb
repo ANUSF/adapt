@@ -4,6 +4,9 @@ class Adapt::UserMailer < ActionMailer::Base
   ASSDA_EMAIL = "assda@anu.edu.au"
   WEBMASTER = "olaf.delgado-friedrichs@anu.edu.au"
 
+  NO_REPLY =
+    "THIS IS AN AUTOMATIC NOTIFICATION. PLEASE DO NOT REPLY TO THIS MESSAGE!"
+
   default :from => ASSDA_EMAIL
 
   def submission_notification(study)
