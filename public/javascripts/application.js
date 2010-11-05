@@ -169,31 +169,7 @@
     jQuery('#flash_notice').animate({ opacity: 0 }, 10000);
 
     // -- nicer tooltips
-    jQuery('*[title]').each(function() {
-      jQuery(this)
-	.data('tipText', jQuery(this).attr('title'))
-	.removeAttr('title');
-    }).hover(function(e) {
-      var tipText = jQuery(this).data('tipText');
-      if (tipText != null && tipText.length > 0) {
-	var tooltip = jQuery('#tooltip');
-	tooltip
-	  .stop(true, true)
-	  .css('display', 'none')
-	  .text(tipText)
-	  .css(tooltip_css(tooltip, e.pageX, e.pageY))
-	  .delay(1000)
-	  .fadeIn('slow');
-      }
-    }, function() {
-      jQuery('#tooltip').stop(true, true).fadeOut('fast');
-    }).click(function() {
-      jQuery('#tooltip').stop(true, true).fadeOut('fast');
-    }).mousemove(function(e) {
-      var tooltip = jQuery('#tooltip');
-      tooltip.css(tooltip_css(tooltip, e.pageX, e.pageY));
-    });
-    jQuery('<p id="tooltip"/>').css('display', 'none').appendTo('body');
+    jQuery('*').nicerTooltips();
 
     // -- disable the return key in text fields
     jQuery('form').delegate('input:text', 'keypress', function(ev) {
