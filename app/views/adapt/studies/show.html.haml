@@ -11,8 +11,7 @@
   .box
     = formular_for @study, :url => approve_adapt_study_path(@study), |
                            :html => { :method => :post } do |f| |
-      Archivist:
-      = f.select :archivist, :label => ''
+      = f.select :archivist, :label => 'Archivist'
       %hr
       %p
         Approve and assign to the selected archivist
@@ -28,8 +27,7 @@
   .box
     = formular_for @study, :url => store_adapt_study_path(@study), |
                            :html => { :method => :post } do |f| |
-      Number range for ID:
-      = f.select :id_range, :label => ''
+      = f.select :id_range, :label => 'Number range for ID'
       %hr
       %p
         Generate a study id and create files for processing

@@ -29,10 +29,21 @@ Feature: Archivist stores study
     When I go to the study index page
     Then I should not see "First Study"
 
-  Scenario: Archivists can store studies assigned to them
+  Scenario: Archivists can store studies with a special test id
     Given the study "First Study" has status "approved"
     And the study "First Study" has been assigned to Celine
     When I go to the study details page for "First Study"
     And I press "Store"
     Then I should see "stored"
-    And I should see "test99"
+    And I should see "test99000"
+    And no mail should be sent
+
+  Scenario: Archivists can store studies with a permanent id
+    Given the study "First Study" has status "approved"
+    And the study "First Study" has been assigned to Celine
+    When I go to the study details page for "First Study"
+    And I select "30000-39999" from "Number range for ID"
+    And I press "Store"
+    Then I should see "stored"
+    And I should see "30000"
+    And an approval notification for "First Study" should be sent

@@ -14,7 +14,7 @@ class Adapt::UserMailer < ActionMailer::Base
     @url   = adapt_study_url(study, :host => request_host)
 
     mail(:to      => ASSDA_EMAIL,
-         :subject => "ADAPT: A new study was submitted")
+         :subject => "ADAPT: A new study has been submitted")
   end
 
   def approval_notification(study)
@@ -22,7 +22,7 @@ class Adapt::UserMailer < ActionMailer::Base
     @url   = adapt_study_url(study, :host => request_host)
 
     mail(:to      => study.owner.email,
-         :subject => "Your submission via ADAPT was approved")
+         :subject => "Your submission via ADAPT has been approved")
   end
 
   def archivist_assignment(study)
@@ -30,7 +30,7 @@ class Adapt::UserMailer < ActionMailer::Base
     @url   = adapt_study_url(study, :host => request_host)
 
     mail(:to      => study.archivist.email || ASSDA_EMAIL,
-         :subject => "ADAPT: A new study was assigned to you")
+         :subject => "ADAPT: A new study has been assigned to you")
   end
 
   def error_notification(exception)
