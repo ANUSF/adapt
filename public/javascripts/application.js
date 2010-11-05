@@ -99,14 +99,12 @@
     }
   }
 
-  function onload(context) {
-    fixPage();
-
+  jQuery(document).ready(function() {
     // -- auto-resize certain textareas (must be done before hiding content)
-    jQuery('table textarea', context).TextAreaExpander(40, 200);
+    jQuery('table textarea').TextAreaExpander(40, 200);
 
     // -- handles tabs
-    jQuery('.tabs-container', context).each(function() {
+    jQuery('.tabs-container').each(function() {
       var container = jQuery(this);
       jQuery('.tab-headers', container).css({ display: 'block' });
       jQuery('.tab-body', container).not(':first').css({ display: 'none' });
@@ -122,17 +120,17 @@
 	.change(function() { jQuery(this).addClass('dirty'); })
 	.keyup(function() { jQuery(this).addClass('dirty'); });
     });
-    jQuery('a.tab-link', context).click(select_tab_with_data_refresh);
+    jQuery('a.tab-link').click(select_tab_with_data_refresh);
 
     // -- allows multiple file uploads
-    jQuery('input:file.multi', context).change(file_selected);
+    jQuery('input:file.multi').change(file_selected);
 
     // -- automatic extension of multiple text input field collections
-    jQuery('.multi', context).find('input:text,textarea')
+    jQuery('.multi').find('input:text,textarea')
       .keyup(multitext_edited).change(multitext_edited).blur(multitext_cleanup);
 
     // -- update textfields with selection dropdowns
-    jQuery('select.predefined', context)
+    jQuery('select.predefined')
       .blur(function() {
 	jQuery(this).css({ display: 'none' });
       })
@@ -147,7 +145,7 @@
 	jQuery(this).next().toggle();
       })
       .focus(function() {
-	jQuery('select.predefined', context).css({ display: 'none' });
+	jQuery('select.predefined').css({ display: 'none' });
 	jQuery(this).next().each(function () {
 	  var item = jQuery(this);
 	  var pos = item.prev().position();
@@ -168,10 +166,10 @@
       });
 
     // -- remove flash notices after some time
-    jQuery('#flash_notice', context).animate({ opacity: 0 }, 10000);
+    jQuery('#flash_notice').animate({ opacity: 0 }, 10000);
 
     // -- nicer tooltips
-    jQuery('*[title]', context).each(function() {
+    jQuery('*[title]').each(function() {
       jQuery(this)
 	.data('tipText', jQuery(this).attr('title'))
 	.removeAttr('title');
@@ -196,24 +194,10 @@
       tooltip.css(tooltip_css(tooltip, e.pageX, e.pageY));
     });
     jQuery('<p id="tooltip"/>').css('display', 'none').appendTo('body');
-  }
-
-  function fixPage() {
-  }
-
-  jQuery(document).ready(function() {
-    onload(document);
 
     // -- disable the return key in text fields
     jQuery('form').delegate('input:text', 'keypress', function(ev) {
       return (ev.keyCode != 13);
     });
-
-    // -- enable ajax templating via jquery.djtch.js
-    jQuery.djtch.setup({
-      preUpdateHook:  fixPage,
-      postUpdateHook: onload
-    });
-    jQuery(document).djtchEnable();
   });
 })();

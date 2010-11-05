@@ -21,7 +21,6 @@
       = javascript_include_tag 'jquery-1.4.2.min'
       = javascript_include_tag 'jquery.form'
       = javascript_include_tag 'jquery.textarea-expander'
-      = javascript_include_tag 'jquery.djtch'
       = javascript_include_tag 'rails'
       = javascript_include_tag 'application'
       = yield(:head)
@@ -50,7 +49,7 @@
         - image_name = Rails.env.production? ? 'house' : 'testing'
         - image = image_path("#{image_name}.jpg")
         #content{ :style => "background: url(#{image}) no-repeat right bottom" }
-          #messages.dj-replace.dj-anchor
+          #messages
             = yield(:messages)
             - flash.each do |name, msg|
               %div{ :id => "flash_#{name}" }= h(msg).gsub(/\n/, '<br/>')
