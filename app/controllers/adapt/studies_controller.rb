@@ -229,7 +229,7 @@ If this problem persists, please notify the developer."""
 
   def log_and_notify_of_error(ex)
     Rails.logger.error(ex.to_s + "\n" + ex.backtrace[0..50].join("\n"))
-    unless Rails.env == 'development'
+    unless Rails.env.development?
       Adapt::UserMailer.error_notification(ex).deliver
     end
   end
@@ -237,8 +237,7 @@ If this problem persists, please notify the developer."""
   def goto(action, flash_options)
     flash_options.each { |key, val| flash[key] = val }
     redirect_to :action => action,
-                :stripped => (request.xhr? || params[:stripped]) && "1",
-                :active_tab => params[:active_tab]
+                :stripped => (request.xhr? || params[:stripped]) && "1"
   end
 
   def licence_okay
