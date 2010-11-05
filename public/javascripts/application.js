@@ -2,37 +2,6 @@
 /*global jQuery */
 
 (function($) {
-  function select_tab() {
-    var ref = $(this).attr('href'),
-        selected = $('.tab-body' + ref),
-        container = selected.closest('.tabs-container'),
-        link = container.find('a.tab-link[href=' + ref + ']');
-    $('.tab-body', container).css({ display: 'none' });
-    selected.css({ display: 'block' });
-    $('.tab-entry a', container).removeClass('current-tab');
-    link.addClass('current-tab');
-    $('> input:first', container).attr('value', ref);
-    return false;
-  }
-
-  function select_tab_with_data_refresh() {
-    var ref = $(this).attr('href'),
-        selected = $('.tab-body' + ref),
-	container = selected.closest('.tabs-container'),
-	link = container.find('a.tab-link[href=' + ref + ']'),
-        form = link.closest('form');
-    form.find('input[name=active_tab]').attr('value', ref);
-
-    if (form.find('.dirty').length === 0) {
-      link.each(select_tab);
-    }
-    else {
-      form.submit();
-    }
-
-    return false;
-  }
-
   function file_selected() {
     var elem = $(this),
         id = elem.attr('id'),
@@ -99,25 +68,8 @@
     $('table textarea').TextAreaExpander(40, 200);
 
     // -- handles tabs
-    $('.tabs-container').each(function() {
-      var container = $(this);
-      $('.tab-headers', container).css({ display: 'block' });
-      $('.tab-body', container).not(':first').css({ display: 'none' });
-      $('> input:first', container).attr('name', 'active_tab');
-      $('.tab-entry a.current-tab', container).each(select_tab);
-      $('.tab-entry a', container).each(function() {
-	var link = $(this),
-	    container = link.closest('.tabs-container', link),
-	    err = $('> div' + link.attr('href') + ' .error', container);
-	if (err.size() > 0) {
-	  link.addClass("with-error");
-	}
-      });
-      container.find('input,textarea,select').not('select.predefined')
-	.change(function() { $(this).addClass('dirty'); })
-	.keyup(function() { $(this).addClass('dirty'); });
-    });
-    $('a.tab-link').click(select_tab_with_data_refresh);
+    $('.tabs-container').tabContainer();
+    $('a.tab-link').tabLink();
 
     // -- allows multiple file uploads
     $('input:file.multi').change(file_selected);
