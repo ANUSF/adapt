@@ -23,7 +23,7 @@
  */
 
 /**
- * Very simple tab handling via jQuery.
+ * A simple tab handling plugin for jQuery.
  */
 
 /*jslint white: false, browser: true */
@@ -40,7 +40,7 @@
     var ref       = $(this).attr('href'),
         selected  = $(ref),
 	container = $(selected.data('container')),
-	callback  = selected.data('callback');
+	callback  = container.data('options').callback;
 
     //TODO - better way of passing this info around
     container.find('input[name=active_tab]').attr('value', ref);
@@ -66,26 +66,25 @@
   }
 
   $.fn.extend({
-    tabContainer: function(options) {
-      this.each(function() {
-	var node     = this,
-	    base     = $(this),
-	    tags     = (options || {}).tags_to_propagate || [],
-	    callback = (options || {}).callback;
-	base.find(patterns.body)
-	  .each(function() {
-	    $(this).data('container', node).data('callback', callback);
-	  });
-	base.find(patterns.header)
-	  .css({ display: 'block' });
+    tabContainer: function (options) {
+      return this.each(function () {
+	var node = this,
+	    base = $(this),
+	    tags = (options || {}).tags_to_propagate || [];
+	base.data('options', options || {});
+	base.find(patterns.body).data('container', node);
+	base.find(patterns.header).css({ display: 'block' });
 	base.find(patterns.entry)
 	  .each(propagate_tags, tags)
 	  .find('> a').click(select)
-	  .filter('.current-tab').each(select);
+	  .first().each(select);
       });
     },
-    tabLink: function() {
-      this.click(select);
+    tabSelect: function () {
+      return this.each(select);
+    },
+    tabLink: function () {
+      return this.click(select);
     }
   });
 }(jQuery));

@@ -68,7 +68,7 @@
     $('table textarea').TextAreaExpander(40, 200);
 
     // -- handles tabs
-    $('.tabs-container').tabContainer({
+    $('.tab-container').tabContainer({
       tags_to_propagate: ['error'],
 
       callback: function (selected_body) {
@@ -80,7 +80,7 @@
 	  return true;
 	}
       }
-    });
+    }).find('.active-tab').tabSelect();
     $('.tab-link').tabLink();
 
     // -- tags fields that have been edited
