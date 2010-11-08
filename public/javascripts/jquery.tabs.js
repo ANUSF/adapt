@@ -31,64 +31,63 @@
 
 (function($) {
   var tabs = {
-    options: {
-      header_pattern: '> ul',
-      entry_pattern:  '> ul > li',
-      body_pattern:   '> div'
+    patterns: {
+      header: '> ul',
+      entry:  '> ul > li',
+      body:   '> div'
     },
 
-    setup: function (options) {
-      $.extend(this.options, options || {});
-    },
-
-    select: function (reload) {
-      var ref       = $(this).attr('href'),
+    select: function (element, callback) {
+      var ref       = element.attr('href'),
 	  selected  = $(ref),
 	  container = $(selected.data('container')),
-	  entries   = container.find(tabs.options.entry_pattern),
+	  entries   = container.find(tabs.patterns.entry),
 	  form;
 
+      //TODO - better way to pass this info around
       container.find('input[name=active_tab]').attr('value', ref);
 
-      if (reload) {
-	//TODO - find a better way to specify the form
-	form = selected.closest('form');
-	if (form.find('.dirty').length > 0) {
-	  form.submit();
-	  return false;
-	}
+      if (!callback || callback(selected)) {
+	container.find(tabs.patterns.body).css({ display: 'none' });
+	selected.css({ display: 'block' });
+	entries.find('a').removeClass('current-tab');
+	entries.find('a[href=' + ref + ']').addClass('current-tab');
       }
-      container.find(tabs.options.body_pattern).css({ display: 'none' });
-      selected.css({ display: 'block' });
-      entries.find('a').removeClass('current-tab');
-      entries.find('a[href=' + ref + ']').addClass('current-tab');
       return false;
     },
 
-    signal_errors: function () {
+    propagate_tags: function () {
       var link = $(this).find('a');
-      if ($(link.attr('href')).find('.error').size() > 0) {
-	link.addClass("with-error");
-      }
+      var body = $(link.attr('href'));
+      $.each(arguments, function (index, tag) {
+	if (body.find('[class=' + tag + ']').size() > 0) {
+	  link.addClass(tag);
+	}
+      });
     }
   };
 
   $.fn.extend({
-    tabContainer: function() {
+    tabContainer: function(options) {
       this.each(function() {
-	var node = this;
-	var base = $(this);
-	base.find(tabs.options.body_pattern)
+	var node = this,
+	    base = $(this),
+	    tags = options && options.tags_to_propagate || [];
+	base.find(tabs.patterns.body)
 	  .each(function() { $(this).data('container', node); });
-	base.find(tabs.options.header_pattern)
+	base.find(tabs.patterns.header)
 	  .css({ display: 'block' });
-	base.find(tabs.options.entry_pattern)
-	  .each(tabs.signal_errors)
-	  .find('a.current-tab').each(tabs.select, [false]);
+	base.find(tabs.patterns.entry)
+	  .each(tabs.propagate_tags, tags)
+	  .find('a.current-tab').each(function () {
+	    return tabs.select($(this));
+	  });
       });
     },
-    tabLink: function() {
-      this.click(tabs.select, [true]);
+    tabLink: function(callback) {
+      this.click(function () {
+	return tabs.select($(this), callback);
+      });
     }
   });
 }(jQuery));

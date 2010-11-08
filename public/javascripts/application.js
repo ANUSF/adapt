@@ -68,8 +68,16 @@
     $('table textarea').TextAreaExpander(40, 200);
 
     // -- handles tabs
-    $('.tabs-container').tabContainer();
-    $('a.tab-link').tabLink();
+    $('.tabs-container').tabContainer({ tags_to_propagate: ['error'] });
+    $('a.tab-link').tabLink(function (selected_body) {
+      var form = selected_body.closest('form');
+      if (form.find('.dirty').size() > 0) {
+	form.submit();
+	return false;
+      } else {
+	return true;
+      }
+    });
 
     // -- tags fields that have been edited
     $('input,textarea,select').not('select.predefined')
