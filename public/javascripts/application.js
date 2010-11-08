@@ -68,19 +68,23 @@
     $('table textarea').TextAreaExpander(40, 200);
 
     // -- handles tabs
-    $('.tab-container').tabContainer({
-      tags_to_propagate: ['error'],
+    $('.tab-container')
+      .prepend('<input name=active_tab type=hidden />')
+      .tabContainer({
+	tags_to_propagate: ['error'],
 
-      callback: function (selected_body) {
-	var form = selected_body.closest('form');
-	if (form.find('.dirty').size() > 0) {
-	  form.submit();
-	  return false;
-	} else {
-	  return true;
+	callback: function (ref) {
+	  var form = $(ref).closest('form');
+	  form.find('input[name=active_tab]').attr('value', ref);
+	  if (form.find('.dirty').size() > 0) {
+	    form.submit();
+	    return false;
+	  } else {
+	    return true;
+	  }
 	}
-      }
-    }).find('.active-tab').tabSelect();
+      })
+      .find('.active-tab').tabSelect();
     $('.tab-link').tabLink();
 
     // -- tags fields that have been edited

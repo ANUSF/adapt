@@ -33,24 +33,23 @@
   var patterns = {
     header: '> ul',
     entry:  '> ul > li',
-    body:   '> div'
+    body:   '> div',
+    link:   '> a'
   };
 
   function select() {
     var ref       = $(this).attr('href'),
         selected  = $(ref),
 	container = $(selected.data('container')),
-	callback  = container.data('options').callback;
+	options   = container.data('options') || {},
+	tag_class = options.tag_class || 'current-tab';
 
-    //TODO - better way of passing this info around
-    container.find('input[name=active_tab]').attr('value', ref);
-
-    if (!callback || callback(selected)) {
+    if (!options.callback || options.callback(selected)) {
       container.find(patterns.body).css({ display: 'none' });
       selected.css({ display: 'block' });
       container.find(patterns.entry)
-	.find('> a').removeClass('current-tab')
-	.filter('[href=' + ref + ']').addClass('current-tab');
+	.find(patterns.link).removeClass(tag_class)
+	.filter('[href=' + ref + ']').addClass(tag_class);
     }
     return false;
   }
@@ -76,7 +75,7 @@
 	base.find(patterns.header).css({ display: 'block' });
 	base.find(patterns.entry)
 	  .each(propagate_tags, tags)
-	  .find('> a').click(select)
+	  .find(patterns.link).click(select)
 	  .first().each(select);
       });
     },
