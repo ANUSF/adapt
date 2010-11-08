@@ -71,6 +71,11 @@
     $('.tabs-container').tabContainer();
     $('a.tab-link').tabLink();
 
+    // -- tags fields that have been edited
+    $('input,textarea,select').not('select.predefined')
+      .change(function() { $(this).addClass('dirty'); })
+      .keyup (function() { $(this).addClass('dirty'); });
+
     // -- allows multiple file uploads
     $('input:file.multi').change(file_selected);
 

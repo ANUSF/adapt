@@ -32,69 +32,63 @@
 (function($) {
   var tabs = {
     options: {
-      entry_pattern: '> ul > li',
-      body_pattern:  '> div'
+      header_pattern: '> ul',
+      entry_pattern:  '> ul > li',
+      body_pattern:   '> div'
     },
 
     setup: function (options) {
       $.extend(this.options, options || {});
     },
 
-    select: function () {
-      var ref = $(this).attr('href'),
-	  selected = $(ref),
-	  container = selected.closest('.tabs-container'),
-	  entries = container.find(tabs.options.entry_pattern);
+    select: function (reload) {
+      var ref       = $(this).attr('href'),
+	  selected  = $(ref),
+	  container = $(selected.data('container')),
+	  entries   = container.find(tabs.options.entry_pattern),
+	  form;
+
+      container.find('input[name=active_tab]').attr('value', ref);
+
+      if (reload) {
+	//TODO - find a better way to specify the form
+	form = selected.closest('form');
+	if (form.find('.dirty').length > 0) {
+	  form.submit();
+	  return false;
+	}
+      }
       container.find(tabs.options.body_pattern).css({ display: 'none' });
       selected.css({ display: 'block' });
       entries.find('a').removeClass('current-tab');
       entries.find('a[href=' + ref + ']').addClass('current-tab');
-      container.find('> input:first').attr('value', ref);
       return false;
     },
 
-    select_with_reload: function () {
-      var ref = $(this).attr('href'),
-          link = $(ref).closest('.tabs-container')
-		   .find(tabs.options.entry_pattern).find('a[href=' + ref + ']'),
-	  form = link.closest('form');
-      form.find('input[name=active_tab]').attr('value', ref);
-
-      if (form.find('.dirty').length === 0) {
-	link.each(tabs.select);
+    signal_errors: function () {
+      var link = $(this).find('a');
+      if ($(link.attr('href')).find('.error').size() > 0) {
+	link.addClass("with-error");
       }
-      else {
-	form.submit();
-      }
-
-      return false;
     }
   };
 
   $.fn.extend({
     tabContainer: function() {
       this.each(function() {
-	var container = $(this),
-	    entries = container.find(tabs.options.entry_pattern);
-
-	container.find('.tab-headers').css({ display: 'block' });
-	container.find('> input:first').attr('name', 'active_tab');
-	entries.find('a.current-tab').each(tabs.select);
-	entries.each(function() {
-	  var link = $(this),
-	      container = link.closest('.tabs-container', link),
-	      err = $('> div' + link.attr('href') + ' .error', container);
-	  if (err.size() > 0) {
-	    link.addClass("with-error");
-	  }
-	});
-	container.find('input,textarea,select').not('select.predefined')
-	  .change(function() { $(this).addClass('dirty'); })
-	  .keyup(function() { $(this).addClass('dirty'); });
+	var node = this;
+	var base = $(this);
+	base.find(tabs.options.body_pattern)
+	  .each(function() { $(this).data('container', node); });
+	base.find(tabs.options.header_pattern)
+	  .css({ display: 'block' });
+	base.find(tabs.options.entry_pattern)
+	  .each(tabs.signal_errors)
+	  .find('a.current-tab').each(tabs.select, [false]);
       });
     },
     tabLink: function() {
-      this.click(tabs.select_with_reload);
+      this.click(tabs.select, [true]);
     }
   });
 }(jQuery));
