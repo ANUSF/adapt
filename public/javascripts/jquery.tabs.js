@@ -32,7 +32,8 @@
 (function($) {
   var tabs = {
     options: {
-
+      entry_pattern: '> ul > li',
+      body_pattern:  '> div'
     },
 
     setup: function (options) {
@@ -41,21 +42,21 @@
 
     select: function () {
       var ref = $(this).attr('href'),
-	  selected = $('.tab-body' + ref),
-	  container = selected.closest('.tabs-container');
-      $('.tab-body', container).css({ display: 'none' });
+	  selected = $(ref),
+	  container = selected.closest('.tabs-container'),
+	  entries = container.find(tabs.options.entry_pattern);
+      container.find(tabs.options.body_pattern).css({ display: 'none' });
       selected.css({ display: 'block' });
-      $('.tab-entry a', container).removeClass('current-tab');
-      container.find('a.tab-link[href=' + ref + ']').addClass('current-tab');
-      $('> input:first', container).attr('value', ref);
+      entries.find('a').removeClass('current-tab');
+      entries.find('a[href=' + ref + ']').addClass('current-tab');
+      container.find('> input:first').attr('value', ref);
       return false;
     },
 
     select_with_reload: function () {
       var ref = $(this).attr('href'),
-	  link = $('.tab-body' + ref)
-		   .closest('.tabs-container')
-		   .find('a.tab-link[href=' + ref + ']'),
+          link = $(ref).closest('.tabs-container')
+		   .find(tabs.options.entry_pattern).find('a[href=' + ref + ']'),
 	  form = link.closest('form');
       form.find('input[name=active_tab]').attr('value', ref);
 
@@ -73,15 +74,16 @@
   $.fn.extend({
     tabContainer: function() {
       this.each(function() {
-	var container = $(this);
-	$('.tab-headers', container).css({ display: 'block' });
-	$('.tab-body', container).not(':first').css({ display: 'none' });
-	$('> input:first', container).attr('name', 'active_tab');
-	$('.tab-entry a.current-tab', container).each(tabs.select);
-	$('.tab-entry a', container).each(function() {
+	var container = $(this),
+	    entries = container.find(tabs.options.entry_pattern);
+
+	container.find('.tab-headers').css({ display: 'block' });
+	container.find('> input:first').attr('name', 'active_tab');
+	entries.find('a.current-tab').each(tabs.select);
+	entries.each(function() {
 	  var link = $(this),
-	       container = link.closest('.tabs-container', link),
-	       err = $('> div' + link.attr('href') + ' .error', container);
+	      container = link.closest('.tabs-container', link),
+	      err = $('> div' + link.attr('href') + ' .error', container);
 	  if (err.size() > 0) {
 	    link.addClass("with-error");
 	  }
