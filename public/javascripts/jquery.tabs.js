@@ -30,42 +30,40 @@
 /*global jQuery */
 
 (function($) {
-  var tabs = {
-    patterns: {
-      header: '> ul',
-      entry:  '> ul > li',
-      body:   '> div'
-    },
-
-    select: function () {
-      var ref       = $(this).attr('href'),
-	  selected  = $(ref),
-	  container = $(selected.data('container')),
-	  callback  = selected.data('callback');
-
-      //TODO - better way to pass this info around
-      container.find('input[name=active_tab]').attr('value', ref);
-
-      if (!callback || callback(selected)) {
-	container.find(tabs.patterns.body).css({ display: 'none' });
-	selected.css({ display: 'block' });
-	container.find(tabs.patterns.entry)
-	  .find('> a').removeClass('current-tab')
-	  .filter('[href=' + ref + ']').addClass('current-tab');
-      }
-      return false;
-    },
-
-    propagate_tags: function () {
-      var link = $(this).find('a');
-      var body = $(link.attr('href'));
-      $.each(arguments, function (index, tag) {
-	if (body.find('.' + tag).size() > 0) {
-	  link.addClass(tag);
-	}
-      });
-    }
+  var patterns = {
+    header: '> ul',
+    entry:  '> ul > li',
+    body:   '> div'
   };
+
+  function select() {
+    var ref       = $(this).attr('href'),
+        selected  = $(ref),
+	container = $(selected.data('container')),
+	callback  = selected.data('callback');
+
+    //TODO - better way of passing this info around
+    container.find('input[name=active_tab]').attr('value', ref);
+
+    if (!callback || callback(selected)) {
+      container.find(patterns.body).css({ display: 'none' });
+      selected.css({ display: 'block' });
+      container.find(patterns.entry)
+	.find('> a').removeClass('current-tab')
+	.filter('[href=' + ref + ']').addClass('current-tab');
+    }
+    return false;
+  }
+
+  function propagate_tags() {
+    var link = $(this).find('a'),
+        body = $(link.attr('href'));
+    $.each(arguments, function (index, tag) {
+      if (body.find('.' + tag).size() > 0) {
+	link.addClass(tag);
+      }
+    });
+  }
 
   $.fn.extend({
     tabContainer: function(options) {
@@ -74,19 +72,20 @@
 	    base     = $(this),
 	    tags     = (options || {}).tags_to_propagate || [],
 	    callback = (options || {}).callback;
-	base.find(tabs.patterns.body).each(function() {
-	  $(this).data('container', node).data('callback', callback);
-	});
-	base.find(tabs.patterns.header)
+	base.find(patterns.body)
+	  .each(function() {
+	    $(this).data('container', node).data('callback', callback);
+	  });
+	base.find(patterns.header)
 	  .css({ display: 'block' });
-	base.find(tabs.patterns.entry)
-	  .each(tabs.propagate_tags, tags)
-	  .find('> a').click(tabs.select)
-	  .filter('.current-tab').each(tabs.select);
+	base.find(patterns.entry)
+	  .each(propagate_tags, tags)
+	  .find('> a').click(select)
+	  .filter('.current-tab').each(select);
       });
     },
     tabLink: function() {
-      this.click(tabs.select);
+      this.click(select);
     }
   });
 }(jQuery));
