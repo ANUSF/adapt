@@ -37,12 +37,11 @@
       body:   '> div'
     },
 
-    select: function (element, callback) {
-      var ref       = element.attr('href'),
+    select: function () {
+      var ref       = $(this).attr('href'),
 	  selected  = $(ref),
 	  container = $(selected.data('container')),
-	  entries   = container.find(tabs.patterns.entry),
-	  form;
+	  callback  = selected.data('callback');
 
       //TODO - better way to pass this info around
       container.find('input[name=active_tab]').attr('value', ref);
@@ -50,8 +49,9 @@
       if (!callback || callback(selected)) {
 	container.find(tabs.patterns.body).css({ display: 'none' });
 	selected.css({ display: 'block' });
-	entries.find('a').removeClass('current-tab');
-	entries.find('a[href=' + ref + ']').addClass('current-tab');
+	container.find(tabs.patterns.entry)
+	  .find('> a').removeClass('current-tab')
+	  .filter('[href=' + ref + ']').addClass('current-tab');
       }
       return false;
     },
@@ -60,7 +60,7 @@
       var link = $(this).find('a');
       var body = $(link.attr('href'));
       $.each(arguments, function (index, tag) {
-	if (body.find('[class=' + tag + ']').size() > 0) {
+	if (body.find('.' + tag).size() > 0) {
 	  link.addClass(tag);
 	}
       });
@@ -70,24 +70,23 @@
   $.fn.extend({
     tabContainer: function(options) {
       this.each(function() {
-	var node = this,
-	    base = $(this),
-	    tags = options && options.tags_to_propagate || [];
-	base.find(tabs.patterns.body)
-	  .each(function() { $(this).data('container', node); });
+	var node     = this,
+	    base     = $(this),
+	    tags     = (options || {}).tags_to_propagate || [],
+	    callback = (options || {}).callback;
+	base.find(tabs.patterns.body).each(function() {
+	  $(this).data('container', node).data('callback', callback);
+	});
 	base.find(tabs.patterns.header)
 	  .css({ display: 'block' });
 	base.find(tabs.patterns.entry)
 	  .each(tabs.propagate_tags, tags)
-	  .find('a.current-tab').each(function () {
-	    return tabs.select($(this));
-	  });
+	  .find('> a').click(tabs.select)
+	  .filter('.current-tab').each(tabs.select);
       });
     },
-    tabLink: function(callback) {
-      this.click(function () {
-	return tabs.select($(this), callback);
-      });
+    tabLink: function() {
+      this.click(tabs.select);
     }
   });
 }(jQuery));
