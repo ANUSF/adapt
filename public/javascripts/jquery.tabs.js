@@ -44,7 +44,7 @@
 	options   = container.data('options') || {},
 	tag_class = options.tag_class || 'current-tab';
 
-    if (!options.callback || options.callback(selected)) {
+    if (!options.callback || options.callback(ref)) {
       container.find(patterns.body).css({ display: 'none' });
       selected.css({ display: 'block' });
       container.find(patterns.entry)
