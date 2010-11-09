@@ -48,6 +48,9 @@
 	field.val('');
       });
       new_row.find('textarea').TextAreaExpander(40, 200);
+      new_row.find('select.predefined').each(function () {
+	$(this).prev().addPulldown($(this));
+      });
       row.parent().append(new_row);
       item.focus().addClass('dirty');
     }
@@ -77,10 +80,7 @@
   }
 
   $(document).ready(function() {
-    // -- auto-resize certain textareas (must be done before hiding content)
-    $('table textarea').TextAreaExpander(40, 200);
-
-    // -- handles tabs
+    // -- handle tabs
     $('.tab-container')
       .prepend('<input name=active_tab type=hidden />')
       .tabContainer({ tags_to_propagate: ['error'] })
@@ -88,12 +88,7 @@
       .find('.active-tab').tabSelect();
     $('.tab-link').tabLink();
 
-    // -- tags fields that have been edited
-    $('input,textarea,select').not('select.predefined')
-      .change(function() { $(this).addClass('dirty'); })
-      .keyup (function() { $(this).addClass('dirty'); });
-
-    // -- allows multiple file uploads
+    // -- allow multiple file uploads
     $('input:file.multi').change(file_selected);
 
     // -- automatic extension of multiple text input field collections
@@ -110,10 +105,5 @@
 
     // -- nicer tooltips
     $('*').nicerTooltips();
-
-    // -- disable the return key in text fields
-    $('form').delegate('input:text', 'keypress', function(ev) {
-      return (ev.keyCode !== 13);
-    });
   });
 }(jQuery));
