@@ -24,6 +24,16 @@
 
 /**
  * A jQuery plugin that implements pulldown menues for text fields.
+ *
+ * The 'setTimeout' calls, explicit manipulation of the 'display'
+ * property and other strange quirks of the code were necessary in
+ * order to make things work properly in Internet Explorer.
+ *
+ * Usage example:
+ *
+ *     $('input:text[data-pulldown-id]').each(function () {
+ *       $(this).addPulldown($('#' + $(this).attr('data-pulldown-id')));
+ *     }
  */
 
 /*jslint white: false, browser: true */
@@ -41,33 +51,33 @@
 	var field    = $(this),
 	    pulldown = $(field.data('pulldown'));
 
-	//TODO do this in a cleaner way:
-	$('select.predefined').css({ display: 'none' });
-
+	$(all_pulldowns).each(function () {
+	  $(this).css({ display: 'none' });
+	});
 	pulldown.each(function () {
 	  $(this).css({ display: 'block', left: field.position().left });
 	});
       },
       blur: function () {
-	var field    = $(this),
-	    pulldown = $(field.data('pulldown'));
-	setTimeout(function() {
-	  if ($("*:focus").attr('id') !== pulldown.attr('id')) {
-	    pulldown.css({ display: 'none' });
-	  }
-	}, 100);
+       var field    = $(this),
+           pulldown = $(field.data('pulldown'));
+       setTimeout(function() {
+         if ($("*:focus").attr('id') !== pulldown.attr('id')) {
+           pulldown.css({ display: 'none' });
+         }
+       }, 100);
       },
       keyup: function () {
-	var field    = $(this),
-	    pulldown = $(field.data('pulldown'));
-	setTimeout(function() {
-	  pulldown.css({ display: 'none' });
-	}, 100);
+       var field    = $(this),
+           pulldown = $(field.data('pulldown'));
+       setTimeout(function() {
+         pulldown.css({ display: 'none' });
+       }, 100);
       }
     },
     pulldown: {
       blur: function () {
-	$(this).css({ display: 'none' });
+       $(this).css({ display: 'none' });
       },
       click: function () {
         var pulldown = $(this),
@@ -77,11 +87,13 @@
 	}, 100);
       }
     }
-  };
+  },
+  all_pulldowns = [];
 
   $.fn.extend({
     addPulldown: function (pulldown) {
       return this.each(function () {
+	all_pulldowns.push(pulldown);
 	$(this).data('pulldown', pulldown.get(0)).bind(handlers.field);
 	pulldown.data('field', this).bind(handlers.pulldown);
       });
