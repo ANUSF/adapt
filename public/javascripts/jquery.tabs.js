@@ -23,7 +23,35 @@
  */
 
 /**
- * A simple tab handling plugin for jQuery.
+ * A simple tab handling plugin for jQuery, featuring a custom event
+ * 'tab-opened' as well as the automatic propagation of a customizable
+ * set of class tags from the tab body to the associated title link
+ * (useful e.g. for signaling errors).
+ *
+ * Example markup:
+ *
+ *     <div class='tabs'>
+ *       <ul>
+ *         <li><a href='#tab1'>First Tab Title</a></li>
+ *         <li><a href='#tab2'>Second Tab Title</a></li>
+ *       </ul>
+ *       <div id='tab1'>Content for first tab.</div>
+ *       <div id='tab2'>Content for second tab.</div>
+ *     </div>
+ *
+ * Usage example:
+ *
+ *     function tab_change_handler(event) {
+ *       alert('Opened tab "' + $(event.target).attr('id') + '"');
+ *     }
+ *
+ *     $(document).ready(function() {
+ *       $('.tabs')
+ *         .tabContainer({ tags_to_propagate: ['error'],
+ *                         current_tab_class: 'open-tab' })
+ *         .find('> div').bind('tab-opened', tab_change_handler);
+ *     }
+ *
  */
 
 /*jslint white: false, browser: true */
@@ -42,15 +70,14 @@
         selected  = $(ref),
 	container = $(selected.data('container')),
 	options   = container.data('options') || {},
-	tag_class = options.tag_class || 'current-tab';
+	tag_class = options.current_tab_class || 'current-tab';
 
-    if (!options.callback || options.callback(ref)) {
-      container.find(patterns.body).css({ display: 'none' });
-      selected.css({ display: 'block' });
-      container.find(patterns.entry)
-	.find(patterns.link).removeClass(tag_class)
-	.filter('[href=' + ref + ']').addClass(tag_class);
-    }
+    container.find(patterns.body).css({ display: 'none' });
+    selected.css({ display: 'block' });
+    container.find(patterns.entry)
+      .find(patterns.link).removeClass(tag_class)
+      .filter('[href=' + ref + ']').addClass(tag_class);
+    selected.trigger('tab-opened');
     return false;
   }
 

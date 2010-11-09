@@ -63,6 +63,19 @@
     }
   }
 
+  function tab_change_handler(event) {
+    var target = $(event.target),
+        form   = target.closest('form');
+    form.find('input[name=active_tab]').attr('value', '#' + target.attr('id'));
+    if (form.find('.dirty').size() > 0) {
+      $('#flash_notice')
+	.stop()
+	.text('Just a second - saving your changes...')
+	.animate({ opacity: 1 }, 'fast');
+      form.submit();
+    }
+  }
+
   $(document).ready(function() {
     // -- auto-resize certain textareas (must be done before hiding content)
     $('table textarea').TextAreaExpander(40, 200);
@@ -70,20 +83,8 @@
     // -- handles tabs
     $('.tab-container')
       .prepend('<input name=active_tab type=hidden />')
-      .tabContainer({
-	tags_to_propagate: ['error'],
-
-	callback: function (ref) {
-	  var form = $(ref).closest('form');
-	  form.find('input[name=active_tab]').attr('value', ref);
-	  if (form.find('.dirty').size() > 0) {
-	    form.submit();
-	    return false;
-	  } else {
-	    return true;
-	  }
-	}
-      })
+      .tabContainer({ tags_to_propagate: ['error'] })
+      .find('> div').bind('tab-opened', tab_change_handler).end()
       .find('.active-tab').tabSelect();
     $('.tab-link').tabLink();
 
