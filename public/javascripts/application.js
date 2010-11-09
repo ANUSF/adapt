@@ -101,40 +101,9 @@
       .keyup(multitext_edited).change(multitext_edited).blur(multitext_cleanup);
 
     // -- update textfields with selection dropdowns
-    $('select.predefined')
-      .blur(function() {
-	$(this).css({ display: 'none' });
-      })
-      .click(function() { // change does not seem to work properly on IE
-        var item = $(this);
-	setTimeout(function() {
-	  item.prev().val(item.val()).trigger('keyup');
-	}, 100);
-      })
-      .prev()
-      .mousedown(function() {
-	$(this).next().toggle();
-      })
-      .focus(function() {
-	$('select.predefined').css({ display: 'none' });
-	$(this).next().each(function () {
-	  var item = $(this),
-	      pos = item.prev().position();
-	  item.css({ display: 'block', left: pos.left });
-	});
-      })
-      .blur(function() {
-	var dropdown = $(this).next();
-	setTimeout(function() {
-	  if ($("*:focus").attr('id') !== dropdown.attr('id')) {
-	    dropdown.css({ display: 'none' });
-	  }
-	}, 100);
-      })
-      .keyup(function() {
-	var dropdown = $(this).next();
-	setTimeout(function() { dropdown.css({ display: 'none' }); }, 100);
-      });
+    $('select.predefined').each(function () {
+      $(this).prev().addPulldown($(this));
+    });
 
     // -- remove flash notices after some time
     $('#flash_notice').animate({ opacity: 0 }, 10000);
