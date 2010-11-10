@@ -48,10 +48,6 @@
         form   = target.closest('form');
     form.find('input[name=active_tab]').attr('value', '#' + target.attr('id'));
     if (form.find('.dirty').size() > 0) {
-      $('#flash_notice')
-	.stop()
-	.text('Just a second - saving your changes...')
-	.animate({ opacity: 1 }, 'fast');
       form.submit();
     }
   }

@@ -15,5 +15,18 @@
     $('form').delegate('input:text', 'keypress', function(ev) {
       return (ev.keyCode !== 13);
     });
+
+    // -- prepare overlay for modal dialogs
+    $('<div id="overlay">')
+      .append('<div id="blanket">')
+      .prependTo('body');
+
+    // -- show overlayed message whenever the form is submitted
+    $('form').submit(function () {
+      $('<div id="alert" class="dialog">')
+	.text('Just a second...')
+	.appendTo('#overlay');
+      $('#overlay').css('display', 'block');
+    });
   });
 }(jQuery));
