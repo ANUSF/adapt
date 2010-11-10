@@ -2,29 +2,6 @@
 /*global jQuery */
 
 (function($) {
-  function file_selected() {
-    var elem = $(this),
-        id = elem.attr('id'),
-        name = elem.attr('name'),
-	n = parseInt(id.match(/\d+/), 10) + 1,
-        checkbox = $('<input type="checkbox" checked=""/>')
-	  .attr('value', '1')
-	  .attr('name', name.replace(/\[[^\[\]]*\]$/, '[use]'))
-	  .attr('id', id.replace(/_[^_]*$/, '_use')),
-        input = elem.clone(true)
-	  .attr('value', '')
-	  .attr('id', id.replace(/\d+/, n))
-	  .attr('name', name.replace(/\d+/, n))
-	  .removeClass('dirty');
-    elem
-      .addClass('dirty')
-      .css({ display: 'none' })
-      .after('<p/>').next()
-      .append(checkbox)
-      .append(elem.val().replace(/^.*[\/\\]/, ''))
-      .after(input);
-  }
-
   function is_last(row) {
     return row.nextAll('.multi').length === 0;
   }
@@ -89,7 +66,7 @@
     $('.tab-link').tabLink();
 
     // -- allow multiple file uploads
-    $('input:file.multi').change(file_selected);
+    $('input:file.multi').multiFile();
 
     // -- automatic extension of multiple text input field collections
     $('.multi').find('input:text,textarea')
