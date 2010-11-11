@@ -1,4 +1,4 @@
-== ADAPT - The ASSDA Deposit and Preservation Tool ==
+== ADAPT - The ASSDA Deposit and Preservation Tool
 
 This is a custom web application being developed at the ANU
 Supercomputer Facility (ANUSF) to support workflows specific to the
@@ -17,7 +17,7 @@ separately.
 
 ADAPT is based on the Ruby on Rails framework und uses the jQuery
 library for client-side scripting. The most current source code (not
-yet in production) can be found in the rails3 branch.
+yet in production) can be found under the rails3 branch.
 
 Author: Olaf Delgado-Friedrichs (odf@github.com)
 
