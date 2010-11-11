@@ -24,7 +24,8 @@
     // -- show overlayed message whenever the form is submitted
     $('form').submit(function () {
       $('<div id="alert" class="dialog">')
-	.text('Just a second...')
+	.append('<span>Loading...</span>')
+	.append('<img src="/images/ajax-loader.gif" />')
 	.appendTo('#overlay');
       $('#overlay').css('display', 'block');
     });

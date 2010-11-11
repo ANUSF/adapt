@@ -12,11 +12,16 @@
   #overlay .dialog {
     margin: 200px auto;
     position: relative;
-    width: 500px;
-    padding: 40px;
-    font-size: 150%;
+    width: 300px;
+    padding: 30px 50px;
+    font-size: 120%;
     background-color: #ffffcc;
-    -moz-border-radius: 10px; }
+    -moz-border-radius: 10px;
+    border: solid 1px #cccc66; }
+    #overlay .dialog img {
+      position: absolute;
+      right: 50px;
+      bottom: 25px; }
 
 #blanket {
   background-color: black;
@@ -24,6 +29,6 @@
   bottom: 0;
   left: 0;
   display: block;
-  opacity: 0.8;
+  opacity: 0.1;
   position: absolute;
   width: 100%; }
