@@ -17,14 +17,21 @@ class SessionsController < Devise::SessionsController
       resource = warden.authenticate!(:scope => resource_name, :recall => "new")
     end
 
+    reset_session
+    session[:ip] = request.remote_ip
+
     set_flash_message :notice, :signed_in
     sign_in_and_redirect(resource_name, resource)
   end
 
   def destroy
-    # -- sign out via devise without redirecting
-    set_flash_message :notice, :signed_out if signed_in?(resource_name)
-    sign_out(resource_name)
+    if signed_in?(resource_name)
+      sign_out(resource_name) # sign out via devise without redirecting
+      reset_session
+      set_flash_message :notice, :signed_out
+    else
+      reset_session
+    end
 
     if bypass_openid
       redirect_to root_url

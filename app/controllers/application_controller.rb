@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include Devise::Controllers::Helpers
+
   unless Rails.application.config.consider_all_requests_local
     rescue_from Exception,                           :with => :render_error
     rescue_from ActiveRecord::RecordNotFound,        :with => :render_not_found
@@ -15,6 +17,9 @@ class ApplicationController < ActionController::Base
 
   # -- protects from CSRF attacks via an authenticity token
   protect_from_forgery
+
+  # -- this handles session expiration, invalid IP addresses, etc.
+  around_filter :validate_session
 
   
   private
@@ -47,5 +52,37 @@ class ApplicationController < ActionController::Base
   # Whether users may assume arbitrary roles.
   def users_may_change_roles
     in_demo_mode
+  end
+
+  # This is called as an around filter for all controller actions and
+  # handles session expiration, invalid IP addresses, etc.
+  def validate_session
+    # -- if someone is logged in, make sure the session is still valid
+    error = user_account_signed_in? && check_session
+
+    if error
+      # -- close the current session and report the error
+      sign_out(:user_account)
+      reset_session
+      flash.now[:error] = error + ' Please log in again.'
+      render :text => '', :layout => true
+    else
+      # -- no error: call the intended controller action
+      yield
+    end
+
+    # -- the session will expire after two hours of inactivity
+    session[:expires_at] = 2.hours.since
+  end
+
+  # Performs some tests to see if a login session is still valid.
+  def check_session
+    if request.remote_ip != session[:ip]
+      'Your network connection seems to have changed.'
+    elsif !session[:expires_at] or session[:expires_at] < Time.now
+      'Your session has expired.'
+    end
+  rescue ActiveRecord::RecordNotFound
+    'You seem to have a stale session cookie.'
   end
 end
