@@ -2,7 +2,9 @@
 
 ''(These instructions presume you are working on a Unix/Linux OS and
 install jruby locally. For other environments, the commands to be
-executed may vary slightly.)''
+executed may vary slightly. There is also a more recent version of
+ADAPT using Rails3 which currently cannot be deployed as a war
+file.)''
 
 0.  Install a sufficiently recent JDK.
 
@@ -10,7 +12,7 @@ executed may vary slightly.)''
 
 2.  Install Rails and some additional Ruby packages:
 
-      jruby -S gem install rails --version=2.3.9
+      jruby -S gem install rails --version=2.3.10
       jruby -S gem install activerecord-jdbcsqlite3-adapter
 
 3.  Install git (from the appropriate package under Linux, or from
@@ -19,7 +21,7 @@ executed may vary slightly.)''
 4.  Get the adapt code from the git repository (IMPORTANT: don't keep
     the source code in a folder called 'adapt' in your home directory):
 
-      git clone ssh://<user>@dc2//projects/u47/usr/oxd900/git/adapt adapt-source
+      git clone git@github.com:ANUSF/adapt.git adapt-source
 
 5.  Move into the adapt source directory thus created:
 
@@ -29,7 +31,7 @@ executed may vary slightly.)''
 
       jruby -S rake gems:install
 
-6a. (FIXME!) Some extra in-house gems are needed. How should we distribute them?
+6a. (FIXME!) Some extra in-house gems are needed from github.
 
 7.  Start the web server:
 
