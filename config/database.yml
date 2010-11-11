@@ -1,0 +1,28 @@
+<%
+  cred_file = File.join(ADAPT::CONFIG['adapt.config.path'], 'credentials.yml')
+  @credentials =
+    File.exist?(cred_file) && YAML::load(File.open(cred_file))[Rails.env] || {}
+%>
+template: &template
+  database: <%= ADAPT::CONFIG['adapt.db.path'] %>
+  adapter:  <%= (defined?(JRUBY_VERSION) ? 'jdbc' : '') +
+                ADAPT::CONFIG['adapt.db.adapter'] %>
+  timeout:  5000
+  encoding: utf8
+  username: <%= @credentials['username'] || 'dbuser' %>
+  password: <%= @credentials['password'] || 'dbpass' %>
+
+stage:
+  <<: *template
+
+production:
+  <<: *template
+
+development:
+  <<: *template
+
+test: &TEST
+  <<: *template
+  
+cucumber:
+  <<: *TEST
