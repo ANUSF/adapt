@@ -18,10 +18,13 @@
     background-color: #ffffcc;
     -moz-border-radius: 10px;
     border: solid 1px #cccc66; }
-    #overlay .dialog img {
+    #overlay .dialog .busy-indicator {
       position: absolute;
       right: 50px;
-      bottom: 25px; }
+      bottom: 25px;
+      width: 32px;
+      height: 32px;
+      background: url("/images/ajax-loader.gif") no-repeat right; }
 
 #blanket {
   background-color: black;
