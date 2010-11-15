@@ -26,13 +26,10 @@ module NavigationHelpers
       '/adapt/studies'
 
     when /^the study details page for "(.+)"$/
-      "/adapt/studies/#{model("adapt_study: \"#{$1}\"").id}"
+      "/adapt/studies/#{Adapt::Study.find_by_title($1).id}"
  
     when /^the study edit page for "(.+)"$/
-      "/adapt/studies/#{model("adapt_study: \"#{$1}\"").id}/edit"
-
-    when /^the licence page for "(.+)"$/
-      new_adapt_study_licence_path(model("adapt_study: \"#{$1}\""))
+      "/adapt/studies/#{Adapt::Study.find_by_title($1).id}/edit"
 
     when /^"(.+)"$/
       $1

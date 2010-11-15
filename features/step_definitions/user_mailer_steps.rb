@@ -14,7 +14,7 @@ Then /^no mail should be sent$/ do
 end
 
 Then /^a submission notification for "([^\"]*)" should be sent$/ do |title|
-  study = model("adapt_study: \"#{title}\"")
+  study = Adapt::Study.find_by_title(title)
   check_study_notification(study, ASSDA_EMAIL,
                            'ADAPT: A new study has been submitted',
                            study.title,
@@ -23,7 +23,7 @@ Then /^a submission notification for "([^\"]*)" should be sent$/ do |title|
 end
 
 Then /^an archivist notification for "([^\"]*)" should be sent$/ do |title|
-  study = model("adapt_study: \"#{title}\"")
+  study = Adapt::Study.find_by_title(title)
   check_study_notification(study, study.archivist.email,
                            'ADAPT: A new study has been assigned to you',
                            study.title,
@@ -32,7 +32,7 @@ Then /^an archivist notification for "([^\"]*)" should be sent$/ do |title|
 end
 
 Then /^an approval notification for "([^\"]*)" should be sent$/ do |title|
-  study = model("adapt_study: \"#{title}\"")
+  study = Adapt::Study.find_by_title(title)
   check_study_notification(study, study.owner.email,
                            'Your submission via ADAPT has been approved',
                            study.title,
