@@ -4,8 +4,8 @@
       %label
         Data is
         %em *
-      = @form.input :data_is_qualitative
-      = @form.input :data_is_quantitative
+      = @form.input :data_is_qualitative, :as => :boolean
+      = @form.input :data_is_quantitative, :as => :boolean
       = @form.errors_on("Data Category")
   .clear
   = @form.input :data_relation

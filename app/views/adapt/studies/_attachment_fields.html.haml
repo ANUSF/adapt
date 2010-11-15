@@ -45,4 +45,5 @@
       individual files extracted after uploading.)
   = @form.semantic_fields_for :uploads, Adapt::Attachment.new do |f|
     - label = Rails.env.test? ? 'Upload' : ''
-    = f.input :content, :label => label, :multi => true, :size => 0
+    = f.input :content, :as => :file, :label => label, :required => false, |
+                        :multi => true, :size => 0 |

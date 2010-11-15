@@ -1,3 +1,3 @@
 = @form.inputs 'Title and Abstract', :id => 'title-fields' do
-  = @form.input :title, :rows => 4, :required => true
-  = @form.input :abstract, :rows => 16, :required => true
+  = @form.input :title, :input_html => { :rows => 4 }, :required => true
+  = @form.input :abstract, :required => true
