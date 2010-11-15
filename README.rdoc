@@ -16,8 +16,9 @@ being extracted into libraries and plugins and made available
 separately.
 
 ADAPT is based on the Ruby on Rails framework und uses the jQuery
-library for client-side scripting. The most current source code (not
-yet in production) can be found under the rails3 branch.
+library for client-side scripting. The most current source code, now
+under the master branch, is based on Rails3. The rails-2.3 branch
+contains the latest code used in beta testing.
 
 Author: Olaf Delgado-Friedrichs (odf@github.com)
 
