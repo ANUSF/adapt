@@ -1,0 +1,8 @@
+- title 'Sign in'
+- stylesheet :forms
+- path = session_path(resource_name)
+
+= form_for resource, :as => resource_name, :url => path do |f|
+  %h3 Please enter your ASSDA user name:
+  = f.text_field :identity_url, :id => "login"
+  = f.submit "Login via ASSDA"

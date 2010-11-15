@@ -24,9 +24,10 @@ Feature: Manager approves study
   Scenario: Admin can approve submitted studies
     Given the study "First Study" has status "submitted"
     When I go to the study details page for "First Study"
-    And I select "Celine" from "study_archivist"
+    And I select "Celine" from "Archivist"
     And I press "Approve"
     Then I should see "approved"
+    And an archivist notification for "First Study" should be sent
 
   Scenario: Admin cannot approve unsubmitted studies
     Given the study "First Study" has status "incomplete"

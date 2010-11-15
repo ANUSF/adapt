@@ -46,7 +46,7 @@ module ADAPT
   # -- get application defaults
   defaults = YAML::load(File.open(File.join(Rails.root, "config",
                                             "adapt_defaults.yml")))
-  config = defaults[RAILS_ENV] || {}
+  config = defaults[Rails.env] || {}
   user_home = Rails.root.to_s
 
   # -- override with servlet context if any
@@ -93,9 +93,9 @@ module ADAPT
     adapter = config['adapt.db.adapter']
     config['adapt.db.path'] =
       if %{mysql postgresql}.include?(adapter)
-        "adapt_#{RAILS_ENV}"
+        "adapt_#{Rails.env}"
       else
-        suffix = (RAILS_ENV == 'production') ? '' : "_#{RAILS_ENV}"
+        suffix = (Rails.env == 'production') ? '' : "_#{Rails.env}"
         File.join(config['adapt.home'], 'db', "db#{suffix}.#{adapter}")
       end
   end

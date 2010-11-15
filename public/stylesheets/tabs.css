@@ -1,59 +1,56 @@
-.tabs-container {
+.tab-container {
   display: inline;
   position: relative;
   margin: 0;
   padding: 0; }
-
-.tab-headers {
-  display: none;
-  list-style: none;
-  padding: 0;
-  margin: 0; }
-
-.tab-entry {
-  float: left;
-  margin: 0 -1px -1px 0; }
-  .tab-entry a {
-    float: left;
-    display: block;
-    position: relative;
-    width: 10em;
-    margin: 0 auto;
-    font-weight: normal;
-    font-size: 90%;
-    text-align: center;
-    text-decoration: none;
+  .tab-container > div {
+    clear: both;
+    border: 1px solid #aaaaaa;
+    padding: 1em 2em;
+    overflow: auto;
+    margin-bottom: 5px; }
+  .tab-container > ul {
+    display: none;
+    list-style: none;
     padding: 0;
-    border: solid #aaaaaa 1px;
-    background: #eeeeee;
-    color: black; }
-    .tab-entry a span {
-      display: block;
-      margin: -1px;
-      padding: 3px 6px;
-      background: url(../images/corner-eee.png) no-repeat right top; }
-  .tab-entry a:hover {
-    background: #888888;
-    color: white; }
-    .tab-entry a:hover span {
-      background-image: url(../images/corner-888.png); }
-  .tab-entry a.current-tab {
-    background: #ffffcc;
-    border-bottom-color: #ffffcc; }
-    .tab-entry a.current-tab span {
-      background-image: url(../images/corner-ffc.png); }
-  .tab-entry a.current-tab:hover {
-    background: #f4ee99;
-    border-bottom-color: #f4ee99;
-    color: black; }
-    .tab-entry a.current-tab:hover span {
-      background-image: url(../images/corner-f4ee99.png); }
-  .tab-entry a.with-error, .tab-entry a.with-error:hover {
-    color: red; }
-
-.tab-body {
-  clear: both;
-  border: 1px solid #aaaaaa;
-  padding: 1em 2em;
-  overflow: auto;
-  margin-bottom: 5px; }
+    margin: 0; }
+    .tab-container > ul > li {
+      float: left;
+      margin: 0 -1px -1px 0; }
+      .tab-container > ul > li a {
+        float: left;
+        display: block;
+        position: relative;
+        width: 10em;
+        margin: 0 auto;
+        font-weight: normal;
+        font-size: 90%;
+        text-align: center;
+        text-decoration: none;
+        padding: 0;
+        border: solid #aaaaaa 1px;
+        background: #eeeeee;
+        color: black; }
+        .tab-container > ul > li a span {
+          display: block;
+          margin: -1px;
+          padding: 3px 6px;
+          background: url(../images/corner-eee.png) no-repeat right top; }
+      .tab-container > ul > li a:hover {
+        background: #888888;
+        color: white; }
+        .tab-container > ul > li a:hover span {
+          background-image: url(../images/corner-888.png); }
+      .tab-container > ul > li a.current-tab {
+        background: #ffffcc;
+        border-bottom-color: #ffffcc; }
+        .tab-container > ul > li a.current-tab span {
+          background-image: url(../images/corner-ffc.png); }
+      .tab-container > ul > li a.current-tab:hover {
+        background: #f4ee99;
+        border-bottom-color: #f4ee99;
+        color: black; }
+        .tab-container > ul > li a.current-tab:hover span {
+          background-image: url(../images/corner-f4ee99.png); }
+      .tab-container > ul > li a.error, .tab-container > ul > li a.error:hover {
+        color: red; }

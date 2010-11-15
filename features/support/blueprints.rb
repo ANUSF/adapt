@@ -1,13 +1,13 @@
 require 'rubygems'
 require 'machinist/active_record'
-require 'faker'
+require 'ffaker'
 
 Before { Sham.reset } # reset Shams in between scenarios
 
 Sham.name { Faker::Name.name }
 Sham.email { Faker::Internet.email }
 
-User.blueprint do
+Adapt::User.blueprint do
   name
   username { self.name.gsub(' ', '.') }
   role { "contributor" }
@@ -17,8 +17,8 @@ end
 Sham.title { Faker::Company.catch_phrase }
 Sham.abstract { Faker::Lorem.paragraphs }
 
-Study.blueprint do
-  owner { User.make }
+Adapt::Study.blueprint do
+  owner { Adapt::User.make }
   title
   abstract
 end

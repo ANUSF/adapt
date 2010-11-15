@@ -1,16 +1,28 @@
-ActionController::Routing::Routes.draw do |map|
-  map.resources :user_sessions
-  map.resources :users
-  map.resources :studies, :shallow => true,
-                :member => { :approve => :post,
-                             :store   => :post,
-                             :submit  => :post } do |studies|
-    studies.resources :attachments, :member => { :download => :get }
-    studies.resources :licences, :member => { :accept => :post }
+Adapt::Application.routes.draw do
+  devise_for :user_accounts, :controllers => { :sessions => "sessions" } do
+    get "login",  :to => "sessions#new"
+    get "logout", :to => "sessions#destroy"
   end
 
-  map.login "login", :controller => 'user_sessions', :action => 'new'
-  map.logout "logout", :controller => 'user_sessions', :action => 'destroy'
+  namespace :adapt do
+    resources :user_sessions
+    
+    resources :studies do
+      member do
+        post 'approve'
+        post 'store'
+        post 'submit'
+      end
+    end
 
-  map.root :login
+    resources :attachments do
+      get 'download', :on => :member
+    end
+
+    resources :licences do
+      post 'accept', :on => :member
+    end
+  end
+
+  root :to => 'adapt/studies#index'
 end

@@ -5,12 +5,13 @@
   %head
     %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}/
     %title= h(yield(:title) || "Untitled")
+    = csrf_meta_tag
     - unless stripped
       - if params.has_key?('printer_friendly')
         = stylesheet_link_tag 'application-print', :media => 'all'
         %style{:type => "text/css"} body { padding: 2em; width: 80%; }
       - else
-        = stylesheet_link_tag 'application', 'layout'
+        = stylesheet_link_tag 'application', 'layout', 'dialog'
         = stylesheet_link_tag 'application-print', :media => 'print'
       /[if IE]
         = stylesheet_link_tag 'ie-fixes', :media => 'all'
@@ -18,9 +19,12 @@
         - src = "http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE8.js"
         %script{ :src => src }
       = javascript_include_tag 'jquery-1.4.2.min'
-      = javascript_include_tag 'jquery.form'
+      = javascript_include_tag 'jquery.tabs'
+      = javascript_include_tag 'jquery.tooltips'
       = javascript_include_tag 'jquery.textarea-expander'
-      = javascript_include_tag 'jquery.djtch'
+      = javascript_include_tag 'jquery.choices'
+      = javascript_include_tag 'jquery.multifile'
+      = javascript_include_tag 'rails'
       = javascript_include_tag 'application'
       = yield(:head)
   
@@ -30,10 +34,9 @@
         #navigation
           = image_tag "/images/minifantopleft.png"
           %ul
-            - if current_user
-              %li= link_to "View deposits", studies_path
-              %li= link_to "Add study", new_study_path
-              %li= link_to "Edit profile", edit_user_path(:current)
+            - if user_account_signed_in?
+              %li= link_to "View deposits", adapt_studies_path
+              %li= link_to "Add study", new_adapt_study_path
             - else
               %li= link_to "Register", ADAPT::CONFIG['assda.registration.url']
               %li= link_to "Login", login_path
@@ -49,7 +52,7 @@
         - image_name = Rails.env.production? ? 'house' : 'testing'
         - image = image_path("#{image_name}.jpg")
         #content{ :style => "background: url(#{image}) no-repeat right bottom" }
-          #messages.dj-replace.dj-anchor
+          #messages
             = yield(:messages)
             - flash.each do |name, msg|
               %div{ :id => "flash_#{name}" }= h(msg).gsub(/\n/, '<br/>')
@@ -70,8 +73,9 @@
         - unless @exception
           = link_to "Printer style preview", url_for(:printer_friendly => 1), |
                     :method => request.method |
-          - if in_demo_mode and current_user
-            - formular_for current_user do |f|
+          - if in_demo_mode and user_account_signed_in?
+            = formular_for current_user, |
+              :url => adapt_user_session_path(current_user) do |f| |
               %input{ :type => "hidden", :name => "last_url", :value => url_for }
               = f.select :role, :label => ""
               = f.result_buttons "Change Role"

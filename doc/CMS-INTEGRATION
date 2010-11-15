@@ -6,12 +6,14 @@ Infrastructure
 - Ruby likely to be installed from source (not using yum)
 - load testing
 - SELinux
-- how to store assets produced by ADAPT
+- how to store assets produced by ADAPT?
 
 
 ADAPT => engine
 ---------------
 - don't monkey-patch Rails core classes
+- namespace everything
+- ???
 
 
 Authentication/Authorization

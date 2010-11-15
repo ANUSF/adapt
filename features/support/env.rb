@@ -4,7 +4,7 @@
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
 
-ENV["RAILS_ENV"] ||= "cucumber"
+ENV["RAILS_ENV"] ||= "test"
 require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')
 
 require 'cucumber/formatter/unicode' # Remove this line if you don't want Cucumber Unicode support
@@ -22,7 +22,9 @@ require 'capybara/session'
 # prefer to use XPath just remove this line and adjust any selectors in your
 # steps to use the XPath syntax.
 Capybara.default_selector = :css
-Capybara.javascript_driver = :celerity
+if defined?(JRUBY_VERSION)
+  Capybara.javascript_driver = :celerity
+end
 
 # If you set this to false, any error raised from within your app will bubble 
 # up to your step definition and out to cucumber unless you catch it somewhere
@@ -55,5 +57,18 @@ if defined?(ActiveRecord::Base)
     require 'database_cleaner'
     DatabaseCleaner.strategy = :truncation
   rescue LoadError => ignore_if_database_cleaner_not_present
+  end
+end
+
+# Remove all stored mail deliveries
+Before { ActionMailer::Base.deliveries.clear }
+
+# Ensure a pristine assets directory for each scenario
+Before do
+  asset_path = ADAPT::CONFIG['adapt.asset.path']
+  %w{Archive Submission Temporary}.each do |s|
+    dirname = File.join(asset_path, s)
+    FileUtils.mkpath(dirname)
+    system("rm -rf #{dirname}/*")
   end
 end

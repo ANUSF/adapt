@@ -23,16 +23,13 @@ module NavigationHelpers
       '/login'
 
     when /^the study index page$/
-      '/studies'
+      '/adapt/studies'
 
     when /^the study details page for "(.+)"$/
-      "/studies/#{model("study: \"#{$1}\"").id}"
+      "/adapt/studies/#{Adapt::Study.find_by_title($1).id}"
  
     when /^the study edit page for "(.+)"$/
-      "/studies/#{model("study: \"#{$1}\"").id}/edit"
-
-    when /^the licence page for "(.+)"$/
-      new_study_licence_path(model("study: \"#{$1}\""))
+      "/adapt/studies/#{Adapt::Study.find_by_title($1).id}/edit"
 
     when /^"(.+)"$/
       $1
@@ -41,7 +38,8 @@ module NavigationHelpers
       begin
         page_name =~ /the (.*) page/
         path_components = $1.split(/\s+/)
-        self.send(path_components.push('path').join('_').to_sym)
+        self.send(path_components.insert(-2, 'adapt').push('path').
+                  join('_').to_sym)
       rescue Object => e
         raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
           "Now, go and add a mapping in #{__FILE__}"

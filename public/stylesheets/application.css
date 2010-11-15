@@ -241,7 +241,6 @@ a.toggle {
   margin: 0 0.2em; }
 
 #tooltip {
-  position: absolute;
   width: 20em;
   background-color: #ffffcc;
   padding: 2px;

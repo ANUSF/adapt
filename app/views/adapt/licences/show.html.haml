@@ -1,0 +1,12 @@
+- title "Deposit Licence"
+
+%pre= @text
+
+%hr
+- if @study.status == "unsubmitted"
+  %fieldset
+    = form_tag submit_adapt_study_path(@study) do
+      %p
+        %input{ :name => "licence_text", :type => "hidden", :value => @text }
+        %input{ :name => "result", :type => "submit", :value => "Cancel" }
+        %input{ :name => "result", :type => "submit", :value => "Accept" }

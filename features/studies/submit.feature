@@ -39,6 +39,7 @@ Feature: Contributor submits study
     And I press "Accept"
     Then I should see the page heading "Study Summary"
     And I should see the notice "Study submitted and pending approval"
+    And a submission notification for "First Study" should be sent
 
   Scenario: Licence declined
     Given the study "First Study" is ready for submission

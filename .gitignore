@@ -12,7 +12,6 @@
 /log/*
 /tmp/*
 /assets/*
-/config/roles.properties
 
 /rerun.txt
 /.sass-cache/*
