@@ -81,6 +81,10 @@
     $('#flash_notice').animate({ opacity: 0 }, 10000);
 
     // -- nicer tooltips
-    $('*').nicerTooltips();
+    $('form.formtastic fieldset > ol > li .inline-hints').each(function () {
+      $(this)
+	.css({ display: 'none' })
+	.parent().addTooltip($(this).text());
+    });
   });
 }(jQuery));
