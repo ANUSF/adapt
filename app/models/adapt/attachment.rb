@@ -1,4 +1,6 @@
 class Adapt::Attachment < ActiveRecord::Base
+  set_table_name 'adapt_attachments'
+
   ASSET_PATH = ADAPT::CONFIG['adapt.asset.path']
 
   VALID_CATEGORIES = ["Data File", "Questionnaire", "Report", "Coding Frame",

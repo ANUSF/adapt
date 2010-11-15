@@ -1,4 +1,6 @@
 class Adapt::Licence < ActiveRecord::Base
+  set_table_name 'adapt_licences'
+
   include ModelSupport
   include LicenceText
 

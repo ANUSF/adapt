@@ -1,4 +1,6 @@
 class Adapt::Study < ActiveRecord::Base
+  set_table_name 'adapt_studies'
+
   User = Adapt::User
   Attachment = Adapt::Attachment
   Licence = Adapt::Licence

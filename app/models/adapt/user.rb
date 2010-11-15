@@ -1,4 +1,6 @@
 class Adapt::User < ActiveRecord::Base
+  set_table_name 'adapt_users'
+
   has_many :studies, :dependent => :destroy
   has_many :studies_in_curation,  :class_name  => 'Study',
   :foreign_key => :archivist_id
