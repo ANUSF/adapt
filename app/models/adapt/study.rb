@@ -31,7 +31,7 @@ class Adapt::Study < ActiveRecord::Base
                  :funding_agency, :other_acknowledgements, :references]
 
   attr_accessible(*(JSON_FIELDS +
-                    [:name, :title, :abstract, :uploads_attributes,
+                    [:title, :abstract, :uploads_attributes,
                      :attachments_attributes, :licence_attributes, :skip_licence,
                      :additional_metadata]))
 

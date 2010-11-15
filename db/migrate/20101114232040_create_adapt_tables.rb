@@ -24,7 +24,6 @@ class CreateAdaptTables < ActiveRecord::Migration
       t.string   :permanent_identifier
       t.string   :status
       t.text     :title
-      t.string   :name
       t.text     :abstract
       t.text     :additional_metadata
       t.integer  :archivist_id
