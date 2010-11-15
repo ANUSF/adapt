@@ -2,4 +2,12 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  formtastic:
+    labels:
+      'adapt/study':
+        title: "Study title"
+        abstract: "Study abstract"
+    hints:
+      'adapt/study':
+        title: "The full title of this study."
+        abstract: "The study abstract."

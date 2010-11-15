@@ -16,6 +16,7 @@ gem 'rubyzip',      :require => 'zip/zip'
 gem 'devise'
 gem 'rack-openid'
 gem 'devise_openid_authenticatable'
+gem 'formtastic'
 
 # -- gems stored locally
 gem 'partial-date',   :git => "#{ENV['HOME']}/Rails/my-gems/partial-date"

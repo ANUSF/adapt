@@ -3,7 +3,8 @@
   position: relative;
   margin: 0;
   padding: 0; }
-  .tab-container > div {
+  .tab-container > div, .tab-container > fieldset.inputs {
+    position: relative;
     clear: both;
     border: 1px solid #aaaaaa;
     padding: 1em 2em;

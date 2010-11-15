@@ -56,7 +56,11 @@
     // -- handle tabs
     $('.tab-container')
       .prepend('<input name=active_tab type=hidden />')
-      .tabContainer({ tags_to_propagate: ['error'] })
+      .tabContainer({
+	tags_to_propagate: ['error'],
+	patterns: { body: '> div, > fieldset' }
+	})
+      .find('> fieldset legend').css({ display: 'none' }).end()
       .find('> div').bind('tab-opened', tab_change_handler).end()
       .find('.active-tab').tabSelect();
     $('.tab-link').tabLink();

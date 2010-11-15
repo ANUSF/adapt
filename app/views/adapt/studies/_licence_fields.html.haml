@@ -1,5 +1,4 @@
-#licence-fields
-  %h3 Licence Details
+= @form.inputs 'Licence Details', :id => 'licence-fields' do
   - if @study.owner.is_archivist
     - skip = "Licence will be obtained separately (archivists only)"
     %div= @form.check_box :skip_licence, :label => skip
@@ -33,5 +32,3 @@
     %p{ :title => Adapt::LicenceText::DEFERRED_ACCESS }
       = fields.radio_button :access_mode, 'S', :label => ''
       Special conditions of access to be negotiated with ASSDA.
-
-  .clear

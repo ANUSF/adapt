@@ -1,0 +1,4 @@
+form.formtastic fieldset > ol > li label {
+  float: none; }
+  form.formtastic fieldset > ol > li label abbr {
+    color: red; }

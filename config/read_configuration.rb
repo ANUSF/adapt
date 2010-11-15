@@ -1,16 +1,13 @@
 require 'java' if defined?(JRUBY_VERSION)
 
-# -- we run this before Rails does its monkey-patching, and we want 'blank?'
-class Object
-  def blank?
-    respond_to?(:empty?) ? empty? : !self
-  end
-end
-
 # The body of this module reads configuration parameters from various
 # sources and collects them in the constant ADAPT::CONFIG. This code
 # is meant to be loaded once during the Rails initialization process.
 module ADAPT
+  def self.is_blank?(val)
+    val.respond_to?(:empty?) ? val.empty? : !val
+  end
+
   # Converts its parameter to an integer.
   def self.make_integer(val)
     if val.is_a? String
@@ -38,9 +35,9 @@ module ADAPT
   # Normalizes a path value, using a default for empty values, and a
   # base directory for relative paths.
   def self.make_path(val, default, base)
-    val = default if val.blank?
+    val = default if is_blank?(val)
     val = val.to_s
-    (val.blank? or val == File.expand_path(val)) ? val : File.join(base, val)
+    (is_blank?(val) or val == File.expand_path(val)) ? val : File.join(base, val)
   end
 
   # -- get application defaults
@@ -64,7 +61,7 @@ module ADAPT
       end
     end
     tmp = java.lang.System.getProperty('user.home')
-    user_home = tmp unless tmp.blank?
+    user_home = tmp unless is_blank?(tmp)
   end
 
   # -- override with runtime environment settings
@@ -73,7 +70,7 @@ module ADAPT
       config[name.downcase.gsub(/_/, '.')] = ENV[name]
     end
     tmp = ENV['HOME']
-    user_home = tmp unless tmp.blank?
+    user_home = tmp unless is_blank?(tmp)
   end
 
   # -- handle relative paths
@@ -89,7 +86,7 @@ module ADAPT
                                       config['adapt.home'])
 
   # -- the default database path depends on the adapter
-  if config['adapt.db.path'].blank?
+  if is_blank? config['adapt.db.path']
     adapter = config['adapt.db.adapter']
     config['adapt.db.path'] =
       if %{mysql postgresql}.include?(adapter)

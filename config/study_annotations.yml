@@ -1,7 +1,4 @@
 --- 
-:name: 
-  :label_for: Short name
-  :help_on: Short name to use for later reference.
 :title: 
   :label_for: Study title
   :help_on: The full title of this study.

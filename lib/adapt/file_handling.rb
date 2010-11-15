@@ -1,8 +1,6 @@
 require 'pazy/enumerable'
 
 module Adapt::FileHandling
-  include Pazy::Enumerable
-
   def write_file(data, base, *path_parts)
     make_parent(base, *path_parts)
     path = File.expand_path(File.join(base, *path_parts))
@@ -41,7 +39,7 @@ module Adapt::FileHandling
     if !File.exist?(path)
       path
     else
-      Stream.new('a', &:next).map { |s|
+      Pazy::Enumerable::Stream.new('a', &:next).map { |s|
         path.sub(/((\.[^.]*)?)$/, "-#{s}\\1")
       }.find { |p| !File.exist?(p) }
     end

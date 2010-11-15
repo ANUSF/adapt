@@ -11,7 +11,7 @@
     %a{ :href => '#edit-help', :class => 'tab-link' } Help
     tab for further tips and instructions.
 
-= formular_for @study, :url => adapt_study_path(@study), |
+= semantic_form_for @study, :url => adapt_study_path(@study), |
     :html => {:multipart => true} do |form| |
   - @form = form
 
@@ -33,4 +33,7 @@
     = render 'credit_fields'
     = render 'attachment_fields'
     = render 'licence_fields'
-  %p= form.result_buttons @button_texts
+
+  = form.buttons do
+    - @button_texts.each do |value|
+      = form.commit_button value, :button_html => { :name => 'result' }
