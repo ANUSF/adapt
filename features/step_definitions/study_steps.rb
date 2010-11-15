@@ -14,13 +14,6 @@ Given /^the study "([^\"]*)" has been assigned to (.*)$/ do |title, name|
   study.save!
 end
 
-Given /^the study "([^\"]*)" has been assigned to (.*)$/ do |title, name|
-  study = model("study: \"#{title}\"")
-  study.archivist = model("user: \"#{name}\"")
-  study.temporary_identifier = "deposit_99999" # Hack to make store go through!
-  study.save!
-end
-
 Given /^the study "([^\"]*)" has access mode "([^\"]*)"$/ do |title, mode|
   study = Adapt::Study.find_by_title(title)
   user = study.owner
