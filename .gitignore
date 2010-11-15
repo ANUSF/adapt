@@ -4,11 +4,6 @@
 /coverage/*
 /db/db_*
 
-/java/bin/*
-/java/build/dist.jar
-/java/build/adapt-201*.jar
-/java/build/appname.txt
-/java/.manager/*
 /log/*
 /tmp/*
 /assets/*
