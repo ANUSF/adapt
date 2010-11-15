@@ -2,9 +2,61 @@ en:
   formtastic:
     labels:
       'adapt/study':
-        title: "Study title"
-        abstract: "Study abstract"
+        title:                   "Study title"
+        abstract:                "Study abstract"
+        archivist:               ""
+        data_is_qualitative:     "Qualitative"
+        data_is_quantitative:    "Quantitative"
+        data_relation:           "Related data"
+        data_kind:               "Kind of data"
+        time_method:             "Time dimensions"
+        sample_population:       "Sample population"
+        sampling_procedure:      "Sampling procedures"
+        collection_method:       "Method of data collection"
+        collection_start:        ""
+        collection_end:          ""
+        period_start:            ""
+        period_end:              ""
+        response_rate:           "Response rate:"
+        depositors:              "Depositor:"
+        principal_investigators: "Principal investigator(s):"
+        data_producers:          "Data producer(s):"
+        funding_agency:          "Funding:"
+        other_acknowledgements:  "Other acknowledgements:"
+        references:              "Related publications:"
     hints:
       'adapt/study':
-        title: "The full title of this study."
-        abstract: "The study abstract."
+        title:                   "The full title of this study."
+        abstract:                "The study abstract."
+        archivist:               "Select the archivist to curate this
+  submission."
+        data_relation:           "If this study is related to data
+  already in the ASSDA collection, provide details. Include the study
+  number(s) if known."
+        sample_population:       "Please describe the universe that
+  was being sampled in this study. Specify any limitations on age,
+  sex, location, occupation, etc. of the population."
+        period_start:            "If the data pertains to a period
+  prior to the time when it was collected (e.g. medical records for
+  1980-1990 collected in 1992) what period does the data come from?"
+        period_end:              "If the data pertains to a period
+  prior to the time when it was collected (e.g. medical records for
+  1980-1990 collected in 1992) what period does the data come from?"
+        depositors:              "Please give details of the person
+  sending the materials."
+        principal_investigators: "Please list the name(s) of each
+  principal investigator and the organisation with which they are
+  associated."
+        data_producers:          "List if different from the principal
+  investigator(s)."
+        funding_agency:          "Please list then names(s) of all
+  funding source(s) (include the grant number if appropriate)."
+        other_acknowledgements:  "Please list the names of any other
+  persons or organisations who played a significant role in the
+  conduct of the study."
+        references:              "Please provide the bibliographic
+  details and, where available, online links to any published work
+  (including journal articles, books or book chapters, conference
+  presentations, theses or any other publications or outputs) based
+  wholly or in part on the material. The link and description fields
+  are optional."

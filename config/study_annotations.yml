@@ -1,24 +1,6 @@
 --- 
-:title: 
-  :label_for: Study title
-  :help_on: The full title of this study.
-:abstract: 
-  :label_for: Study abstract
-  :help_on: The study abstract.
-:archivist: 
-  :label_for: ""
-  :help_on: Select the archivist to curate this submission.
-:data_is_qualitative: 
-  :label_for: Qualitative
-:data_is_quantitative: 
-  :label_for: Quantitative
-:data_relation:
-  :label_for: Related data
-  :help_on: If this study is related to data already in the ASSDA collection, provide details. Include the study number(s) if known.
 :data_kind: 
-  :label_for: Kind of data
   :is_repeatable?: true
-  :allow_other?: true
   :selections: 
     - Administrative / process-produced data
     - Audio-taped interviews
@@ -51,9 +33,7 @@
     - Time budget diaries/data
     - Video-taped interviews
 :time_method: 
-  :label_for: Time dimensions
   :is_repeatable?: true
-  :allow_other?: true
   :selections: 
     - one-time cross-sectional study
     - follow-up cross-sectional study
@@ -61,13 +41,8 @@
     - longitudinal/panel/cohort study
     - time series
     - trend study
-:sample_population: 
-  :label_for: Sample population
-  :help_on: Please describe the universe that was being sampled in this study. Specify any limitations on age, sex, location, occupation, etc. of the population.
 :sampling_procedure: 
-  :label_for: Sampling procedures
   :is_repeatable?: true
-  :allow_other?: true
   :selections: 
     - no sampling (total universe)
     - simple random sample
@@ -83,9 +58,7 @@
     - convenience sample
     - snowball
 :collection_method: 
-  :label_for: Method of data collection
   :is_repeatable?: true
-  :allow_other?: true
   :selections: 
     - clinical measurements
     - compilation or synthesis of existing material
@@ -102,58 +75,34 @@
     - telephone interview
     - transcription of existing materials
     - web-based self-completion
-:collection_start: 
-  :label_for: ""
-:collection_end: 
-  :label_for: ""
-:period_start: 
-  :label_for: ""
-  :help_on: "If the data pertains to a period prior to the time when it was collected (e.g. medical records for 1980-1990 collected in 1992) what period does the data come from? "
-:period_end: 
-  :label_for: ""
-  :help_on: "If the data pertains to a period prior to the time when it was collected (e.g. medical records for 1980-1990 collected in 1992) what period does the data come from? "
-:response_rate: 
-  :label_for: "Response rate:"
 :depositors: 
   :subfields: 
     - name
     - affiliation
-  :label_for: "Depositor:"
-  :help_on: Please give details of the person sending the materials.
 :principal_investigators: 
   :subfields: 
     - name
     - affiliation
   :is_repeatable?: true
-  :label_for: "Principal Investigator(s):"
-  :help_on: Please list the name(s) of each principal investigator and the organisation with which they are associated.
 :data_producers: 
   :subfields: 
     - name
     - affiliation
   :is_repeatable?: true
-  :label_for: "Data Producer(s):"
-  :help_on: List if different from the principal investigator(s).
 :funding_agency: 
   :subfields: 
     - agency
     - grant_number
   :is_repeatable?: true
-  :label_for: "Funding:"
-  :help_on: Please list then names(s) of all funding source(s) (include the grant number if appropriate).
 :other_acknowledgements: 
   :subfields: 
     - name
     - affiliation
     - role
   :is_repeatable?: true
-  :label_for: "Other Acknowledgements:"
-  :help_on: Please list the names of any other persons or organisations who played a significant role in the conduct of the study.
 :references: 
-  :label_for: "Related Publications:"
   :subfields: 
     - citation
     - link
     - description
   :is_repeatable?: true
-  :help_on: Please provide the bibliographic details and, where available, online links to any published work (including journal articles, books or book chapters, conference presentations, theses or any other publications or outputs) based wholly or in part on the material. The link and description fields are optional.
