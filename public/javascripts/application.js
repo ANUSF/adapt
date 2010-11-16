@@ -53,6 +53,9 @@
   }
 
   $(document).ready(function() {
+    // -- make sure tabs signal all errors
+    $('form.formtastic .inline-errors').addClass('error');
+
     // -- handle tabs
     $('.tab-container')
       .prepend('<input name=active_tab type=hidden />')
@@ -80,7 +83,7 @@
     // -- remove flash notices after some time
     $('#flash_notice').animate({ opacity: 0 }, 10000);
 
-    // -- nicer tooltips
+    // -- turn inline hints in formtastic into nice mouseover tooltips
     $('form.formtastic fieldset > ol > li .inline-hints').each(function () {
       $(this)
 	.css({ display: 'none' })

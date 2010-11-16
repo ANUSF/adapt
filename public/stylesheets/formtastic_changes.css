@@ -1,4 +1,13 @@
+form.formtastic fieldset p {
+  padding: 0.25em 0;
+  text-align: justify; }
+  form.formtastic fieldset p em {
+    font-style: italic; }
 form.formtastic fieldset > ol > li label {
   float: none; }
   form.formtastic fieldset > ol > li label abbr {
     color: red; }
+form.formtastic fieldset > ol > li p.inline-errors {
+  color: red; }
+form.formtastic fieldset .inline-errors {
+  color: red; }

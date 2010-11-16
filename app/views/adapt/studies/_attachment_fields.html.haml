@@ -44,6 +44,6 @@
       as ZIP files. The latter can be submitted as is or the
       individual files extracted after uploading.)
   = @form.semantic_fields_for :uploads, Adapt::Attachment.new do |f|
-    - label = Rails.env.test? ? 'Upload' : ''
-    = f.input :content, :as => :file, :label => label, :required => false, |
-                        :multi => true, :size => 0 |
+    - label = Rails.env.test? ? 'Upload' : false
+    = f.input :content, :label => label, :as => :file, :required => false, |
+                        :input_html => { :class => 'multi' } |
