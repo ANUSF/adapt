@@ -11,3 +11,14 @@ form.formtastic fieldset > ol > li p.inline-errors {
   color: red; }
 form.formtastic fieldset .inline-errors {
   color: red; }
+form.formtastic fieldset.inline > ol > li {
+  display: inline;
+  float: left; }
+  form.formtastic fieldset.inline > ol > li label, form.formtastic fieldset.inline > ol > li input, form.formtastic fieldset.inline > ol > li p {
+    width: auto;
+    display: inline;
+    float: left; }
+  form.formtastic fieldset.inline > ol > li p.inline-errors {
+    margin: 0; }
+  form.formtastic fieldset.inline > ol > li input {
+    margin-right: 1em; }

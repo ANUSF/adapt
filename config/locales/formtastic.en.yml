@@ -4,7 +4,7 @@ en:
       'adapt/study':
         title:                   "Study title"
         abstract:                "Study abstract"
-        archivist:               ""
+        archivist:               false
         data_is_qualitative:     "Qualitative"
         data_is_quantitative:    "Quantitative"
         data_relation:           "Related data"
@@ -13,10 +13,10 @@ en:
         sample_population:       "Sample population"
         sampling_procedure:      "Sampling procedures"
         collection_method:       "Method of data collection"
-        collection_start:        ""
-        collection_end:          ""
-        period_start:            ""
-        period_end:              ""
+        collection_start:        "Data collection period:"
+        collection_end:          "&mdash;"
+        period_start:            "Time period data refers to:"
+        period_end:              "&mdash;"
         response_rate:           "Response rate:"
         depositors:              "Depositor:"
         principal_investigators: "Principal investigator(s):"

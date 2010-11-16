@@ -1,35 +1,24 @@
 = @form.inputs 'Data Description', :id => 'data-fields' do
-  %div
-    %p
+  = @form.inputs :class => 'inline' do
+    %li
       %label
         Data is
-        %em *
-      = @form.input :data_is_qualitative, :as => :boolean
-      = @form.input :data_is_quantitative, :as => :boolean
-      = @form.errors_on("Data Category")
-  .clear
-  = @form.input :data_relation
-  .clear
-  = @form.input :data_kind, :required => true, :size => 40
-  = @form.input :time_method, :size => 40
-  .clear
-  = @form.input :sampling_procedure, :size => 40
-  = @form.input :collection_method, :size => 40
-  .clear
+        %abbr *
+    = @form.input :data_is_qualitative, :as => :boolean
+    = @form.input :data_is_quantitative, :as => :boolean
+    %li= @form.errors_on("Data Category")
+  = @form.input :data_relation, :as => :text, :input_html => { :rows => 4 }
+  = @form.input :data_kind, :required => true, :input_html => { :size => 40 }
+  = @form.input :time_method, :input_html => { :size => 40 }
+  = @form.input :sampling_procedure, :input_html => { :size => 40 }
+  = @form.input :collection_method, :input_html => { :size => 40 }
   = @form.input :sample_population
-  .clear
-  %div= @form.input :response_rate, :label_left => true
-  .clear
-  %div
-    = @form.input :period_start, :size => 12, |
-        :label => 'Time period data refers to:', :label_left => true |
-    &mdash;
-    = @form.input :period_end, :size => 12
-    = @form.errors_on("period")
-  .clear
-  %div
-    = @form.input :collection_start, :size => 12, |
-        :label => 'Data collection period:', :label_left => true |
-    &mdash;
-    = @form.input :collection_end, :size => 12
-    = @form.errors_on("collection")
+  = @form.input :response_rate, :label_left => true
+  = @form.inputs :class => 'inline' do
+    = @form.input :period_start, :input_html => { :size => 12 }
+    = @form.input :period_end, :input_html => { :size => 12 }
+    %li= @form.errors_on("period")
+  = @form.inputs :class => 'inline' do
+    = @form.input :collection_start, :input_html => { :size => 12 }
+    = @form.input :collection_end, :input_html => { :size => 12 }
+    %li= @form.errors_on("collection")

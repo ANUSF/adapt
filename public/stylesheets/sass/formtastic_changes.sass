@@ -1,17 +1,30 @@
 @import definitions
 
-form.formtastic fieldset
-  p
-    :padding 0.25em 0
-    :text-align justify
-    em
-      :font-style italic
-  > ol > li
-    label
-      :float none
-      abbr
+form.formtastic
+  fieldset
+    p
+      :padding 0.25em 0
+      :text-align justify
+      em
+        :font-style italic
+    > ol > li
+      label
+        :float none
+        abbr
+          :color = !signal_color
+      p.inline-errors
         :color = !signal_color
-    p.inline-errors
+    .inline-errors
       :color = !signal_color
-  .inline-errors
-    :color = !signal_color
+  fieldset.inline
+    > ol > li
+      :display inline
+      :float left
+      label, input, p
+        :width auto
+        :display inline
+        :float left
+      p.inline-errors
+        :margin 0
+      input
+        :margin-right 1em
