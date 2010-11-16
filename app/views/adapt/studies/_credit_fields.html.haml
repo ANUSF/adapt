@@ -1,9 +1,39 @@
-- stylesheet :tables
+-#TODO: dry this up
 
 = @form.inputs 'Credits and Acknowledgements', :id => 'credit-fields' do
-  = @form.input :depositors, :required => true, :size => 35
-  = @form.input :principal_investigators, :required => true, :size => 35
-  = @form.input :data_producers, :size => 35
-  = @form.input :funding_agency, :size => 35
-  = @form.input :other_acknowledgements, :size => 25
-  = @form.input :references, :size => 25, :rows => 1
+  = @form.inputs "Depositor:" do
+    = @form.semantic_fields_for :depositor_items do |f|
+      = f.inputs :class => 'inline' do
+        - @study.subfields('depositors').each do |field|
+          = f.input field.to_sym, :input_html => { :size => 35 }
+
+  = @form.inputs "Principal investigator(s):", :class => 'repeatable' do
+    = @form.semantic_fields_for :principal_investigators_items do |f|
+      = f.inputs :class => 'inline' do
+        - @study.subfields('principal_investigators').each do |field|
+          = f.input field.to_sym, :input_html => { :size => 35 }
+
+  = @form.inputs "Data producer(s):", :class => 'repeatable' do
+    = @form.semantic_fields_for :data_producers_items do |f|
+      = f.inputs :class => 'inline' do
+        - @study.subfields('data_producers').each do |field|
+          = f.input field.to_sym, :input_html => { :size => 35 }
+
+  = @form.inputs "Funding:", :class => 'repeatable' do
+    = @form.semantic_fields_for :funding_agency_items do |f|
+      = f.inputs :class => 'inline' do
+        - @study.subfields('funding_agency').each do |field|
+          = f.input field.to_sym, :input_html => { :size => 35 }
+
+  = @form.inputs "Other acknowledgements:", :class => 'repeatable' do
+    = @form.semantic_fields_for :other_acknowledgements_items do |f|
+      = f.inputs :class => 'inline' do
+        - @study.subfields('other_acknowledgements').each do |field|
+          = f.input field.to_sym, :input_html => { :size => 25 }
+
+  = @form.inputs "Related publications:", :class => 'repeatable' do
+    = @form.semantic_fields_for :references_items do |f|
+      = f.inputs :class => 'inline' do
+        - @study.subfields('references').each do |field|
+          = f.input field.to_sym, :as => :text, |
+                                  :input_html => { :rows => 2, :cols => 25 } |

@@ -41,7 +41,14 @@ class Adapt::Study < ActiveRecord::Base
                      :data_kind_items_attributes,
                      :time_method_items_attributes,
                      :sampling_procedure_items_attributes,
-                     :collection_method_items_attributes ]))
+                     :collection_method_items_attributes,
+                     :depositors_items_attributes,
+                     :principal_investigators_items_attributes,
+                     :data_producers_items_attributes,
+                     :funding_agency_items_attributes,
+                     :other_acknowledgements_items_attributes,
+                     :references_items_attributes
+                    ]))
 
   validates_presence_of :title, :message => 'May not be blank.'
   validates_uniqueness_of :title, :scope => :user_id,
@@ -124,14 +131,27 @@ class Adapt::Study < ActiveRecord::Base
     end
   end
 
-  %w{data_kind time_method sampling_procedure collection_method}.each do |field|
-    define_method("#{field}_items") do
-      (send(field) + ['']).map { |val| Adapt::JsonGeneric.new(val) }
+  %w{data_kind time_method sampling_procedure collection_method
+     depositors principal_investigators data_producers
+     funding_agency other_acknowledgements references}.each do |attr|
+
+    define_method("#{attr}_items") do
+      fields = subfields(attr)
+      if fields.blank?
+        default = ''
+      else
+        default = Hash[*fields.zip([]).flatten]
+      end
+      (send(attr) + [default]).map { |val| Adapt::Generic.new(val) }
     end
 
-    define_method("#{field}_items_attributes=") do |data|
-      values = data.map { |k, params| params[:value] }
-      send("#{field}=", values)
+    define_method("#{attr}_items_attributes=") do |data|
+      Rails.logger.error("Raw attributes for #{attr}:\n#{data}")
+      send "#{attr}=", if subfields(attr).blank?
+                         data.map { |k, params| params[:value] }
+                       else
+                         data.map { |k, params| params }
+                       end
     end
   end
 
