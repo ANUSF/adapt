@@ -31,9 +31,17 @@ class Adapt::Study < ActiveRecord::Base
                  :funding_agency, :other_acknowledgements, :references]
 
   attr_accessible(*(JSON_FIELDS +
-                    [:title, :abstract, :uploads_attributes,
-                     :attachments_attributes, :licence_attributes, :skip_licence,
-                     :additional_metadata]))
+                    [:title,
+                     :abstract,
+                     :uploads_attributes,
+                     :attachments_attributes,
+                     :licence_attributes,
+                     :skip_licence,
+                     :additional_metadata,
+                     :data_kind_items_attributes,
+                     :time_method_items_attributes,
+                     :sampling_procedure_items_attributes,
+                     :collection_method_items_attributes ]))
 
   validates_presence_of :title, :message => 'May not be blank.'
   validates_uniqueness_of :title, :scope => :user_id,
@@ -103,6 +111,7 @@ class Adapt::Study < ActiveRecord::Base
     super
   end
 
+  # Virtual attributes
   def uploads
     [Attachment.new]
   end
@@ -115,6 +124,18 @@ class Adapt::Study < ActiveRecord::Base
     end
   end
 
+  %w{data_kind time_method sampling_procedure collection_method}.each do |field|
+    define_method("#{field}_items") do
+      (send(field) + ['']).map { |val| Adapt::JsonGeneric.new(val) }
+    end
+
+    define_method("#{field}_items_attributes=") do |data|
+      values = data.map { |k, params| params[:value] }
+      send("#{field}=", values)
+    end
+  end
+
+  # Status test
   def status
     result = read_attribute('status')
     if result.blank? or %w{incomplete unsubmitted}.include? result

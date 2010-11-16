@@ -1,4 +1,5 @@
 = @form.inputs 'Data Description', :id => 'data-fields' do
+
   = @form.inputs :class => 'inline' do
     %li
       %label
@@ -7,11 +8,25 @@
     = @form.input :data_is_qualitative, :as => :boolean
     = @form.input :data_is_quantitative, :as => :boolean
     %li= @form.errors_on("Data Category")
+
   = @form.input :data_relation, :as => :text, :input_html => { :rows => 4 }
-  = @form.input :data_kind, :required => true, :input_html => { :size => 40 }
-  = @form.input :time_method, :input_html => { :size => 40 }
-  = @form.input :sampling_procedure, :input_html => { :size => 40 }
-  = @form.input :collection_method, :input_html => { :size => 40 }
+
+  = @form.inputs "Data kind", :class => 'repeatable' do
+    = @form.semantic_fields_for :data_kind_items do |f|
+      = f.input :value, :label => false, :input_html => { :size => 40 }
+
+  = @form.inputs "Time dimensions", :class => 'repeatable' do
+    = @form.semantic_fields_for :time_method_items do |f|
+      = f.input :value, :label => false, :input_html => { :size => 40 }
+
+  = @form.inputs "Sampling procedures", :class => 'repeatable' do
+    = @form.semantic_fields_for :sampling_procedure_items do |f|
+      = f.input :value, :label => false, :input_html => { :size => 40 }
+
+  = @form.inputs "Method of data collection", :class => 'repeatable' do
+    = @form.semantic_fields_for :collection_method_items do |f|
+      = f.input :value, :label => false, :input_html => { :size => 40 }
+
   = @form.input :sample_population
   = @form.input :response_rate, :label_left => true
   = @form.inputs :class => 'inline' do

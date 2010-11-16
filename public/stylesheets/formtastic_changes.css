@@ -22,3 +22,8 @@ form.formtastic fieldset.inline > ol > li {
     margin: 0; }
   form.formtastic fieldset.inline > ol > li input {
     margin-right: 1em; }
+form.formtastic fieldset.repeatable {
+  margin-bottom: 1em; }
+  form.formtastic fieldset.repeatable > ol > li {
+    margin: -1px 0 0 0;
+    padding: 0; }
