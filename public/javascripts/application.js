@@ -2,8 +2,10 @@
 /*global jQuery */
 
 (function($) {
+  var ROW_PATTERN = 'fieldset.tabular';
+
   function is_last(row) {
-    return row.nextAll('.multi').length === 0;
+    return row.nextAll(ROW_PATTERN).length === 0;
   }
 
   function is_empty(row) {
@@ -12,7 +14,7 @@
 
   function multitext_edited() {
     var item = $(this),
-        row  = item.parent().closest('.multi'),
+        row  = item.parent().closest(ROW_PATTERN),
         new_row;
     if (!is_empty(row) && is_last(row)) {
       item.blur();
@@ -28,17 +30,17 @@
       new_row.find('select.predefined').each(function () {
 	$(this).prev().addPulldown($(this));
       });
-      row.parent().append(new_row);
+      row.after(new_row);
       item.focus().addClass('dirty');
     }
   }
 
   function multitext_cleanup() {
     var item = $(this),
-        row  = item.parent().closest('.multi');
+        row  = item.parent().closest(ROW_PATTERN);
     if (is_empty(row) && !is_last(row)) {
       row.removeClass('dirty')
-	.nextAll('.multi').find('input,textarea').addClass('dirty');
+	.nextAll(ROW_PATTERN).find('input,textarea').addClass('dirty');
       setTimeout(function() { row.remove(); }, 100);
     }
   }
@@ -53,6 +55,14 @@
   }
 
   $(document).ready(function() {
+    // -- auto-expanding some textareas
+    $('textarea.expandable').TextAreaExpander(40, 200);
+
+    // -- update textfields with selection dropdowns
+    $('select.predefined').each(function () {
+      $(this).prev().addPulldown($(this));
+    });
+
     // -- make sure tabs signal all errors
     $('form.formtastic .inline-errors').addClass('error');
 
@@ -61,10 +71,10 @@
       .prepend('<input name=active_tab type=hidden />')
       .tabContainer({
 	tags_to_propagate: ['error'],
-	patterns: { body: '> div, > fieldset' }
+	patterns: { body: '> fieldset' }
 	})
       .find('> fieldset legend').css({ display: 'none' }).end()
-      .find('> div').bind('tab-opened', tab_change_handler).end()
+      .find('> fieldset').bind('tab-opened', tab_change_handler).end()
       .find('.active-tab').tabSelect();
     $('.tab-link').tabLink();
 
@@ -72,13 +82,8 @@
     $('input:file.multi').multiFile();
 
     // -- automatic extension of multiple text input field collections
-    $('.multi').find('input:text,textarea')
+    $('fieldset.repeatable fieldset.tabular input:text,textarea')
       .keyup(multitext_edited).change(multitext_edited).blur(multitext_cleanup);
-
-    // -- update textfields with selection dropdowns
-    $('select.predefined').each(function () {
-      $(this).prev().addPulldown($(this));
-    });
 
     // -- remove flash notices after some time
     $('#flash_notice').animate({ opacity: 0 }, 10000);

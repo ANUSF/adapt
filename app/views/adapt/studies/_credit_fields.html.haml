@@ -1,4 +1,5 @@
 - long = { :size => 35 }
+- text = { :rows => 2, :cols => 25, :class => 'expandable' }
 
 = @form.inputs 'Credits and Acknowledgements', :id => 'credit-fields' do
   = nested_fields @form, :depositors, :name => "Depositor:", |
@@ -15,4 +16,4 @@
                   :input_html => { :size => 25 }, :required => false
   = nested_fields @form, :references, |
                   :name => "Related publications:", :as => :text, |
-                  :input_html => { :rows => 2, :cols => 25 }, :required => false
+                  :input_html => text, :required => false
