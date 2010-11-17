@@ -1,49 +1,36 @@
+- text = { :rows => 2, :cols => 30, :class => 'expandable' }
+
 = @form.inputs 'Attached Files', :id => 'attachment-fields' do
-  %p= @form.errors_on(:attachments)
+  %li= @form.errors_on(:attachments)
   - unless @study.attachments.empty?
-    %p
+    %li
       %em
         (Please select a category for each file and provide a short
         description where necessary. At least on data file is required.)
 
-    %table.form-table
-      %thead
-        %tr
-          %th Name
-          %th Size
-          %th Description
-          %th
-          %th Category
-          %th
-            - if @study.attachments.any? { |a| a.name.ends_with?('.zip') }
-              Extract
-          %th Delete
-      %tbody
-        = @form.semantic_fields_for :attachments do |f|
-          - attachment = f.object
-          %tr
-            %td=link_to h(attachment.name), |
-                  download_adapt_attachment_path(attachment) |
-            %td=h number_to_human_size(attachment.data.size)
-            %td.with_input
-              = f.input :description, :label => '', :cols => 30
-            %td
-              - unless f.errors_on(:category).blank?
-                %label
-                  %em.error Select:
-            %td= f.input :category, :label => '', :empty => ''
-            %td
-              - if attachment.name.ends_with?('.zip')
-                = f.input :extract, :label => ''
-            %td= f.input :_destroy, :label => ''
-
-  %h3 Select files to upload:
-  %p
-    %em
-      (You can upload files either separately or in batches packaged
-      as ZIP files. The latter can be submitted as is or the
-      individual files extracted after uploading.)
+    = @form.inputs do
+      = @form.semantic_fields_for :attachments do |f|
+        - attachment = f.object
+        = f.inputs :class => 'tabular' do
+          %li=link_to h(attachment.name), |
+                      download_adapt_attachment_path(attachment) |
+          %li= number_to_human_size(attachment.data.size)
+          = f.input :description, :as => :text, :input_html => text
+          = f.input :category
+          - if attachment.name.ends_with?('.zip')
+            = f.input :extract, :as => :boolean
+          - else
+            %li
+          = f.input :_destroy, :as => :boolean
+  
   = @form.semantic_fields_for :uploads, Adapt::Attachment.new do |f|
-    - label = Rails.env.test? ? 'Upload' : false
-    = f.input :content, :label => label, :as => :file, :required => false, |
-                        :input_html => { :class => 'multi' } |
+    = f.inputs "Select files to upload:" do
+      %li
+        %p
+          %em
+            (You can upload files either separately or in batches
+            packaged as ZIP files. The latter can be submitted as is
+            or the individual files extracted after uploading.)
+      = f.input :content, :as => :file, :required => false, |
+                :label => (Rails.env.test? ? 'Upload' : false), |
+                :input_html => { :class => 'multi' }

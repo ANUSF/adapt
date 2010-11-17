@@ -82,7 +82,7 @@
     $('input:file.multi').multiFile();
 
     // -- automatic extension of multiple text input field collections
-    $('fieldset.repeatable fieldset.tabular input:text,textarea')
+    $('fieldset.repeatable > ol > fieldset.tabular input:text,textarea')
       .keyup(multitext_edited).change(multitext_edited).blur(multitext_cleanup);
 
     // -- remove flash notices after some time
