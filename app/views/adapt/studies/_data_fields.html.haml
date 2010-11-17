@@ -11,9 +11,11 @@
 
   = @form.input :data_relation, :as => :text, :input_html => { :rows => 4 }
 
-  = @form.inputs "Data kind", :class => 'repeatable' do
+  -#TODO: dry this up
+  = @form.inputs :class => 'repeatable' do
     = @form.semantic_fields_for :data_kind_items do |f|
-      = f.input :value, :label => false, :input_html => { :size => 40 }
+      = f.inputs :class => 'tabular' do
+        = f.input :value, :label => "Data kind", :input_html => { :size => 40 }
 
   = @form.inputs "Time dimensions", :class => 'repeatable' do
     = @form.semantic_fields_for :time_method_items do |f|

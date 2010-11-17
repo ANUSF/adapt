@@ -137,21 +137,15 @@ class Adapt::Study < ActiveRecord::Base
 
     define_method("#{attr}_items") do
       fields = subfields(attr)
-      if fields.blank?
-        default = ''
-      else
-        default = Hash[*fields.zip([]).flatten]
-      end
+      default = if fields.blank? then '' else Hash[*fields.zip([]).flatten] end
       (send(attr) + [default]).map { |val| Adapt::Generic.new(val) }
     end
 
     define_method("#{attr}_items_attributes=") do |data|
-      Rails.logger.error("Raw attributes for #{attr}:\n#{data}")
-      send "#{attr}=", if subfields(attr).blank?
-                         data.map { |k, params| params[:value] }
-                       else
-                         data.map { |k, params| params }
-                       end
+      params = data.values
+      fields = subfields(attr)
+      value = if fields.blank? then params.map { |p| p[:value] } else params end
+      send "#{attr}=", value
     end
   end
 

@@ -3,37 +3,37 @@
 = @form.inputs 'Credits and Acknowledgements', :id => 'credit-fields' do
   = @form.inputs "Depositor:" do
     = @form.semantic_fields_for :depositor_items do |f|
-      = f.inputs :class => 'inline' do
+      = f.inputs :class => 'tabular' do
         - @study.subfields('depositors').each do |field|
-          = f.input field.to_sym, :input_html => { :size => 35 }
+          = f.input field.to_sym, :input_html => { :size => 35 }, :required => false
 
   = @form.inputs "Principal investigator(s):", :class => 'repeatable' do
     = @form.semantic_fields_for :principal_investigators_items do |f|
-      = f.inputs :class => 'inline' do
+      = f.inputs :class => 'tabular' do
         - @study.subfields('principal_investigators').each do |field|
-          = f.input field.to_sym, :input_html => { :size => 35 }
+          = f.input field.to_sym, :input_html => { :size => 35 }, :required => false
 
   = @form.inputs "Data producer(s):", :class => 'repeatable' do
     = @form.semantic_fields_for :data_producers_items do |f|
-      = f.inputs :class => 'inline' do
+      = f.inputs :class => 'tabular' do
         - @study.subfields('data_producers').each do |field|
-          = f.input field.to_sym, :input_html => { :size => 35 }
+          = f.input field.to_sym, :input_html => { :size => 35 }, :required => false
 
   = @form.inputs "Funding:", :class => 'repeatable' do
     = @form.semantic_fields_for :funding_agency_items do |f|
-      = f.inputs :class => 'inline' do
+      = f.inputs :class => 'tabular' do
         - @study.subfields('funding_agency').each do |field|
-          = f.input field.to_sym, :input_html => { :size => 35 }
+          = f.input field.to_sym, :input_html => { :size => 35 }, :required => false
 
   = @form.inputs "Other acknowledgements:", :class => 'repeatable' do
     = @form.semantic_fields_for :other_acknowledgements_items do |f|
-      = f.inputs :class => 'inline' do
+      = f.inputs :class => 'tabular' do
         - @study.subfields('other_acknowledgements').each do |field|
-          = f.input field.to_sym, :input_html => { :size => 25 }
+          = f.input field.to_sym, :input_html => { :size => 25 }, :required => false
 
   = @form.inputs "Related publications:", :class => 'repeatable' do
     = @form.semantic_fields_for :references_items do |f|
-      = f.inputs :class => 'inline' do
+      = f.inputs :class => 'tabular' do
         - @study.subfields('references').each do |field|
-          = f.input field.to_sym, :as => :text, |
+          = f.input field.to_sym, :as => :text, :required => false, |
                                   :input_html => { :rows => 2, :cols => 25 } |

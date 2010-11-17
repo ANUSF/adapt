@@ -12,11 +12,29 @@ form.formtastic
         :float none
         abbr
           :color = !signal_color
+      input[type=text],textarea
+        :padding 2px
+        :font
+          :size 95%
+          :family monospace
       p.inline-errors
         :color = !signal_color
     .inline-errors
       :color = !signal_color
-  fieldset.inline
+    > ol > li.string
+      input[size]
+        :max-width 100%
+    > ol > li.text
+      textarea[cols]
+        :max-width 100%
+
+  fieldset.repeatable
+    :margin-bottom 1em
+    > ol > li
+      :margin -1px 0 0 0
+      :padding 0
+
+  fieldset.inline, fieldset.tabular
     > ol > li
       :display inline
       :float left
@@ -28,8 +46,20 @@ form.formtastic
         :margin 0
       input
         :margin-right 1em
-  fieldset.repeatable
-    :margin-bottom 1em
+
+  fieldset.tabular
     > ol > li
-      :margin -1px 0 0 0
+      :margin -1px -1px 0 0
       :padding 0
+      label
+        :display none
+      input, p
+        :margin 0
+        :width 100%
+
+  fieldset.tabular:first-child
+    > ol > li
+      label, input
+        :margin 0
+        :display block
+        :float none

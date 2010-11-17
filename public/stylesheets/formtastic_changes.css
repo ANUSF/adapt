@@ -7,23 +7,43 @@ form.formtastic fieldset > ol > li label {
   float: none; }
   form.formtastic fieldset > ol > li label abbr {
     color: red; }
+form.formtastic fieldset > ol > li input[type=text], form.formtastic fieldset > ol > li textarea {
+  padding: 2px;
+  font-size: 95%;
+  font-family: monospace; }
 form.formtastic fieldset > ol > li p.inline-errors {
   color: red; }
 form.formtastic fieldset .inline-errors {
   color: red; }
-form.formtastic fieldset.inline > ol > li {
-  display: inline;
-  float: left; }
-  form.formtastic fieldset.inline > ol > li label, form.formtastic fieldset.inline > ol > li input, form.formtastic fieldset.inline > ol > li p {
-    width: auto;
-    display: inline;
-    float: left; }
-  form.formtastic fieldset.inline > ol > li p.inline-errors {
-    margin: 0; }
-  form.formtastic fieldset.inline > ol > li input {
-    margin-right: 1em; }
+form.formtastic fieldset > ol > li.string input[size] {
+  max-width: 100%; }
+form.formtastic fieldset > ol > li.text textarea[cols] {
+  max-width: 100%; }
 form.formtastic fieldset.repeatable {
   margin-bottom: 1em; }
   form.formtastic fieldset.repeatable > ol > li {
     margin: -1px 0 0 0;
     padding: 0; }
+form.formtastic fieldset.inline > ol > li, form.formtastic fieldset.tabular > ol > li {
+  display: inline;
+  float: left; }
+  form.formtastic fieldset.inline > ol > li label, form.formtastic fieldset.inline > ol > li input, form.formtastic fieldset.inline > ol > li p, form.formtastic fieldset.tabular > ol > li label, form.formtastic fieldset.tabular > ol > li input, form.formtastic fieldset.tabular > ol > li p {
+    width: auto;
+    display: inline;
+    float: left; }
+  form.formtastic fieldset.inline > ol > li p.inline-errors, form.formtastic fieldset.tabular > ol > li p.inline-errors {
+    margin: 0; }
+  form.formtastic fieldset.inline > ol > li input, form.formtastic fieldset.tabular > ol > li input {
+    margin-right: 1em; }
+form.formtastic fieldset.tabular > ol > li {
+  margin: -1px -1px 0 0;
+  padding: 0; }
+  form.formtastic fieldset.tabular > ol > li label {
+    display: none; }
+  form.formtastic fieldset.tabular > ol > li input, form.formtastic fieldset.tabular > ol > li p {
+    margin: 0;
+    width: 100%; }
+form.formtastic fieldset.tabular:first-child > ol > li label, form.formtastic fieldset.tabular:first-child > ol > li input {
+  margin: 0;
+  display: block;
+  float: none; }
