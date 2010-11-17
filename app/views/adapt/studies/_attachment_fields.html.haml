@@ -12,17 +12,23 @@
       = @form.semantic_fields_for :attachments do |f|
         - attachment = f.object
         = f.inputs :class => 'tabular' do
-          %li=link_to h(attachment.name), |
-                      download_adapt_attachment_path(attachment) |
-          %li= number_to_human_size(attachment.data.size)
+          %li{ :style => 'width: 12em;' }
+            %label Filename
+            =link_to h(attachment.name), |
+                     download_adapt_attachment_path(attachment)
+          %li{ :style => 'width: 6em;' }
+            %label Size
+            = number_to_human_size(attachment.data.size)
           = f.input :description, :as => :text, :input_html => text
           = f.input :category
-          - if attachment.name.ends_with?('.zip')
-            = f.input :extract, :as => :boolean
-          - else
-            %li
-          = f.input :_destroy, :as => :boolean
-  
+          %li
+            %label Extract
+            - if attachment.name.ends_with?('.zip')
+              = f.check_box :extract
+          %li
+            %label Delete
+            = f.check_box :_destroy
+
   = @form.semantic_fields_for :uploads, Adapt::Attachment.new do |f|
     = f.inputs "Select files to upload:" do
       %li
