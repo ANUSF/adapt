@@ -63,7 +63,7 @@ class Adapt::Attachment < ActiveRecord::Base
       Zip::ZipInputStream::open(stored_path) do |io|
         while (entry = io.get_next_entry)
           name = File.basename(entry.name)
-          study.attachments << Attachment.make(name, io.read)
+          study.attachments << Adapt::Attachment.make(name, io.read)
         end
       end
       @extracted = true

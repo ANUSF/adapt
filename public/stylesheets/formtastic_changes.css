@@ -55,6 +55,10 @@ form.formtastic fieldset.tabular > ol > li {
   form.formtastic fieldset.tabular > ol > li input, form.formtastic fieldset.tabular > ol > li p {
     margin: 0;
     width: 100%; }
+  form.formtastic fieldset.tabular > ol > li p.inline-errors {
+    width: auto;
+    clear: both;
+    float: none; }
 form.formtastic fieldset.tabular:first-child > ol > li label, form.formtastic fieldset.tabular:first-child > ol > li input {
   margin: 0;
   display: block;

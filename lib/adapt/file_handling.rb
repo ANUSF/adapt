@@ -7,7 +7,7 @@ module Adapt::FileHandling
 
     with_lock_on(File.dirname(path)) do
       path = non_conflicting(path)
-      File.open(path, "w", ADAPT::CONFIG['adapt.file.mode']) do |fp|
+      File.open(path, "wb", ADAPT::CONFIG['adapt.file.mode']) do |fp|
         fp.write(data)
       end
       set_ownership(path)
@@ -17,7 +17,7 @@ module Adapt::FileHandling
 
   def read_file(*path_parts)
     path = File.join(*path_parts)
-    File.open(path) { |fp| fp.read } if File.exist?(path)
+    File.open(path, "rb") { |fp| fp.read } if File.exist?(path)
   end
 
   def create_unique_id_and_directory(base, prefix, range, number_length = 5)

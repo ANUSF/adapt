@@ -20,7 +20,8 @@
             %label Size
             = number_to_human_size(attachment.data.size)
           = f.input :description, :as => :text, :input_html => text
-          = f.input :category
+          = f.input :category, :as => :select, |
+                    :collection => attachment.selections(:category)
           %li
             %label Extract
             - if attachment.name.ends_with?('.zip')
