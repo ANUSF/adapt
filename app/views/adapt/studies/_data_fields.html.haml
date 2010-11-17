@@ -1,3 +1,6 @@
+- long = { :size => 40 }
+- short = { :size => 12 }
+
 = @form.inputs 'Data Description', :id => 'data-fields' do
 
   = @form.inputs :class => 'inline' do
@@ -11,23 +14,14 @@
 
   = @form.input :data_relation, :as => :text, :input_html => { :rows => 4 }
 
-  -#TODO: dry this up
-  = @form.inputs :class => 'repeatable' do
-    = @form.semantic_fields_for :data_kind_items do |f|
-      = f.inputs :class => 'tabular' do
-        = f.input :value, :label => "Data kind", :input_html => { :size => 40 }
-
-  = @form.inputs "Time dimensions", :class => 'repeatable' do
-    = @form.semantic_fields_for :time_method_items do |f|
-      = f.input :value, :label => false, :input_html => { :size => 40 }
-
-  = @form.inputs "Sampling procedures", :class => 'repeatable' do
-    = @form.semantic_fields_for :sampling_procedure_items do |f|
-      = f.input :value, :label => false, :input_html => { :size => 40 }
-
-  = @form.inputs "Method of data collection", :class => 'repeatable' do
-    = @form.semantic_fields_for :collection_method_items do |f|
-      = f.input :value, :label => false, :input_html => { :size => 40 }
+  = nested_fields @form, :data_kind, :input_html => long, |
+                  :label => "Data kind"
+  = nested_fields @form, :time_method, :input_html => long, |
+                  :label => "Time dimensions", :required => false
+  = nested_fields @form, :sampling_procedure, :input_html => long, |
+                  :label => "Sampling procedures", :required => false
+  = nested_fields @form, :collection_method, :input_html => long, |
+                  :label => "Method of data collection", :required => false
 
   = @form.input :sample_population
   = @form.input :response_rate

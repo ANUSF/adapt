@@ -131,21 +131,29 @@ class Adapt::Study < ActiveRecord::Base
     end
   end
 
+  def subfields_for_nesting(attr)
+    (subfields(attr.to_s) || ['value']).map(&:to_sym)
+  end
+
   %w{data_kind time_method sampling_procedure collection_method
      depositors principal_investigators data_producers
      funding_agency other_acknowledgements references}.each do |attr|
 
     define_method("#{attr}_items") do
-      fields = subfields(attr)
-      default = if fields.blank? then '' else Hash[*fields.zip([]).flatten] end
-      (send(attr) + [default]).map { |val| Adapt::Generic.new(val) }
+      data = if is_repeatable?(attr)
+               fields = subfields(attr)
+               send(attr) + [fields.blank? ? '' : Hash[*fields.zip([]).flatten]]
+             else
+               [send(attr)]
+             end
+      data.map { |val| Adapt::Generic.new(val) }
     end
 
     define_method("#{attr}_items_attributes=") do |data|
       params = data.values
       fields = subfields(attr)
       value = if fields.blank? then params.map { |p| p[:value] } else params end
-      send "#{attr}=", value
+      send "#{attr}=", is_repeatable?(attr) ? value : value[0]
     end
   end
 

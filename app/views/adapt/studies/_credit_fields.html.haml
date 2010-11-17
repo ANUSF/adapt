@@ -1,39 +1,18 @@
--#TODO: dry this up
+- long = { :size => 35 }
 
 = @form.inputs 'Credits and Acknowledgements', :id => 'credit-fields' do
-  = @form.inputs "Depositor:" do
-    = @form.semantic_fields_for :depositor_items do |f|
-      = f.inputs :class => 'tabular' do
-        - @study.subfields('depositors').each do |field|
-          = f.input field.to_sym, :input_html => { :size => 35 }, :required => false
-
-  = @form.inputs "Principal investigator(s):", :class => 'repeatable' do
-    = @form.semantic_fields_for :principal_investigators_items do |f|
-      = f.inputs :class => 'tabular' do
-        - @study.subfields('principal_investigators').each do |field|
-          = f.input field.to_sym, :input_html => { :size => 35 }, :required => false
-
-  = @form.inputs "Data producer(s):", :class => 'repeatable' do
-    = @form.semantic_fields_for :data_producers_items do |f|
-      = f.inputs :class => 'tabular' do
-        - @study.subfields('data_producers').each do |field|
-          = f.input field.to_sym, :input_html => { :size => 35 }, :required => false
-
-  = @form.inputs "Funding:", :class => 'repeatable' do
-    = @form.semantic_fields_for :funding_agency_items do |f|
-      = f.inputs :class => 'tabular' do
-        - @study.subfields('funding_agency').each do |field|
-          = f.input field.to_sym, :input_html => { :size => 35 }, :required => false
-
-  = @form.inputs "Other acknowledgements:", :class => 'repeatable' do
-    = @form.semantic_fields_for :other_acknowledgements_items do |f|
-      = f.inputs :class => 'tabular' do
-        - @study.subfields('other_acknowledgements').each do |field|
-          = f.input field.to_sym, :input_html => { :size => 25 }, :required => false
-
-  = @form.inputs "Related publications:", :class => 'repeatable' do
-    = @form.semantic_fields_for :references_items do |f|
-      = f.inputs :class => 'tabular' do
-        - @study.subfields('references').each do |field|
-          = f.input field.to_sym, :as => :text, :required => false, |
-                                  :input_html => { :rows => 2, :cols => 25 } |
+  = nested_fields @form, :depositors, :name => "Depositor:", |
+                  :input_html => long, :required => { :name => true }
+  = nested_fields @form, :principal_investigators, |
+                  :name => "Principal investigator(s):", |
+                  :input_html => long, :required => { :name => true }
+  = nested_fields @form, :data_producers, :name => "Data producer(s):", |
+                  :input_html => long, :required => false
+  = nested_fields @form, :funding_agency, :name => "Funding:", |
+                  :input_html => long, :required => false
+  = nested_fields @form, :other_acknowledgements, |
+                  :name => "Other acknowledgements:", |
+                  :input_html => { :size => 25 }, :required => false
+  = nested_fields @form, :references, |
+                  :name => "Related publications:", :as => :text, |
+                  :input_html => { :rows => 2, :cols => 25 }, :required => false

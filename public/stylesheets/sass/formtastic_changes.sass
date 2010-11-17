@@ -8,15 +8,26 @@ form.formtastic
       em
         :font-style italic
     > ol > li
+      :overflow visible
       label
         :float none
+        :font-style italic
+        :padding-right 1em
         abbr
           :color = !signal_color
       input[type=text],textarea
+        :border 1px solid gray
         :padding 2px
+        :margin 0
+        :background-color #F0F0F0
         :font
           :size 95%
           :family monospace
+      input[type=text].dirty,textarea.dirty
+        :background-color #F0F0FF
+        :border-color blue
+      input[type=checkbox].dirty
+        :outline 1px solid rgba(0, 0, 255, 0.5)
       p.inline-errors
         :color = !signal_color
     .inline-errors

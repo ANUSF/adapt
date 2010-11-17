@@ -3,16 +3,28 @@ form.formtastic fieldset p {
   text-align: justify; }
   form.formtastic fieldset p em {
     font-style: italic; }
-form.formtastic fieldset > ol > li label {
-  float: none; }
-  form.formtastic fieldset > ol > li label abbr {
+form.formtastic fieldset > ol > li {
+  overflow: visible; }
+  form.formtastic fieldset > ol > li label {
+    float: none;
+    font-style: italic;
+    padding-right: 1em; }
+    form.formtastic fieldset > ol > li label abbr {
+      color: red; }
+  form.formtastic fieldset > ol > li input[type=text], form.formtastic fieldset > ol > li textarea {
+    border: 1px solid gray;
+    padding: 2px;
+    margin: 0;
+    background-color: #f0f0f0;
+    font-size: 95%;
+    font-family: monospace; }
+  form.formtastic fieldset > ol > li input[type=text].dirty, form.formtastic fieldset > ol > li textarea.dirty {
+    background-color: #f0f0ff;
+    border-color: blue; }
+  form.formtastic fieldset > ol > li input[type=checkbox].dirty {
+    outline: 1px solid rgba(0, 0, 255, 0.5); }
+  form.formtastic fieldset > ol > li p.inline-errors {
     color: red; }
-form.formtastic fieldset > ol > li input[type=text], form.formtastic fieldset > ol > li textarea {
-  padding: 2px;
-  font-size: 95%;
-  font-family: monospace; }
-form.formtastic fieldset > ol > li p.inline-errors {
-  color: red; }
 form.formtastic fieldset .inline-errors {
   color: red; }
 form.formtastic fieldset > ol > li.string input[size] {

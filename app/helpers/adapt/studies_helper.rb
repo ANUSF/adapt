@@ -29,4 +29,31 @@ module Adapt::StudiesHelper
     chunks = sanitize(text).split("\n").reject(&:blank?)
     chunks.join("\n<![CDATA[\n]]><![CDATA[\n]]>\n").html_safe
   end
+
+  # Takes care of formtastic markup for repeatable and/or composite attributes
+  def nested_fields(form, attr, options = {})
+    obj = form.object
+    outer_options = { :class => obj.is_repeatable?(attr) ? 'repeatable' : '' }
+    outer_options[:name] = options[:name] if options.has_key?(:name)
+    
+    form.inputs outer_options do
+      concat(form.semantic_fields_for(:"#{attr}_items") do |f|
+        concat(f.inputs(:class => 'tabular') do
+          obj.subfields_for_nesting(attr).each do |field|
+            input_options = {}
+            for key in [:label, :required, :as] do
+              if options.has_key? key
+                val = options[key]
+                input_options[key] =
+                  val.is_a?(Hash) ? (val[field] if val.has_key?(field)) : val
+              end
+            end
+            input_options[:input_html] = options[:input_html]
+            concat f.input(field, input_options)
+          end
+        end)
+      end)
+      concat(content_tag('li', form.errors_on(attr)))
+    end
+  end
 end
