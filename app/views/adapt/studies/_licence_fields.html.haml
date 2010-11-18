@@ -1,37 +1,36 @@
 - ra_form = 'http://www.assda.edu.au/forms/ApplicationToAccessRestrictedData.pdf'
 - data_url = 'http://www.assda.edu.au/data.html'
 - skip_text = 'Licence will be obtained separately (archivists only)'
+- std = { :size => 40  }
 
 = @form.inputs 'Licence Details', :id => 'licence-fields' do
+  - if @study.owner.is_archivist
+    = @form.input :skip_licence, :as => :boolean, :label => skip_text
   = @form.semantic_fields_for :licence do |fields|
-    - if @study.owner.is_archivist
-      = @form.input :skip_licence, :as => :boolean, :label => skip_text
-    = fields.input :signed_by, :required => true
-    = fields.input :signed_date, :required => true
-    = fields.input :email, :as => :string, :required => true
+    = fields.input :signed_by, :required => true, :input_html => std
+    = fields.input :signed_date, :required => true, :input_html => std
+    = fields.input :email, :as => :string, :required => true, :input_html => std
     %li
       %label
         Access conditions:
-    %li= fields.errors_on(:access_mode)
-    %li
-      = fields.radio_button :access_mode, 'A', :label => ''
+        = fields.errors_on(:access_mode)
       %p
+        = fields.radio_button :access_mode, 'A', :label => ''
         Unrestricted – available to ASSDA registered users (see &nbsp;
         %a{ :href => data_url }<>= data_url
         ). Usage reports available to the depositor, or authorised
         representative, upon request.
-      %p.inline-hints= Adapt::LicenceText::UNRESTRICTED_ACCESS
-    %li
-      = fields.radio_button :access_mode, 'B', :label => ''
+        %span.inline-hints= Adapt::LicenceText::UNRESTRICTED_ACCESS
       %p
+        = fields.radio_button :access_mode, 'B', :label => ''
         Restricted – the depositor, or authorised representative, to
         be informed by ASSDA of each request to use the data in order
         to give or withhold permission.  Users must be registered with
         ASSDA and complete the &nbsp;
         %a{ :href => ra_form }<> Restricted Access Form
         = '.'
-      %p.inline-hints= Adapt::LicenceText::RESTRICTED_ACCESS
-    %li
-      = fields.radio_button :access_mode, 'S', :label => ''
-      %p Special conditions of access to be negotiated with ASSDA.
-      %p.inline-hints= Adapt::LicenceText::DEFERRED_ACCESS
+        %span.inline-hints= Adapt::LicenceText::RESTRICTED_ACCESS
+      %p
+        = fields.radio_button :access_mode, 'S', :label => ''
+        Special conditions of access to be negotiated with ASSDA.
+        %span.inline-hints= Adapt::LicenceText::DEFERRED_ACCESS
