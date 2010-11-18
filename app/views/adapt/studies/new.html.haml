@@ -1,9 +1,11 @@
 - title "New Study"
-- stylesheet :forms
+- stylesheet :formtastic
+- stylesheet :formtastic_changes
 
-= formular_for @study, :url => adapt_studies_path do |f|
-  %p= f.text_area :title, :rows => 4, :required => true
-  %p= f.text_area :abstract, :rows => 16, :required => true
-
-  %hr
-  %p= f.result_buttons
+= semantic_form_for @study, :url => adapt_studies_path do |f|
+  = f.inputs do
+    = f.input :title, :input_html => { :rows => 4 }, :required => true
+    = f.input :abstract, :required => true
+  = f.buttons do
+    - ['Create', 'Cancel'].each do |value|
+      = f.commit_button value, :button_html => { :name => 'result' }
