@@ -140,11 +140,12 @@ class Adapt::Study < ActiveRecord::Base
      funding_agency other_acknowledgements references}.each do |attr|
 
     define_method("#{attr}_items") do
+      fields = subfields(attr)
+      default = fields.blank? ? '' : Hash[*fields.zip([]).flatten]
       data = if is_repeatable?(attr)
-               fields = subfields(attr)
-               send(attr) + [fields.blank? ? '' : Hash[*fields.zip([]).flatten]]
+               (send(attr) || []) + [default]
              else
-               [send(attr)]
+               [send(attr) || default]
              end
       data.map { |val| Adapt::Generic.new(val) }
     end
