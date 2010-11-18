@@ -201,7 +201,7 @@ Submit this study now?
       reopen
     else
       begin
-        @study.store params[:adapt_study][:id_range][0,1]
+        @study.store params[:id_range][0,1]
       rescue Exception => ex
         log_and_notify_of_error ex
         show_error ex

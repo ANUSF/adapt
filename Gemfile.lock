@@ -5,13 +5,6 @@ GIT
     partial-date (0.1.0)
 
 GIT
-  remote: git@github.com:ANUSF/formular.git
-  revision: 07f78ee38810be1e22369b10e68c334c45a60948
-  specs:
-    formular (0.1.1)
-      haml
-
-GIT
   remote: git@github.com:ANUSF/pazy.git
   revision: eff02fd2be497f3d164aeb660b37eb292bb7561f
   specs:
@@ -193,7 +186,6 @@ DEPENDENCIES
   devise_openid_authenticatable
   ffaker
   formtastic
-  formular!
   haml
   launchy
   machinist

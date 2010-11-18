@@ -22,7 +22,6 @@ gem 'formtastic'
 gem 'partial-date',   :git => "#{ENV['HOME']}/Rails/my-gems/partial-date"
 
 # -- ANUSF gems on github
-gem 'formular',       :git => 'git@github.com:ANUSF/formular.git'
 gem 'pazy',           :git => 'git@github.com:ANUSF/pazy.git'
 gem 'verboten',       :git => 'git@github.com:ANUSF/verboten.git'
 

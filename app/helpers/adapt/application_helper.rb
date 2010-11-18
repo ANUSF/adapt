@@ -1,9 +1,6 @@
 # Methods added to this helper will be available to all templates in the
 # application.
 module Adapt::ApplicationHelper
-  # -- make the formular_for helper method from the formular gem available
-  include Formular::Helper
-
   # Trims strings longer than the given size.
   def clip_text(text, size)
     if text.length > size then text[0, size-5] + "[...]" else text end
