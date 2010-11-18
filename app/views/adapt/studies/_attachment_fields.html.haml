@@ -8,7 +8,7 @@
         (Please select a category for each file and provide a short
         description where necessary. At least on data file is required.)
 
-    %table.form-table
+    %table
       %thead
         %tr
           %th Name
@@ -20,19 +20,21 @@
               Extract
           %th Delete
       %tbody
-        = @form.semantic_fields_for :attachments do |f|
+        = @form.fields_for :attachments do |f|
           - attachment = f.object
+          - categories = [['', '']] + attachment.selections(:category)
           %tr
             %td=link_to h(attachment.name), |
                   download_adapt_attachment_path(attachment) |
             %td=h number_to_human_size(attachment.data.size)
-            %td= f.input :description, :label => false, :input_html => text
-            %td= f.input :category, :label => false, |
-                         :collection => attachment.selections(:category) |
+            %td= f.text_area :description, text
+            %td
+              = f.select :category, categories
+              = f.errors_on :category
             %td
               - if attachment.name.ends_with?('.zip')
-                = f.input :extract, :as => :boolean, :label => false
-            %td= f.input :_destroy, :as => :boolean, :label => ''
+                = f.check_box :extract
+            %td= f.check_box :_destroy
 
   %h3 Select files to upload:
   %p
