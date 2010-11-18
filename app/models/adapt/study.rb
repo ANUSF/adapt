@@ -413,50 +413,6 @@ class Adapt::Study < ActiveRecord::Base
     }
     config[:selections][:id_range] =
       ["Test only"] + "0234".each_char.map { |i| "#{i}0000-#{i}9999" }
-    [:depositors, :principal_investigators,
-     :data_producers, :other_acknowledgements].each do |field|
-      config[:selections][field] = { 'affiliation' =>
-        [ 'Australian Catholic University',
-          'Australian National University',
-          'Bond University',
-          'Central Queensland University',
-          'Charles Darwin University',
-          'Charles Sturt University',
-          'Curtin University of Technology',
-          'Deakin University',
-          'Edith Cowan University',
-          'Flinders University',
-          'Griffith University',
-          'James Cook University',
-          'La Trobe University',
-          'Macquarie University',
-          'Monash University',
-          'Murdoch University',
-          'Queensland University of Technology',
-          'RMIT University',
-          'Southern Cross University',
-          'Swinburne University of Technology',
-          'University of Adelaide',
-          'University of Ballarat',
-          'University of Canberra',
-          'University of Melbourne',
-          'University of New England',
-          'University of New South Wales',
-          'University of Newcastle',
-          'University of Notre Dame Australia',
-          'University of Queensland',
-          'University of South Australia',
-          'University of Southern Queensland',
-          'University of Sydney',
-          'University of Tasmania',
-          'University of Technology Sydney',
-          'University of the Sunshine Coast',
-          'University of Western Australia',
-          'University of Western Sydney',
-          'University of Wollongong',
-          'Victoria University',
-        ]}
-    end
 
     config.each do |name, settings|
       define_method(name) do |column|
