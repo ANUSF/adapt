@@ -1,15 +1,15 @@
-- title "Internal error (500)", false
+- title "Internal error (500)"
 
 - content_for(:messages) do
   #flash_error Sorry, something went wrong.
 
-  %p
-    There was an unforeseen problem. We have been notified about this
-    issue and will take a look at it shortly.
+%p
+  There was an unforeseen problem. We have been notified about this
+  issue and will take a look at it shortly.
 
-  - if @exception && Rails.env == 'development'
-    %box
-      %tt
-        %p== #{@exception.class.name}: #{@exception.message} 
-        %small
-          %pre= @exception.backtrace.join("\n")
+- if @exception && Rails.env == 'development'
+  %box
+    %tt
+      %p== #{@exception.class.name}: #{@exception.message} 
+      %small
+        %pre= @exception.backtrace.join("\n")
