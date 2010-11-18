@@ -7,7 +7,7 @@ form.formtastic
       :text-align justify
       em
         :font-style italic
-    > ol > li
+    > ol > li, > ol > table td > li
       :overflow visible
       label
         :float none
@@ -20,9 +20,7 @@ form.formtastic
         :padding 2px
         :margin 0
         :background-color #F0F0F0
-        :font
-          :size 95%
-          :family monospace
+        :font-family monospace
       input[type=text].dirty,textarea.dirty
         :background-color #F0F0FF
         :border-color blue
@@ -32,6 +30,16 @@ form.formtastic
         :color = !signal_color
     .inline-errors
       :color = !signal_color
+    > ol > li 
+      input[type=text],textarea
+        :font-size 95%
+    > ol > table td > li
+      input[type=text],textarea
+        :font-size 105%
+        :margin -1px 0 -2px
+      p.inline-errors
+        :padding 0
+        :margin 0
     > ol > li.string
       input[size]
         :max-width 100%
@@ -78,3 +86,19 @@ form.formtastic
         :margin 0
         :display block
         :float none
+
+form.formtastic table
+  :width auto
+  :margin 1em 0
+  :border none
+  tbody tr
+    :border 1px solid gray
+  th
+    :background-color inherit
+    :padding 3px 8px
+    :font
+      :size 90%
+      :weight normal
+      :style italic
+  td
+    :padding 0 8px
