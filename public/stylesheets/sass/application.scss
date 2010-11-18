@@ -1,0 +1,74 @@
+@import "definitions";
+@import "reset";
+@import "basics";
+@import "properties";
+
+@import "flash";
+
+body {
+  min-width: 720px;
+  font: {
+    family: Arial, Helvetica, Verdana, sans-serif;
+    size: 10pt; }; }
+
+a {
+  color: $link_color;
+  img {
+    border: none; } }
+
+a:hover {
+  color: $link_color + #333333; }
+
+.clear {
+  margin: 0;
+  padding: 0;
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden; }
+
+a.toggle {
+  font-size: 90%;
+  font-weight: normal;
+  float: left;
+  margin: 0 {
+    right: 1em;
+    bottom: 0.5em; };
+  padding: 0;
+  border: none;
+  text-decoration: none; }
+
+.proxy {
+  margin: 0;
+  padding: 0 0.5em 0.2em;
+  border: none;
+  float: left;
+  background-color: #f2f2f2; }
+
+.toggle-show {
+  outline: 1px solid;
+  background-color: #f2f2f2;
+  outline-color: #cccccc; }
+
+.toggle-hide {
+  background-color: #f2f2f2; }
+
+.box {
+  border: 1px solid #aaaaaa;
+  background-color: #f8f8f8;
+  float: left;
+  padding: 1em; }
+
+.inline-box {
+  border: 1px solid #aaaaaa;
+  background-color: #f8f8f8;
+  padding: 0 0.2em;
+  margin: 0 0.2em; }
+
+#tooltip {
+  width: 20em;
+  background-color: #ffffcc;
+  padding: 2px;
+  border: 1px solid #cccccc;
+  text-align: left; }
