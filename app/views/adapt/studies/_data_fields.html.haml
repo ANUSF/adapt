@@ -1,4 +1,4 @@
-- long = { :size => 40 }
+- long  = { :size => 40 }
 - short = { :size => 12 }
 
 = @form.inputs 'Data Description', :id => 'data-fields' do
@@ -14,14 +14,26 @@
 
   = @form.input :data_relation, :as => :text, :input_html => { :rows => 4 }
 
-  = nested_fields @form, :data_kind, :input_html => long, |
-                  :label => "Data kind"
-  = nested_fields @form, :time_method, :input_html => long, |
-                  :label => "Time dimensions", :required => false
-  = nested_fields @form, :sampling_procedure, :input_html => long, |
-                  :label => "Sampling procedures", :required => false
-  = nested_fields @form, :collection_method, :input_html => long, |
-                  :label => "Method of data collection", :required => false
+  = nested_fields @form, :data_kind, |
+                  :label => "Data kind",
+                  :input_html => long,
+                  :required => true,
+                  :choices_on => [:value]
+  = nested_fields @form, :time_method, |
+                  :label => "Time dimensions",
+                  :input_html => long,
+                  :required => false,
+                  :choices_on => [:value]
+  = nested_fields @form, :sampling_procedure, |
+                  :label => "Sampling procedures",
+                  :input_html => long,
+                  :required => false,
+                  :choices_on => [:value]
+  = nested_fields @form, :collection_method, |
+                  :label => "Method of data collection",
+                  :input_html => long,
+                  :required => false,
+                  :choices_on => [:value]
 
   = @form.input :sample_population
   = @form.input :response_rate
@@ -33,3 +45,9 @@
     = @form.input :collection_start, :input_html => { :size => 12 }
     = @form.input :collection_end, :input_html => { :size => 12 }
     %li= @form.errors_on("collection")
+
+  = @form.inputs do
+    - %w{data_kind time_method sampling_procedure collection_method}.each do |a|
+      = select_tag :"#{a}_choices", |
+          options_for_select([''] + @study.selections(a.to_sym)), 
+          :size => 10, :class => 'predefined'

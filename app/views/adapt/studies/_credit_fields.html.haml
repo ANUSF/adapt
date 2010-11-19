@@ -1,32 +1,38 @@
 - long = { :size => 35 }
 - text = { :rows => 2, :cols => 25, :class => 'expandable' }
-- extra_params = { :'data-selection-id' => '#affiliation' }
 
 = @form.inputs 'Credits and Acknowledgements', :id => 'credit-fields' do
   = nested_fields @form, :depositors, |
                   :name => "Depositor:", |
-                  :input_html => long, :required => { :name => true }, |
-                  :html_for => { :affiliation => extra_params }
+                  :input_html => long,
+                  :required => { :name => true },
+                  :choices_on => [:affiliation]
   = nested_fields @form, :principal_investigators, |
                   :name => "Principal investigator(s):", |
-                  :input_html => long, :required => { :name => true }, |
-                  :html_for => { :affiliation => extra_params }
+                  :input_html => long,
+                  :required => { :name => true },
+                  :choices_on => [:affiliation]
   = nested_fields @form, :data_producers, |
-                  :name => "Data producer(s):", |
-                  :input_html => long, :required => false, |
-                  :html_for => { :affiliation => extra_params }
+                  :name => "Data producer(s):",
+                  :input_html => long,
+                  :required => false,
+                  :choices_on => [:affiliation]
   = nested_fields @form, :funding_agency, |
-                  :name => "Funding:", |
-                  :input_html => long, :required => false
+                  :name => "Funding:",
+                  :input_html => long,
+                  :required => false
   = nested_fields @form, :other_acknowledgements, |
-                  :name => "Other acknowledgements:", |
-                  :input_html => { :size => 25 }, :required => false, |
-                  :html_for => { :affiliation => extra_params }
+                  :name => "Other acknowledgements:",
+                  :input_html => { :size => 25 },
+                  :required => false,
+                  :choices_on => [:affiliation]
   = nested_fields @form, :references, |
-                  :name => "Related publications:", :as => :text, |
-                  :input_html => text, :required => false
+                  :name => "Related publications:",
+                  :as => :text,
+                  :input_html => text,
+                  :required => false
 
   = @form.inputs do
-    = select_tag :affiliation, |
-        options_for_select(@study.selections(:affiliation)), 
+    = select_tag :affiliation_choices, |
+        options_for_select([''] + @study.selections(:affiliation)),
         :size => 10, :class => 'predefined'

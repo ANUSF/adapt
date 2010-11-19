@@ -85,7 +85,7 @@
 	    field    = $(pulldown.data('field'));
 	setTimeout(function() {
 	  pulldown.data('field', null).css({ display: 'none' });
-	  field.val(pulldown.val()).trigger('keyup');
+	  field.val(pulldown.val()).trigger('keyup').trigger('blur');
 	}, 100);
       }
     }

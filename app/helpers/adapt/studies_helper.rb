@@ -35,6 +35,7 @@ module Adapt::StudiesHelper
     obj = form.object
     outer_options = { :class => obj.is_repeatable?(attr) ? 'repeatable' : '' }
     outer_options[:name] = options[:name] if options.has_key?(:name)
+    fields_with_choices = options.delete(:choices_on) || []
     
     form.inputs outer_options do
       concat(form.semantic_fields_for(:"#{attr}_items") do |f|
@@ -50,6 +51,10 @@ module Adapt::StudiesHelper
             end
             extra_html = (options[:html_for] || {})[field] || {}
             input_options[:input_html] = options[:input_html].merge extra_html
+            if fields_with_choices.include? field
+              input_options[:input_html][:'data-selection-id'] =
+                "##{obj.subfields(attr) ? field : attr}_choices"
+            end
             concat f.input(field, input_options)
           end
         end)
