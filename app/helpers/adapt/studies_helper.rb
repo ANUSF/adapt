@@ -1,6 +1,6 @@
 module Adapt::StudiesHelper
   def date(date_string)
-    begin PartialDate.new(date_string) rescue nil end.to_s
+    begin Adapt::PartialDate.new(date_string) rescue nil end.to_s
   end
 
   def each(list, &block)

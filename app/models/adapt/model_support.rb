@@ -3,9 +3,9 @@ module Adapt::ModelSupport
     result = false
     begin
       begin
-        date = PartialDate.new(value)
+        date = Adapt::PartialDate.new(value)
       rescue
-        date = PartialDate.new(Date.parse(value))
+        date = Adapt::PartialDate.new(Date.parse(value))
       end
     rescue => ex
       errors.add attribute, "#{ex.message.capitalize}: '#{value}'."

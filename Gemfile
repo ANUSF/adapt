@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.0.1'
+gem 'rails'
 
 if defined?(JRUBY_VERSION)
   gem 'activerecord-jdbcsqlite3-adapter'
@@ -18,19 +18,16 @@ gem 'rack-openid'
 gem 'devise_openid_authenticatable'
 gem 'formtastic'
 
-# -- gems stored locally
-gem 'partial-date',   :git => "#{ENV['HOME']}/Rails/my-gems/partial-date"
-
 # -- ANUSF gems on github
 gem 'pazy',           :git => 'git@github.com:ANUSF/pazy.git'
 gem 'verboten',       :git => 'git@github.com:ANUSF/verboten.git'
 
 group :development, :test do
-  gem 'test-unit', '~> 1.2.3'
+  gem 'test-unit'
   gem 'capybara'
   gem 'cucumber-rails'
   gem 'cucumber'
-  gem 'rspec-rails', '~> 2.0.1'
+  gem 'rspec-rails'
   gem 'database_cleaner'
   gem 'launchy'    # So you can do Then show me the page
   gem 'machinist'
