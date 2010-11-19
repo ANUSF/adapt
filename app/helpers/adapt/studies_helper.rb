@@ -48,7 +48,8 @@ module Adapt::StudiesHelper
                   val.is_a?(Hash) ? (val[field] if val.has_key?(field)) : val
               end
             end
-            input_options[:input_html] = options[:input_html]
+            extra_html = (options[:html_for] || {})[field] || {}
+            input_options[:input_html] = options[:input_html].merge extra_html
             concat f.input(field, input_options)
           end
         end)

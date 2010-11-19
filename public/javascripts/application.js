@@ -58,11 +58,6 @@
     // -- auto-expanding some textareas
     $('textarea.expandable').TextAreaExpander(40, 200);
 
-    // -- update textfields with selection dropdowns
-    $('select.predefined').each(function () {
-      $(this).prev().addPulldown($(this));
-    });
-
     // -- make sure tabs signal all errors
     $('form.formtastic .inline-errors').addClass('error');
 
