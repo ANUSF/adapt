@@ -32,7 +32,7 @@
     $('form').submit(function () {
       $('<div id="alert" class="dialog">')
 	.append('<span class="busy-indicator" />')
-	.append('A second please...')
+	.append('Loading...')
 	.appendTo('#overlay');
       $('#overlay').css('display', 'block');
     });
