@@ -1,11 +1,15 @@
 - ra_form = 'http://www.assda.edu.au/forms/ApplicationToAccessRestrictedData.pdf'
 - data_url = 'http://www.assda.edu.au/data.html'
-- skip_text = 'Licence will be obtained separately (archivists only)'
+- skip_text = 'Licence will be obtained separately'
 - std = { :size => 40  }
 
 = @form.inputs 'Licence Details', :id => 'licence-fields' do
   - if @study.owner.is_archivist
-    = @form.input :skip_licence, :as => :boolean, :label => skip_text
+    = @form.inputs :class => 'inline' do
+      %li
+        = @form.check_box :skip_licence
+        = @form.label :skip_licence, skip_text
+        %label (archivists only)
   = @form.semantic_fields_for :licence do |fields|
     = fields.input :signed_by, :required => true, :input_html => std
     = fields.input :signed_date, :required => true, :input_html => std

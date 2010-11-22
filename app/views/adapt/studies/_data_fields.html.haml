@@ -8,8 +8,12 @@
       %label
         Data is
         %abbr *
-    = @form.input :data_is_qualitative, :as => :boolean
-    = @form.input :data_is_quantitative, :as => :boolean
+    %li
+      = @form.check_box :data_is_qualitative
+      = @form.label :data_is_qualitative, "Qualitative"
+    %li
+      = @form.check_box :data_is_quantitative
+      = @form.label :data_is_quantitative, "Quantitative"
     %li= @form.errors_on("Data Category")
 
   = @form.input :data_relation, :as => :text, :input_html => { :rows => 4 }
