@@ -21,8 +21,13 @@ Feature: Dynamic behaviour when editing a study
     And I follow "Credits"
     Then I should not see "Changes were saved"
 
-  @js-advanced
   Scenario: Attaching a file
+    When I follow "Attached Files"
+    And attach the file "/home/olaf/vapour.c" to "Upload"
+    Then I should see "vapour.c"
+
+  @js-advanced
+  Scenario: Attaching multiple files
     When I follow "Attached Files"
     And attach the file "/home/olaf/vapour.c" to "Upload"
     And attach the file "/home/olaf/warez.c" to "Upload"
