@@ -36,3 +36,27 @@ Feature: Contributor edits study
     | Mar 5       |
     | last year   |
     | 5 Okt 1973  |
+
+  Scenario Outline: The Qualitative checkbox works
+    When I follow "Data Description"
+    And I <action> "Qualitative"
+    And press "Apply"
+    Then the "Qualitative" checkbox should <state>
+    And the "Quantitative" checkbox should not be checked
+
+  Examples:
+    | action  | state          |
+    | check   | be checked     |
+    | uncheck | not be checked |
+
+  Scenario Outline: The Quantitative checkbox works
+    When I follow "Data Description"
+    And I <action> "Quantitative"
+    And press "Apply"
+    Then the "Quantitative" checkbox should <state>
+    And the "Qualitative" checkbox should not be checked
+
+  Examples:
+    | action  | state          |
+    | check   | be checked     |
+    | uncheck | not be checked |
