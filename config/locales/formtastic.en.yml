@@ -1,5 +1,16 @@
 en:
   formtastic:
+    titles:
+        data_kind:               "Kind of data"
+        time_method:             "Time dimensions"
+        sampling_procedure:      "Sampling procedures"
+        collection_method:       "Method of data collection"
+        depositors:              "Depositor:"
+        principal_investigators: "Principal investigator(s):"
+        data_producers:          "Data producer(s):"
+        funding_agency:          "Funding:"
+        other_acknowledgements:  "Other acknowledgements:"
+        references:              "Related publications:"
     labels:
       'adapt/study':
         title:                   "Study title"
@@ -8,22 +19,12 @@ en:
         data_is_qualitative:     "Qualitative"
         data_is_quantitative:    "Quantitative"
         data_relation:           "Related data"
-        data_kind:               "Kind of data"
-        time_method:             "Time dimensions"
         sample_population:       "Sample population"
-        sampling_procedure:      "Sampling procedures"
-        collection_method:       "Method of data collection"
         collection_start:        "Data collection period:"
         collection_end:          "&mdash;"
         period_start:            "Time period data refers to:"
         period_end:              "&mdash;"
         response_rate:           "Response rate:"
-        depositors:              "Depositor:"
-        principal_investigators: "Principal investigator(s):"
-        data_producers:          "Data producer(s):"
-        funding_agency:          "Funding:"
-        other_acknowledgements:  "Other acknowledgements:"
-        references:              "Related publications:"
     hints:
       'adapt/study':
         title:                   "The full title of this study."

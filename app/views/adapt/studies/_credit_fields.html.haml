@@ -3,31 +3,25 @@
 
 = @form.inputs 'Credits and Acknowledgements', :id => 'credit-fields' do
   = nested_fields @form, :depositors, |
-                  :name => "Depositor:", |
                   :input_html => long,
                   :required => { :name => true },
                   :choices_on => [:affiliation]
   = nested_fields @form, :principal_investigators, |
-                  :name => "Principal investigator(s):", |
                   :input_html => long,
                   :required => { :name => true },
                   :choices_on => [:affiliation]
   = nested_fields @form, :data_producers, |
-                  :name => "Data producer(s):",
                   :input_html => long,
                   :required => false,
                   :choices_on => [:affiliation]
   = nested_fields @form, :funding_agency, |
-                  :name => "Funding:",
                   :input_html => long,
                   :required => false
   = nested_fields @form, :other_acknowledgements, |
-                  :name => "Other acknowledgements:",
                   :input_html => { :size => 25 },
                   :required => false,
                   :choices_on => [:affiliation]
   = nested_fields @form, :references, |
-                  :name => "Related publications:",
                   :as => :text,
                   :input_html => text,
                   :required => false

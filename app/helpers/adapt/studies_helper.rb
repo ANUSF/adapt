@@ -34,7 +34,13 @@ module Adapt::StudiesHelper
   def nested_fields(form, attr, options = {})
     obj = form.object
     outer_options = { :class => obj.is_repeatable?(attr) ? 'repeatable' : '' }
+    title = I18n.t("formtastic.titles.#{attr}", :default => '')
+    outer_options[:name] = title unless title.blank?
     outer_options[:name] = options[:name] if options.has_key?(:name)
+    if obj.subfields(attr).blank?
+      options[:label] = outer_options[:name] unless options.has_key? :label
+      outer_options.delete(:name)
+    end
     fields_with_choices = options.delete(:choices_on) || []
     
     form.inputs outer_options do
