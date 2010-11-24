@@ -42,6 +42,9 @@ module Adapt::StudiesHelper
         concat(f.inputs(:class => 'tabular') do
           obj.subfields_for_nesting(attr).each do |field|
             input_options = {}
+            input_options[:hint] =
+              I18n.t("formtastic.hints.#{obj.class.name.underscore}.#{attr}",
+                     :default => '')
             for key in [:label, :required, :as] do
               if options.has_key? key
                 val = options[key]
