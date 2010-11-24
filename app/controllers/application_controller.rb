@@ -58,7 +58,7 @@ class ApplicationController < ActionController::Base
   # handles session expiration, invalid IP addresses, etc.
   def validate_session
     # -- if someone is logged in, make sure the session is still valid
-    error = user_account_signed_in? && check_session
+    error = warden.user(:user_account) && check_session
 
     if error
       # -- close the current session and report the error

@@ -3,6 +3,7 @@ class SessionsController < Devise::SessionsController
   OPENID_LOGOUT = ADAPT::CONFIG['assda.openid.logout']
 
   def create
+    reset_session
     login = params[resource_name][:identity_url]
 
     # -- allow users to log in with just their ASSDA names
@@ -17,7 +18,6 @@ class SessionsController < Devise::SessionsController
       resource = warden.authenticate!(:scope => resource_name, :recall => "new")
     end
 
-    reset_session
     session[:ip] = request.remote_ip
 
     set_flash_message :notice, :signed_in
@@ -50,6 +50,6 @@ class SessionsController < Devise::SessionsController
      'development',
      'test',
      'cucumber'
-    ].include?(Rails.env)
+    ].include?(Rails.env) and not ENV['FORCE_OPENID']
   end
 end

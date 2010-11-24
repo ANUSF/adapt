@@ -1,6 +1,6 @@
 GIT
   remote: git@github.com:ANUSF/pazy.git
-  revision: eff02fd2be497f3d164aeb660b37eb292bb7561f
+  revision: f90ad4160f913c2d6958ba7d5717a8001d63dac2
   specs:
     pazy (0.1.0)
 
