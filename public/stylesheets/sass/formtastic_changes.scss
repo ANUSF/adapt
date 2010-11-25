@@ -48,6 +48,7 @@ form.formtastic {
         max-width: 100%; } } }
   fieldset.repeatable {
     margin-bottom: 1em;
+    overflow: visible;
     > ol > li {
       margin: -1px 0 0 0;
       padding: 0; } }

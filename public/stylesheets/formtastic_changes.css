@@ -39,7 +39,8 @@ form.formtastic fieldset > ol > li.string input[size] {
 form.formtastic fieldset > ol > li.text textarea[cols] {
   max-width: 100%; }
 form.formtastic fieldset.repeatable {
-  margin-bottom: 1em; }
+  margin-bottom: 1em;
+  overflow: visible; }
   form.formtastic fieldset.repeatable > ol > li {
     margin: -1px 0 0 0;
     padding: 0; }
