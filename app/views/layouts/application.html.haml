@@ -15,9 +15,6 @@
         = stylesheet_link_tag 'application-print', :media => 'print'
       /[if IE]
         = stylesheet_link_tag 'ie-fixes', :media => 'all'
-      /[if lt IE 8]
-        - src = "http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE8.js"
-        %script{ :src => src }
       = javascript_include_tag 'jquery-1.4.2.min'
       = javascript_include_tag 'jquery.tabs'
       = javascript_include_tag 'jquery.tooltips'

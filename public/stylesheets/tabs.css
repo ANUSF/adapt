@@ -3,22 +3,22 @@
   position: relative;
   margin: 0;
   padding: 0; }
-  .tab-container > div, .tab-container > fieldset.inputs {
+  .tab-container fieldset.tab {
     position: relative;
     clear: both;
     border: 1px solid #aaaaaa;
     padding: 1em 2em;
     overflow: auto;
     margin-bottom: 5px; }
-  .tab-container > ul {
+  .tab-container ul.tab-index {
     display: none;
     list-style: none;
     padding: 0;
     margin: 0; }
-    .tab-container > ul > li {
+    .tab-container ul.tab-index li.tab-entry {
       float: left;
       margin: 0 -1px -1px 0; }
-      .tab-container > ul > li a {
+      .tab-container ul.tab-index li.tab-entry a {
         float: left;
         display: block;
         position: relative;
@@ -32,26 +32,26 @@
         border: solid #aaaaaa 1px;
         background: #eeeeee;
         color: black; }
-        .tab-container > ul > li a span {
+        .tab-container ul.tab-index li.tab-entry a span {
           display: block;
           margin: -1px;
           padding: 3px 6px;
           background: url(../images/corner-eee.png) no-repeat right top; }
-      .tab-container > ul > li a:hover {
+      .tab-container ul.tab-index li.tab-entry a:hover {
         background: #888888;
         color: white; }
-        .tab-container > ul > li a:hover span {
+        .tab-container ul.tab-index li.tab-entry a:hover span {
           background-image: url(../images/corner-888.png); }
-      .tab-container > ul > li a.current-tab {
+      .tab-container ul.tab-index li.tab-entry a.current-tab {
         background: #ffffcc;
         border-bottom-color: #ffffcc; }
-        .tab-container > ul > li a.current-tab span {
+        .tab-container ul.tab-index li.tab-entry a.current-tab span {
           background-image: url(../images/corner-ffc.png); }
-      .tab-container > ul > li a.current-tab:hover {
+      .tab-container ul.tab-index li.tab-entry a.current-tab:hover {
         background: #f4ee99;
         border-bottom-color: #f4ee99;
         color: black; }
-        .tab-container > ul > li a.current-tab:hover span {
+        .tab-container ul.tab-index li.tab-entry a.current-tab:hover span {
           background-image: url(../images/corner-f4ee99.png); }
-      .tab-container > ul > li a.error, .tab-container > ul > li a.error:hover {
+      .tab-container ul.tab-index li.tab-entry a.error, .tab-container ul.tab-index li.tab-entry a.error:hover {
         color: red; }

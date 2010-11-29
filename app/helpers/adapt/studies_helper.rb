@@ -16,8 +16,8 @@ module Adapt::StudiesHelper
   end
 
   def tab_link(ref, text)
-    the_class = (ref == @active_tab) ? " active-tab" : ""
-    "<li>
+    the_class = (ref == @active_tab) ? "active-tab" : ""
+    "<li class='tab-entry'>
        <a href='#{ref}' class='#{the_class}'>
          <span>#{text}</span>
        </a>

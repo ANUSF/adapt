@@ -1,7 +1,7 @@
 - long = { :size => 35 }
 - text = { :rows => 2, :cols => 25, :class => 'expandable' }
 
-= @form.inputs 'Credits and Acknowledgements', :id => 'credit-fields' do
+= @form.inputs 'Credits and Acknowledgements', :id => 'credit-fields', :class => 'tab' do
   = nested_fields @form, :depositors, |
                   :input_html => long,
                   :required => { :name => true },
