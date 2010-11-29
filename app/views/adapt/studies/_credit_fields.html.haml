@@ -26,7 +26,8 @@
                   :input_html => text,
                   :required => false
 
-  = @form.inputs do
-    = select_tag :affiliation_choices, |
-        options_for_select([''] + @study.selections(:affiliation)),
-        :size => 10, :class => 'predefined'
+  = @form.inputs 'Affiliations', :class => 'choices', |
+                                 :id => 'affiliation_choices' do
+    %li.empty &nbsp
+    - @study.selections(:affiliation).each do |entry|
+      %li= entry
