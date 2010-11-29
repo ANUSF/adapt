@@ -1,6 +1,6 @@
 - text = { :rows => 20, :cols => 30, :class => 'expandable' }
 
-= @form.inputs 'Attached Files', :id => 'attachment-fields' do
+= @form.inputs 'Attached Files', :id => 'attachment-fields', :class => 'tab' do
   %p= @form.errors_on(:attachments)
   - unless @study.attachments.empty?
     %p
