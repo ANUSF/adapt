@@ -1,101 +1,148 @@
 @import "definitions";
 
-form.formtastic {
-  fieldset {
+form.formtastic fieldset {
     p {
-      padding: 0.25em 0;
-      text-align: justify;
-      em {
-        font-style: italic; } }
-    > ol > li, table td {
-      overflow: visible;
-      label {
-        float: none;
-        font-style: italic;
-        padding-right: 1em;
-        abbr {
-          color: $signal_color; } }
-      input[type=text],textarea {
-        border: 1px solid gray;
-        padding: 2px;
-        margin: 0;
-        background-color: #f0f0f0;
-        font-family: monospace; }
-      input[type=text].dirty,textarea.dirty {
-        background-color: #f0f0ff;
-        border-color: blue; }
-      input[type=checkbox].dirty {
-        outline: 1px solid rgba(0, 0, 255, 0.5); }
-      p.inline-errors {
-        color: $signal_color; } }
+	padding: 0.25em 0;
+	text-align: justify;
+	em {
+            font-style: italic;
+	}
+    }
     .inline-errors {
-      color: $signal_color; }
-    > ol > li {
-      input[type=text],textarea {
-        font-size: 95%; } }
+	color: $signal_color;
+    }
+    ol li {
+	overflow: visible;
+	label {
+            float: none;
+            font-style: italic;
+            padding-right: 1em;
+            abbr {
+		color: $signal_color;
+	    }
+	}
+	input[type=text].dirty,textarea.dirty {
+            background-color: #f0f0ff;
+            border-color: blue;
+	}
+	input[type=checkbox].dirty {
+            outline: 1px solid rgba(0, 0, 255, 0.5);
+	}
+	p.inline-errors {
+            color: $signal_color;
+	}
+    }
+    ol li.string, ol li.text {
+	input,textarea {
+            border: 1px solid gray;
+            padding: 2px;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: monospace;
+	    font-size: 95%;
+	}
+	input[size] {
+            max-width: 100%;
+	}
+	textarea[cols] {
+            max-width: 100%;
+	}
+    }
     table td {
-      input[type=text],textarea {
-        font-size: 105%;
-        margin: -1px 0 -2px; }
-      p.inline-errors {
-        padding: 0;
-        margin: 0; } }
-    > ol > li.string {
-      input[size] {
-        max-width: 100%; } }
-    > ol > li.text {
-      textarea[cols] {
-        max-width: 100%; } } }
-  fieldset.repeatable {
+	input[type=text],textarea {
+            border: 1px solid gray;
+            padding: 2px;
+            background-color: #f0f0f0;
+            font-family: monospace;
+	    font-size: 105%;
+            margin: -1px 0 -2px;
+	}
+	input[type=text].dirty,textarea.dirty {
+            background-color: #f0f0ff;
+            border-color: blue;
+	}
+	p.inline-errors {
+            padding: 0;
+            margin: 0;
+	}
+    }
+}
+
+form.formtastic fieldset.repeatable {
     margin-bottom: 1em;
     overflow: visible;
     > ol > li {
-      margin: -1px 0 0 0;
-      padding: 0; } }
-  fieldset.inline, fieldset.tabular {
+	margin: -1px 0 0 0;
+	padding: 0;
+    }
+}
+
+form.formtastic {
+    fieldset.inline, fieldset.tabular {
+	> ol > li {
+	    display: inline;
+	    float: left;
+	    label, input, p {
+		width: auto;
+		display: inline;
+		float: left;
+	    }
+	    p.inline-errors {
+		margin: 0;
+	    }
+	    input {
+		margin-right: 1em;
+	    }
+	}
+    }
+}
+
+form.formtastic fieldset.tabular {
     > ol > li {
-      display: inline;
-      float: left;
-      label, input, p {
-        width: auto;
-        display: inline;
-        float: left; }
-      p.inline-errors {
-        margin: 0; }
-      input {
-        margin-right: 1em; } } }
-  fieldset.tabular {
+	margin: -1px -1px 0 0;
+	padding: 0;
+	label {
+            display: none;
+	}
+	input, p {
+            margin: 0;
+            width: 100%;
+	}
+	p.inline-errors {
+            width: auto;
+            clear: both;
+            float: none;
+	}
+    }
+}
+
+form.formtastic fieldset.tabular:first-child {
     > ol > li {
-      margin: -1px -1px 0 0;
-      padding: 0;
-      label {
-        display: none; }
-      input, p {
-        margin: 0;
-        width: 100%; }
-      p.inline-errors {
-        width: auto;
-        clear: both;
-        float: none; } } }
-  fieldset.tabular:first-child {
-    > ol > li {
-      label, input {
-        margin: 0;
-        display: block;
-        float: none; } } } }
+	label, input {
+            margin: 0;
+            display: block;
+            float: none;
+	}
+    }
+}
 
 form.formtastic table {
-  width: auto;
-  margin: 1em 0;
-  border: none;
-  tbody tr {
-    border: 1px solid gray; }
-  th {
-    background-color: inherit;
-    padding: 3px 8px;
-    font: {
-      size: 90%;
-      weight: normal;
-      style: italic; }; }
-  td {
-    padding: 0 8px; } }
+    width: auto;
+    margin: 1em 0;
+    border: none;
+    tbody tr {
+	border: 1px solid gray;
+    }
+    th {
+	background-color: inherit;
+	padding: 3px 8px;
+	font: {
+	    size: 90%;
+	    weight: normal;
+	    style: italic;
+	}
+    }
+    td {
+	padding: 0 8px;
+    }
+}

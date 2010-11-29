@@ -3,47 +3,55 @@ form.formtastic fieldset p {
   text-align: justify; }
   form.formtastic fieldset p em {
     font-style: italic; }
-form.formtastic fieldset > ol > li, form.formtastic fieldset table td {
+form.formtastic fieldset .inline-errors {
+  color: red; }
+form.formtastic fieldset ol li {
   overflow: visible; }
-  form.formtastic fieldset > ol > li label, form.formtastic fieldset table td label {
+  form.formtastic fieldset ol li label {
     float: none;
     font-style: italic;
     padding-right: 1em; }
-    form.formtastic fieldset > ol > li label abbr, form.formtastic fieldset table td label abbr {
+    form.formtastic fieldset ol li label abbr {
       color: red; }
-  form.formtastic fieldset > ol > li input[type=text], form.formtastic fieldset > ol > li textarea, form.formtastic fieldset table td input[type=text], form.formtastic fieldset table td textarea {
-    border: 1px solid gray;
-    padding: 2px;
-    margin: 0;
-    background-color: #f0f0f0;
-    font-family: monospace; }
-  form.formtastic fieldset > ol > li input[type=text].dirty, form.formtastic fieldset > ol > li textarea.dirty, form.formtastic fieldset table td input[type=text].dirty, form.formtastic fieldset table td textarea.dirty {
+  form.formtastic fieldset ol li input[type=text].dirty, form.formtastic fieldset ol li textarea.dirty {
     background-color: #f0f0ff;
     border-color: blue; }
-  form.formtastic fieldset > ol > li input[type=checkbox].dirty, form.formtastic fieldset table td input[type=checkbox].dirty {
+  form.formtastic fieldset ol li input[type=checkbox].dirty {
     outline: 1px solid rgba(0, 0, 255, 0.5); }
-  form.formtastic fieldset > ol > li p.inline-errors, form.formtastic fieldset table td p.inline-errors {
+  form.formtastic fieldset ol li p.inline-errors {
     color: red; }
-form.formtastic fieldset .inline-errors {
-  color: red; }
-form.formtastic fieldset > ol > li input[type=text], form.formtastic fieldset > ol > li textarea {
+form.formtastic fieldset ol li.string input, form.formtastic fieldset ol li.string textarea, form.formtastic fieldset ol li.text input, form.formtastic fieldset ol li.text textarea {
+  border: 1px solid gray;
+  padding: 2px;
+  margin: 0;
+  background-color: #f0f0f0;
+  font-family: monospace;
   font-size: 95%; }
+form.formtastic fieldset ol li.string input[size], form.formtastic fieldset ol li.text input[size] {
+  max-width: 100%; }
+form.formtastic fieldset ol li.string textarea[cols], form.formtastic fieldset ol li.text textarea[cols] {
+  max-width: 100%; }
 form.formtastic fieldset table td input[type=text], form.formtastic fieldset table td textarea {
+  border: 1px solid gray;
+  padding: 2px;
+  background-color: #f0f0f0;
+  font-family: monospace;
   font-size: 105%;
   margin: -1px 0 -2px; }
+form.formtastic fieldset table td input[type=text].dirty, form.formtastic fieldset table td textarea.dirty {
+  background-color: #f0f0ff;
+  border-color: blue; }
 form.formtastic fieldset table td p.inline-errors {
   padding: 0;
   margin: 0; }
-form.formtastic fieldset > ol > li.string input[size] {
-  max-width: 100%; }
-form.formtastic fieldset > ol > li.text textarea[cols] {
-  max-width: 100%; }
+
 form.formtastic fieldset.repeatable {
   margin-bottom: 1em;
   overflow: visible; }
   form.formtastic fieldset.repeatable > ol > li {
     margin: -1px 0 0 0;
     padding: 0; }
+
 form.formtastic fieldset.inline > ol > li, form.formtastic fieldset.tabular > ol > li {
   display: inline;
   float: left; }
@@ -55,6 +63,7 @@ form.formtastic fieldset.inline > ol > li, form.formtastic fieldset.tabular > ol
     margin: 0; }
   form.formtastic fieldset.inline > ol > li input, form.formtastic fieldset.tabular > ol > li input {
     margin-right: 1em; }
+
 form.formtastic fieldset.tabular > ol > li {
   margin: -1px -1px 0 0;
   padding: 0; }
@@ -67,6 +76,7 @@ form.formtastic fieldset.tabular > ol > li {
     width: auto;
     clear: both;
     float: none; }
+
 form.formtastic fieldset.tabular:first-child > ol > li label, form.formtastic fieldset.tabular:first-child > ol > li input {
   margin: 0;
   display: block;
