@@ -13,8 +13,7 @@
       - else
         = stylesheet_link_tag 'application', 'layout', 'dialog'
         = stylesheet_link_tag 'application-print', :media => 'print'
-      /[if IE]
-        = stylesheet_link_tag 'ie-fixes', :media => 'all'
+
       = javascript_include_tag 'jquery-1.4.2.min'
       = javascript_include_tag 'jquery.tabs'
       = javascript_include_tag 'jquery.tooltips'
@@ -25,6 +24,9 @@
       = javascript_include_tag 'application'
       = yield(:head)
   
+      /[if IE]
+        = stylesheet_link_tag 'ie-fixes', :media => 'all'
+
   %body
     #top
       - unless stripped

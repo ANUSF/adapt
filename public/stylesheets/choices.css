@@ -1,15 +1,15 @@
-form.formtastic .choices {
+.choices {
   display: block;
   background: white;
   border: 1px solid #aaa; }
-  form.formtastic .choices ol {
+  .choices ol {
     max-height: 200px;
     overflow: auto; }
-  form.formtastic .choices li {
+  .choices li {
     margin: 0;
     padding: 1px; }
 
-form.formtastic .pulldown {
+.pulldown {
   position: fixed; }
-  form.formtastic .pulldown legend {
+  .pulldown legend {
     display: none; }

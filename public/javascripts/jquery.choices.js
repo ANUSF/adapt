@@ -91,8 +91,10 @@
 	$(this)
 	  .data('pulldown', pulldown_element)
 	  .bind(handlers.field);
-	pulldown.bind(handlers.pulldown);
-	pulldown.addClass('pulldown');
+	pulldown
+	  .bind(handlers.pulldown)
+	  .addClass('pulldown')
+	  .appendTo('body');
       });
     }
   });

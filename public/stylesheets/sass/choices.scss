@@ -1,6 +1,6 @@
 @import "definitions";
 
-form.formtastic .choices {
+.choices {
   display:    block;
   background: white;
   border:     1px solid #aaa;
@@ -14,7 +14,7 @@ form.formtastic .choices {
   }
 }
 
-form.formtastic .pulldown {
+.pulldown {
   position: fixed;
   legend {
     display: none;
