@@ -17,12 +17,6 @@ label {
 label {
   padding-right: 1em; }
 
-div > label {
-  padding: {
-    right: 0;
-    bottom: 2px; };
-  display: block; }
-
 label em, label .error {
   color: $signal_color; }
 

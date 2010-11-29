@@ -1,11 +1,14 @@
-#top, #main, #footer, .tab-container, fieldset.inputs {
+#top, #main, #footer, .tab-container {
   zoom: 1; }
 
 #navigation {
   margin-right: -3px; }
 
-#page > table th {
+#page table th {
   background-color: #f0f0f0; }
+
+#page fieldset table th {
+  background-color: transparent; }
 
 td {
   background-color: white; }
