@@ -27,3 +27,7 @@ tr.even td {
 
 form.formtastic fieldset ol li.boolean input.dirty, form.formtastic fieldset table td.boolean input.dirty {
   border: 1px solid #00F; }
+
+form.formtastic fieldset.tabular ol li label {
+  display: expression(this.parentNode.parentNode.parentNode.previousSibling 			 == null ? 'block' : 'none' );
+  float: none; }

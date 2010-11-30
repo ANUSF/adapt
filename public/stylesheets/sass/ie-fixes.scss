@@ -35,3 +35,9 @@ form.formtastic fieldset {
 	}
     }
 }
+
+form.formtastic fieldset.tabular ol li label {
+    display: expression( this.parentNode.parentNode.parentNode.previousSibling
+			 == null ? 'block' : 'none' );
+    float: none;
+}
