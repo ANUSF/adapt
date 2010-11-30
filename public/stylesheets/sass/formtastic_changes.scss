@@ -28,6 +28,7 @@ form.formtastic fieldset {
     }
     ol li.string, ol li.text {
 	input,textarea {
+	    overflow: auto;
             border: 1px solid gray;
             padding: 2px;
             margin: 0;
