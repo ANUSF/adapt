@@ -14,6 +14,7 @@ form.formtastic fieldset {
     ol li {
 	overflow: visible;
 	label {
+	    display: block;
             float: none;
             font-style: italic;
             padding-right: 1em;
@@ -41,7 +42,8 @@ form.formtastic fieldset {
 	input[size] {
             max-width: 100%;
 	}
-	textarea[cols] {
+	textarea, textarea[cols] {
+	    width: auto;
             max-width: 100%;
 	}
     }

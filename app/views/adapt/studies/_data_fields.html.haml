@@ -16,7 +16,8 @@
       = @form.label :data_is_quantitative, "Quantitative"
     %li= @form.errors_on("Data Category")
 
-  = @form.input :data_relation, :as => :text, :input_html => { :rows => 4 }
+  = @form.input :data_relation, :as => :text, |
+                                :input_html => { :cols => 60, :rows => 4 }
 
   = nested_fields @form, :data_kind, |
                   :input_html => long,

@@ -8,6 +8,7 @@ form.formtastic fieldset .inline-errors {
 form.formtastic fieldset ol li {
   overflow: visible; }
   form.formtastic fieldset ol li label {
+    display: block;
     float: none;
     font-style: italic;
     padding-right: 1em; }
@@ -27,7 +28,8 @@ form.formtastic fieldset ol li.string input.dirty, form.formtastic fieldset ol l
   border-color: blue; }
 form.formtastic fieldset ol li.string input[size], form.formtastic fieldset ol li.text input[size] {
   max-width: 100%; }
-form.formtastic fieldset ol li.string textarea[cols], form.formtastic fieldset ol li.text textarea[cols] {
+form.formtastic fieldset ol li.string textarea, form.formtastic fieldset ol li.string textarea[cols], form.formtastic fieldset ol li.text textarea, form.formtastic fieldset ol li.text textarea[cols] {
+  width: auto;
   max-width: 100%; }
 form.formtastic fieldset ol li.boolean input.dirty, form.formtastic fieldset table td.boolean input.dirty {
   outline: 1px solid rgba(0, 0, 255, 0.5); }
