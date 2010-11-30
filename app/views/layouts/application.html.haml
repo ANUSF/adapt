@@ -24,7 +24,7 @@
       = javascript_include_tag 'application'
       = yield(:head)
   
-      /[if IE]
+      /[if lt IE 8]
         = stylesheet_link_tag 'ie-fixes', :media => 'all'
 
   %body
