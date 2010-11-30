@@ -38,5 +38,7 @@
   left: 0;
   display: block;
   opacity: 0.1;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=10)";
+  filter: alpha(opacity=10);
   position: absolute;
   width: 100%; }
