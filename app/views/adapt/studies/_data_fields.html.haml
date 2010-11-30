@@ -8,10 +8,10 @@
       %label
         Data is
         %abbr *
-    %li
+    %li.boolean
       = @form.check_box :data_is_qualitative
       = @form.label :data_is_qualitative, "Qualitative"
-    %li
+    %li.boolean
       = @form.check_box :data_is_quantitative
       = @form.label :data_is_quantitative, "Quantitative"
     %li= @form.errors_on("Data Category")

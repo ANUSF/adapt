@@ -21,13 +21,6 @@ form.formtastic fieldset {
 		color: $signal_color;
 	    }
 	}
-	input[type=text].dirty,textarea.dirty {
-            background-color: #f0f0ff;
-            border-color: blue;
-	}
-	input[type=checkbox].dirty {
-            outline: 1px solid rgba(0, 0, 255, 0.5);
-	}
 	p.inline-errors {
             color: $signal_color;
 	}
@@ -41,6 +34,10 @@ form.formtastic fieldset {
             font-family: monospace;
 	    font-size: 95%;
 	}
+	input.dirty,textarea.dirty {
+            background-color: #f0f0ff;
+            border-color: blue;
+	}
 	input[size] {
             max-width: 100%;
 	}
@@ -48,18 +45,28 @@ form.formtastic fieldset {
             max-width: 100%;
 	}
     }
-    table td {
-	input[type=text],textarea {
-            border: 1px solid gray;
-            padding: 2px;
-            background-color: #f0f0f0;
-            font-family: monospace;
-	    font-size: 105%;
-            margin: -1px 0 -2px;
+    ol li.boolean, table td.boolean {
+	input.dirty {
+            outline: 1px solid rgba(0, 0, 255, 0.5);
 	}
-	input[type=text].dirty,textarea.dirty {
-            background-color: #f0f0ff;
-            border-color: blue;
+	label {
+	    padding: 0;
+	}
+    }
+    table {
+	td.text, td.string {
+	    input, textarea {
+		border: 1px solid gray;
+		padding: 2px;
+		background-color: #f0f0f0;
+		font-family: monospace;
+		font-size: 105%;
+		margin: -1px 0 -2px;
+	    }
+	    input.dirty, textarea.dirty {
+		background-color: #f0f0ff;
+		border-color: blue;
+	    }
 	}
 	p.inline-errors {
             padding: 0;

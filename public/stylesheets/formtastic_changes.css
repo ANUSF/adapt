@@ -13,11 +13,6 @@ form.formtastic fieldset ol li {
     padding-right: 1em; }
     form.formtastic fieldset ol li label abbr {
       color: red; }
-  form.formtastic fieldset ol li input[type=text].dirty, form.formtastic fieldset ol li textarea.dirty {
-    background-color: #f0f0ff;
-    border-color: blue; }
-  form.formtastic fieldset ol li input[type=checkbox].dirty {
-    outline: 1px solid rgba(0, 0, 255, 0.5); }
   form.formtastic fieldset ol li p.inline-errors {
     color: red; }
 form.formtastic fieldset ol li.string input, form.formtastic fieldset ol li.string textarea, form.formtastic fieldset ol li.text input, form.formtastic fieldset ol li.text textarea {
@@ -27,21 +22,28 @@ form.formtastic fieldset ol li.string input, form.formtastic fieldset ol li.stri
   background-color: #f0f0f0;
   font-family: monospace;
   font-size: 95%; }
+form.formtastic fieldset ol li.string input.dirty, form.formtastic fieldset ol li.string textarea.dirty, form.formtastic fieldset ol li.text input.dirty, form.formtastic fieldset ol li.text textarea.dirty {
+  background-color: #f0f0ff;
+  border-color: blue; }
 form.formtastic fieldset ol li.string input[size], form.formtastic fieldset ol li.text input[size] {
   max-width: 100%; }
 form.formtastic fieldset ol li.string textarea[cols], form.formtastic fieldset ol li.text textarea[cols] {
   max-width: 100%; }
-form.formtastic fieldset table td input[type=text], form.formtastic fieldset table td textarea {
+form.formtastic fieldset ol li.boolean input.dirty, form.formtastic fieldset table td.boolean input.dirty {
+  outline: 1px solid rgba(0, 0, 255, 0.5); }
+form.formtastic fieldset ol li.boolean label, form.formtastic fieldset table td.boolean label {
+  padding: 0; }
+form.formtastic fieldset table td.text input, form.formtastic fieldset table td.text textarea, form.formtastic fieldset table td.string input, form.formtastic fieldset table td.string textarea {
   border: 1px solid gray;
   padding: 2px;
   background-color: #f0f0f0;
   font-family: monospace;
   font-size: 105%;
   margin: -1px 0 -2px; }
-form.formtastic fieldset table td input[type=text].dirty, form.formtastic fieldset table td textarea.dirty {
+form.formtastic fieldset table td.text input.dirty, form.formtastic fieldset table td.text textarea.dirty, form.formtastic fieldset table td.string input.dirty, form.formtastic fieldset table td.string textarea.dirty {
   background-color: #f0f0ff;
   border-color: blue; }
-form.formtastic fieldset table td p.inline-errors {
+form.formtastic fieldset table p.inline-errors {
   padding: 0;
   margin: 0; }
 

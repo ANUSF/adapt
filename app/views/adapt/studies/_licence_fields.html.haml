@@ -6,7 +6,7 @@
 = @form.inputs 'Licence Details', :id => 'licence-fields', :class => 'tab' do
   - if @study.owner.is_archivist
     = @form.inputs :class => 'inline' do
-      %li
+      %li.boolean
         = @form.check_box :skip_licence
         = @form.label :skip_licence, skip_text
         %label (archivists only)

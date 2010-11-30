@@ -27,3 +27,11 @@ tr.even td {
 .pulldown {
   position: absolute;
 }
+
+form.formtastic fieldset {
+    ol li.boolean, table td.boolean {
+	input.dirty {
+            border: 1px solid #00F;
+	}
+    }
+}
