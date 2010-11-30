@@ -68,7 +68,7 @@
 	tags_to_propagate: ['error'],
 	patterns: { body: '> fieldset' }
 	})
-      .find('> fieldset legend').css({ display: 'none' }).end()
+      .find('> fieldset legend span').css({ display: 'none' }).end()
       .find('> fieldset').bind('tab-opened', tab_change_handler).end()
       .find('.active-tab').tabSelect();
     $('.tab-link').tabLink();
