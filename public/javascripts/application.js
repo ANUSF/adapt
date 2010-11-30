@@ -81,7 +81,12 @@
       .keyup(multitext_edited).change(multitext_edited).blur(multitext_cleanup);
 
     // -- remove flash notices after some time
-    $('#flash_notice').animate({ opacity: 0 }, 10000);
+    $('#flash_notice').each(function () {
+      var notice = $(this);
+      setTimeout(function () {
+	notice.animate({ opacity: 0 }, 'slow');
+      }, 5000);
+    });
 
     // -- turn inline hints in formtastic into nice mouseover tooltips
     $('form.formtastic fieldset > ol > li .inline-hints').each(function () {
