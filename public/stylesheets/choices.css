@@ -1,10 +1,10 @@
 .choices {
   display: block;
-  background: white;
-  border: 1px solid #aaa; }
+  background: white; }
   .choices ol {
     max-height: 200px;
-    overflow: auto; }
+    overflow: auto;
+    border: 1px solid #aaa; }
   .choices li {
     margin: 0;
     padding: 1px; }

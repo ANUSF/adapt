@@ -3,10 +3,10 @@
 .choices {
   display:    block;
   background: white;
-  border:     1px solid #aaa;
   ol {
     max-height: 200px;
     overflow:   auto;
+    border:     1px solid #aaa;
   }
   li {
     margin: 0;

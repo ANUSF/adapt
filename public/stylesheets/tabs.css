@@ -36,7 +36,8 @@
           display: block;
           margin: -1px;
           padding: 3px 6px;
-          background: url(../images/corner-eee.png) no-repeat right top; }
+          background: no-repeat right top;
+          background-image: url(../images/corner-eee.png); }
       .tab-container ul.tab-index li.tab-entry a:hover {
         background: #888888;
         color: white; }
