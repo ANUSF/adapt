@@ -34,9 +34,14 @@ tr.even td {
     position: absolute;
 }
 
-form.formtastic fieldset.tab {
-    padding-top: 1em;
+#overlay {
+    position: absolute;
+    #blanket {
+	position: relative;
+    }
+}
 
+form.formtastic fieldset.tab {
     ol li.boolean, table td.boolean {
 	input.dirty {
             border: 1px solid #00F;

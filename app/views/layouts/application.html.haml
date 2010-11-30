@@ -24,6 +24,9 @@
       = javascript_include_tag 'application'
       = yield(:head)
   
+      -# if Rails.env.development?
+        - src = "https://getfirebug.com/firebug-lite.js"
+        %script{ :type => "text/javascript", :src => src}
       /[if lt IE 8]
         = stylesheet_link_tag 'ie-fixes', :media => 'all'
 

@@ -26,7 +26,7 @@
     // -- prepare overlay for modal dialogs
     $('<div id="overlay">')
       .append('<div id="blanket">')
-      .prependTo('body');
+      .appendTo('body');
 
     // -- show overlayed message whenever the form is submitted
     $('form').submit(function () {
