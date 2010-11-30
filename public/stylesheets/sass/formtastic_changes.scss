@@ -42,6 +42,7 @@ form.formtastic fieldset {
 	}
 	input[size] {
             max-width: 100%;
+	    overflow: hidden;
 	}
 	textarea, textarea[cols] {
 	    width: auto;
