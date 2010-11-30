@@ -1,34 +1,42 @@
-#top, #main, #footer, .tab-container {
-  zoom: 1; }
+#top, #main, #footer, .tab-container, .tab-index, .tab {
+    zoom: 1;
+}
 
 #navigation {
-  margin-right: -3px; }
+    margin-right: -3px;
+}
 
 #page table th {
-  background-color: #f0f0f0; }
+    background-color: #f0f0f0;
+}
 
 #page fieldset table th {
-  background-color: transparent }
+    background-color: transparent
+}
 
 td {
-  background-color: white; }
+    background-color: white;
+}
 
 tr.even td {
-  background-color: #f8f8f8; }
+    background-color: #f8f8f8;
+}
 
 .choices {
-  width: expression( document.body.clientWidth > 299 ? "300px" : "auto" );
+    width: expression( document.body.clientWidth > 299 ? "300px" : "auto" );
 }
 
 .choices ol {
-  height: expression( this.scrollHeight > 199 ? "200px" : "auto" );
+    height: expression( this.scrollHeight > 199 ? "200px" : "auto" );
 }
 
 .pulldown {
-  position: absolute;
+    position: absolute;
 }
 
-form.formtastic fieldset {
+form.formtastic fieldset.tab {
+    padding-top: 1em;
+
     ol li.boolean, table td.boolean {
 	input.dirty {
             border: 1px solid #00F;

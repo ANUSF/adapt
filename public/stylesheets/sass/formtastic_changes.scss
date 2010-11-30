@@ -28,7 +28,6 @@ form.formtastic fieldset {
     }
     ol li.string, ol li.text {
 	input,textarea {
-	    overflow: auto;
             border: 1px solid gray;
             padding: 2px;
             margin: 0;
@@ -40,13 +39,14 @@ form.formtastic fieldset {
             background-color: #f0f0ff;
             border-color: blue;
 	}
-	input[size] {
+	input[size], textarea[cols] {
             max-width: 100%;
-	    overflow: hidden;
 	}
-	textarea, textarea[cols] {
-	    width: auto;
-            max-width: 100%;
+	textarea {
+	    overflow: auto;
+	}
+	input {
+	    overflow: hidden;
 	}
     }
     ol li.boolean, table td.boolean {
