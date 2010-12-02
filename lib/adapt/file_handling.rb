@@ -1,5 +1,3 @@
-require 'pazy/enumerable'
-
 module Adapt::FileHandling
   def write_file(data, base, *path_parts)
     make_parent(base, *path_parts)
@@ -37,11 +35,17 @@ module Adapt::FileHandling
 
   def non_conflicting(path)
     if !File.exist?(path)
-      path
+      return path
     else
-      Pazy::Enumerable::Stream.new('a', &:next).map { |s|
-        path.sub(/((\.[^.]*)?)$/, "-#{s}\\1")
-      }.find { |p| !File.exist?(p) }
+      suffix = 'a'
+      loop do
+        test = path.sub(/((\.[^.]*)?)$/, "-#{suffix}\\1")
+        if File.exist?(test)
+          suffix = suffix.next
+        else
+          return test
+        end
+      end
     end
   end
 

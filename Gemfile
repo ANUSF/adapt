@@ -19,10 +19,6 @@ gem 'rack-openid'
 gem 'devise_openid_authenticatable'
 gem 'formtastic'
 
-# -- ANUSF gems on github
-gem 'pazy',     :git => 'git@github.com:ANUSF/pazy.git'
-gem 'verboten', :git => 'git@github.com:ANUSF/verboten.git'
-
 group :development, :test do
   gem 'test-unit'
   gem 'capybara'
