@@ -19,6 +19,7 @@ form.formtastic fieldset {
             float: none;
             font-style: italic;
             padding-right: 1em;
+	    padding-top: 0.2em;
             abbr {
 		color: $signal_color;
 	    }
@@ -51,11 +52,15 @@ form.formtastic fieldset {
 	}
     }
     ol li.boolean, table td.boolean {
+	input {
+	    margin-top: 0.2em;
+	}
 	input.dirty {
             outline: 1px solid rgba(0, 0, 255, 0.5);
 	}
 	label {
-	    padding: 0;
+	    padding-left: 0;
+	    padding-right: 0;
 	}
     }
     table {
@@ -105,6 +110,17 @@ form.formtastic {
 	    input {
 		margin-right: 1em;
 	    }
+	}
+    }
+}
+
+form.formtastic fieldset.inline {
+    ol li.boolean {
+	input {
+	    margin-right: 0.5em;
+	}
+	label {
+	    margin-right: 2em;
 	}
     }
 }

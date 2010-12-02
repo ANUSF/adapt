@@ -11,7 +11,8 @@ form.formtastic fieldset ol li {
     display: block;
     float: none;
     font-style: italic;
-    padding-right: 1em; }
+    padding-right: 1em;
+    padding-top: 0.2em; }
     form.formtastic fieldset ol li label abbr {
       color: red; }
   form.formtastic fieldset ol li p.inline-errors {
@@ -32,10 +33,13 @@ form.formtastic fieldset ol li.string textarea, form.formtastic fieldset ol li.t
   overflow: auto; }
 form.formtastic fieldset ol li.string input, form.formtastic fieldset ol li.text input {
   overflow: hidden; }
+form.formtastic fieldset ol li.boolean input, form.formtastic fieldset table td.boolean input {
+  margin-top: 0.2em; }
 form.formtastic fieldset ol li.boolean input.dirty, form.formtastic fieldset table td.boolean input.dirty {
   outline: 1px solid rgba(0, 0, 255, 0.5); }
 form.formtastic fieldset ol li.boolean label, form.formtastic fieldset table td.boolean label {
-  padding: 0; }
+  padding-left: 0;
+  padding-right: 0; }
 form.formtastic fieldset table td.text input, form.formtastic fieldset table td.text textarea, form.formtastic fieldset table td.string input, form.formtastic fieldset table td.string textarea {
   border: 1px solid gray;
   padding: 2px;
@@ -68,6 +72,11 @@ form.formtastic fieldset.inline ol li, form.formtastic fieldset.tabular ol li {
     margin: 0; }
   form.formtastic fieldset.inline ol li input, form.formtastic fieldset.tabular ol li input {
     margin-right: 1em; }
+
+form.formtastic fieldset.inline ol li.boolean input {
+  margin-right: 0.5em; }
+form.formtastic fieldset.inline ol li.boolean label {
+  margin-right: 2em; }
 
 form.formtastic fieldset.tabular ol li {
   margin: -1px -1px 0 0;
