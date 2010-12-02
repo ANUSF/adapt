@@ -1,4 +1,4 @@
-<Context path="/adapt" docBase="/home/olaf/Rails/adapt/adapt.war">
+<Context path="/adapt" docBase="/home/olaf/Ruby-Rails/adapt/adapt.war">
   <Parameter name="adapt.home"
 	     value="/usr/share/tomcat6/webapps/adapt"
 	     override="false"/>
