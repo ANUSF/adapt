@@ -3,7 +3,8 @@ source 'http://rubygems.org'
 gem 'rails'
 
 if defined?(JRUBY_VERSION)
-  gem 'activerecord-jdbcsqlite3-adapter'
+  gem 'jruby-openssl'
+  gem 'activerecord-jdbcsqlite3-adapter', '~> 1.0.3'
 else
   gem 'mongrel', '~> 1.2.0.pre2'
   gem 'sqlite3-ruby', :require => 'sqlite3'
