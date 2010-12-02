@@ -14,7 +14,7 @@ class Adapt::AttachmentsController < Adapt::Controller
   # Finds the attachment with id specified in the request and the study it
   # belongs to.
   def find_attachment
-    @attachment = Attachment.find_by_id(params[:id])
+    @attachment = Adapt::Attachment.find_by_id(params[:id])
     @study = @attachment.study if @attachment
   end
 
