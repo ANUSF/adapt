@@ -51,8 +51,8 @@
 		}
 	    }
 	    a.current-tab {
-		background: #ffffcc;
-		border-bottom-color: #ffffcc;
+		background: $highlight_color;
+		border-bottom-color: $highlight_color;
 		span {
 		    background-image: url(../images/corner-ffc.png);
 		}

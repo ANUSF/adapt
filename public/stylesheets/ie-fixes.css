@@ -22,13 +22,9 @@ tr.even td {
 .choices ol {
   height: expression(this.scrollHeight > 199 ? "200px" : "auto" ); }
 
-.pulldown {
-  position: absolute; }
-
 #overlay {
   position: absolute; }
   #overlay #blanket {
-    height: auto;
     position: relative; }
 
 form.formtastic fieldset.tab ol li.boolean input.dirty, form.formtastic fieldset.tab table td.boolean input.dirty {

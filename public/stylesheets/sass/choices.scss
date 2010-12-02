@@ -1,22 +1,33 @@
 @import "definitions";
 
 .choices {
-  display:    block;
-  background: white;
-  ol {
-    max-height: 200px;
-    overflow:   auto;
-    border:     1px solid #aaa;
-  }
-  li {
-    margin: 0;
-    padding: 1px;
-  }
+    display:    block;
+    background: white;
+
+    ol {
+	max-height: 200px;
+	overflow:   auto;
+	border:     1px solid #404040;
+    }
+    li {
+	margin: 0;
+	padding: 2px 0.5em;
+	border-bottom: 1px solid #e0e0e0;
+    }
+    li:last-child {
+	border-bottom: none;
+    }
+    li:hover {
+	background-color: $highlight_color;
+    }
 }
 
 .pulldown {
-  position: fixed;
-  legend {
-    display: none;
-  }
+    margin-top: -1px;
+    -moz-box-shadow: 3px 3px 4px #808080;
+    -webkit-box-shadow: 3px 3px 4px #808080;
+    box-shadow: 3px 3px 4px #808080;
+    legend {
+	display: none;
+    }
 }

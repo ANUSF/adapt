@@ -4,12 +4,20 @@
   .choices ol {
     max-height: 200px;
     overflow: auto;
-    border: 1px solid #aaa; }
+    border: 1px solid #404040; }
   .choices li {
     margin: 0;
-    padding: 1px; }
+    padding: 2px 0.5em;
+    border-bottom: 1px solid #e0e0e0; }
+  .choices li:last-child {
+    border-bottom: none; }
+  .choices li:hover {
+    background-color: #ffffcc; }
 
 .pulldown {
-  position: fixed; }
+  margin-top: -1px;
+  -moz-box-shadow: 3px 3px 4px #808080;
+  -webkit-box-shadow: 3px 3px 4px #808080;
+  box-shadow: 3px 3px 4px #808080; }
   .pulldown legend {
     display: none; }
