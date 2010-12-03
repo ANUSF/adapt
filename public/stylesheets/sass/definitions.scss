@@ -6,3 +6,22 @@ $signal_color: red;
 
 $list_indent: 3em;
 $paragraph_width: 40em;
+
+@mixin shadowed($width, $blur, $color) {
+    -moz-box-shadow:    $width $width $blur $color;
+    -webkit-box-shadow: $width $width $blur $color;
+    box-shadow:         $width $width $blur $color;
+}
+
+@mixin rounded($radius) {
+    -moz-border-radius:    $radius;
+    -webkit-border-radius: $radius;
+    border-radius:         $radius;
+}
+
+@mixin opaque($value) {
+  $percent: $value * 100;
+  opacity: $value;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity="+ $percent +")";
+  filter: alpha(opacity=$percent);
+}

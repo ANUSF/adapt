@@ -99,10 +99,11 @@ form.formtastic table {
   width: auto;
   margin: 1em 0;
   border: none; }
+  form.formtastic table thead th {
+    background-color: inherit; }
   form.formtastic table tbody tr {
     border: 1px solid gray; }
   form.formtastic table th {
-    background-color: inherit;
     padding: 3px 8px;
     font-size: 90%;
     font-weight: normal;

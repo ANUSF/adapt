@@ -55,6 +55,10 @@
   }
 
   $(document).ready(function() {
+    $('table tr:nth-child(even) td').each(function () {
+      $(this).css('background-color', '#f8f8f8');
+    });
+
     // -- auto-expanding some textareas
     $('textarea.expandable').TextAreaExpander(40, 200);
 
