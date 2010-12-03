@@ -13,6 +13,12 @@
       pulldown.css({ display: 'none' });
     });
 
+    // -- fix for IE6 to make choice items highlight on hover
+    $('.choices li').hover(
+      function () { $(this).addClass('hover'); },
+      function () { $(this).removeClass('hover'); }
+    );
+
     // -- tag fields that have been edited
     $('input,textarea,select').not('select.predefined')
       .change(function() { $(this).addClass('dirty'); })

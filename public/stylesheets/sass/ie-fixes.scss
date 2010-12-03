@@ -1,3 +1,5 @@
+@import "definitions";
+
 #top, #main, #footer, .tab-container, .tab-index, .tab {
     zoom: 1;
 }
@@ -24,10 +26,12 @@ tr.even td {
 
 .choices {
     width: expression( document.body.clientWidth > 299 ? "300px" : "auto" );
-}
-
-.choices ol {
-    height: expression( this.scrollHeight > 199 ? "200px" : "auto" );
+    ol {
+	height: expression( this.scrollHeight > 199 ? "200px" : "auto" );
+    }
+    li.hover {
+	background-color: $highlight_color;
+    }
 }
 
 #overlay {
