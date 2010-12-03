@@ -157,11 +157,13 @@ form.formtastic table {
     width: auto;
     margin: 1em 0;
     border: none;
+    thead th {
+	background-color: inherit;
+    }
     tbody tr {
 	border: 1px solid gray;
     }
     th {
-	background-color: inherit;
 	padding: 3px 8px;
 	font: {
 	    size: 90%;

@@ -16,8 +16,8 @@
 
 .pulldown {
   margin-top: -1px;
-  -moz-box-shadow: 3px 3px 4px #808080;
-  -webkit-box-shadow: 3px 3px 4px #808080;
-  box-shadow: 3px 3px 4px #808080; }
+  -moz-box-shadow: 3px 3px 4px gray;
+  -webkit-box-shadow: 3px 3px 4px gray;
+  box-shadow: 3px 3px 4px gray; }
   .pulldown legend {
     display: none; }

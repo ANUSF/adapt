@@ -20,12 +20,8 @@
       size: 120%; };
     background: {
       color: $highlight_color; };
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    -moz-box-shadow: 3px 3px 4px #000;
-    -webkit-box-shadow: 3px 3px 4px #000;
-    box-shadow: 3px 3px 4px #000;
+    @include rounded(10px);
+    @include shadowed(3px, 4px, #404040);
     border: solid 1px #cccc66;
     .busy-indicator {
       position: absolute;
@@ -41,8 +37,6 @@
   bottom: 0;
   left: 0;
   display: block;
-  opacity: 0.1;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=10)";
-  filter: alpha(opacity=10);
+  @include opaque(0.2);
   position: absolute;
   width: 100%; }

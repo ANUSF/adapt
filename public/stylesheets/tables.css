@@ -13,7 +13,7 @@ table {
 th {
   border-style: solid;
   border-width: 0 0 1px 0;
-  background-color: rgba(240, 240, 240, 0.9);
+  background-color: #f0f0f0;
   padding: 5px 12px;
   vertical-align: middle;
   font-weight: bold; }
@@ -22,13 +22,10 @@ td {
   border-style: solid;
   border-width: 1px 0 0 0;
   border-color: #aaaaaa;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: #ffffff;
   padding: 5px 12px;
   vertical-align: middle;
   font-weight: normal; }
   td p {
     margin: 0;
     text-align: left; }
-
-tr:nth-child(even) td {
-  background-color: rgba(248, 248, 248, 0.9); }
