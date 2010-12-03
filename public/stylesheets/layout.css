@@ -76,10 +76,6 @@
     margin-right: 3em; }
   #page p {
     max-width: 40em; }
-  #page li p, #page dd p {
-    max-width: 37em; }
-  #page li li p, #page li dd p, #page dd li p, #page dd dd p {
-    max-width: 34em; }
 
 #footer {
   position: relative;

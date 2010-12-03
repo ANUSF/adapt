@@ -78,17 +78,14 @@ $max_height: 5000px;
     color: $primary_darker; }; }
 
 #page {
-  padding-bottom: 20px;
-  ul {
-    margin-right: $list_indent; }
-  p {
-    max-width: $paragraph_width; }
-  li,dd {
+    padding-bottom: 20px;
+    ul {
+	margin-right: $list_indent;
+    }
     p {
-      max-width: $paragraph_width - $list_indent; }
-    li,dd {
-      p {
-        max-width: $paragraph_width - 2 * $list_indent; } } } }
+	max-width: $paragraph_width;
+    }
+}
 
 #footer {
   position: relative;
