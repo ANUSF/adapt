@@ -10,6 +10,11 @@
 #page fieldset table th {
   background-color: transparent; }
 
+#page p {
+  width: expression(document.body.clientWidth > 549 ? "550px" : "auto" ); }
+#page table p {
+  width: auto; }
+
 td {
   background-color: white; }
 
