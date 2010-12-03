@@ -1,0 +1,325 @@
+#adapt {
+  padding-bottom: 20px; }
+  #adapt ul {
+    margin-right: 3em; }
+  #adapt p {
+    max-width: 40em; }
+  #adapt .box {
+    border: 1px solid #aaaaaa;
+    background-color: #f8f8f8;
+    float: left;
+    padding: 1em; }
+  #adapt .clear {
+    margin: 0;
+    padding: 0;
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden; }
+  #adapt form.formtastic fieldset p {
+    padding: 0.25em 0;
+    text-align: justify; }
+    #adapt form.formtastic fieldset p em {
+      font-style: italic; }
+  #adapt form.formtastic fieldset .inline-errors {
+    color: red; }
+  #adapt form.formtastic fieldset ol li {
+    overflow: visible; }
+    #adapt form.formtastic fieldset ol li label {
+      display: block;
+      float: none;
+      font-style: italic;
+      padding-right: 1em;
+      padding-top: 0.2em; }
+      #adapt form.formtastic fieldset ol li label abbr {
+        color: red; }
+    #adapt form.formtastic fieldset ol li p.inline-errors {
+      color: red; }
+  #adapt form.formtastic fieldset ol li.string input, #adapt form.formtastic fieldset ol li.string textarea, #adapt form.formtastic fieldset ol li.text input, #adapt form.formtastic fieldset ol li.text textarea {
+    border: 1px solid gray;
+    padding: 2px;
+    margin: 0;
+    background-color: #f0f0f0;
+    font-family: monospace;
+    font-size: 95%; }
+  #adapt form.formtastic fieldset ol li.string input.dirty, #adapt form.formtastic fieldset ol li.string textarea.dirty, #adapt form.formtastic fieldset ol li.text input.dirty, #adapt form.formtastic fieldset ol li.text textarea.dirty {
+    background-color: #f0f0ff;
+    border-color: blue; }
+  #adapt form.formtastic fieldset ol li.string input[size], #adapt form.formtastic fieldset ol li.string textarea[cols], #adapt form.formtastic fieldset ol li.text input[size], #adapt form.formtastic fieldset ol li.text textarea[cols] {
+    max-width: 100%; }
+  #adapt form.formtastic fieldset ol li.string textarea, #adapt form.formtastic fieldset ol li.text textarea {
+    overflow: auto; }
+  #adapt form.formtastic fieldset ol li.string input, #adapt form.formtastic fieldset ol li.text input {
+    overflow: hidden; }
+  #adapt form.formtastic fieldset ol li.boolean input, #adapt form.formtastic fieldset table td.boolean input {
+    margin-top: 0.2em; }
+  #adapt form.formtastic fieldset ol li.boolean input.dirty, #adapt form.formtastic fieldset table td.boolean input.dirty {
+    outline: 1px solid rgba(0, 0, 255, 0.5); }
+  #adapt form.formtastic fieldset ol li.boolean label, #adapt form.formtastic fieldset table td.boolean label {
+    padding-left: 0;
+    padding-right: 0; }
+  #adapt form.formtastic fieldset table td.text input, #adapt form.formtastic fieldset table td.text textarea, #adapt form.formtastic fieldset table td.string input, #adapt form.formtastic fieldset table td.string textarea {
+    border: 1px solid gray;
+    padding: 2px;
+    background-color: #f0f0f0;
+    font-family: monospace;
+    font-size: 105%;
+    margin: -1px 0 -2px; }
+  #adapt form.formtastic fieldset table td.text input.dirty, #adapt form.formtastic fieldset table td.text textarea.dirty, #adapt form.formtastic fieldset table td.string input.dirty, #adapt form.formtastic fieldset table td.string textarea.dirty {
+    background-color: #f0f0ff;
+    border-color: blue; }
+  #adapt form.formtastic fieldset table p.inline-errors {
+    padding: 0;
+    margin: 0; }
+  #adapt form.formtastic fieldset.repeatable {
+    margin-bottom: 1em;
+    overflow: visible; }
+    #adapt form.formtastic fieldset.repeatable ol li {
+      margin: -1px 0 0 0;
+      padding: 0; }
+  #adapt form.formtastic fieldset.inline ol li, #adapt form.formtastic fieldset.tabular ol li {
+    display: inline;
+    float: left; }
+    #adapt form.formtastic fieldset.inline ol li label, #adapt form.formtastic fieldset.inline ol li input, #adapt form.formtastic fieldset.inline ol li p, #adapt form.formtastic fieldset.tabular ol li label, #adapt form.formtastic fieldset.tabular ol li input, #adapt form.formtastic fieldset.tabular ol li p {
+      width: auto;
+      display: inline;
+      float: left; }
+    #adapt form.formtastic fieldset.inline ol li p.inline-errors, #adapt form.formtastic fieldset.tabular ol li p.inline-errors {
+      margin: 0; }
+    #adapt form.formtastic fieldset.inline ol li input, #adapt form.formtastic fieldset.tabular ol li input {
+      margin-right: 1em; }
+  #adapt form.formtastic fieldset.inline ol li.boolean input {
+    margin-right: 0.5em; }
+  #adapt form.formtastic fieldset.inline ol li.boolean label {
+    margin-right: 2em; }
+  #adapt form.formtastic fieldset.tabular ol li {
+    margin: -1px -1px 0 0;
+    padding: 0; }
+    #adapt form.formtastic fieldset.tabular ol li label {
+      display: none; }
+    #adapt form.formtastic fieldset.tabular ol li input, #adapt form.formtastic fieldset.tabular ol li p {
+      margin: 0; }
+    #adapt form.formtastic fieldset.tabular ol li p.inline-errors {
+      width: auto;
+      clear: both;
+      float: none; }
+  #adapt form.formtastic fieldset.tabular:first-child ol li label, #adapt form.formtastic fieldset.tabular:first-child ol li input {
+    margin: 0;
+    display: block;
+    float: none; }
+  #adapt form.formtastic table {
+    width: auto;
+    margin: 1em 0;
+    border: none; }
+    #adapt form.formtastic table thead th {
+      background-color: inherit; }
+    #adapt form.formtastic table tbody tr {
+      border: 1px solid gray; }
+    #adapt form.formtastic table th {
+      padding: 3px 8px;
+      font-size: 90%;
+      font-weight: normal;
+      font-style: italic; }
+    #adapt form.formtastic table td {
+      padding: 0 8px; }
+  #adapt .properties ul {
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0.6em 2em; }
+    #adapt .properties ul li {
+      position: relative;
+      left: 13em;
+      margin: 0;
+      margin-right: 13em;
+      padding: 0.4em 0 0 0;
+      max-width: 35em; }
+      #adapt .properties ul li dfn {
+        margin: 0;
+        padding: 0;
+        position: relative;
+        margin-left: -13em;
+        width: 13em;
+        float: left;
+        color: #222222;
+        font-weight: bolder;
+        font-style: normal; }
+      #adapt .properties ul li ul {
+        list-style: none;
+        margin: 0;
+        padding: 0; }
+        #adapt .properties ul li ul li {
+          position: relative;
+          left: 0;
+          margin: 0;
+          padding: 0.2em 0 0 0; }
+  #adapt table {
+    margin: 0;
+    padding: 0;
+    empty-cells: show;
+    border: 1px solid;
+    border-collapse: collapse;
+    border-color: black;
+    font-size: 90%;
+    line-height: 135%;
+    text-align: center;
+    width: 100%; }
+    #adapt table th {
+      border-style: solid;
+      border-width: 0 0 1px 0;
+      background-color: #f0f0f0;
+      padding: 5px 12px;
+      vertical-align: middle;
+      font-weight: bold; }
+    #adapt table td {
+      border-style: solid;
+      border-width: 1px 0 0 0;
+      border-color: #aaaaaa;
+      background-color: #ffffff;
+      padding: 5px 12px;
+      vertical-align: middle;
+      font-weight: normal; }
+      #adapt table td p {
+        margin: 0;
+        text-align: left; }
+  #adapt .tab-container {
+    display: inline;
+    position: relative;
+    margin: 0;
+    padding: 0; }
+    #adapt .tab-container fieldset.tab {
+      position: relative;
+      clear: both;
+      border: 1px solid #aaaaaa;
+      padding: 1em 2em;
+      overflow: auto;
+      margin-bottom: 5px; }
+    #adapt .tab-container ul.tab-index {
+      display: none;
+      list-style: none;
+      padding: 0;
+      margin: 0; }
+      #adapt .tab-container ul.tab-index li.tab-entry {
+        float: left;
+        margin: 0 -1px -1px 0; }
+        #adapt .tab-container ul.tab-index li.tab-entry a {
+          float: left;
+          display: block;
+          position: relative;
+          width: 10em;
+          margin: 0 auto;
+          font-weight: normal;
+          font-size: 90%;
+          text-align: center;
+          text-decoration: none;
+          padding: 0;
+          border: solid #aaaaaa 1px;
+          background: #eeeeee;
+          color: black; }
+          #adapt .tab-container ul.tab-index li.tab-entry a span {
+            display: block;
+            margin: -1px;
+            padding: 3px 6px;
+            background: no-repeat right top;
+            background-image: url(../images/corner-eee.png); }
+        #adapt .tab-container ul.tab-index li.tab-entry a:hover {
+          background: #888888;
+          color: white; }
+          #adapt .tab-container ul.tab-index li.tab-entry a:hover span {
+            background-image: url(../images/corner-888.png); }
+        #adapt .tab-container ul.tab-index li.tab-entry a.current-tab {
+          background: #ffffcc;
+          border-bottom-color: #ffffcc; }
+          #adapt .tab-container ul.tab-index li.tab-entry a.current-tab span {
+            background-image: url(../images/corner-ffc.png); }
+        #adapt .tab-container ul.tab-index li.tab-entry a.current-tab:hover {
+          background: #f4ee99;
+          border-bottom-color: #f4ee99;
+          color: black; }
+          #adapt .tab-container ul.tab-index li.tab-entry a.current-tab:hover span {
+            background-image: url(../images/corner-f4ee99.png); }
+        #adapt .tab-container ul.tab-index li.tab-entry a.error, #adapt .tab-container ul.tab-index li.tab-entry a.error:hover {
+          color: red; }
+
+#tooltip {
+  width: 20em;
+  background-color: #ffffcc;
+  padding: 2px;
+  border: 1px solid #cccccc;
+  text-align: left;
+  z-index: 10;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -moz-box-shadow: 2px 2px 3px gray;
+  -webkit-box-shadow: 2px 2px 3px gray;
+  box-shadow: 2px 2px 3px gray; }
+
+.choices {
+  display: block;
+  background: white; }
+  .choices ol {
+    max-height: 200px;
+    overflow: auto;
+    border: 1px solid #404040; }
+  .choices li {
+    margin: 0;
+    padding: 2px 0.5em;
+    border-bottom: 1px solid #e0e0e0; }
+  .choices li:last-child {
+    border-bottom: none; }
+  .choices li:hover {
+    background-color: #ffffcc; }
+
+.pulldown {
+  margin-top: -1px;
+  -moz-box-shadow: 3px 3px 4px gray;
+  -webkit-box-shadow: 3px 3px 4px gray;
+  box-shadow: 3px 3px 4px gray; }
+  .pulldown legend {
+    display: none; }
+
+#overlay {
+  display: none;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin-right: auto;
+  margin-left: auto;
+  position: fixed;
+  width: 100%;
+  z-index: 100; }
+  #overlay #blanket {
+    background-color: black;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    opacity: 0.2;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+    filter: alpha(opacity=20);
+    position: absolute;
+    width: 100%; }
+  #overlay .dialog {
+    position: relative;
+    margin: 200px auto;
+    width: 150px;
+    padding: 30px 80px;
+    font-size: 120%;
+    background-color: #ffffcc;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    -moz-box-shadow: 3px 3px 4px #404040;
+    -webkit-box-shadow: 3px 3px 4px #404040;
+    box-shadow: 3px 3px 4px #404040;
+    border: solid 1px #cccc66; }
+    #overlay .dialog .busy-indicator {
+      position: absolute;
+      left: 30px;
+      bottom: 25px;
+      width: 32px;
+      height: 32px;
+      background: url("/images/ajax-loader.gif") no-repeat right; }

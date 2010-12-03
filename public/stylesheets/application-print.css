@@ -1,0 +1,45 @@
+#navigation, #flash_notice, #flash_error, #footer, #divider,
+.submit, .links, .noprint {
+  display: none; }
+
+body {
+  background: white;
+  color: black;
+  font-family: Times;
+  font-size: 10pt; }
+
+body, #main, table {
+  width: 100%;
+  margin: 0;
+  float: none; }
+
+#header, a, h1, h2, h3, dfn, table, form {
+  font-family: Helvetica; }
+
+#header {
+  font-size: 160%;
+  font-weight: bold; }
+  #header img {
+    display: none; }
+  #header div {
+    padding: 0;
+    margin: 0;
+      margin-bottom: 2em; }
+
+a {
+  color: black;
+  text-decoration: underline; }
+
+hr {
+  width: 100%;
+  border: none;
+    border-bottom: 1px solid black; }
+
+.clear {
+  margin: 0;
+  padding: 0;
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden; }
