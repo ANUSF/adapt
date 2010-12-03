@@ -1,12 +1,16 @@
+// Define some colours
 $primary_color: #994779;
 $primary_darker: $primary_color - #181818;
 $link_color: $primary_color - #222222;
 $highlight_color: #ffffcc;
 $signal_color: red;
 
+// ...and widths
 $list_indent: 3em;
 $paragraph_width: 40em;
+$dfn_width: 13em;
 
+// Macros for some trickier settings
 @mixin shadowed($width, $blur, $color) {
     -moz-box-shadow:    $width $width $blur $color;
     -webkit-box-shadow: $width $width $blur $color;

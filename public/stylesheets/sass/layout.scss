@@ -1,4 +1,4 @@
-@import "definitions";
+@import "adapt-definitions";
 
 $max_height: 5000px;
 
@@ -76,16 +76,6 @@ $max_height: 5000px;
     top: 4px solid;
     bottom: 2px solid;
     color: $primary_darker; }; }
-
-#page {
-    padding-bottom: 20px;
-    ul {
-	margin-right: $list_indent;
-    }
-    p {
-	max-width: $paragraph_width;
-    }
-}
 
 #footer {
   position: relative;
