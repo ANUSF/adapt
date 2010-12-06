@@ -1,7 +1,8 @@
 - long  = { :size => 40 }
 - short = { :size => 12 }
+- tab_id = 'adapt-data-fields'
 
-= @form.inputs 'Data Description', :id => 'data-fields', :class => 'tab' do
+= @form.inputs 'Data Description', :id => tab_id, :class => 'tab' do
 
   = @form.inputs :class => 'inline' do
     %li
