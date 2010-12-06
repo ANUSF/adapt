@@ -43,9 +43,9 @@
     }
 }
 
-#overlay {
+#adapt-overlay {
     position: absolute;
-    #blanket {
-	position: relative;
+    .blanket {
+	display: none;
     }
 }

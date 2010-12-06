@@ -21,7 +21,7 @@
   .choices li.hover {
     background-color: #ffffcc; }
 
-#overlay {
+#adapt-overlay {
   position: absolute; }
-  #overlay #blanket {
-    position: relative; }
+  #adapt-overlay .blanket {
+    display: none; }

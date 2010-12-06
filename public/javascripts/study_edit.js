@@ -38,7 +38,7 @@
     $('form').submit(function () {
       $('<div id="alert" class="dialog">')
 	.append('<span class="busy-indicator" />')
-	.append('Adapt is synchronizing data...')
+	.append('Adapt is synchronizing your data...')
 	.appendTo('#adapt-overlay');
       $('#adapt-overlay').css('display', 'block');
     });
