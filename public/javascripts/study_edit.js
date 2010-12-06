@@ -10,11 +10,11 @@
     $('input:text[data-selection-id]').each(function () {
       var item = $(this), pulldown = $(item.attr('data-selection-id'));
       item.addPulldown(pulldown);
-      pulldown.css({ display: 'none' });
+      pulldown.css({ display: 'none' }).addClass('adapt-pulldown');
     });
 
     // -- fix for IE6 to make choice items highlight on hover
-    $('.choices li').hover(
+    $('.adapt-choices li').hover(
       function () { $(this).addClass('hover'); },
       function () { $(this).removeClass('hover'); }
     );

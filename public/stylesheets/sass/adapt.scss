@@ -422,7 +422,7 @@
 }
 
 // Pulldown menus
-.choices {
+.adapt-choices {
     display:    block;
     background: white;
 
@@ -444,7 +444,7 @@
     }
 }
 
-.pulldown {
+.adapt-pulldown {
     margin-top: -1px;
     @include shadowed(3px, 4px, #808080);
     legend {

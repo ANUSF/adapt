@@ -14,14 +14,14 @@
 #adapt tr.even td {
   background-color: #f8f8f8; }
 
-.choices {
-  width: expression(document.body.clientWidth > 299 ? "300px" : "auto" ); }
-  .choices ol {
-    height: expression(this.scrollHeight > 199 ? "200px" : "auto" ); }
-  .choices li.hover {
-    background-color: #ffffcc; }
-
 #adapt-overlay {
   position: absolute; }
   #adapt-overlay .blanket {
     display: none; }
+
+.adapt-choices {
+  width: expression(document.body.clientWidth > 299 ? "300px" : "auto" ); }
+  .adapt-choices ol {
+    height: expression(this.scrollHeight > 199 ? "200px" : "auto" ); }
+  .adapt-choices li.hover {
+    background-color: #ffffcc; }
