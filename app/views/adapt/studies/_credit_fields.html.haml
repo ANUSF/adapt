@@ -26,7 +26,7 @@
                   :input_html => text,
                   :required => false
 
-  = @form.inputs 'Affiliations', :class => 'choices', |
+  = @form.inputs 'Affiliations', :class => 'adapt-choices', |
                                  :id => 'affiliation_choices' do
     %li.empty &nbsp
     - @study.selections(:affiliation).each do |entry|
