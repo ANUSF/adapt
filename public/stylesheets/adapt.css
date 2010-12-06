@@ -286,7 +286,7 @@
       height: 32px;
       background: url("/images/ajax-loader.gif") no-repeat right; }
 
-#tooltip {
+#adapt-tooltip {
   width: 20em;
   background-color: #ffffcc;
   padding: 2px;
