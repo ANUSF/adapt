@@ -1,0 +1,453 @@
+@import "adapt-definitions";
+
+// Encapsulate everything nicely
+#adapt {
+    // The basics
+    padding-bottom: 20px;
+
+    ul {
+	margin-right: $list_indent;
+    }
+    p {
+	max-width: $paragraph_width;
+    }
+
+    // A floated div box
+    .box {
+	border: 1px solid #aaaaaa;
+	background-color: #f8f8f8;
+	float: left;
+	padding: 1em;
+    }
+
+    // Needed to clear up after a .box
+    .clear {
+	margin: 0;
+	padding: 0;
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+    }
+
+    // Styling for forms with Adapt
+    form.formtastic fieldset {
+	p {
+	    padding: 0.25em 0;
+	    text-align: justify;
+	    em {
+		font-style: italic;
+	    }
+	}
+	.inline-errors {
+	    color: $signal_color;
+	}
+	ol li {
+	    overflow: visible;
+
+	    label {
+		display: block;
+		float: none;
+		font-style: italic;
+		padding-right: 1em;
+		padding-top: 0.2em;
+		abbr {
+		    color: $signal_color;
+		}
+	    }
+	    p.inline-errors {
+		color: $signal_color;
+	    }
+	}
+	ol li.string, ol li.text {
+	    input,textarea {
+		border: 1px solid gray;
+		padding: 2px;
+		margin: 0;
+		background-color: #f0f0f0;
+		font-family: monospace;
+		font-size: 95%;
+	    }
+	    input.dirty,textarea.dirty {
+		background-color: #f0f0ff;
+		border-color: blue;
+	    }
+	    input[size], textarea[cols] {
+		max-width: 100%;
+	    }
+	    textarea {
+		overflow: auto;
+	    }
+	    input {
+		overflow: hidden;
+	    }
+	}
+	ol li.boolean, table td.boolean {
+	    input {
+		margin-top: 0.2em;
+	    }
+	    input.dirty {
+		outline: 1px solid rgba(0, 0, 255, 0.5);
+	    }
+	    label {
+		padding-left: 0;
+		padding-right: 0;
+	    }
+	}
+	table {
+	    td.text, td.string {
+		input, textarea {
+		    border: 1px solid gray;
+		    padding: 2px;
+		    background-color: #f0f0f0;
+		    font-family: monospace;
+		    font-size: 105%;
+		    margin: -1px 0 -2px;
+		}
+		input.dirty, textarea.dirty {
+		    background-color: #f0f0ff;
+		    border-color: blue;
+		}
+	    }
+	    p.inline-errors {
+		padding: 0;
+		margin: 0;
+	    }
+	}
+    }
+
+    form.formtastic fieldset.repeatable {
+	margin-bottom: 1em;
+	overflow: visible;
+	ol li {
+	    margin: -1px 0 0 0;
+	    padding: 0;
+	}
+    }
+
+    form.formtastic {
+	fieldset.inline, fieldset.tabular {
+	    ol li {
+		display: inline;
+		float: left;
+		label, input, p {
+		    width: auto;
+		    display: inline;
+		    float: left;
+		}
+		p.inline-errors {
+		    margin: 0;
+		}
+		input {
+		    margin-right: 1em;
+		}
+	    }
+	}
+    }
+
+    form.formtastic fieldset.inline {
+	ol li.boolean {
+	    input {
+		margin-right: 0.5em;
+	    }
+	    label {
+		margin-right: 2em;
+	    }
+	}
+    }
+
+    form.formtastic fieldset.tabular {
+	ol li {
+	    margin: -1px -1px 0 0;
+	    padding: 0;
+	    label {
+		display: none;
+	    }
+	    input, p {
+		margin: 0;
+	    }
+	    p.inline-errors {
+		width: auto;
+		clear: both;
+		float: none;
+	    }
+	}
+    }
+
+    form.formtastic fieldset.tabular:first-child {
+	ol li {
+	    label, input {
+		margin: 0;
+		display: block;
+		float: none;
+	    }
+	}
+    }
+
+    form.formtastic table {
+	width: auto;
+	margin: 1em 0;
+	border: none;
+	thead th {
+	    background-color: inherit;
+	}
+	tbody tr {
+	    border: 1px solid gray;
+	}
+	th {
+	    padding: 3px 8px;
+	    font: {
+		size: 90%;
+		weight: normal;
+		style: italic;
+	    }
+	}
+	td {
+	    padding: 0 8px;
+	}
+    }
+
+    // This is used for the study summary display
+    .properties {
+	ul {
+	    position: relative;
+	    list-style: none;
+	    margin: 0;
+	    padding: 0.6em 2em;
+	    li {
+		position: relative;
+		left: $dfn_width;
+		margin: 0;
+		margin-right: $dfn_width;
+		padding: 0.4em 0 0 0;
+		max-width: 35em;
+		dfn {
+		    margin: 0;
+		    padding: 0;
+		    position: relative;
+		    margin-left: -$dfn_width;
+		    width: $dfn_width;
+		    float: left;
+		    color: #222222;
+		    font: {
+			weight: bolder;
+			style: normal;
+		    }
+		}
+		ul {
+		    list-style: none;
+		    margin: 0;
+		    padding: 0;
+		    li {
+			position: relative;
+			left: 0;
+			margin: 0;
+			padding: 0.2em 0 0 0;
+		    }
+		} 
+	    }
+	}
+    }
+
+    // How to style tables
+    table {
+	margin: 0;
+	padding: 0;
+	empty-cells: show;
+	border: 1px solid;
+	border-collapse: collapse;
+	border-color: black;
+	font-size: 90%;
+	line-height: 135%;
+	text-align: center;
+	width: 100%;
+
+	th {
+	    border-style: solid;
+	    border-width: 0 0 1px 0;
+	    background-color: #f0f0f0;
+	    padding: 5px 12px;
+	    vertical-align: middle;
+	    font-weight: bold;
+	}
+
+	td {
+	    border-style: solid;
+	    border-width: 1px 0 0 0;
+	    border-color: #aaaaaa;
+	    background-color: #ffffff;
+	    padding: 5px 12px;
+	    vertical-align: middle;
+	    font-weight: normal;
+	    p {
+		margin: 0;
+		text-align: left;
+	    }
+	}
+    }
+
+    // Styling for the tabs in the main study editing form
+    .tab-container {
+	display: inline;
+	position: relative;
+	margin: 0;
+	padding: 0;
+	fieldset.tab {
+	    position: relative;
+	    clear: both;
+	    border: 1px solid #aaaaaa;
+	    padding: 1em 2em;
+	    overflow: auto;
+	    margin-bottom: 5px;
+	}
+	ul.tab-index {
+	    display: none;
+	    list-style: none;
+	    padding: 0;
+	    margin: 0;
+	    li.tab-entry {
+		float: left;
+		margin: 0 -1px -1px 0;
+		a {
+		    float: left;
+		    display: block;
+		    position: relative;
+		    width: 10em;
+		    margin: 0 auto;
+		    font-weight: normal;
+		    font-size: 90%;
+		    text-align: center;
+		    text-decoration: none;
+		    padding: 0;
+		    border: solid #aaaaaa 1px;
+		    background: #eeeeee;
+		    color: black;
+		    span {
+			display: block;
+			margin: -1px;
+			padding: 3px 6px;
+			background: no-repeat right top;
+			background-image: url(../images/corner-eee.png)
+		    }
+		}
+		a:hover {
+		    background: #888888;
+		    color: white;
+		    span {
+			background-image: url(../images/corner-888.png);
+		    }
+		}
+		a.current-tab {
+		    background: $highlight_color;
+		    border-bottom-color: $highlight_color;
+		    span {
+			background-image: url(../images/corner-ffc.png);
+		    }
+		}
+		a.current-tab:hover {
+		    background: #f4ee99;
+		    border-bottom-color: #f4ee99;
+		    color: black;
+		    span {
+			background-image: url(../images/corner-f4ee99.png);
+		    }
+		}
+		a.error,a.error:hover {
+		    color: $signal_color;
+		}
+	    }
+	} 
+    }
+}
+
+
+// Dialog overlays
+#adapt-overlay {
+    display: none;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin-right: auto;
+    margin-left: auto;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+
+    .blanket {
+	background-color: black;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	display: block;
+	@include opaque(0.2);
+	position: absolute;
+	width: 100%;
+    }
+    .dialog {
+	position: relative;
+	margin: 200px auto;
+	width: 250px;
+	padding: 30px 80px;
+	font: {
+	    size: 120%;
+	};
+	background: {
+	    color: $highlight_color; };
+	@include rounded(10px);
+	@include shadowed(3px, 4px, #404040);
+	border: solid 1px #cccc66;
+	.busy-indicator {
+	    position: absolute;
+	    left: 30px;
+	    bottom: 25px;
+	    width: 32px;
+	    height: 32px;
+	    background: url("/images/ajax-loader.gif") no-repeat right;
+	}
+    } 
+}
+
+// Tooltips
+#adapt-tooltip {
+    width: 20em;
+    background-color: $highlight_color;
+    padding: 2px;
+    border: 1px solid #cccccc;
+    text-align: left;
+    z-index: 10;
+    @include rounded(3px);
+    @include shadowed(2px, 3px, #808080);
+}
+
+// Pulldown menus
+.choices {
+    display:    block;
+    background: white;
+
+    ol {
+	max-height: 200px;
+	overflow:   auto;
+	border:     1px solid #404040;
+    }
+    li {
+	margin: 0;
+	padding: 2px 0.5em;
+	border-bottom: 1px solid #e0e0e0;
+    }
+    li:last-child {
+	border-bottom: none;
+    }
+    li:hover {
+	background-color: $highlight_color;
+    }
+}
+
+.pulldown {
+    margin-top: -1px;
+    @include shadowed(3px, 4px, #808080);
+    legend {
+	display: none;
+    }
+}

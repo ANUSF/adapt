@@ -1,7 +1,9 @@
-@import "definitions";
+@import "adapt-definitions";
 @import "reset";
 @import "basics";
-@import "properties";
+@import "formtastic";
+
+@import "adapt";
 
 #navigation, #flash_notice, #flash_error, #footer, #divider,
 .submit, .links, .noprint {
@@ -32,6 +34,10 @@ body, #main, table {
     padding: 0;
     margin: 0 {
       bottom: 2em; }; } }
+
+#content {
+    background: none !important;
+}
 
 a {
   color: black;

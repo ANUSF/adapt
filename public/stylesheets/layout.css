@@ -70,13 +70,6 @@
     border-bottom: 2px solid;
     border-color: #812f61; }
 
-#page {
-  padding-bottom: 20px; }
-  #page ul {
-    margin-right: 3em; }
-  #page p {
-    max-width: 40em; }
-
 #footer {
   position: relative;
   clear: both;

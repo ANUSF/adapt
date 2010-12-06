@@ -1,9 +1,11 @@
-@import "definitions";
+@import "adapt-definitions";
 @import "reset";
 @import "basics";
-@import "properties";
-
+@import "layout";
 @import "flash";
+@import "formtastic";
+
+@import "adapt";
 
 body {
     min-width: 720px;
@@ -22,32 +24,4 @@ a {
 
 a:hover {
     color: $link_color + #333333;
-}
-
-.clear {
-    margin: 0;
-    padding: 0;
-    content: ".";
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden;
-}
-
-.box {
-    border: 1px solid #aaaaaa;
-    background-color: #f8f8f8;
-    float: left;
-    padding: 1em;
-}
-
-#tooltip {
-    width: 20em;
-    background-color: $highlight_color;
-    padding: 2px;
-    border: 1px solid #cccccc;
-    text-align: left;
-    z-index: 10;
-    @include rounded(3px);
-    @include shadowed(2px, 3px, #808080);
 }

@@ -30,17 +30,17 @@
     });
 
     // -- prepare overlay for modal dialogs
-    $('<div id="overlay">')
-      .append('<div id="blanket">')
+    $('<div id="adapt-overlay">')
+      .append('<div class="blanket">')
       .appendTo('body');
 
     // -- show overlayed message whenever the form is submitted
     $('form').submit(function () {
       $('<div id="alert" class="dialog">')
 	.append('<span class="busy-indicator" />')
-	.append('Loading...')
-	.appendTo('#overlay');
-      $('#overlay').css('display', 'block');
+	.append('Adapt is synchronizing your data...')
+	.appendTo('#adapt-overlay');
+      $('#adapt-overlay').css('display', 'block');
     });
   });
 }(jQuery));

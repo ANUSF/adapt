@@ -11,7 +11,7 @@
         = stylesheet_link_tag 'application-print', :media => 'all'
         %style{:type => "text/css"} body { padding: 2em; width: 80%; }
       - else
-        = stylesheet_link_tag 'application', 'layout', 'dialog'
+        = stylesheet_link_tag 'application'
         = stylesheet_link_tag 'application-print', :media => 'print'
 
       = javascript_include_tag 'jquery-1.4.2.min'
@@ -62,7 +62,7 @@
           - if show_title? and not stripped
             %h1=h yield(:title)
         
-          #page= yield
+          #adapt= yield
   
     - unless stripped
       #footer
