@@ -62,7 +62,7 @@ module Adapt::StudiesHelper
             input_options[:input_html] = options[:input_html].merge extra_html
             if fields_with_choices.include? field
               input_options[:input_html][:'data-selection-id'] =
-                "##{obj.subfields(attr) ? field : attr}_choices"
+                "#adapt-#{obj.subfields(attr) ? field : attr}-choices"
             end
             concat f.input(field, input_options)
           end

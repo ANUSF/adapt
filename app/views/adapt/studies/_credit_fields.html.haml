@@ -27,7 +27,7 @@
                   :required => false
 
   = @form.inputs 'Affiliations', :class => 'adapt-choices', |
-                                 :id => 'affiliation_choices' do
+                                 :id => 'adapt-affiliation-choices' do
     %li.empty &nbsp
     - @study.selections(:affiliation).each do |entry|
       %li= entry
