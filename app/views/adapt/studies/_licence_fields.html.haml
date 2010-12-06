@@ -2,8 +2,9 @@
 - data_url = 'http://www.assda.edu.au/data.html'
 - skip_text = 'Licence will be obtained separately'
 - std = { :size => 40  }
+- tab_id = 'adapt-licence-fields'
 
-= @form.inputs 'Licence Details', :id => 'licence-fields', :class => 'tab' do
+= @form.inputs 'Licence Details', :id => tab_id, :class => 'tab' do
   - if @study.owner.is_archivist
     = @form.inputs :class => 'inline' do
       %li.boolean

@@ -1,4 +1,6 @@
-= @form.inputs 'Title and Abstract', :id => 'title-fields', :class => 'tab' do
+- tab_id = 'adapt-title-fields'
+
+= @form.inputs 'Title and Abstract', :id => tab_id, :class => 'tab' do
   = @form.input :title, :input_html => { :cols => 60, :rows => 4 }, |
                         :required => true
   = @form.input :abstract, :input_html => { :cols => 60 }, :required => true

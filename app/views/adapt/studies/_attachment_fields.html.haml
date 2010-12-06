@@ -1,6 +1,7 @@
 - text = { :rows => 20, :cols => 30, :class => 'expandable' }
+- tab_id = 'adapt-attachment-fields'
 
-= @form.inputs 'Attached Files', :id => 'attachment-fields', :class => 'tab' do
+= @form.inputs 'Attached Files', :id => tab_id, :class => 'tab' do
   %p= @form.errors_on(:attachments)
   - unless @study.attachments.empty?
     %p
