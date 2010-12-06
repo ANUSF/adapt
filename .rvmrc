@@ -1,2 +1,2 @@
-rvm use jruby
+rvm use 1.9.2
 rvm gemset use adaptR3
