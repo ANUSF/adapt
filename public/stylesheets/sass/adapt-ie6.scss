@@ -33,6 +33,13 @@
     }
 }
 
+#adapt-overlay {
+    position: absolute;
+    .blanket {
+	display: none;
+    }
+}
+
 .choices {
     width: expression( document.body.clientWidth > 299 ? "300px" : "auto" );
     ol {
@@ -40,12 +47,5 @@
     }
     li.hover {
 	background-color: $highlight_color;
-    }
-}
-
-#adapt-overlay {
-    position: absolute;
-    .blanket {
-	display: none;
     }
 }
