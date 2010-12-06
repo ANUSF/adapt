@@ -39,4 +39,4 @@ Feature: Dynamic behaviour when editing a study
     When I follow "Data Description"
     And I hover on "#adapt_study_data_relation"
     And I pause for 2 seconds
-    Then I should see "If this study is related" within "#tooltip"
+    Then I should see "If this study is related" within "#adapt-tooltip"
