@@ -54,17 +54,17 @@ h1, h2, h3 {
   float: clear; }
 
 h1 {
-  font-size: 140%;
+  font-size: 18px;
   margin-top: 1.2em;
   margin-bottom: 0.8em; }
 
 h2 {
-  font-size: 125%;
+  font-size: 15px;
   margin-top: 0.9em;
   margin-bottom: 0.6em; }
 
 h3 {
-  font-size: 110%;
+  font-size: 13px;
   margin-top: 0.6em;
   margin-bottom: 0.4em; }
 

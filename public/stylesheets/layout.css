@@ -25,7 +25,6 @@
       background-color: #994779;
       text-decoration: none;
       text-transform: uppercase;
-      font-size: 90%;
       font-weight: bolder;
       display: block; }
     #navigation li a:hover {
@@ -47,7 +46,7 @@
   background-color: white;
   text-align: center;
   color: #994779;
-  font-size: 160%;
+  font-size: 24px;
   font-weight: bold; }
   #header img {
     margin-bottom: -2px;
