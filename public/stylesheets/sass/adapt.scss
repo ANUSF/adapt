@@ -8,6 +8,7 @@
     ul {
 	margin-right: $list_indent;
     }
+
     p {
 	max-width: $paragraph_width;
     }
@@ -33,6 +34,8 @@
 
     // Styling for forms with Adapt
     form.formtastic fieldset {
+	padding-top: 0;
+
 	p {
 	    padding: 0.25em 0;
 	    text-align: justify;
@@ -45,6 +48,10 @@
 	}
 	ol li {
 	    overflow: visible;
+	    margin-bottom: 1em;
+	    margin-top: -0.5em;
+	    padding: 0.5em 0;
+	    margin-left: 0;
 
 	    label {
 		display: block;
@@ -73,7 +80,7 @@
 		background-color: #f0f0ff;
 		border-color: blue;
 	    }
-	    input[size], textarea[cols] {
+	    input, input[size], textarea, textarea[cols] {
 		max-width: 100%;
 	    }
 	    textarea {
@@ -128,9 +135,12 @@
 
     form.formtastic {
 	fieldset.inline, fieldset.tabular {
+	    padding-top: 0pt;
+
 	    ol li {
 		display: inline;
 		float: left;
+		clear: none;
 		label, input, p {
 		    width: auto;
 		    display: inline;
@@ -172,6 +182,9 @@
 		clear: both;
 		float: none;
 	    }
+	    textarea {
+		width: 100%;
+	    }
 	}
     }
 
@@ -183,6 +196,10 @@
 		float: none;
 	    }
 	}
+    }
+
+    form.formtastic fieldset.buttons {
+	margin-top: 0;
     }
 
     form.formtastic table {
@@ -297,7 +314,7 @@
 	    position: relative;
 	    clear: both;
 	    border: 1px solid #aaaaaa;
-	    padding: 1em 2em;
+	    padding: 2em 3em;
 	    overflow: auto;
 	    margin-bottom: 5px;
 	}
@@ -430,8 +447,10 @@
 	max-height: 200px;
 	overflow:   auto;
 	border:     1px solid #404040;
+	padding-left: 0;
     }
     li {
+	list-style: none;
 	margin: 0;
 	padding: 2px 0.5em;
 	border-bottom: 1px solid #e0e0e0;

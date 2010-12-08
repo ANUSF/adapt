@@ -374,78 +374,87 @@ form.formtastic fieldset > ol > li.datetime fieldset ol li label input {
     height: 0;
     clear: both;
     visibility: hidden; }
-  #adapt form.formtastic fieldset p {
-    padding: 0.25em 0;
-    text-align: justify; }
-    #adapt form.formtastic fieldset p em {
-      font-style: italic; }
-  #adapt form.formtastic fieldset .inline-errors {
-    color: red; }
-  #adapt form.formtastic fieldset ol li {
-    overflow: visible; }
-    #adapt form.formtastic fieldset ol li label {
-      display: block;
-      float: none;
-      font-style: italic;
-      padding-right: 1em;
-      padding-top: 0.2em; }
-      #adapt form.formtastic fieldset ol li label abbr {
-        color: red; }
-    #adapt form.formtastic fieldset ol li p.inline-errors {
+  #adapt form.formtastic fieldset {
+    padding-top: 0; }
+    #adapt form.formtastic fieldset p {
+      padding: 0.25em 0;
+      text-align: justify; }
+      #adapt form.formtastic fieldset p em {
+        font-style: italic; }
+    #adapt form.formtastic fieldset .inline-errors {
       color: red; }
-  #adapt form.formtastic fieldset ol li.string input, #adapt form.formtastic fieldset ol li.string textarea, #adapt form.formtastic fieldset ol li.text input, #adapt form.formtastic fieldset ol li.text textarea {
-    border: 1px solid gray;
-    padding: 2px;
-    margin: 0;
-    background-color: #f0f0f0;
-    font-family: monospace;
-    font-size: 95%; }
-  #adapt form.formtastic fieldset ol li.string input.dirty, #adapt form.formtastic fieldset ol li.string textarea.dirty, #adapt form.formtastic fieldset ol li.text input.dirty, #adapt form.formtastic fieldset ol li.text textarea.dirty {
-    background-color: #f0f0ff;
-    border-color: blue; }
-  #adapt form.formtastic fieldset ol li.string input[size], #adapt form.formtastic fieldset ol li.string textarea[cols], #adapt form.formtastic fieldset ol li.text input[size], #adapt form.formtastic fieldset ol li.text textarea[cols] {
-    max-width: 100%; }
-  #adapt form.formtastic fieldset ol li.string textarea, #adapt form.formtastic fieldset ol li.text textarea {
-    overflow: auto; }
-  #adapt form.formtastic fieldset ol li.string input, #adapt form.formtastic fieldset ol li.text input {
-    overflow: hidden; }
-  #adapt form.formtastic fieldset ol li.boolean input, #adapt form.formtastic fieldset table td.boolean input {
-    margin-top: 0.2em; }
-  #adapt form.formtastic fieldset ol li.boolean input.dirty, #adapt form.formtastic fieldset table td.boolean input.dirty {
-    outline: 1px solid rgba(0, 0, 255, 0.5); }
-  #adapt form.formtastic fieldset ol li.boolean label, #adapt form.formtastic fieldset table td.boolean label {
-    padding-left: 0;
-    padding-right: 0; }
-  #adapt form.formtastic fieldset table td.text input, #adapt form.formtastic fieldset table td.text textarea, #adapt form.formtastic fieldset table td.string input, #adapt form.formtastic fieldset table td.string textarea {
-    border: 1px solid gray;
-    padding: 2px;
-    background-color: #f0f0f0;
-    font-family: monospace;
-    font-size: 105%;
-    margin: -1px 0 -2px; }
-  #adapt form.formtastic fieldset table td.text input.dirty, #adapt form.formtastic fieldset table td.text textarea.dirty, #adapt form.formtastic fieldset table td.string input.dirty, #adapt form.formtastic fieldset table td.string textarea.dirty {
-    background-color: #f0f0ff;
-    border-color: blue; }
-  #adapt form.formtastic fieldset table p.inline-errors {
-    padding: 0;
-    margin: 0; }
+    #adapt form.formtastic fieldset ol li {
+      overflow: visible;
+      margin-bottom: 1em;
+      margin-top: -0.5em;
+      padding: 0.5em 0;
+      margin-left: 0; }
+      #adapt form.formtastic fieldset ol li label {
+        display: block;
+        float: none;
+        font-style: italic;
+        padding-right: 1em;
+        padding-top: 0.2em; }
+        #adapt form.formtastic fieldset ol li label abbr {
+          color: red; }
+      #adapt form.formtastic fieldset ol li p.inline-errors {
+        color: red; }
+    #adapt form.formtastic fieldset ol li.string input, #adapt form.formtastic fieldset ol li.string textarea, #adapt form.formtastic fieldset ol li.text input, #adapt form.formtastic fieldset ol li.text textarea {
+      border: 1px solid gray;
+      padding: 2px;
+      margin: 0;
+      background-color: #f0f0f0;
+      font-family: monospace;
+      font-size: 95%; }
+    #adapt form.formtastic fieldset ol li.string input.dirty, #adapt form.formtastic fieldset ol li.string textarea.dirty, #adapt form.formtastic fieldset ol li.text input.dirty, #adapt form.formtastic fieldset ol li.text textarea.dirty {
+      background-color: #f0f0ff;
+      border-color: blue; }
+    #adapt form.formtastic fieldset ol li.string input, #adapt form.formtastic fieldset ol li.string input[size], #adapt form.formtastic fieldset ol li.string textarea, #adapt form.formtastic fieldset ol li.string textarea[cols], #adapt form.formtastic fieldset ol li.text input, #adapt form.formtastic fieldset ol li.text input[size], #adapt form.formtastic fieldset ol li.text textarea, #adapt form.formtastic fieldset ol li.text textarea[cols] {
+      max-width: 100%; }
+    #adapt form.formtastic fieldset ol li.string textarea, #adapt form.formtastic fieldset ol li.text textarea {
+      overflow: auto; }
+    #adapt form.formtastic fieldset ol li.string input, #adapt form.formtastic fieldset ol li.text input {
+      overflow: hidden; }
+    #adapt form.formtastic fieldset ol li.boolean input, #adapt form.formtastic fieldset table td.boolean input {
+      margin-top: 0.2em; }
+    #adapt form.formtastic fieldset ol li.boolean input.dirty, #adapt form.formtastic fieldset table td.boolean input.dirty {
+      outline: 1px solid rgba(0, 0, 255, 0.5); }
+    #adapt form.formtastic fieldset ol li.boolean label, #adapt form.formtastic fieldset table td.boolean label {
+      padding-left: 0;
+      padding-right: 0; }
+    #adapt form.formtastic fieldset table td.text input, #adapt form.formtastic fieldset table td.text textarea, #adapt form.formtastic fieldset table td.string input, #adapt form.formtastic fieldset table td.string textarea {
+      border: 1px solid gray;
+      padding: 2px;
+      background-color: #f0f0f0;
+      font-family: monospace;
+      font-size: 105%;
+      margin: -1px 0 -2px; }
+    #adapt form.formtastic fieldset table td.text input.dirty, #adapt form.formtastic fieldset table td.text textarea.dirty, #adapt form.formtastic fieldset table td.string input.dirty, #adapt form.formtastic fieldset table td.string textarea.dirty {
+      background-color: #f0f0ff;
+      border-color: blue; }
+    #adapt form.formtastic fieldset table p.inline-errors {
+      padding: 0;
+      margin: 0; }
   #adapt form.formtastic fieldset.repeatable {
     margin-bottom: 1em;
     overflow: visible; }
     #adapt form.formtastic fieldset.repeatable ol li {
       margin: -1px 0 0 0;
       padding: 0; }
-  #adapt form.formtastic fieldset.inline ol li, #adapt form.formtastic fieldset.tabular ol li {
-    display: inline;
-    float: left; }
-    #adapt form.formtastic fieldset.inline ol li label, #adapt form.formtastic fieldset.inline ol li input, #adapt form.formtastic fieldset.inline ol li p, #adapt form.formtastic fieldset.tabular ol li label, #adapt form.formtastic fieldset.tabular ol li input, #adapt form.formtastic fieldset.tabular ol li p {
-      width: auto;
+  #adapt form.formtastic fieldset.inline, #adapt form.formtastic fieldset.tabular {
+    padding-top: 0pt; }
+    #adapt form.formtastic fieldset.inline ol li, #adapt form.formtastic fieldset.tabular ol li {
       display: inline;
-      float: left; }
-    #adapt form.formtastic fieldset.inline ol li p.inline-errors, #adapt form.formtastic fieldset.tabular ol li p.inline-errors {
-      margin: 0; }
-    #adapt form.formtastic fieldset.inline ol li input, #adapt form.formtastic fieldset.tabular ol li input {
-      margin-right: 1em; }
+      float: left;
+      clear: none; }
+      #adapt form.formtastic fieldset.inline ol li label, #adapt form.formtastic fieldset.inline ol li input, #adapt form.formtastic fieldset.inline ol li p, #adapt form.formtastic fieldset.tabular ol li label, #adapt form.formtastic fieldset.tabular ol li input, #adapt form.formtastic fieldset.tabular ol li p {
+        width: auto;
+        display: inline;
+        float: left; }
+      #adapt form.formtastic fieldset.inline ol li p.inline-errors, #adapt form.formtastic fieldset.tabular ol li p.inline-errors {
+        margin: 0; }
+      #adapt form.formtastic fieldset.inline ol li input, #adapt form.formtastic fieldset.tabular ol li input {
+        margin-right: 1em; }
   #adapt form.formtastic fieldset.inline ol li.boolean input {
     margin-right: 0.5em; }
   #adapt form.formtastic fieldset.inline ol li.boolean label {
@@ -461,10 +470,14 @@ form.formtastic fieldset > ol > li.datetime fieldset ol li label input {
       width: auto;
       clear: both;
       float: none; }
+    #adapt form.formtastic fieldset.tabular ol li textarea {
+      width: 100%; }
   #adapt form.formtastic fieldset.tabular:first-child ol li label, #adapt form.formtastic fieldset.tabular:first-child ol li input {
     margin: 0;
     display: block;
     float: none; }
+  #adapt form.formtastic fieldset.buttons {
+    margin-top: 0; }
   #adapt form.formtastic table {
     width: auto;
     margin: 1em 0;
@@ -549,7 +562,7 @@ form.formtastic fieldset > ol > li.datetime fieldset ol li label input {
       position: relative;
       clear: both;
       border: 1px solid #aaaaaa;
-      padding: 1em 2em;
+      padding: 2em 3em;
       overflow: auto;
       margin-bottom: 5px; }
     #adapt .tab-container ul.tab-index {
@@ -663,8 +676,10 @@ form.formtastic fieldset > ol > li.datetime fieldset ol li label input {
   .adapt-choices ol {
     max-height: 200px;
     overflow: auto;
-    border: 1px solid #404040; }
+    border: 1px solid #404040;
+    padding-left: 0; }
   .adapt-choices li {
+    list-style: none;
     margin: 0;
     padding: 2px 0.5em;
     border-bottom: 1px solid #e0e0e0; }
