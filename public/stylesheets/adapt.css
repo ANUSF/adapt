@@ -47,8 +47,7 @@
       padding: 2px;
       margin: 0;
       background-color: #f0f0f0;
-      font-family: monospace;
-      font-size: 95%; }
+      font-family: monospace; }
     #adapt form.formtastic fieldset ol li.string input.dirty, #adapt form.formtastic fieldset ol li.string textarea.dirty, #adapt form.formtastic fieldset ol li.text input.dirty, #adapt form.formtastic fieldset ol li.text textarea.dirty {
       background-color: #f0f0ff;
       border-color: blue; }
@@ -70,7 +69,6 @@
       padding: 2px;
       background-color: #f0f0f0;
       font-family: monospace;
-      font-size: 105%;
       margin: -1px 0 -2px; }
     #adapt form.formtastic fieldset table td.text input.dirty, #adapt form.formtastic fieldset table td.text textarea.dirty, #adapt form.formtastic fieldset table td.string input.dirty, #adapt form.formtastic fieldset table td.string textarea.dirty {
       background-color: #f0f0ff;
@@ -121,6 +119,8 @@
     float: none; }
   #adapt form.formtastic fieldset.buttons {
     margin-top: 0; }
+    #adapt form.formtastic fieldset.buttons li {
+      margin-bottom: 0; }
   #adapt form.formtastic table {
     width: auto;
     margin: 1em 0;
@@ -131,7 +131,6 @@
       border: 1px solid gray; }
     #adapt form.formtastic table th {
       padding: 3px 8px;
-      font-size: 90%;
       font-weight: normal;
       font-style: italic; }
     #adapt form.formtastic table td {
@@ -174,7 +173,6 @@
     border: 1px solid;
     border-collapse: collapse;
     border-color: black;
-    font-size: 90%;
     line-height: 135%;
     text-align: center;
     width: 100%; }
@@ -223,7 +221,6 @@
           width: 10em;
           margin: 0 auto;
           font-weight: normal;
-          font-size: 90%;
           text-align: center;
           text-decoration: none;
           padding: 0;

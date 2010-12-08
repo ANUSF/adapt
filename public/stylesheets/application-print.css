@@ -70,17 +70,17 @@ h1, h2, h3 {
   float: clear; }
 
 h1 {
-  font-size: 140%;
+  font-size: 18px;
   margin-top: 1.2em;
   margin-bottom: 0.8em; }
 
 h2 {
-  font-size: 125%;
+  font-size: 15px;
   margin-top: 0.9em;
   margin-bottom: 0.6em; }
 
 h3 {
-  font-size: 110%;
+  font-size: 13px;
   margin-top: 0.6em;
   margin-bottom: 0.4em; }
 
@@ -404,8 +404,7 @@ form.formtastic fieldset > ol > li.datetime fieldset ol li label input {
       padding: 2px;
       margin: 0;
       background-color: #f0f0f0;
-      font-family: monospace;
-      font-size: 95%; }
+      font-family: monospace; }
     #adapt form.formtastic fieldset ol li.string input.dirty, #adapt form.formtastic fieldset ol li.string textarea.dirty, #adapt form.formtastic fieldset ol li.text input.dirty, #adapt form.formtastic fieldset ol li.text textarea.dirty {
       background-color: #f0f0ff;
       border-color: blue; }
@@ -427,7 +426,6 @@ form.formtastic fieldset > ol > li.datetime fieldset ol li label input {
       padding: 2px;
       background-color: #f0f0f0;
       font-family: monospace;
-      font-size: 105%;
       margin: -1px 0 -2px; }
     #adapt form.formtastic fieldset table td.text input.dirty, #adapt form.formtastic fieldset table td.text textarea.dirty, #adapt form.formtastic fieldset table td.string input.dirty, #adapt form.formtastic fieldset table td.string textarea.dirty {
       background-color: #f0f0ff;
@@ -478,6 +476,8 @@ form.formtastic fieldset > ol > li.datetime fieldset ol li label input {
     float: none; }
   #adapt form.formtastic fieldset.buttons {
     margin-top: 0; }
+    #adapt form.formtastic fieldset.buttons li {
+      margin-bottom: 0; }
   #adapt form.formtastic table {
     width: auto;
     margin: 1em 0;
@@ -488,7 +488,6 @@ form.formtastic fieldset > ol > li.datetime fieldset ol li label input {
       border: 1px solid gray; }
     #adapt form.formtastic table th {
       padding: 3px 8px;
-      font-size: 90%;
       font-weight: normal;
       font-style: italic; }
     #adapt form.formtastic table td {
@@ -531,7 +530,6 @@ form.formtastic fieldset > ol > li.datetime fieldset ol li label input {
     border: 1px solid;
     border-collapse: collapse;
     border-color: black;
-    font-size: 90%;
     line-height: 135%;
     text-align: center;
     width: 100%; }
@@ -580,7 +578,6 @@ form.formtastic fieldset > ol > li.datetime fieldset ol li label input {
           width: 10em;
           margin: 0 auto;
           font-weight: normal;
-          font-size: 90%;
           text-align: center;
           text-decoration: none;
           padding: 0;
