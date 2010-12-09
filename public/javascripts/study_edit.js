@@ -2,10 +2,15 @@
 /*global jQuery */
 
 (function($) {
-  $(document).ready(function() {
-    // -- auto-resize certain textareas (must be done before hiding content)
-    $('table textarea').TextAreaExpander(40, 200);
+     function tag_as_dirty() {
+	 var item = $(this), parent = item.parent();
+	 item.addClass('dirty');
+	 if (parent.is('td')) {
+	     parent.addClass('dirty');
+	 }
+     };
 
+  $(document).ready(function() {
     // -- update textfields with selection dropdowns
     $('input:text[data-selection-id]').each(function () {
       var item = $(this), pulldown = $(item.attr('data-selection-id'));
@@ -20,9 +25,7 @@
     );
 
     // -- tag fields that have been edited
-    $('input,textarea,select').not('select.predefined')
-      .change(function() { $(this).addClass('dirty'); })
-      .keyup (function() { $(this).addClass('dirty'); });
+    $('input,textarea,select').change(tag_as_dirty).keyup(tag_as_dirty);
 
     // -- disable the return key in text fields
     $('form').delegate('input:text', 'keypress', function(ev) {

@@ -60,7 +60,7 @@
     });
 
     // -- auto-expanding some textareas
-    $('textarea.expandable').TextAreaExpander(40, 200);
+    $('textarea.expandable, table textarea').TextAreaExpander(40, 200);
 
     // -- make sure tabs signal all errors
     $('form.formtastic .inline-errors').addClass('error');
@@ -85,7 +85,7 @@
       .keyup(multitext_edited).change(multitext_edited).blur(multitext_cleanup);
 
     // -- remove flash notices after some time
-    $('#flash_notice').each(function () {
+    $('.flash-notice').each(function () {
       var notice = $(this);
       setTimeout(function () {
 	notice.animate({ opacity: 0 }, 'slow');

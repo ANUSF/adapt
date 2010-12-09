@@ -80,7 +80,7 @@
 		border-color: blue;
 	    }
 	    input, input[size], textarea, textarea[cols] {
-		max-width: 100%;
+		max-width: inherit;
 	    }
 	    textarea {
 		overflow: auto;
@@ -103,17 +103,20 @@
 	}
 	table {
 	    td.text, td.string {
+		border: solid gray 1px;
+		background-color: #f0f0f0;
+		padding: 5px 0;
 		input, textarea {
-		    border: 1px solid gray;
-		    padding: 2px;
-		    background-color: #f0f0f0;
+		    border: none;
+		    background-color: inherit;
+		    padding: 0 5px;
 		    font-family: monospace;
-		    margin: -1px 0 -2px;
+		    margin: 0;
 		}
-		input.dirty, textarea.dirty {
-		    background-color: #f0f0ff;
-		    border-color: blue;
-		}
+	    }
+	    td.dirty {
+		background-color: #f0f0ff;
+		border-color: blue;
 	    }
 	    p.inline-errors {
 		padding: 0;
@@ -181,7 +184,7 @@
 		float: none;
 	    }
 	    textarea {
-		width: 100%;
+		width: inherit;
 	    }
 	}
     }
@@ -334,6 +337,7 @@
 		    border: solid #aaaaaa 1px;
 		    background: #eeeeee;
 		    color: black;
+		    z-index: 1;
 		    span {
 			display: block;
 			margin: -1px;
