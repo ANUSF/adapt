@@ -535,7 +535,7 @@ form.formtastic fieldset > ol > li.datetime fieldset ol li label input {
       background-color: #f0f0ff;
       border-color: blue; }
     #adapt form.formtastic fieldset ol li.string input, #adapt form.formtastic fieldset ol li.string input[size], #adapt form.formtastic fieldset ol li.string textarea, #adapt form.formtastic fieldset ol li.string textarea[cols], #adapt form.formtastic fieldset ol li.text input, #adapt form.formtastic fieldset ol li.text input[size], #adapt form.formtastic fieldset ol li.text textarea, #adapt form.formtastic fieldset ol li.text textarea[cols] {
-      max-width: 100%; }
+      max-width: inherit; }
     #adapt form.formtastic fieldset ol li.string textarea, #adapt form.formtastic fieldset ol li.text textarea {
       overflow: auto; }
     #adapt form.formtastic fieldset ol li.string input, #adapt form.formtastic fieldset ol li.text input {
@@ -547,13 +547,17 @@ form.formtastic fieldset > ol > li.datetime fieldset ol li label input {
     #adapt form.formtastic fieldset ol li.boolean label, #adapt form.formtastic fieldset table td.boolean label {
       padding-left: 0;
       padding-right: 0; }
-    #adapt form.formtastic fieldset table td.text input, #adapt form.formtastic fieldset table td.text textarea, #adapt form.formtastic fieldset table td.string input, #adapt form.formtastic fieldset table td.string textarea {
-      border: 1px solid gray;
-      padding: 2px;
+    #adapt form.formtastic fieldset table td.text, #adapt form.formtastic fieldset table td.string {
+      border: solid gray 1px;
       background-color: #f0f0f0;
-      font-family: monospace;
-      margin: -1px 0 -2px; }
-    #adapt form.formtastic fieldset table td.text input.dirty, #adapt form.formtastic fieldset table td.text textarea.dirty, #adapt form.formtastic fieldset table td.string input.dirty, #adapt form.formtastic fieldset table td.string textarea.dirty {
+      padding: 5px 0; }
+      #adapt form.formtastic fieldset table td.text input, #adapt form.formtastic fieldset table td.text textarea, #adapt form.formtastic fieldset table td.string input, #adapt form.formtastic fieldset table td.string textarea {
+        border: none;
+        background-color: inherit;
+        padding: 0 5px;
+        font-family: monospace;
+        margin: 0; }
+    #adapt form.formtastic fieldset table td.dirty {
       background-color: #f0f0ff;
       border-color: blue; }
     #adapt form.formtastic fieldset table p.inline-errors {
@@ -595,7 +599,7 @@ form.formtastic fieldset > ol > li.datetime fieldset ol li label input {
       clear: both;
       float: none; }
     #adapt form.formtastic fieldset.tabular ol li textarea {
-      width: 100%; }
+      width: inherit; }
   #adapt form.formtastic fieldset.tabular:first-child ol li label, #adapt form.formtastic fieldset.tabular:first-child ol li input {
     margin: 0;
     display: block;
@@ -709,7 +713,8 @@ form.formtastic fieldset > ol > li.datetime fieldset ol li label input {
           padding: 0;
           border: solid #aaaaaa 1px;
           background: #eeeeee;
-          color: black; }
+          color: black;
+          z-index: 1; }
           #adapt .tab-container ul.tab-index li.tab-entry a span {
             display: block;
             margin: -1px;
