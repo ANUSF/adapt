@@ -427,13 +427,15 @@ form.formtastic fieldset > ol > li.datetime fieldset ol li label input {
       padding: 5px 0; }
       #adapt form.formtastic fieldset table td.text input, #adapt form.formtastic fieldset table td.text textarea, #adapt form.formtastic fieldset table td.string input, #adapt form.formtastic fieldset table td.string textarea {
         border: none;
-        background-color: inherit;
+        background-color: #f0f0f0;
         padding: 0 5px;
         font-family: monospace;
         margin: 0; }
     #adapt form.formtastic fieldset table td.dirty {
       background-color: #f0f0ff;
       border-color: blue; }
+      #adapt form.formtastic fieldset table td.dirty input, #adapt form.formtastic fieldset table td.dirty textarea {
+        background-color: #f0f0ff; }
     #adapt form.formtastic fieldset table p.inline-errors {
       padding: 0;
       margin: 0; }

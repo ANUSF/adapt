@@ -108,7 +108,7 @@
 		padding: 5px 0;
 		input, textarea {
 		    border: none;
-		    background-color: inherit;
+		    background-color: #f0f0f0;
 		    padding: 0 5px;
 		    font-family: monospace;
 		    margin: 0;
@@ -117,6 +117,9 @@
 	    td.dirty {
 		background-color: #f0f0ff;
 		border-color: blue;
+		input, textarea {
+		    background-color: #f0f0ff;
+		}
 	    }
 	    p.inline-errors {
 		padding: 0;
