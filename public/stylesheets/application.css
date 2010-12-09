@@ -547,6 +547,20 @@ form.formtastic fieldset > ol > li.datetime fieldset ol li label input {
     #adapt form.formtastic fieldset ol li.boolean label, #adapt form.formtastic fieldset table td.boolean label {
       padding-left: 0;
       padding-right: 0; }
+  #adapt form.formtastic fieldset table {
+    width: auto;
+    margin: 1em 0;
+    border: none; }
+    #adapt form.formtastic fieldset table thead th {
+      background-color: inherit; }
+    #adapt form.formtastic fieldset table tbody tr {
+      border: 1px solid gray; }
+    #adapt form.formtastic fieldset table th {
+      padding: 3px 8px;
+      font-weight: normal;
+      font-style: italic; }
+    #adapt form.formtastic fieldset table td {
+      padding: 0 8px; }
     #adapt form.formtastic fieldset table td.text, #adapt form.formtastic fieldset table td.string {
       border: solid gray 1px;
       background-color: #f0f0f0;
@@ -610,20 +624,6 @@ form.formtastic fieldset > ol > li.datetime fieldset ol li label input {
     margin-top: 0; }
     #adapt form.formtastic fieldset.buttons li {
       margin-bottom: 0; }
-  #adapt form.formtastic table {
-    width: auto;
-    margin: 1em 0;
-    border: none; }
-    #adapt form.formtastic table thead th {
-      background-color: inherit; }
-    #adapt form.formtastic table tbody tr {
-      border: 1px solid gray; }
-    #adapt form.formtastic table th {
-      padding: 3px 8px;
-      font-weight: normal;
-      font-style: italic; }
-    #adapt form.formtastic table td {
-      padding: 0 8px; }
   #adapt .properties ul {
     position: relative;
     list-style: none;
