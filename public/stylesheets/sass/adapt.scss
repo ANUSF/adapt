@@ -124,14 +124,18 @@
 	td.text, td.string {
 	    border: solid gray 1px;
 	    background-color: #f0f0f0;
-	    padding: 5px 0;
 	    input, textarea {
 		border: none;
 		background-color: #f0f0f0;
-		padding: 0 5px;
 		font-family: monospace;
 		margin: 0;
 	    }
+	}
+	td.text {
+	    padding: 5px;
+	}
+	td.string {
+	    padding: 1px 0 0 0;
 	}
 	td.dirty {
 	    background-color: #f0f0ff;

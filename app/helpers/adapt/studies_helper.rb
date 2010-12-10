@@ -52,7 +52,8 @@ module Adapt::StudiesHelper
             concat(form.fields_for("#{attr}_items".to_sym) do |f|
               concat(content_tag('tr') do
                 form.object.subfields_for_nesting(attr).each do |field|
-                  as = get_option(options, field, :as)
+                  as = get_option(options, field, :as) ||
+                           form.send(:default_input_type, field)
                   concat(content_tag('td', :class => as) do
                     input_options = field_options(form, attr, field, options)
                     concat f.input(field, input_options)
