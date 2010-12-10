@@ -55,7 +55,7 @@
   }
 
   $(document).ready(function() {
-    $('table tr:nth-child(even) td').each(function () {
+    $('table.zebra tr:nth-child(even) td').each(function () {
       $(this).css('background-color', '#f8f8f8');
     });
 

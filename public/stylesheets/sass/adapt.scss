@@ -101,27 +101,48 @@
 		padding-right: 0;
 	    }
 	}
-	table {
-	    td.text, td.string {
-		border: solid gray 1px;
+    }
+
+    form.formtastic fieldset table {
+	width: auto;
+	margin: 1em 0;
+	border: none;
+	thead th {
+	    background-color: inherit;
+	}
+	tbody tr {
+	    border: 1px solid gray;
+	}
+	th {
+	    padding: 3px 8px;
+	    font-weight: normal;
+	    font-style: italic;
+	}
+	td {
+	    padding: 0 8px;
+	}
+	td.text, td.string {
+	    border: solid gray 1px;
+	    background-color: #f0f0f0;
+	    padding: 5px 0;
+	    input, textarea {
+		border: none;
 		background-color: #f0f0f0;
-		padding: 5px 0;
-		input, textarea {
-		    border: none;
-		    background-color: inherit;
-		    padding: 0 5px;
-		    font-family: monospace;
-		    margin: 0;
-		}
-	    }
-	    td.dirty {
-		background-color: #f0f0ff;
-		border-color: blue;
-	    }
-	    p.inline-errors {
-		padding: 0;
+		padding: 0 5px;
+		font-family: monospace;
 		margin: 0;
 	    }
+	}
+	td.dirty {
+	    background-color: #f0f0ff;
+	    border-color: blue;
+	    input, textarea {
+		background-color: #f0f0ff;
+	    }
+	}
+	p.inline-errors {
+	    padding: 0;
+	    margin: 0;
 	}
     }
 
@@ -203,26 +224,6 @@
 	margin-top: 0;
 	li {
 	    margin-bottom: 0;
-	}
-    }
-
-    form.formtastic table {
-	width: auto;
-	margin: 1em 0;
-	border: none;
-	thead th {
-	    background-color: inherit;
-	}
-	tbody tr {
-	    border: 1px solid gray;
-	}
-	th {
-	    padding: 3px 8px;
-	    font-weight: normal;
-	    font-style: italic;
-	}
-	td {
-	    padding: 0 8px;
 	}
     }
 
