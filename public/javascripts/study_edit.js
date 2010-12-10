@@ -3,10 +3,14 @@
 
 (function($) {
      function tag_as_dirty() {
-	 var item = $(this), parent = item.parent();
+	 var item = $(this),
+	     parent = item.parent(),
+	     grandparent = parent.parent();
 	 item.addClass('dirty');
 	 if (parent.is('td')) {
 	     parent.addClass('dirty');
+	 } else if (grandparent.is('td')) {
+	     grandparent.addClass('dirty');
 	 }
      };
 

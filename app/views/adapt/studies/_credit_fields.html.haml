@@ -7,7 +7,7 @@
                   :input_html => long,
                   :required => { :name => true },
                   :choices_on => [:affiliation]
-  = nested_fields @form, :principal_investigators, |
+  = tabular_fields @form, :principal_investigators, |
                   :input_html => long,
                   :required => { :name => true },
                   :choices_on => [:affiliation]
@@ -22,7 +22,7 @@
                   :input_html => { :size => 25 },
                   :required => false,
                   :choices_on => [:affiliation]
-  = nested_fields @form, :references, |
+  = tabular_fields @form, :references, |
                   :as => :text,
                   :input_html => text,
                   :required => false
