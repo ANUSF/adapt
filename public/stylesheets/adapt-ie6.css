@@ -6,9 +6,6 @@
   width: auto; }
 #adapt form.formtastic fieldset.tab ol li.boolean input.dirty, #adapt form.formtastic fieldset.tab table td.boolean input.dirty {
   border: 1px solid #00F; }
-#adapt form.formtastic fieldset.tabular ol li label {
-  display: expression(this.parentNode.parentNode.parentNode.previousSibling 			    == null ? 'block' : 'none');
-  float: none; }
 #adapt td {
   background-color: white; }
 #adapt tr.even td {

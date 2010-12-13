@@ -124,14 +124,18 @@
 	td.text, td.string {
 	    border: solid gray 1px;
 	    background-color: #f0f0f0;
-	    padding: 5px 0;
 	    input, textarea {
 		border: none;
 		background-color: #f0f0f0;
-		padding: 0 5px;
 		font-family: monospace;
 		margin: 0;
 	    }
+	}
+	td.text {
+	    padding: 5px;
+	}
+	td.string {
+	    padding: 1px 0 0 0;
 	}
 	td.dirty {
 	    background-color: #f0f0ff;
@@ -146,34 +150,42 @@
 	}
     }
 
-    form.formtastic fieldset.repeatable {
+    form.formtastic fieldset.with-table {
 	margin-bottom: 1em;
 	overflow: visible;
+	th {
+	    padding-left: 0;
+	}
 	ol li {
 	    margin: -1px 0 0 0;
 	    padding: 0;
+	    label, input {
+		margin: 0;
+		display: block;
+		float: none;
+		width: inherit;
+		text-align: left;
+	    }
 	}
     }
 
-    form.formtastic {
-	fieldset.inline, fieldset.tabular {
-	    padding-top: 0pt;
+    form.formtastic fieldset.inline {
+	padding-top: 0pt;
 
-	    ol li {
+	ol li {
+	    display: inline;
+	    float: left;
+	    clear: none;
+	    label, input, p {
+		width: auto;
 		display: inline;
 		float: left;
-		clear: none;
-		label, input, p {
-		    width: auto;
-		    display: inline;
-		    float: left;
-		}
-		p.inline-errors {
-		    margin: 0;
-		}
-		input {
-		    margin-right: 1em;
-		}
+	    }
+	    p.inline-errors {
+		margin: 0;
+	    }
+	    input {
+		margin-right: 1em;
 	    }
 	}
     }
@@ -185,37 +197,6 @@
 	    }
 	    label {
 		margin-right: 2em;
-	    }
-	}
-    }
-
-    form.formtastic fieldset.tabular {
-	ol li {
-	    margin: -1px -1px 0 0;
-	    padding: 0;
-	    label {
-		display: none;
-	    }
-	    input, p {
-		margin: 0;
-	    }
-	    p.inline-errors {
-		width: auto;
-		clear: both;
-		float: none;
-	    }
-	    textarea {
-		width: inherit;
-	    }
-	}
-    }
-
-    form.formtastic fieldset.tabular:first-child {
-	ol li {
-	    label, input {
-		margin: 0;
-		display: block;
-		float: none;
 	    }
 	}
     }
@@ -435,15 +416,15 @@
 }
 
 // Pulldown menus
-.adapt-choices {
+.adapt-choices, #adapt form.formtastic fieldset.adapt-choices {
     display:    block;
     background: white;
-
+    margin-top: 2em;
     ol {
-	max-height: 200px;
-	overflow:   auto;
-	border:     1px solid #404040;
-	padding-left: 0;
+	border: 1px solid #404040;
+    }
+    legend {
+	font-weight: bold;
     }
     li {
 	list-style: none;
@@ -454,15 +435,21 @@
     li:last-child {
 	border-bottom: none;
     }
-    li:hover {
-	background-color: $highlight_color;
-    }
 }
 
 .adapt-pulldown {
-    margin-top: -1px;
+    margin-top: 0;
+    margin-left: -1px;
     @include shadowed(3px, 4px, #808080);
     legend {
 	display: none;
+    }
+    ol {
+	max-height: 200px;
+	overflow:   auto;
+	padding-left: 0;
+    }
+    li:hover {
+	background-color: $highlight_color;
     }
 }
