@@ -153,6 +153,9 @@
     form.formtastic fieldset.with-table {
 	margin-bottom: 1em;
 	overflow: visible;
+	th {
+	    padding-left: 0;
+	}
 	ol li {
 	    margin: -1px 0 0 0;
 	    padding: 0;
@@ -161,6 +164,7 @@
 		display: block;
 		float: none;
 		width: inherit;
+		text-align: left;
 	    }
 	}
     }
@@ -412,15 +416,15 @@
 }
 
 // Pulldown menus
-.adapt-choices {
+.adapt-choices, #adapt form.formtastic fieldset.adapt-choices {
     display:    block;
     background: white;
-
+    margin-top: 2em;
     ol {
-	max-height: 200px;
-	overflow:   auto;
-	border:     1px solid #404040;
-	padding-left: 0;
+	border: 1px solid #404040;
+    }
+    legend {
+	font-weight: bold;
     }
     li {
 	list-style: none;
@@ -431,15 +435,21 @@
     li:last-child {
 	border-bottom: none;
     }
-    li:hover {
-	background-color: $highlight_color;
-    }
 }
 
 .adapt-pulldown {
-    margin-top: -1px;
+    margin-top: 0;
+    margin-left: -1px;
     @include shadowed(3px, 4px, #808080);
     legend {
 	display: none;
+    }
+    ol {
+	max-height: 200px;
+	overflow:   auto;
+	padding-left: 0;
+    }
+    li:hover {
+	background-color: $highlight_color;
     }
 }

@@ -584,6 +584,8 @@ form.formtastic fieldset > ol > li.datetime fieldset ol li label input {
   #adapt form.formtastic fieldset.with-table {
     margin-bottom: 1em;
     overflow: visible; }
+    #adapt form.formtastic fieldset.with-table th {
+      padding-left: 0; }
     #adapt form.formtastic fieldset.with-table ol li {
       margin: -1px 0 0 0;
       padding: 0; }
@@ -591,7 +593,8 @@ form.formtastic fieldset > ol > li.datetime fieldset ol li label input {
         margin: 0;
         display: block;
         float: none;
-        width: inherit; }
+        width: inherit;
+        text-align: left; }
   #adapt form.formtastic fieldset.inline {
     padding-top: 0pt; }
     #adapt form.formtastic fieldset.inline ol li {
@@ -790,31 +793,36 @@ form.formtastic fieldset > ol > li.datetime fieldset ol li label input {
   -webkit-box-shadow: 2px 2px 3px gray;
   box-shadow: 2px 2px 3px gray; }
 
-.adapt-choices {
+.adapt-choices, #adapt form.formtastic fieldset.adapt-choices {
   display: block;
-  background: white; }
-  .adapt-choices ol {
-    max-height: 200px;
-    overflow: auto;
-    border: 1px solid #404040;
-    padding-left: 0; }
-  .adapt-choices li {
+  background: white;
+  margin-top: 2em; }
+  .adapt-choices ol, #adapt form.formtastic fieldset.adapt-choices ol {
+    border: 1px solid #404040; }
+  .adapt-choices legend, #adapt form.formtastic fieldset.adapt-choices legend {
+    font-weight: bold; }
+  .adapt-choices li, #adapt form.formtastic fieldset.adapt-choices li {
     list-style: none;
     margin: 0;
     padding: 2px 0.5em;
     border-bottom: 1px solid #e0e0e0; }
-  .adapt-choices li:last-child {
+  .adapt-choices li:last-child, #adapt form.formtastic fieldset.adapt-choices li:last-child {
     border-bottom: none; }
-  .adapt-choices li:hover {
-    background-color: #ffffcc; }
 
 .adapt-pulldown {
-  margin-top: -1px;
+  margin-top: 0;
+  margin-left: -1px;
   -moz-box-shadow: 3px 3px 4px gray;
   -webkit-box-shadow: 3px 3px 4px gray;
   box-shadow: 3px 3px 4px gray; }
   .adapt-pulldown legend {
     display: none; }
+  .adapt-pulldown ol {
+    max-height: 200px;
+    overflow: auto;
+    padding-left: 0; }
+  .adapt-pulldown li:hover {
+    background-color: #ffffcc; }
 
 body {
   min-width: 720px;
