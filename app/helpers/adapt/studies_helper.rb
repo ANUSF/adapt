@@ -36,7 +36,9 @@ module Adapt::StudiesHelper
     title = I18n.t("formtastic.titles.#{attr}", :default => '')
     hint = I18n.t("formtastic.hints.#{obj.class.name.underscore}.#{attr}",
                   :default => '')
-    outer_options = { :class => obj.is_repeatable?(attr) ? 'repeatable' : '' }
+    outer_options = {
+      :class => (obj.is_repeatable?(attr) ? 'repeatable ' : '') + 'with-table'
+    }
     outer_options[:name] = title unless title.blank?
     outer_options[:name] = options[:name] if options.has_key?(:name)
     if obj.subfields(attr).blank?

@@ -455,47 +455,35 @@ form.formtastic fieldset > ol > li.datetime fieldset ol li label input {
     #adapt form.formtastic fieldset table p.inline-errors {
       padding: 0;
       margin: 0; }
-  #adapt form.formtastic fieldset.repeatable {
+  #adapt form.formtastic fieldset.with-table {
     margin-bottom: 1em;
     overflow: visible; }
-    #adapt form.formtastic fieldset.repeatable ol li {
+    #adapt form.formtastic fieldset.with-table ol li {
       margin: -1px 0 0 0;
       padding: 0; }
-  #adapt form.formtastic fieldset.inline, #adapt form.formtastic fieldset.tabular {
+      #adapt form.formtastic fieldset.with-table ol li label, #adapt form.formtastic fieldset.with-table ol li input {
+        margin: 0;
+        display: block;
+        float: none;
+        width: inherit; }
+  #adapt form.formtastic fieldset.inline {
     padding-top: 0pt; }
-    #adapt form.formtastic fieldset.inline ol li, #adapt form.formtastic fieldset.tabular ol li {
+    #adapt form.formtastic fieldset.inline ol li {
       display: inline;
       float: left;
       clear: none; }
-      #adapt form.formtastic fieldset.inline ol li label, #adapt form.formtastic fieldset.inline ol li input, #adapt form.formtastic fieldset.inline ol li p, #adapt form.formtastic fieldset.tabular ol li label, #adapt form.formtastic fieldset.tabular ol li input, #adapt form.formtastic fieldset.tabular ol li p {
+      #adapt form.formtastic fieldset.inline ol li label, #adapt form.formtastic fieldset.inline ol li input, #adapt form.formtastic fieldset.inline ol li p {
         width: auto;
         display: inline;
         float: left; }
-      #adapt form.formtastic fieldset.inline ol li p.inline-errors, #adapt form.formtastic fieldset.tabular ol li p.inline-errors {
+      #adapt form.formtastic fieldset.inline ol li p.inline-errors {
         margin: 0; }
-      #adapt form.formtastic fieldset.inline ol li input, #adapt form.formtastic fieldset.tabular ol li input {
+      #adapt form.formtastic fieldset.inline ol li input {
         margin-right: 1em; }
   #adapt form.formtastic fieldset.inline ol li.boolean input {
     margin-right: 0.5em; }
   #adapt form.formtastic fieldset.inline ol li.boolean label {
     margin-right: 2em; }
-  #adapt form.formtastic fieldset.tabular ol li {
-    margin: -1px -1px 0 0;
-    padding: 0; }
-    #adapt form.formtastic fieldset.tabular ol li label {
-      display: none; }
-    #adapt form.formtastic fieldset.tabular ol li input, #adapt form.formtastic fieldset.tabular ol li p {
-      margin: 0; }
-    #adapt form.formtastic fieldset.tabular ol li p.inline-errors {
-      width: auto;
-      clear: both;
-      float: none; }
-    #adapt form.formtastic fieldset.tabular ol li textarea {
-      width: inherit; }
-  #adapt form.formtastic fieldset.tabular:first-child ol li label, #adapt form.formtastic fieldset.tabular:first-child ol li input {
-    margin: 0;
-    display: block;
-    float: none; }
   #adapt form.formtastic fieldset.buttons {
     margin-top: 0; }
     #adapt form.formtastic fieldset.buttons li {

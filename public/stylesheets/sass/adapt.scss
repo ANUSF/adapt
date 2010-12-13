@@ -150,34 +150,38 @@
 	}
     }
 
-    form.formtastic fieldset.repeatable {
+    form.formtastic fieldset.with-table {
 	margin-bottom: 1em;
 	overflow: visible;
 	ol li {
 	    margin: -1px 0 0 0;
 	    padding: 0;
+	    label, input {
+		margin: 0;
+		display: block;
+		float: none;
+		width: inherit;
+	    }
 	}
     }
 
-    form.formtastic {
-	fieldset.inline, fieldset.tabular {
-	    padding-top: 0pt;
+    form.formtastic fieldset.inline {
+	padding-top: 0pt;
 
-	    ol li {
+	ol li {
+	    display: inline;
+	    float: left;
+	    clear: none;
+	    label, input, p {
+		width: auto;
 		display: inline;
 		float: left;
-		clear: none;
-		label, input, p {
-		    width: auto;
-		    display: inline;
-		    float: left;
-		}
-		p.inline-errors {
-		    margin: 0;
-		}
-		input {
-		    margin-right: 1em;
-		}
+	    }
+	    p.inline-errors {
+		margin: 0;
+	    }
+	    input {
+		margin-right: 1em;
 	    }
 	}
     }
@@ -189,37 +193,6 @@
 	    }
 	    label {
 		margin-right: 2em;
-	    }
-	}
-    }
-
-    form.formtastic fieldset.tabular {
-	ol li {
-	    margin: -1px -1px 0 0;
-	    padding: 0;
-	    label {
-		display: none;
-	    }
-	    input, p {
-		margin: 0;
-	    }
-	    p.inline-errors {
-		width: auto;
-		clear: both;
-		float: none;
-	    }
-	    textarea {
-		width: inherit;
-	    }
-	}
-    }
-
-    form.formtastic fieldset.tabular:first-child {
-	ol li {
-	    label, input {
-		margin: 0;
-		display: block;
-		float: none;
 	    }
 	}
     }

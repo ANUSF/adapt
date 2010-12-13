@@ -2,7 +2,7 @@
 /*global jQuery */
 
 (function($) {
-  var ROW_PATTERN = 'fieldset.tabular, tr';
+  var ROW_PATTERN = 'tr';
 
   function is_last(row) {
     return row.nextAll(ROW_PATTERN).length === 0;
@@ -73,7 +73,7 @@
 
     // -- automatic extension of multiple text input field collections
     $('fieldset.repeatable')
-      .find('fieldset.tabular, table').find('input:text,textarea')
+      .find('table').find('input:text,textarea')
       .keyup(multitext_edited).change(multitext_edited).blur(multitext_cleanup);
 
     // -- tag fields that have been edited
