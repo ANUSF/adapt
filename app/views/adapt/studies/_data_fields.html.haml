@@ -20,19 +20,19 @@
   = @form.input :data_relation, :as => :text, |
                                 :input_html => { :cols => 60, :rows => 4 }
 
-  = nested_fields @form, :data_kind, |
+  = tabular_fields @form, :data_kind, |
                   :input_html => long,
                   :required => true,
                   :choices_on => [:value]
-  = nested_fields @form, :time_method, |
+  = tabular_fields @form, :time_method, |
                   :input_html => long,
                   :required => false,
                   :choices_on => [:value]
-  = nested_fields @form, :sampling_procedure, |
+  = tabular_fields @form, :sampling_procedure, |
                   :input_html => long,
                   :required => false,
                   :choices_on => [:value]
-  = nested_fields @form, :collection_method, |
+  = tabular_fields @form, :collection_method, |
                   :input_html => long,
                   :required => false,
                   :choices_on => [:value]

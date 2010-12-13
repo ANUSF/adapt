@@ -3,7 +3,7 @@
 - tab_id = 'adapt-credit-fields'
 
 = @form.inputs 'Credits and Acknowledgements', :id => tab_id, :class => 'tab' do
-  = nested_fields @form, :depositors, |
+  = tabular_fields @form, :depositors, |
                   :input_html => long,
                   :required => { :name => true },
                   :choices_on => [:affiliation]
@@ -11,14 +11,14 @@
                   :input_html => long,
                   :required => { :name => true },
                   :choices_on => [:affiliation]
-  = nested_fields @form, :data_producers, |
+  = tabular_fields @form, :data_producers, |
                   :input_html => long,
                   :required => false,
                   :choices_on => [:affiliation]
-  = nested_fields @form, :funding_agency, |
+  = tabular_fields @form, :funding_agency, |
                   :input_html => long,
                   :required => false
-  = nested_fields @form, :other_acknowledgements, |
+  = tabular_fields @form, :other_acknowledgements, |
                   :input_html => { :size => 25 },
                   :required => false,
                   :choices_on => [:affiliation]
