@@ -1,11 +1,11 @@
-@import "adapt-definitions";
+@import "adapt/adapt-definitions";
 @import "reset";
 @import "basics";
 @import "layout";
 @import "flash";
 @import "formtastic";
 
-@import "adapt";
+@import "adapt/adapt";
 
 body {
     min-width: 720px;
