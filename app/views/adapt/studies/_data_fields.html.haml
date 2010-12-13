@@ -49,7 +49,8 @@
     %li= @form.errors_on("collection")
 
   - %w{data_kind time_method sampling_procedure collection_method}.each do |a|
-    = @form.inputs a, :class => 'adapt-choices', :id => "adapt-#{a}-choices" do
+    - s = "Choices for #{a.humanize}"
+    = @form.inputs s, :class => 'adapt-choices', :id => "adapt-#{a}-choices" do
       %li.empty &nbsp;
       - @study.selections(a.to_sym).each do |entry|
         %li= entry
