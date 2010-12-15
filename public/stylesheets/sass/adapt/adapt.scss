@@ -72,12 +72,11 @@
 		border: 1px solid gray;
 		padding: 2px;
 		margin: 0;
-		background-color: #f0f0f0;
+		background-color: $textfield_color;
 		font-family: monospace;
 	    }
 	    input.dirty,textarea.dirty {
-		background-color: #f0f0ff;
-		border-color: blue;
+		background-color: $textfield_dirty_color;
 	    }
 	    input, input[size], textarea, textarea[cols] {
 		max-width: inherit;
@@ -123,10 +122,10 @@
 	}
 	td.text, td.string {
 	    border: solid gray 1px;
-	    background-color: #f0f0f0;
+	    background-color: $textfield_color;
 	    input, textarea {
 		border: none;
-		background-color: #f0f0f0;
+		background-color: $textfield_color;
 		font-family: monospace;
 		margin: 0;
 	    }
@@ -138,10 +137,9 @@
 	    padding: 1px 0 0 0;
 	}
 	td.dirty {
-	    background-color: #f0f0ff;
-	    border-color: blue;
+	    background-color: $textfield_dirty_color;
 	    input, textarea {
-		background-color: #f0f0ff;
+		background-color: $textfield_dirty_color;
 	    }
 	}
 	p.inline-errors {
