@@ -1,14 +1,16 @@
 // Define some colours
-$primary_color: #994779;
-$primary_darker: $primary_color - #181818;
-$link_color: $primary_color - #222222;
-$highlight_color: #ffffcc;
-$signal_color: red;
+$primary_color:         #994779;
+$primary_darker:        $primary_color - #181818;
+$link_color:            $primary_color - #222222;
+$highlight_color:       #ffffcc;
+$signal_color:          red;
+$textfield_color:       #f0f0f0;
+$textfield_dirty_color: #e8e8ff;
 
 // ...and widths
-$list_indent: 3em;
+$list_indent:     3em;
 $paragraph_width: 40em;
-$dfn_width: 13em;
+$dfn_width:       13em;
 
 // Macros for some trickier settings
 @mixin shadowed($width, $blur, $color) {
