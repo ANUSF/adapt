@@ -46,7 +46,7 @@
     });
 
     // -- turn inline hints in formtastic into nice mouseover tooltips
-    $(document).enableTooltips({ tooltip_id: 'adapt-tooltip' });
+    $(document).enableTooltips({ tooltip_id: 'adapt-tooltip', delay: 3000 });
     $('form.formtastic fieldset > ol > li .inline-hints').each(function () {
       $(this)
 	.css({ display: 'none' })
