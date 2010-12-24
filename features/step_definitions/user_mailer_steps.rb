@@ -31,6 +31,17 @@ Then /^an archivist notification for "([^\"]*)" should be sent$/ do |title|
                            adapt_study_path(study))
 end
 
+Then /^a notification that "([^\"]*)" handed over "([^\"]*)" should be sent$/ do
+  |user, title|
+  study = Adapt::Study.find_by_title(title)
+  check_study_notification(study, study.archivist.email,
+                           'ADAPT: A study has been handed over to you',
+                           study.title,
+                           study.owner.username,
+                           adapt_study_path(study),
+                           "has been handed over to you by #{user}")
+end
+
 Then /^an approval notification for "([^\"]*)" should be sent$/ do |title|
   study = Adapt::Study.find_by_title(title)
   check_study_notification(study, study.owner.email,

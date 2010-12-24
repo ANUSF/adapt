@@ -1,0 +1,19 @@
+.box
+  = form_for @study, :url => store_adapt_study_path(@study), |
+                     :html => { :method => :post } do |f| |
+    %label
+      Number range for ID
+      = select_tag :id_range, options_for_select(@study.selections(:id_range))
+    %hr
+    %p
+      Generate a study id and create files for processing
+      &nbsp;
+      = f.submit :name => 'result', :value => 'Store'
+    %p
+      - if @study.owner == current_user
+        or reopen for further editing within ADAPT
+      - else
+        or reopen for depositor to add further information
+      &nbsp;
+      = f.submit :name => 'result', :value => 'Reopen'
+.clear

@@ -1,0 +1,13 @@
+%p
+  %em
+    If another archivist needs to add data files or edit metadata in
+    this study, you need to hand it over and assign them as the new
+    archivist. If necessary, they can hand it back once their done.
+.box
+  = form_for @study, :url => handover_adapt_study_path(@study), |
+                     :html => { :method => :post } do |f| |
+    %label
+      New archivist
+      = f.select :archivist, @study.selections(:archivist)
+      = f.submit :name => 'result', :value => 'Hand over'
+.clear

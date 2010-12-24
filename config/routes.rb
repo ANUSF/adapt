@@ -12,6 +12,7 @@ Adapt::Application.routes.draw do
         post 'approve'
         post 'store'
         post 'submit'
+        post 'handover'
       end
     end
 

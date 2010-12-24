@@ -225,6 +225,10 @@ class Adapt::Study < ActiveRecord::Base
         ( status == 'stored' and permanent_identifier.starts_with? 'test') )
   end
 
+  def can_be_handed_over_by(person)
+    person and person.is_archivist and is_curated_by(person)
+  end
+
   def ready_for_submission?
     @checking = true
     study_ready = valid?
@@ -294,6 +298,21 @@ class Adapt::Study < ActiveRecord::Base
 
     begin
       Adapt::UserMailer.archivist_assignment(self).deliver
+    rescue
+      Rails.logger.info 'Failed to send notification email.'
+    else
+      Rails.logger.info 'Notification email was sent.'
+    end
+  end
+
+  def handover(new_archivist)
+    former_archivist = archivist
+    Rails.logger.info 'Handing over study'
+    self.archivist = new_archivist
+    save!
+
+    begin
+      Adapt::UserMailer.handover_notification(self, former_archivist).deliver
     rescue
       Rails.logger.info 'Failed to send notification email.'
     else

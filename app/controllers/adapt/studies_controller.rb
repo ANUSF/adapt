@@ -15,6 +15,7 @@ class Adapt::StudiesController < Adapt::Controller
   permit :submit,        :if => :may_submit
   permit :approve,       :if => :may_approve
   permit :store,         :if => :may_store
+  permit :handover,      :if => :may_hand_over
 
   before_filter :prepare_for_edit, :only => [ :edit, :update, :submit ]
   before_filter :ensure_licence,   :only => [ :edit, :submit ]
@@ -60,6 +61,11 @@ class Adapt::StudiesController < Adapt::Controller
   # Whether the current user may store the referenced study.
   def may_store
     @study and @study.can_be_stored_by current_user
+  end
+
+  # Whether the current user may store the referenced study.
+  def may_hand_over
+    @study and @study.can_be_handed_over_by current_user
   end
 
   def prepare_for_edit
@@ -192,6 +198,19 @@ Submit this study now?
       else
         flash[:notice] = "Study approval successful!"
       end
+    end
+    redirect_to @study
+  end
+
+  def handover
+    begin
+      @study.handover Adapt::User.archivists.
+        find(params[:adapt_study][:archivist])
+    rescue Exception => ex
+      log_and_notify_of_error ex
+      show_error ex
+    else
+      flash[:notice] = "Study handover successful!"
     end
     redirect_to @study
   end
