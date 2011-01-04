@@ -14,8 +14,7 @@ class Adapt::StudiesController < Adapt::Controller
   permit :destroy,       :if => :may_destroy
   permit :submit,        :if => :may_submit
   permit :approve,       :if => :may_approve
-  permit :store,         :if => :may_store
-  permit :handover,      :if => :may_hand_over
+  permit :manage,        :if => :may_manage
 
   before_filter :prepare_for_edit, :only => [ :edit, :update, :submit ]
   before_filter :ensure_licence,   :only => [ :edit, :submit ]
@@ -59,13 +58,8 @@ class Adapt::StudiesController < Adapt::Controller
   end
 
   # Whether the current user may store the referenced study.
-  def may_store
-    @study and @study.can_be_stored_by current_user
-  end
-
-  # Whether the current user may store the referenced study.
-  def may_hand_over
-    @study and @study.can_be_handed_over_by current_user
+  def may_manage
+    @study and @study.is_curated_by current_user
   end
 
   def prepare_for_edit
@@ -202,31 +196,26 @@ Submit this study now?
     redirect_to @study
   end
 
-  def handover
+  def manage
     begin
-      @study.handover Adapt::User.archivists.
-        find(params[:adapt_study][:archivist])
+      case params[:result]
+      when 'Reopen'
+        reopen
+      when 'Store'
+        if @study.can_be_stored_by current_user
+          @study.store params[:id_range][0,1]
+          flash[:notice] = "Study stored successfully!"
+        else
+          raise Error.new "Study can't be stored yet."
+        end
+      when 'Hand over'
+        @study.handover Adapt::User.archivists.
+          find(params[:adapt_study][:archivist])
+        flash[:notice] = "Study handover successful!"
+      end
     rescue Exception => ex
       log_and_notify_of_error ex
       show_error ex
-    else
-      flash[:notice] = "Study handover successful!"
-    end
-    redirect_to @study
-  end
-
-  def store
-    if params[:result] == 'Reopen'
-      reopen
-    else
-      begin
-        @study.store params[:id_range][0,1]
-      rescue Exception => ex
-        log_and_notify_of_error ex
-        show_error ex
-      else
-        flash[:notice] = "Study stored successfully!"
-      end
     end
     redirect_to @study
   end

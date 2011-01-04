@@ -10,9 +10,8 @@ Adapt::Application.routes.draw do
     resources :studies do
       member do
         post 'approve'
-        post 'store'
+        post 'manage'
         post 'submit'
-        post 'handover'
       end
     end
 
