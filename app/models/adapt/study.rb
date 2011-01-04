@@ -181,7 +181,8 @@ class Adapt::Study < ActiveRecord::Base
   end
 
   def is_curated_by(person)
-    person.is_a? User and archivist and person.id == archivist.id
+    person.is_a? User and person.is_archivist and
+      archivist and person.id == archivist.id
   end
 
   def is_managed_by(person)
@@ -220,7 +221,7 @@ class Adapt::Study < ActiveRecord::Base
   end
   
   def can_be_stored_by(person)
-    person and person.is_archivist and is_curated_by(person) and
+    is_curated_by(person) and
       ( %w{submitted approved}.include? status or 
         ( status == 'stored' and permanent_identifier.starts_with? 'test') )
   end
@@ -294,6 +295,21 @@ class Adapt::Study < ActiveRecord::Base
 
     begin
       Adapt::UserMailer.archivist_assignment(self).deliver
+    rescue
+      Rails.logger.info 'Failed to send notification email.'
+    else
+      Rails.logger.info 'Notification email was sent.'
+    end
+  end
+
+  def handover(new_archivist)
+    former_archivist = archivist
+    Rails.logger.info 'Handing over study'
+    self.archivist = new_archivist
+    save!
+
+    begin
+      Adapt::UserMailer.handover_notification(self, former_archivist).deliver
     rescue
       Rails.logger.info 'Failed to send notification email.'
     else
@@ -409,10 +425,10 @@ class Adapt::Study < ActiveRecord::Base
     config = transposed(YAML::load(File.open(path)))
 
     config[:selections][:archivist] = lambda { |item, col|
-      User.archivists.map { |a| [a.name, a.id] }
+      [["", nil]] + User.archivists.map { |a| [a.name, a.id] }
     }
     config[:selections][:id_range] =
-      ["Test only"] + "0234".each_char.map { |i| "#{i}0000-#{i}9999" }
+      [["", nil], "Test only"] + "0234".each_char.map { |i| "#{i}0000-#{i}9999" }
 
     config.each do |name, settings|
       define_method(name) do |column|

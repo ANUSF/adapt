@@ -1,0 +1,11 @@
+A study entitled
+
+'<%= h @study.title %>'
+
+by <%= h @study.owner.username %>
+
+has been handed over to you by <%= h @former_archivist.username %>.
+
+The URL for the study is <%= @url %>.
+
+<%= render :partial => "noreply" %>

@@ -33,6 +33,7 @@ Feature: Archivist stores study
     Given the study "First Study" has status "approved"
     And the study "First Study" has been assigned to Celine
     When I go to the study details page for "First Study"
+    And I select "Test only" from "range"
     And I press "Store"
     Then I should see "stored"
     And I should see "test99000"
@@ -42,7 +43,7 @@ Feature: Archivist stores study
     Given the study "First Study" has status "approved"
     And the study "First Study" has been assigned to Celine
     When I go to the study details page for "First Study"
-    And I select "30000-39999" from "Number range for ID"
+    And I select "30000-39999" from "range"
     And I press "Store"
     Then I should see "stored"
     And I should see "30000"

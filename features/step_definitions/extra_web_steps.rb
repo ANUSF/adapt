@@ -38,15 +38,15 @@ Then /^(?:|I )should not see (?:a|an) "([^\"]*)" button$/ do |text|
 end
 
 Then /^(?:|I )should see (?:a|an|the) page heading (.*)$/ do |pattern|
-  Then "I should see #{pattern} within \"#content > h1\""
+  Then "I should see #{pattern} within \"#content > h1, article > h1\""
 end
 
 Then /^(?:|I )should see (?:a|an|the) error message (.*)$/ do |pattern|
-  Then "I should see #{pattern} within \"#flash_error\""
+  Then "I should see #{pattern} within \"#flash_error, .flash-error\""
 end
 
 Then /^(?:|I )should see (?:a|the) notice (.*)$/ do |pattern|
-  Then "I should see #{pattern} within \"#flash_notice\""
+  Then "I should see #{pattern} within \"#flash_notice, .flash-notice\""
 end
 
 Then /^(?:|I )should see a table with (\d+) row(?:s?)$/ do |n|

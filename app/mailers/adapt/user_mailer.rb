@@ -33,6 +33,15 @@ class Adapt::UserMailer < ActionMailer::Base
          :subject => "ADAPT: A new study has been assigned to you")
   end
 
+  def handover_notification(study, former_archivist)
+    @study = study
+    @former_archivist = former_archivist
+    @url   = adapt_study_url(study, :host => request_host)
+
+    mail(:to      => study.archivist.email || ASSDA_EMAIL,
+         :subject => "ADAPT: A study has been handed over to you")
+  end
+
   def error_notification(exception)
     @exception = exception
 
