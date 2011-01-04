@@ -425,10 +425,10 @@ class Adapt::Study < ActiveRecord::Base
     config = transposed(YAML::load(File.open(path)))
 
     config[:selections][:archivist] = lambda { |item, col|
-      User.archivists.map { |a| [a.name, a.id] }
+      [["", nil]] + User.archivists.map { |a| [a.name, a.id] }
     }
     config[:selections][:id_range] =
-      ["Test only"] + "0234".each_char.map { |i| "#{i}0000-#{i}9999" }
+      [["", nil], "Test only"] + "0234".each_char.map { |i| "#{i}0000-#{i}9999" }
 
     config.each do |name, settings|
       define_method(name) do |column|

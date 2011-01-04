@@ -14,7 +14,7 @@ Feature: Archivist hands over study to another
   Scenario: Archivists can hand over a study
     Given the study "First Study" has been assigned to Bob
     When I go to the study details page for "First Study"
-    And I select "Celine" from "New archivist"
+    And I select "Celine" from "archivist"
     And I press "Hand over"
     Then I should see "Study handover successful!"
     And a notification that "Bob" handed over "First Study" should be sent

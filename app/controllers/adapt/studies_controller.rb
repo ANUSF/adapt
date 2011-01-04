@@ -203,15 +203,23 @@ Submit this study now?
         reopen
       when 'Store'
         if @study.can_be_stored_by current_user
-          @study.store params[:id_range][0,1]
-          flash[:notice] = "Study stored successfully!"
+          if params[:id_range].blank?
+            flash[:error] = "Please select an ID range for storage."
+          else
+            @study.store params[:id_range][0,1]
+            flash[:notice] = "Study stored successfully!"
+          end
         else
           raise Error.new "Study can't be stored yet."
         end
       when 'Hand over'
-        @study.handover Adapt::User.archivists.
-          find(params[:adapt_study][:archivist])
-        flash[:notice] = "Study handover successful!"
+        if params[:adapt_study][:archivist].blank?
+          flash[:error] = "Please select a new archivist to hand over to."
+        else
+          @study.handover Adapt::User.archivists.
+            find(params[:adapt_study][:archivist])
+          flash[:notice] = "Study handover successful!"
+        end
       end
     rescue Exception => ex
       log_and_notify_of_error ex

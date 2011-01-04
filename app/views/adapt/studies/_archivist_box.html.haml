@@ -1,31 +1,32 @@
 .box
   = form_for @study, :url => manage_adapt_study_path(@study), |
                      :html => { :method => :post } do |f| |
-    - if @study.can_be_stored_by current_user
-      %label
-        Number range for ID
-        = select_tag :id_range, options_for_select(@study.selections(:id_range))
-      %hr
-      %p
-        Generate a study id and create files for processing
-        &nbsp;
-        = f.submit :name => 'result', :value => 'Store'
-      %p
-        - if @study.owner == current_user
-          or reopen for further editing within ADAPT
-        - else
-          or reopen for depositor to add further information
-        &nbsp;
-        = f.submit :name => 'result', :value => 'Reopen'
-
-    %label
-      New archivist
-      = f.select :archivist, @study.selections(:archivist)
-      = f.submit :name => 'result', :value => 'Hand over'
-      .inline-hints
-        A study can only be edited by its owner or assigned
-        archivist. In order to allow another archivist to make changes or
-        add data, you must first hand the study over to them. They in turn
-        can keep the study, hand it back later or pass it on to yet
-        another person.
+    As the archivist assigned to this study, you can
+    %ul
+      - if @study.can_be_stored_by current_user
+        - options = options_for_select(@study.selections(:id_range))
+        %li
+          = f.submit :name => 'result', :value => 'Store'
+          the associated files under a study ID in the
+          %label
+            range
+            = select_tag :id_range, options
+        %li
+          = f.submit :name => 'result', :value => 'Reopen'
+          - if @study.owner == current_user
+            for further editing within ADAPT.
+          - else
+            for the depositor to add further information.
+      %li
+        = f.submit :name => 'result', :value => 'Hand over'
+        to the
+        %label
+          archivist
+          = f.select :archivist, @study.selections(:archivist)
+        %span.inline-hints
+          A study can only be edited by its owner or assigned
+          archivist. In order to allow another archivist to make changes or
+          add data, you must first hand the study over to them. They in turn
+          can keep the study, hand it back later or pass it on to yet
+          another person.
 .clear
