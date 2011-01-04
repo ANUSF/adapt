@@ -1,0 +1,11 @@
+<Context path="/ada-adapt" docBase="/home/olaf/Ruby-Rails/adapt/ada-adapt.war">
+  <Parameter name="adapt.home"
+	     value="/usr/share/tomcat6/webapps/adapt"
+	     override="false"/>
+  <Parameter name="adapt.file.mode"
+	     value="0772"
+	     override="false"/>
+  <Parameter name="rails.env"
+	     value="stage"
+	     override="false"/>
+</Context>
