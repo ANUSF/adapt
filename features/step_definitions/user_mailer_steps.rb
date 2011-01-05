@@ -39,7 +39,7 @@ Then /^a notification that "([^\"]*)" handed over "([^\"]*)" should be sent$/ do
                            study.title,
                            study.owner.username,
                            adapt_study_path(study),
-                           "has been handed over to you by #{user}")
+                           "formerly assigned to #{user}")
 end
 
 Then /^an approval notification for "([^\"]*)" should be sent$/ do |title|
