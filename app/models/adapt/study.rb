@@ -185,10 +185,6 @@ class Adapt::Study < ActiveRecord::Base
       archivist and person.id == archivist.id
   end
 
-  def is_managed_by(person)
-    person.is_a? User and manager and person.id == manager.id
-  end
-
   def can_be_viewed_by(person)
     person and (person.is_archivist or is_owned_by(person))
   end
@@ -221,9 +217,13 @@ class Adapt::Study < ActiveRecord::Base
   end
   
   def can_be_stored_by(person)
-    is_curated_by(person) and
+    person and (is_curated_by(person) or person.is_admin) and
       ( %w{submitted approved}.include? status or 
         ( status == 'stored' and permanent_identifier.starts_with? 'test') )
+  end
+
+  def can_be_managed_by(person)
+    person and (is_curated_by(person) or person.is_admin)
   end
 
   def ready_for_submission?

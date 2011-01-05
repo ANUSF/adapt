@@ -1,7 +1,11 @@
 .box
   = form_for @study, :url => manage_adapt_study_path(@study), |
                      :html => { :method => :post } do |f| |
-    As the archivist assigned to this study, you can
+    - if current_user.is_admin
+      - role = 'an administrator'
+    - else
+      - 'the archivist for this study'
+    == As #{role}, you can
     %ul
       - if @study.can_be_stored_by current_user
         - options = options_for_select(@study.selections(:id_range))

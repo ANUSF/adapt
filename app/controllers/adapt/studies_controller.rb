@@ -59,7 +59,7 @@ class Adapt::StudiesController < Adapt::Controller
 
   # Whether the current user may store the referenced study.
   def may_manage
-    @study and @study.is_curated_by current_user
+    @study and @study.can_be_managed_by current_user
   end
 
   def prepare_for_edit
