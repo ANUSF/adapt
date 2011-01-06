@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+%html{html_attrs}
+  %head
+    %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}/
+    %title= h(yield(:title) || "Untitled")
+    = csrf_meta_tag
+    = stylesheet_link_tag 'swell/import'
+
+    = javascript_include_tag 'jquery-1.4.2.min'
+    = javascript_include_tag 'jquery.tabs'
+    = javascript_include_tag 'jquery.tooltips'
+    = javascript_include_tag 'jquery.textarea-expander'
+    = javascript_include_tag 'jquery.choices'
+    = javascript_include_tag 'jquery.multifile'
+    = javascript_include_tag 'rails'
+    = javascript_include_tag 'application'
+    = yield(:head)
+
+  %body.default
+    %header
+      .login
+        - if user_account_signed_in?
+          == Name: #{current_user.username}
+          %br
+          == Role: #{current_user.role}
+          %br
+          %li= link_to "Sign Out", logout_path
+        - else
+          %li= link_to "Sign In", login_path
+          %li= link_to "Sign Out Completely", logout_path
+          - registration_url = ADAPT::CONFIG['assda.registration.url']
+          %li= link_to "Register with ADA", registration_url
+  
+      .masthead
+
+    %nav.mainnav.clearfix
+      .searchContainer
+        %form.formtastic{ :action => "", :method => "post", :enctype => "multipart/form-data", :name => "form1"}
+          %label{:for => "menusearch"}
+          %input#menusearch{:name => "textfield", :type => "text", :value => "Search this site"}
+          %input#search_button{:type => "image", :alt => "Go", :name => "imageField", :src => image_path("structure/bttn_go.png") }
+
+    %nav.subnav
+      %ul
+        - if user_account_signed_in?
+          %li= link_to "View deposits", adapt_studies_path
+          %li= link_to "Add study", new_adapt_study_path
+
+    %nav.breadcrumbs
+      %p
+        %strong YOU ARE HERE:
+
+  %section.content
+    %nav
+      %ul
+        %li.ada= link_to "ADA"
+        %li.science= link_to "social science"
+        %li.historical= link_to "historical "
+        %li.indigenous= link_to "indigenous"
+        %li.longitudinal= link_to "longitudinal"
+        %li.qualitative= link_to "qualitative"
+        %li.international= link_to "international"
+
+    - flash.each do |type,msg|
+      %div{ :class => "flash-#{type}" }= h(msg).gsub(/\n/, '<br/>')
+
+    %article
+      %h1== ADAPT (#{Rails.env}) &mdash; #{yield :title}
+    
+      #adapt= yield
+
+  %footer
+    Copyright 2010 ANUSF &nbsp;&mdash;&nbsp; Powered by Ruby on Rails
+    - unless @exception
+      - if in_demo_mode and user_account_signed_in?
+        = form_for current_user, |
+          :url => adapt_user_session_path(current_user) do |f| |
+          = hidden_field_tag 'last_url', url_for
+          = f.select :role, Adapt::User::ROLES
+          = f.submit :name => 'result', :value => 'Change Role'

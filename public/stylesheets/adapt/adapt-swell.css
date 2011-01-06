@@ -1,0 +1,93 @@
+.flash-notice, .flash-error, .flash-alert {
+  position: absolute;
+  right: 40px;
+  padding: 5px 8px; }
+
+.flash-notice {
+  background-color: #ffffcc;
+  border: solid 1px #cccc66; }
+
+.flash-error, .flash-alert {
+  background-color: #ffcccc;
+  border: solid 1px #cc6666; }
+
+#adapt {
+  float: left;
+  background: none;
+  padding-bottom: 0; }
+  #adapt .tab-container fieldset.tab {
+    border-bottom-width: 2px;
+    margin-bottom: 12px; }
+  #adapt .tab-container ul.tab-index li.tab-entry {
+    margin-right: 0; }
+    #adapt .tab-container ul.tab-index li.tab-entry a {
+      color: white;
+      background: #333;
+      border-color: #333;
+      border-right-color: #aaa;
+      border-width: 1px 1px 0 1px; }
+      #adapt .tab-container ul.tab-index li.tab-entry a span {
+        background-image: none; }
+    #adapt .tab-container ul.tab-index li.tab-entry a:hover {
+      color: white;
+      background: black;
+      border-color: black;
+      border-right-color: #aaa; }
+      #adapt .tab-container ul.tab-index li.tab-entry a:hover span {
+        background-image: none; }
+    #adapt .tab-container ul.tab-index li.tab-entry a.current-tab {
+      color: black;
+      background: white;
+      border-color: white;
+      border-top-color: #aaa; }
+      #adapt .tab-container ul.tab-index li.tab-entry a.current-tab span {
+        background-image: none; }
+    #adapt .tab-container ul.tab-index li.tab-entry a.current-tab:hover {
+      color: black;
+      background: #e8e8e8;
+      border-color: #e8e8e8;
+      border-top-color: #aaa; }
+      #adapt .tab-container ul.tab-index li.tab-entry a.current-tab:hover span {
+        background-image: none; }
+    #adapt .tab-container ul.tab-index li.tab-entry a {
+      outline: none; }
+  #adapt .tab-container ul.tab-index li.tab-entry:first-child a.current-tab, #adapt .tab-container ul.tab-index li.tab-entry:first-child a.current-tab:hover {
+    border-left-color: #aaa; }
+  #adapt .tab-container ul.tab-index li.tab-entry:last-child a {
+    border-right-color: #333; }
+  #adapt .tab-container ul.tab-index li.tab-entry:last-child a:hover {
+    border-right-color: black; }
+  #adapt .tab-container ul.tab-index li.tab-entry:last-child a.current-tab, #adapt .tab-container ul.tab-index li.tab-entry:last-child a.current-tab:hover {
+    border-right-color: #aaa; }
+  #adapt p {
+    text-align: justify;
+    margin: 0; }
+  #adapt em {
+    font-style: italic; }
+    #adapt em em {
+      font-style: normal; }
+  #adapt strong {
+    font-weight: bolder; }
+  #adapt ul, #adapt ol {
+    padding-left: 0; }
+  #adapt ul li:last-child {
+    padding-bottom: 0; }
+  #adapt li {
+    list-style: inherit;
+    margin-top: 0.3em;
+    margin-left: 3em; }
+  #adapt dt {
+    font-weight: bold;
+    margin: 1em 0 0.5em 0; }
+  #adapt dd {
+    margin-left: 3em; }
+  #adapt hr {
+    height: 0;
+    border: none;
+    border-bottom: 1px solid gray;
+    margin-right: 20%;
+    padding-top: 1em; }
+  #adapt dfn {
+    font-style: italic; }
+  #adapt tt {
+    font-family: courier; }
