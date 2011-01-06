@@ -14,7 +14,5 @@
 /rerun.txt
 /.sass-cache/*
 /public/stylesheets/swell
-/public/stylesheets/sass/swell
-/public/images/content
-/public/images/placeholders
-/public/images/structure
+/public/stylesheets/images
+

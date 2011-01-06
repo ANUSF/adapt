@@ -1,4 +1,8 @@
-<Context path="/ada-adapt" docBase="/home/olaf/Ruby-Rails/adapt/ada-adapt.war">
+<Context path="/ada-adapt"
+	 docBase="/home/olaf/Ruby-Rails/adapt-jruby/ada-adapt.war">
+  <Parameter name="adapt.layout"
+	     value="ada"
+	     override="false"/>
   <Parameter name="adapt.home"
 	     value="/usr/share/tomcat6/webapps/adapt"
 	     override="false"/>

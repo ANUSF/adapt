@@ -4,7 +4,7 @@
     %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}/
     %title= h(yield(:title) || "Untitled")
     = csrf_meta_tag
-    = stylesheet_link_tag 'swell/import'
+    = stylesheet_link_tag 'swell-import'
 
     = javascript_include_tag 'jquery-1.4.2.min'
     = javascript_include_tag 'jquery.tabs'
@@ -35,10 +35,14 @@
 
     %nav.mainnav.clearfix
       .searchContainer
-        %form.formtastic{ :action => "", :method => "post", :enctype => "multipart/form-data", :name => "form1"}
+        %form.formtastic{ :action => "", :method => "post", |
+          :enctype => "multipart/form-data", :name => "form1"}
           %label{:for => "menusearch"}
-          %input#menusearch{:name => "textfield", :type => "text", :value => "Search this site"}
-          %input#search_button{:type => "image", :alt => "Go", :name => "imageField", :src => image_path("structure/bttn_go.png") }
+          %input#menusearch{:name => "textfield", :type => "text", |
+            :value => "Search this site"}
+          %input#search_button{:type => "image", :alt => "Go", |
+            :name => "imageField",
+            :src => "/stylesheets/images/structure/bttn_go.png" }
 
     %nav.subnav
       %ul
