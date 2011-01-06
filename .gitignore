@@ -9,7 +9,7 @@
 
 /log/*
 /tmp/*
-/assets/*
+/assets
 
 /rerun.txt
 /.sass-cache/*
