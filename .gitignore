@@ -1,6 +1,9 @@
 *.war
 *~
 
+/.rvmrc
+/Gemfile.lock
+
 /coverage/*
 /db/db_*
 
