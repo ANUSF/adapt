@@ -1,4 +1,4 @@
-require File.expand_path('../../acceptance_helper', __FILE__)
+require File.expand_path(File.dirname(__FILE__) + '/../acceptance_helper')
 
 feature "User Login", %q{
   In order to gain the appropriate access privileges for my role
