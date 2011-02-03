@@ -25,6 +25,7 @@ group :development, :test do
   gem 'cucumber-rails'
   gem 'cucumber'
   gem 'rspec-rails', '~> 2.3.1'
+  gem 'steak'
   gem 'database_cleaner'
   gem 'launchy'    # So you can do Then show me the page
   gem 'machinist'
