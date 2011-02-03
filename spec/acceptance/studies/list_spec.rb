@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../acceptance_helper')
 
 feature "List", %q{
-  In order to manage multiple studies I am preparing for submission
+  In order to manage multiple studies that I am preparing for submission
   As a contributor
   I want to view a list of my unsubmitted deposits
 } do
@@ -12,11 +12,6 @@ feature "List", %q{
     create_study 'First Study',  :owner => 'Alice'
     create_study 'Second Study', :owner => 'Alice'
     create_study 'Advanced Ham', :owner => 'Bill'
-  end
-
-  shared_examples_for "on the study index page" do
-    path_should_be '/adapt/studies'
-    page_heading_should_be 'Deposits'
   end
 
   scenario "Alice can see her deposits, but not Bill's" do
