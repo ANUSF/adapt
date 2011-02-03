@@ -7,7 +7,7 @@ feature "User Login", %q{
 } do
 
   background do
-    Adapt::User.make :role => 'contributor', :name => 'Alice'
+    create_user 'Alice'
   end
 
   scenario "Log in as Alice" do
