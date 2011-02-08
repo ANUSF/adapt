@@ -50,14 +50,6 @@ feature "List", %q{
     titles.should include 'Advanced Ham'
   end
 
-  def path_should_be(path)
-    URI.parse(current_url).path.should == path
-  end
-
-  def page_heading_should_be(text)
-    page.should have_css "#content > h1, article > h1", :text => text
-  end
-
   def column_contents(name)
     data = page.find('table').all('tr').map do |row|
       row.all('th,td').map &:text
