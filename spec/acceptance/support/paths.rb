@@ -4,6 +4,14 @@ module NavigationHelpers
   def homepage
     "/"
   end
+
+  def study_details_page_for(title)
+    "/adapt/studies/#{Adapt::Study.find_by_title(title).id}"
+  end
+
+  def study_edit_page_for(title)
+    "/adapt/studies/#{Adapt::Study.find_by_title(title).id}/edit"
+  end
 end
 
 RSpec.configuration.include NavigationHelpers, :type => :acceptance
