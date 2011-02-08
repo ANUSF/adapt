@@ -1,0 +1,40 @@
+require File.expand_path(File.dirname(__FILE__) + '/../acceptance_helper')
+
+feature "User Login", %q{
+  In order to gain the appropriate access privileges for my role
+  As a user
+  I want to log in to the application
+} do
+
+  background do
+    create_user 'Alice'
+  end
+
+  scenario "Log in as Alice" do
+    login_as 'Alice'
+    page.should have_content 'Add study'
+  end
+end
+
+feature "User Logout", %q{
+  In order to prevent unauthorized access
+  As a user
+  I want to log out when I am done
+} do
+
+  background do
+    create_user 'Alice'
+    login_as 'Alice'
+  end
+
+  scenario "Alice logs out" do
+    visit '/logout'
+    page.should have_content 'Signed out'
+  end
+
+  scenario "Logging out a second time does nothing" do
+    visit '/logout'
+    visit '/logout'
+    page.should have_no_content 'Signed out'
+  end
+end

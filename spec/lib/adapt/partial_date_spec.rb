@@ -1,6 +1,3 @@
-module Adapt
-end
-
 require 'adapt/partial_date'
 
 PartialDate = Adapt::PartialDate
@@ -420,5 +417,13 @@ describe "A Year constructed from an Array" do
     lambda {
       PartialDate::Year.new([3, 12])
     }.should raise_error(/Expected an integer or year/)
+  end
+end
+
+describe "A Year constructed from the number 0" do
+  it "should raise an error" do
+    lambda {
+      PartialDate::Year.new(0)
+    }.should raise_error(/no year 0/)
   end
 end
