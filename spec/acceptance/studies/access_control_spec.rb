@@ -14,7 +14,7 @@ feature "Access Control", %q{
   end
 
   scenario "Bob cannot view a study of Alice's" do
-    visit study_details_page_for('First Study')
+    visit study_page_for('First Study')
     page.should have_no_content 'Study Summary'
     page.should have_content 'Access denied'
   end

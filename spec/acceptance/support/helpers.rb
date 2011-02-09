@@ -31,6 +31,10 @@ module HelperMethods
   def there_should_be_an_error_message(text)
     page.should have_css "#flash_error, .flash-error", :text => text
   end
+
+  def there_should_be_a_button(text)
+    page.should have_css("input[value=\"#{text}\"]")
+  end
 end
 
 RSpec.configuration.include HelperMethods, :type => :acceptance

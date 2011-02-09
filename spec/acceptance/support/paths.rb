@@ -5,7 +5,7 @@ module NavigationHelpers
     "/"
   end
 
-  def study_details_page_for(title)
+  def study_page_for(title)
     "/adapt/studies/#{Adapt::Study.find_by_title(title).id}"
   end
 
