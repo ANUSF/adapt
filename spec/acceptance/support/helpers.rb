@@ -16,6 +16,10 @@ module HelperMethods
     Adapt::Study.make(:owner => user, :title => title)
   end
 
+  def set_study_status_for(title, options = {})
+    Adapt::Study.find_by_title(title).update_attribute(:status, options[:to])
+  end
+
   def path_should_be(path)
     URI.parse(current_url).path.should == path
   end
@@ -34,6 +38,28 @@ module HelperMethods
 
   def there_should_be_a_button(text)
     page.should have_css("input[value=\"#{text}\"]")
+  end
+
+  def column_contents(name)
+    data = page.find('table').all('tr').map do |row|
+      row.all('th,td').map &:text
+    end
+    if n = data[0].index(name)
+      (data.transpose)[n][1..-1].join('|')
+    else
+      ''
+    end
+  end
+
+  ASSDA_EMAIL = 'assda@anu.edu.au'
+
+  def check_study_notification(study, recipient, subject, *body_patterns)
+    email = ActionMailer::Base.deliveries.first
+    email.should_not be_nil
+    email.from.should    == [ASSDA_EMAIL]
+    email.to.should      == [recipient]
+    email.subject.should == subject
+    body_patterns.each { |pattern| email.body.should include(pattern) }
   end
 end
 

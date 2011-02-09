@@ -32,7 +32,7 @@ feature "Submit", %q{
   end
 
   scenario "Alice submits a study that's been tagged as submitted" do
-    set_study_status 'First Study', 'submitted'
+    set_study_status_for 'First Study', :to => 'submitted'
     submit_study 'First Study'
 
     page_heading_should_be 'Study Summary'
@@ -99,10 +99,6 @@ feature "Submit", %q{
 
     # save
     study.save!
-  end
-
-  def set_study_status(title, status)
-    Adapt::Study.find_by_title(title).update_attribute(:status, status)
   end
 
   def submit_study(title)

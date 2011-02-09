@@ -49,15 +49,4 @@ feature "List", %q{
     titles.should_not include 'Second Study'
     titles.should include 'Advanced Ham'
   end
-
-  def column_contents(name)
-    data = page.find('table').all('tr').map do |row|
-      row.all('th,td').map &:text
-    end
-    if n = data[0].index(name)
-      (data.transpose)[n][1..-1].join('|')
-    else
-      ''
-    end
-  end
 end
