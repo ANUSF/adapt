@@ -32,11 +32,6 @@ module Adapt::JsonAccessors
     def json_fields(*names)
       names.each { |name| json_field(name) }
     end
-
-    private
-    def try(method_name, *args)
-      self.send method_name, *args if self.respond_to? method_name
-    end
   end
 
   module InstanceMethods
