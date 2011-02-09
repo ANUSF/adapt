@@ -47,13 +47,6 @@ feature "Handover", %q{
   end
 
 
-  def set_archivist_for(title, options = {})
-    study = Adapt::Study.find_by_title(title)
-    study.archivist = Adapt::User.find_by_name(options[:to])
-    study.temporary_identifier = "deposit_99999" # Hack to make store go through!
-    study.save!
-  end
-
   def a_handover_notification_should_be_sent_for(title, options = {})
     study = Adapt::Study.find_by_title(title)
     check_study_notification(study, study.archivist.email,

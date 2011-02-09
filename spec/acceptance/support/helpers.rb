@@ -20,6 +20,13 @@ module HelperMethods
     Adapt::Study.find_by_title(title).update_attribute(:status, options[:to])
   end
 
+  def set_archivist_for(title, options = {})
+    study = Adapt::Study.find_by_title(title)
+    study.archivist = Adapt::User.find_by_name(options[:to])
+    study.temporary_identifier = "deposit_99999" # Hack to make store go through!
+    study.save!
+  end
+
   def path_should_be(path)
     URI.parse(current_url).path.should == path
   end
