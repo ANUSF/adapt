@@ -43,5 +43,11 @@ module Adapt::JsonAccessors
     def write_json(fields)
       write_attribute self.json_column_name, fields.to_json
     end
+
+    private
+    # Rails' Object#try seems broken
+    def try(method_name, *args)
+      self.send method_name, *args if self.respond_to? method_name
+    end
   end
 end
