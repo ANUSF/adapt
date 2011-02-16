@@ -28,6 +28,7 @@ group :development, :test do
   gem 'steak'
   gem 'simplecov', :require => false
   gem 'database_cleaner'
+  gem 'selenium-webdriver'
   gem 'launchy'    # So you can do Then show me the page
   gem 'machinist'
   gem 'ffaker'
