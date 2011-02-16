@@ -1,4 +1,8 @@
 RSpec.configure do |config|
+  config.filter_run :js_advanced => lambda { |val|
+    !val or defined?(JRUBY_VERSION)
+  }
+
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with :truncation

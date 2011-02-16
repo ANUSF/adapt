@@ -33,4 +33,12 @@ feature "Edit With Js", %q{
     attach_file 'Upload', '/home/olaf/vapour.c'
     page.should have_content 'vapour.c'
   end
+
+  scenario "Alice selects multiple files to attach", :js_advanced => true do
+    click_link 'Attached Files'
+    attach_file 'Upload', '/home/olaf/vapour.c'
+    attach_file 'Upload', '/home/olaf/warez.c'
+    page.should have_content 'vapour.c'
+    page.should have_content 'warez.c'
+  end
 end
