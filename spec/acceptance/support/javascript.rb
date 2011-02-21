@@ -1,4 +1,6 @@
 RSpec.configure do |config|
+  javascript_driver = defined?(JRUBY_VERSION) ? :celerity : :selenium
+
   config.filter_run :js_advanced => lambda { |val|
     !val or defined?(JRUBY_VERSION)
   }
@@ -10,7 +12,7 @@ RSpec.configure do |config|
 
   config.before(:each) do
     if example.metadata[:js]
-      Capybara.current_driver = :selenium
+      Capybara.current_driver = javascript_driver
       DatabaseCleaner.strategy = :truncation
     else
       DatabaseCleaner.strategy = :transaction
