@@ -41,4 +41,11 @@ feature "Edit With Js", %q{
     page.should have_content 'vapour.c'
     page.should have_content 'warez.c'
   end
+
+  scenario "Alice sees tool tips appear for some fields", :js_advanced => true do
+    click_link 'Data Description'
+    find_field('Related data').trigger(:mouseover)
+    sleep 2
+    page.should have_css "#adapt-tooltip", :content => "If this study is related"
+  end
 end
