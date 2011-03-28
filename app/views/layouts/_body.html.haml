@@ -1,3 +1,6 @@
+- flash.each do |type,msg|
+  %div{ :class => "flash-#{type}" }= h(msg).gsub(/\n/, '<br/>')
+
 %h1== ADAPT (#{Rails.env}) &mdash; #{yield :title}
-    
+  
 #adapt= yield
