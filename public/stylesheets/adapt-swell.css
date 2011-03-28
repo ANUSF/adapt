@@ -1,13 +1,3 @@
-@import url(swell/reset.css);
-@import url(swell/common.css);
-@import url(swell/structure.css);
-@import url(swell/navigation.css);
-@import url(swell/clearfix.css);
-@import url(swell/dropdown.css);
-@import url(swell/colour.css);
-@import url(swell/formtastic.css);
-@import url(swell/formtastic_changes.css);
-@import url(swell/application.css);
 #adapt {
   padding-bottom: 20px; }
   #adapt ul {

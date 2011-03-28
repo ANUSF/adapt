@@ -1,9 +1,9 @@
-@import "adapt/adapt-definitions";
+@import "adapt-definitions";
 @import "reset";
 @import "basics";
 @import "formtastic";
 
-@import "adapt/adapt";
+@import "adapt";
 
 #navigation, #flash_notice, #flash_error, #footer, #divider,
 .submit, .links, .noprint {
