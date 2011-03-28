@@ -19,6 +19,8 @@ gem 'rack-openid'
 gem 'devise_openid_authenticatable'
 gem 'formtastic'
 
+gem 'themenap', :path => '/home/olaf/Rails/my-gems/themenap'
+
 group :development, :test do
   gem 'test-unit'
   gem 'capybara'

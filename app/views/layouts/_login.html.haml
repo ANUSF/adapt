@@ -1,0 +1,11 @@
+- if user_account_signed_in?
+  == Name: #{current_user.username}
+  %br
+  == Role: #{current_user.role}
+  %br
+  %li= link_to "Sign Out", logout_path
+- else
+  %li= link_to "Sign In", login_path
+  %li= link_to "Sign Out Completely", logout_path
+  - registration_url = ADAPT::CONFIG['assda.registration.url']
+  %li= link_to "Register with ADA", registration_url

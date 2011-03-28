@@ -1,0 +1,6 @@
+%ul
+  %li
+    %p ADAPT
+  - if user_account_signed_in?
+    %li= link_to "View deposits", adapt_studies_path
+    %li= link_to "Add study", new_adapt_study_path
