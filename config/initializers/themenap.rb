@@ -1,3 +1,4 @@
+Themenap::Config.active = ! ADAPT::CONFIG['adapt.theme.old']
 Themenap::Config.server = 'http://testada'
 Themenap::Config.snippets =
   [ { :css => 'title',
