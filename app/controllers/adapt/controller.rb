@@ -3,9 +3,6 @@
 # (c)2010 ANUSF
 
 class Adapt::Controller < ApplicationController
-  # -- the standard layout
-  layout ADAPT::CONFIG['adapt.layout'] || 'application'
-
   # -- forbids all access not explicitly granted ('verboten' plugin)
   include Verboten
 
