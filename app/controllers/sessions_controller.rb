@@ -20,4 +20,12 @@ class SessionsController < OpenidClient::SessionsController
   def server_human_name
     'ASSDA'
   end
+
+  def bypass_openid?
+    [
+     'development',
+     'test',
+     'cucumber'
+    ].include?(Rails.env) and not ENV['FORCE_OPENID']
+  end
 end
