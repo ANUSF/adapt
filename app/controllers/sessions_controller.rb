@@ -10,7 +10,7 @@ class SessionsController < OpenidClient::SessionsController
   end
 
   def logout_url_for(identity)
-    if identity.starts_with? 'http://openid.assda.edu.au/joid/user/'
+    if identity and identity.starts_with? 'http://openid.assda.edu.au/joid/user/'
       'http://openid.assda.edu.au/joid/logout.jsp'
     else
       nil
@@ -19,13 +19,5 @@ class SessionsController < OpenidClient::SessionsController
 
   def server_human_name
     'ASSDA'
-  end
-
-  def bypass_openid
-    [
-     'development',
-     'test',
-     'cucumber'
-    ].include?(Rails.env) and not ENV['FORCE_OPENID']
   end
 end

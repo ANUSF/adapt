@@ -1,10 +1,11 @@
-- if current_user
-  == Name: #{current_user.username}
-  %br
-  == Role: #{current_user.role}
-  %br
+- if user_account_signed_in?
+  - if current_user
+    == Name: #{current_user.username}
+    %br
+    == Role: #{current_user.role}
+    %br
   %li= link_to "Sign Out", destroy_user_account_session_path
-  - if not @exception and in_demo_mode
+  - if current_user and not @exception and in_demo_mode
     = form_for current_user, |
     :url => adapt_user_session_path(current_user) do |f| |
       = hidden_field_tag 'last_url', url_for

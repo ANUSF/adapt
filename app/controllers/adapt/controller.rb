@@ -22,7 +22,7 @@ class Adapt::Controller < ApplicationController
     end
 
     if not defined?(@current_user) and user_account_signed_in? and
-        current_user_account.identity_ur
+        current_user_account.identity_url
       # -- create an ADAPT user entry from scratch
       identifier = current_user_account.identity_url
       username = identifier.sub(/^#{ADAPT::CONFIG['assda.openid.server']}/, '')
