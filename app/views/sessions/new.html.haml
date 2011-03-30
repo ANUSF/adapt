@@ -1,7 +1,9 @@
-- title 'Sign in'
-- path = session_path(resource_name)
+<%= render 'openid_client/sessions/sign_in' %>
 
-= form_for resource, :as => resource_name, :url => path do |f|
-  %h3 Please enter your ASSDA user name:
-  = f.text_field :identity_url, :id => "login"
-  = f.submit "Login via ASSDA"
+-# - title 'Sign in'
+-# - path = session_path(resource_name)
+
+-# = form_for resource, :as => resource_name, :url => path do |f|
+-#   %h3 Please enter your ASSDA user name:
+-#   = f.text_field :identity_url, :id => "login"
+-#   = f.submit "Login via ASSDA"

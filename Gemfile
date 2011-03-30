@@ -14,10 +14,11 @@ gem 'haml'
 gem 'RedCloth'
 gem 'ruby-openid',  :require => 'openid'
 gem 'rubyzip',      :require => 'zip/zip'
-gem 'devise'
-gem 'rack-openid'
-gem 'devise_openid_authenticatable'
 gem 'formtastic'
+
+gem 'devise'
+gem 'devise_openid_authenticatable'
+gem 'openid_client', :path => '/home/olaf/Rails/my-gems/openid_client'
 
 gem 'themenap', :path => '/home/olaf/Rails/my-gems/themenap'
 

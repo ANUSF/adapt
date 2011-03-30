@@ -21,7 +21,8 @@ class Adapt::Controller < ApplicationController
       session[:adapt_roles_files_was_read] = true
     end
 
-    if not defined?(@current_user) and user_account_signed_in?
+    if not defined?(@current_user) and user_account_signed_in? and
+        current_user_account.identity_ur
       # -- create an ADAPT user entry from scratch
       identifier = current_user_account.identity_url
       username = identifier.sub(/^#{ADAPT::CONFIG['assda.openid.server']}/, '')

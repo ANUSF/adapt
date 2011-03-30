@@ -77,6 +77,7 @@ class ApplicationController < ActionController::Base
 
   # Performs some tests to see if a login session is still valid.
   def check_session
+    session[:ip] ||= request.remote_ip
     if request.remote_ip != session[:ip]
       'Your network connection seems to have changed.'
     elsif !session[:expires_at] or session[:expires_at] < Time.now

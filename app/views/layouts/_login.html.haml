@@ -1,9 +1,9 @@
-- if user_account_signed_in?
+- if current_user
   == Name: #{current_user.username}
   %br
   == Role: #{current_user.role}
   %br
-  %li= link_to "Sign Out", logout_path
+  %li= link_to "Sign Out", destroy_user_account_session_path
   - if not @exception and in_demo_mode
     = form_for current_user, |
     :url => adapt_user_session_path(current_user) do |f| |
@@ -11,7 +11,6 @@
       = f.select :role, Adapt::User::ROLES
       = f.submit :name => 'result', :value => 'Change Role'
 - else
-  %li= link_to "Sign In", login_path
-  %li= link_to "Sign Out Completely", logout_path
+  %li= link_to "Sign In", new_user_account_session_path
   - registration_url = ADAPT::CONFIG['assda.registration.url']
   %li= link_to "Register with ADA", registration_url
