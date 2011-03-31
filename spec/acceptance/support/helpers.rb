@@ -4,7 +4,7 @@ module HelperMethods
   def login_as(name)
     visit '/login'
     fill_in 'login', :with => name
-    click_button 'Login via ASSDA'
+    click_button 'Login via OpenID'
   end
 
   def create_user(name, options = {})
