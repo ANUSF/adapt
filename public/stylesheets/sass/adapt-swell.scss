@@ -1,5 +1,9 @@
 @import "adapt";
 
+article {
+    padding-left: 0;
+}
+
 .flash-notice, .flash-error, .flash-alert {
     position: absolute;
     right: 40px;
