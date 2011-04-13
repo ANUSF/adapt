@@ -1,4 +1,6 @@
 class SessionsController < OpenidClient::SessionsController
+  TESTADA='http://178.79.149.181:3000'
+
   protected
 
   def force_default?
@@ -6,26 +8,14 @@ class SessionsController < OpenidClient::SessionsController
   end
 
   def default_login
-    'http://openid.assda.edu.au/joid/user/olaf.delgado'
+    TESTADA
   end
 
   def logout_url_for(identity)
-    if identity and identity.starts_with? 'http://openid.assda.edu.au/joid/user/'
-      'http://openid.assda.edu.au/joid/logout.jsp'
+    if identity and identity.starts_with? TESTADA
+      "#{TESTADA}/logout"
     else
       nil
     end
-  end
-
-  def server_human_name
-    'ASSDA'
-  end
-
-  def bypass_openid?
-    [
-     'development',
-     'test',
-     'cucumber'
-    ].include?(Rails.env) and not ENV['FORCE_OPENID']
   end
 end
