@@ -1,9 +1,9 @@
 - if user_account_signed_in?
   - if current_user
-    == Name: #{current_user.username}
-    %br
-    == Role: #{current_user.role}
-    %br
+    %li
+      %a== Name: #{current_user.username}
+    %li
+      %a== Role: #{current_user.role}
   %li= link_to "Sign Out", destroy_user_account_session_path
   - if current_user and not @exception and in_demo_mode
     = form_for current_user, |
