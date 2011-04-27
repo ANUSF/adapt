@@ -2,8 +2,9 @@
 
 = semantic_form_for @study, :url => adapt_studies_path do |f|
   = f.inputs do
-    = f.input :title, :input_html => { :rows => 4 }, :required => true
-    = f.input :abstract, :required => true
+    = f.input :title, :input_html => { :rows => 4, :cols => 80 }, |
+      :required => true
+    = f.input :abstract, :input_html => { :cols => 80 }, :required => true
   = f.buttons do
     - ['Save', 'Cancel'].each do |value|
       = f.commit_button value, :button_html => { :name => 'result' }
