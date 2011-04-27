@@ -7,7 +7,7 @@ Themenap::Config.snippets =
       :text => '<%= render "layouts/css_includes" %>',
       :mode => :append },
     { :css => 'body',
-      :mode => :setattr, :key => 'id', :value => 'social_science' },
+      :mode => :setattr, :key => 'class', :value => 'social_science' },
     { :css => 'html',
       :text => '<%= render "layouts/js_includes" %>',
       :mode => :append },
