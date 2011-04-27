@@ -1,5 +1,5 @@
 class SessionsController < OpenidClient::SessionsController
-  TESTADA='http://178.79.149.181:3000'
+  DEFAULT_SERVER='http://178.79.149.181:3000'
 
   protected
 
@@ -8,12 +8,12 @@ class SessionsController < OpenidClient::SessionsController
   end
 
   def default_login
-    TESTADA
+    DEFAULT_SERVER
   end
 
   def logout_url_for(identity)
-    if identity and identity.starts_with? TESTADA
-      "#{TESTADA}/logout"
+    if identity and identity.starts_with? DEFAULT_SERVER
+      "#{DEFAULT_SERVER}/logout"
     else
       nil
     end
