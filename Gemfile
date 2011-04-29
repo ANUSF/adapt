@@ -11,6 +11,7 @@ else
 end
 
 gem 'haml'
+gem 'sass'
 gem 'RedCloth'
 gem 'ruby-openid',  :require => 'openid'
 gem 'rubyzip',      :require => 'zip/zip'
