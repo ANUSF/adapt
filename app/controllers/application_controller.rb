@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   # -- this handles session expiration, invalid IP addresses, etc.
-  around_filter :validate_session
+  before_filter :validate_session
 
   
   private
@@ -57,31 +57,32 @@ class ApplicationController < ActionController::Base
   # This is called as an around filter for all controller actions and
   # handles session expiration, invalid IP addresses, etc.
   def validate_session
-    # -- if someone is logged in, make sure the session is still valid
-    error = warden.user(:user_account) && check_session
-
-    if error
-      # -- close the current session and report the error
-      sign_out(:user_account)
-      reset_session
-      flash.now[:error] = error + ' Please log in again.'
-      render :text => '', :layout => true
-    else
-      # -- no error: call the intended controller action
-      yield
+    if warden.user(:user_account) || session[:openid_checked]
+      cookies[:checking_openid] = false
+      unless cookies[:requested_url].blank?
+        requested_url = cookies[:requested_url]
+        cookies[:requested_url] = nil
+        redirect_to requested_url
+      end
+    elsif cookies[:checking_openid].blank?
+      cookies[:requested_url] = request.url
+      cookies[:checking_openid] = true
+      redirect_to new_user_account_session_path(
+                    :user_account => { :immediate => true })
     end
-
-    # -- the session will expire after two hours of inactivity
-    session[:expires_at] = 2.hours.since
   end
 
   # Performs some tests to see if a login session is still valid.
-  def check_session
+  #TODO put this back in place
+  def check_and_update_session
     session[:ip] ||= request.remote_ip
     if request.remote_ip != session[:ip]
       'Your network connection seems to have changed.'
     elsif !session[:expires_at] or session[:expires_at] < Time.now
       'Your session has expired.'
+    else
+      session[:expires_at] = 2.hours.since
+      nil
     end
   rescue ActiveRecord::RecordNotFound
     'You seem to have a stale session cookie.'
