@@ -18,18 +18,20 @@ gem 'rubyzip',      :require => 'zip/zip'
 gem 'formtastic'
 
 gem 'devise'
-gem 'devise_openid_authenticatable'
 
-# -- Local paths for in-house gems work better during development
 
-gem 'openid_client', :path => '/home/olaf/Rails/my-gems/openid_client'
-gem 'themenap', :path => '/home/olaf/Rails/my-gems/themenap'
-
-# -- Switch to these for production or when the gems are stable
-
-# gem 'openid_client', :git => 'git://github.com/ANUSF/OpenID-Client-Engine.git'
-# gem 'themenap', :git => 'git://github.com/ANUSF/themenap.git'
-
+if ENV['GEMS_LOCAL'] and File.exist? ENV['GEMS_LOCAL']
+  path = ENV['GEMS_LOCAL']
+  gem 'devise_openid_authenticatable',
+                       :path => "#{path}/devise_openid_authenticatable"
+  gem 'openid_client', :path => "#{path}/openid_client"
+  gem 'themenap',      :path => "#{path}/themenap"
+else
+  gem 'devise_openid_authenticatable',
+      :git => "git://github.com/ANUSF/devise_openid_authenticatable.git"
+  gem 'openid_client', :git => "git://github.com/ANUSF/OpenID-Client-Engine.git"
+  gem 'themenap',      :git => "git://github.com/ANUSF/themenap.git"
+end
 
 group :development, :test do
   gem 'test-unit'
