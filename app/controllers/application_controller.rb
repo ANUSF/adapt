@@ -18,8 +18,8 @@ class ApplicationController < ActionController::Base
   # -- protects from CSRF attacks via an authenticity token
   protect_from_forgery
 
-  # -- this handles session expiration, invalid IP addresses, etc.
-  before_filter :validate_session
+  # -- before filters
+  before_filter :handle_authentication
 
   
   private
@@ -54,27 +54,28 @@ class ApplicationController < ActionController::Base
     in_demo_mode
   end
 
-  # This is called as an around filter for all controller actions and
-  # handles session expiration, invalid IP addresses, etc.
-  def validate_session
-    if warden.user(:user_account) || session[:openid_checked]
-      cookies[:checking_openid] = false
-      unless cookies[:requested_url].blank?
-        requested_url = cookies[:requested_url]
-        cookies[:requested_url] = nil
+  # Redirects to a requested page after authentication; checks whether
+  # user is already authenticated against a single-sign-on server
+  # otherwise.
+  def handle_authentication
+    if session[:openid_checked]
+      cookies[:_adapt_checking_openid] = false
+      unless cookies[:_adapt_requested_url].blank?
+        requested_url = cookies[:_adapt_requested_url]
+        cookies[:_adapt_requested_url] = nil
         redirect_to requested_url
       end
-    elsif cookies[:checking_openid].blank?
-      cookies[:requested_url] = request.url
-      cookies[:checking_openid] = true
+    elsif cookies[:_adapt_checking_openid].blank?
+      cookies[:_adapt_requested_url] = request.url
+      cookies[:_adapt_checking_openid] = true
       redirect_to new_user_account_session_path(
                     :user_account => { :immediate => true })
     end
   end
 
-  # Performs some tests to see if a login session is still valid.
-  #TODO put this back in place
-  def check_and_update_session
+  # Checks expiration and other potential problems with the current
+  # session.
+  def check_current_session
     session[:ip] ||= request.remote_ip
     if request.remote_ip != session[:ip]
       'Your network connection seems to have changed.'
