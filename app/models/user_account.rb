@@ -1,12 +1,16 @@
 class UserAccount < ActiveRecord::Base
   devise :openid_authenticatable
 
-  def self.create_from_identity_url(identity_url)
-    UserAccount.create(:identity_url => identity_url)
+  def self.build_from_identity_url(identity_url)
+    new(:identity_url => identity_url)
   end
 
   def self.openid_optional_fields
-    ["email", "fullname"]
+    ['email', 'http://axschema.org/contact/email',
+     'http://axschema.org/namePerson/first',
+     'http://axschema.org/namePerson/last',
+     'http://users.ada.edu.au/role'
+    ]
   end
 
   def openid_fields=(fields)
@@ -17,12 +21,14 @@ class UserAccount < ActiveRecord::Base
       end
 
       case key.to_s
-      when "fullname"
+      when 'fullname'
+        Rails.logger.error "Known OpenID field: #{key} => #{value}"
         self.name = value
-      when "email"
+      when 'email', 'http://axschema.org/contact/email'
+        Rails.logger.error "Known OpenID field: #{key} => #{value}"
         self.email = value
       else
-        logger.error "Unknown OpenID field: #{key}"
+        Rails.logger.error "Unknown OpenID field: #{key} => #{value}"
       end
     end
   end
