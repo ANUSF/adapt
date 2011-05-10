@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(:version => 20101114232040) do
     t.string "identity_url"
     t.string "name"
     t.string "email"
+    t.string "role"
   end
 
   add_index "user_accounts", ["identity_url"], :name => "index_user_accounts_on_identity_url", :unique => true

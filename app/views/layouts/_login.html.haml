@@ -1,6 +1,6 @@
 - if user_account_signed_in?
   - if current_user
-    %li== Name: #{current_user.username}
+    %li== Name: #{current_user.name}
     %li== Role: #{current_user.role}
   %li= link_to "Sign Out", destroy_user_account_session_path
   - if current_user and not @exception and in_demo_mode

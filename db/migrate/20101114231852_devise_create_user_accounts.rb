@@ -4,6 +4,7 @@ class DeviseCreateUserAccounts < ActiveRecord::Migration
       t.openid_authenticatable
       t.string :name
       t.string :email
+      t.string :role
     end
 
     add_index :user_accounts, :identity_url, :unique => true
