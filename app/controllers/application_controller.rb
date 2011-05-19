@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  layout 'ada' unless ADAPT::CONFIG['adapt.theme.old']
+
   include Devise::Controllers::Helpers
 
   unless Rails.application.config.consider_all_requests_local
