@@ -1,5 +1,5 @@
 class SessionsController < OpenidClient::SessionsController
-  DEFAULT_SERVER=ENV['ADA_OID'] || 'http://178.79.149.181:81'
+  DEFAULT_SERVER=ENV['ADA_OID'] || 'http://users-test.ada.edu.au'
 
   protected
 
