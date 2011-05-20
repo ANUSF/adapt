@@ -8,16 +8,16 @@ common: &common
   adapt.dir.mode:         0775
   adapt.file.mode:        0660
   adapt.file.ownership:   ""
-  assda.openid.server:    http://openid.assda.edu.au/joid/user/
-  assda.openid.logout:    http://openid.assda.edu.au/joid/logout.jsp
-  assda.registration.url: http://assda.anu.edu.au/online_reg.php
+  assda.openid.server:    http://users-test.ada.edu.au
+  assda.registration.url: http://users-test.ada.edu.au/users/new
 
 development:
   <<: *common
 
 production:
   <<: *common
-  adapt.home: adapt
+  adapt.home:             /data/httpd/Rails/Adapt/shared
+  adapt.config.path:      ""
 
 stage:
   <<: *common
