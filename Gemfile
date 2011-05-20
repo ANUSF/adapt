@@ -10,6 +10,7 @@ else
   gem 'sqlite3-ruby', :require => 'sqlite3'
 end
 
+gem 'capistrano-ext'
 gem 'haml'
 gem 'sass'
 gem 'RedCloth'
