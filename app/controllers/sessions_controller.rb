@@ -1,5 +1,5 @@
 class SessionsController < OpenidClient::SessionsController
-  DEFAULT_SERVER=ENV['ADA_OID'] || 'http://users-test.ada.edu.au'
+  DEFAULT_SERVER=ADAPT::CONFIG['assda.openid.server']
 
   protected
 
