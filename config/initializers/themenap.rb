@@ -12,6 +12,7 @@ Themenap::Config.configure do |c|
       { :css => 'html',
         :text => '<%= render "layouts/js_includes" %>',
         :mode => :append },
+      { :css => 'section.content nav', :text => '' },
       { :css => 'article',
         :text => '<%= render "layouts/body" %>' },
       { :css => 'nav.subnav',
