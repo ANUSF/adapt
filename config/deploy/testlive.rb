@@ -7,10 +7,10 @@ role :web, "web2.mgmt"
 role :app, "web2.mgmt"
 role :db,  "web2.mgmt", :primary => true
 
+set :user,        "adaweb"
+set :use_sudo,    false
+set :deploy_to,   "/data/httpd/Rails/Adapt"
+
 # used by migrations:
 set :rails_env, "production"
 set :migrate_env, "ADAPT_HOME=/data/httpd/Rails/Adapt/shared"
-
-set :user,        "oxd900"
-set :use_sudo,    false
-set :deploy_to,   "/data/httpd/Rails/Adapt"
