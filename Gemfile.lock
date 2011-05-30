@@ -16,9 +16,9 @@ GIT
 
 GIT
   remote: git://github.com/ANUSF/themenap.git
-  revision: 1908692720d644834ed4c0b13da900c7131f6426
+  revision: a8aceb9026c355c5dfb92d95195e5b8ff86c8b04
   specs:
-    themenap (0.1.3)
+    themenap (0.1.4)
       highline
       httparty
       nokogiri
@@ -228,4 +228,4 @@ DEPENDENCIES
   sqlite3-ruby (~> 1.2.5)
   steak
   test-unit
-  themenap (~> 0.1.3)!
+  themenap (~> 0.1.4)!

@@ -1,5 +1,5 @@
 Themenap::Config.configure do |c|
-  c.server = 'http://test.ada.edu.au'
+  c.server = 'http://staff.ada.edu.au'
   c.use_basic_auth = true
   c.snippets =
     [ { :css => 'title',
@@ -7,6 +7,10 @@ Themenap::Config.configure do |c|
       { :css => 'head',
         :text => '<%= render "layouts/css_includes" %>',
         :mode => :append },
+      { :css => 'meta[name=csrf-param]',
+        :mode => :remove },
+      { :css => 'meta[name=csrf-token]',
+        :mode => :remove },
       { :css => 'body',
         :mode => :setattr, :key => 'class', :value => 'social_science' },
       { :css => 'html',
