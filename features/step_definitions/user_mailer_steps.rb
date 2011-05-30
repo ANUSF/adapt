@@ -1,9 +1,9 @@
-ASSDA_EMAIL = 'assda@anu.edu.au'
+ADA_EMAIL = 'assda@anu.edu.au'
 
 def check_study_notification(study, recipient, subject, *body_patterns)
   email = ActionMailer::Base.deliveries.first
   email.should_not be_nil
-  email.from.should    == [ASSDA_EMAIL]
+  email.from.should    == [ADA_EMAIL]
   email.to.should      == [recipient]
   email.subject.should == subject
   body_patterns.each { |pattern| email.body.should include(pattern) }
@@ -15,7 +15,7 @@ end
 
 Then /^a submission notification for "([^\"]*)" should be sent$/ do |title|
   study = Adapt::Study.find_by_title(title)
-  check_study_notification(study, ASSDA_EMAIL,
+  check_study_notification(study, ADA_EMAIL,
                            'ADAPT: A new study has been submitted',
                            study.title,
                            study.owner.username,

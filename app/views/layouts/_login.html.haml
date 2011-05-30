@@ -11,5 +11,5 @@
       = f.submit :name => 'result', :value => 'Change Role'
 - else
   %li= link_to "Sign In", new_user_account_session_path
-  - registration_url = ADAPT::CONFIG['assda.registration.url']
+  - registration_url = ADAPT::CONFIG['ada.registration.url']
   %li= link_to "Register with ADA", registration_url

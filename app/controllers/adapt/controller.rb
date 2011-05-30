@@ -20,7 +20,7 @@ class Adapt::Controller < ApplicationController
         current_user_account.identity_url
       # -- create an ADAPT user entry from scratch
       identifier = current_user_account.identity_url
-      username = identifier.sub(/^#{ADAPT::CONFIG['assda.openid.server']}/, '')
+      username = identifier.sub(/^#{ADAPT::CONFIG['ada.openid.server']}/, '')
       user = Adapt::User.find_by_username(username)
       unless user
         user = Adapt::User.new(:name  => current_user_account.name,

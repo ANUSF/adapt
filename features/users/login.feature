@@ -9,5 +9,5 @@ Feature: User logs in
   Scenario: Successful login
     When I go to the login page
     And I fill in "login" with "Alice"
-    And I press "Login via ASSDA"
+    And I press "Sign in"
     Then I should see "Add study"

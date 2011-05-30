@@ -8,8 +8,8 @@ common: &common
   adapt.dir.mode:         0775
   adapt.file.mode:        0660
   adapt.file.ownership:   ""
-  assda.openid.server:    http://users-test.ada.edu.au
-  assda.registration.url: http://users-test.ada.edu.au/users/new
+  ada.openid.server:      http://users.ada.edu.au
+  ada.registration.url:   http://users.ada.edu.au/users/new
 
 development:
   <<: *common

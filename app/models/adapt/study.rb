@@ -5,7 +5,7 @@ class Adapt::Study < ActiveRecord::Base
   Attachment = Adapt::Attachment
   Licence = Adapt::Licence
 
-  ID_PREFIX = "au.edu.assda.ddi."
+  ID_PREFIX = "au.edu.ada.ddi."
 
   include Adapt::ModelSupport
   include Adapt::FileHandling
@@ -388,7 +388,7 @@ class Adapt::Study < ActiveRecord::Base
   end
 
   def write_files_on_approval(licence_text, base)
-    licence_file = "ASSDA.Deposit.Licence.#{identifier}.txt"
+    licence_file = "ADA.Deposit.Licence.#{identifier}.txt"
     write_file(licence_text, base, licence_file) unless licence_text.blank?
     write_file(ddi, base, "#{long_identifier}.xml")
 

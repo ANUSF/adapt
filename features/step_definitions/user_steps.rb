@@ -12,7 +12,7 @@ Given /^I am logged in as ([a-z]+ )?(.*)$/ do |role, name|
   visit '/logout'
   visit '/login'
   fill_in "login", :with => user.username
-  click_button "Login via ASSDA"
+  click_button "Sign in"
 end
 
 Given /^I am not logged in$/ do

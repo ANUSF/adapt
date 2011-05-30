@@ -56,7 +56,7 @@ module ADAPT
   # -- override with Java system settings
   if defined?(JRUBY_VERSION)
     java.lang.System.getProperties.propertyNames.each do |name|
-      if name.start_with?('adapt.') or name.start_with?('assda.')
+      if name.start_with?('adapt.') or name.start_with?('ada.')
         config[name] = java.lang.System.getProperty(name)
       end
     end
@@ -66,7 +66,7 @@ module ADAPT
 
   # -- override with runtime environment settings
   ENV.keys.each do |name|
-    if name.start_with?('ADAPT') or name.start_with?('ASSDA')
+    if name.start_with?('ADAPT_') or name.start_with?('ADA_')
       config[name.downcase.gsub(/_/, '.')] = ENV[name]
     end
     tmp = ENV['HOME']

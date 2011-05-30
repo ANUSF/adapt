@@ -1,16 +1,16 @@
-== ADAPT - The ASSDA Deposit and Preservation Tool
+== ADAPT - The ADA Deposit and Preservation Tool
 
 This is a custom web application being developed at the ANU
 Supercomputer Facility (ANUSF) to support workflows specific to the
-<em>Australian Social Science Data Archive</em> (ASSDA). It allows
-contributors to upload collections of data files and associate them
-with rich metadata descriptions following the DDI standard (currently
-revision 2). Completed and submitted contributions can then be
-assigned to archivists and stored as collections of files in a custom
-file system layout, with the metadata marked up as DDI XML.
+<em>Australian Data Archive</em> (ADA). It allows contributors to
+upload collections of data files and associate them with rich metadata
+descriptions following the DDI standard (currently revision
+2). Completed and submitted contributions can then be assigned to
+archivists and stored as collections of files in a custom file system
+layout, with the metadata marked up as DDI XML.
 
-Despite the ASSDA-specific components, we hope that the source code
-will be useful as a starting point to other institutions who aim to
+Despite the ADA-specific components, we hope that the source code will
+be useful as a starting point to other institutions who aim to
 implement similar tools. By and by, portions of the code are also
 being extracted into libraries and plugins and made available
 separately.

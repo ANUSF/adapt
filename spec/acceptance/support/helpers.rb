@@ -58,12 +58,12 @@ module HelperMethods
     end
   end
 
-  ASSDA_EMAIL = 'assda@anu.edu.au'
+  ADA_EMAIL = 'assda@anu.edu.au'
 
   def check_study_notification(study, recipient, subject, *body_patterns)
     email = ActionMailer::Base.deliveries.first
     email.should_not be_nil
-    email.from.should    == [ASSDA_EMAIL]
+    email.from.should    == [ADA_EMAIL]
     email.to.should      == [recipient]
     email.subject.should == subject
     body_patterns.each { |pattern| email.body.should include(pattern) }

@@ -1,5 +1,5 @@
 class SessionsController < OpenidClient::SessionsController
-  DEFAULT_SERVER=ADAPT::CONFIG['assda.openid.server']
+  DEFAULT_SERVER=ADAPT::CONFIG['ada.openid.server']
 
   protected
 

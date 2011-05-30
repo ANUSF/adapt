@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../acceptance_helper')
 
 feature "Submit", %q{
-  In order to finalise a study deposit and understand ASSDA policies
+  In order to finalise a study deposit and understand ADA policies
   As a contributor
   I want to submit the study entry and be presented a licence form
 } do

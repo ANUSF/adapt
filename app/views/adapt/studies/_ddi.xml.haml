@@ -8,9 +8,9 @@
         %titl= @study.title
         %IDNo= long_identifier
       %prodStmt
-        %producer{ :abbr => "ASSDA", |
+        %producer{ :abbr => "ADA", |
                    :affiliation => "The Australian National University" } |
-          Australian Social Science Data Archive
+          Australian Data Archive
         %copyright
           == Copyright © #{Date.today.year},
           The Australian National University.
@@ -36,15 +36,15 @@
           - unless agency['grant_number'].blank?
             %grantNo{ :agency => agency['agency'] }= agency['grant_number']
       %distStmt
-        %distrbtr{ :abbr => "ASSDA", URI => "http://assda.anu.edu.au", |
+        %distrbtr{ :abbr => "ADA", URI => "http://ada.anu.edu.au", |
                    :affiliation => "The Australian National University" } |
-          Australian Social Science Data Archive
+          Australian Data Archive
         -unless @study.depositors.blank?
           %depositr{ :affiliation => @study.depositors['affiliation'] }
             = @study.depositors['name']
       %verStmt
         %verResp
-          Australian Social Science Data Archive
+          Australian Data Archive
     %stdyInfo
       %abstract= format_for_Nesstar @study.abstract
       %sumDscr
@@ -87,12 +87,12 @@
             The depositor has requested that the user apply for
             permission to access these data. Please complete the
             Application to Access Restricted Data Form and return it
-            to ASSDA who will contact the depositor on your behalf.
+            to ADA who will contact the depositor on your behalf.
 
         - if access == 'S'
           %conditions
 
-            Special access conditions apply. Please contact ASSDA.
+            Special access conditions apply. Please contact ADA.
             
         %restrctn
 
@@ -114,9 +114,9 @@
 
           :cdata
             
-          (ii) acknowledge the Australian Social Science Data Archive
+          (ii) acknowledge the Australian Data Archive
           and, where the data are made available through the
-          Australian Social Science Data Archive by another archive,
+          Australian Data Archive by another archive,
           acknowledge that archive;
           :cdata
 
@@ -131,7 +131,7 @@
           In order to assemble essential information about archival
           resources and to facilitate the exchange of information
           about users’ research activities, individuals are required
-          to email ASSDA (assda@anu.edu.au) with the bibliographic
+          to email ADA (assda@anu.edu.au) with the bibliographic
           details and, where available, online links to any published
           work (including journal articles, books or book chapters,
           conference presentations, theses or any other publications
@@ -141,7 +141,7 @@
 
           Use of the material is solely at the user's risk. The
           depositor, The Australian National University and the
-          Australian Social Science Data Archive shall not be held
+          Australian Data Archive shall not be held
           responsible for the accuracy and completeness of the
           material supplied.
 

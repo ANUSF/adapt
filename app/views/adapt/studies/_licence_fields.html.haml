@@ -21,7 +21,7 @@
         = fields.errors_on(:access_mode)
       %p
         = fields.radio_button :access_mode, 'A', :label => ''
-        Unrestricted – available to ASSDA registered users (see &nbsp;
+        Unrestricted – available to ADA registered users (see &nbsp;
         %a{ :href => data_url }<>= data_url
         ). Usage reports available to the depositor, or authorised
         representative, upon request.
@@ -29,13 +29,13 @@
       %p
         = fields.radio_button :access_mode, 'B', :label => ''
         Restricted – the depositor, or authorised representative, to
-        be informed by ASSDA of each request to use the data in order
+        be informed by ADA of each request to use the data in order
         to give or withhold permission.  Users must be registered with
-        ASSDA and complete the &nbsp;
+        ADA and complete the &nbsp;
         %a{ :href => ra_form }<> Restricted Access Form
         = '.'
         %span.inline-hints= Adapt::LicenceText::RESTRICTED_ACCESS
       %p
         = fields.radio_button :access_mode, 'S', :label => ''
-        Special conditions of access to be negotiated with ASSDA.
+        Special conditions of access to be negotiated with ADA.
         %span.inline-hints= Adapt::LicenceText::DEFERRED_ACCESS
