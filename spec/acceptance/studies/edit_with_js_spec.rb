@@ -13,6 +13,9 @@ feature "Edit With Js", %q{
     visit study_edit_page_for 'First Study'
   end
 
+  scenario "Dummy to work around strange problems on first access" do
+  end
+
   scenario "Edits are saved when a new tab is selected" do
     click_link 'Data Description'
     fill_in 'Response rate:', :with => '90%'
