@@ -4,9 +4,11 @@ Adapt::Application.routes.draw do
     get "logout", :to => "sessions#destroy"
   end
 
+  devise_scope :user_account do
+    resources :sessions
+  end
+
   namespace :adapt do
-    resources :user_sessions
-    
     resources :studies do
       member do
         post 'approve'

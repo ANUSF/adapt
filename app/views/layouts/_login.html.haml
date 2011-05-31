@@ -5,7 +5,7 @@
   %li= link_to "Sign Out", destroy_user_account_session_path
   - if current_user and not @exception and in_demo_mode
     = form_for current_user, |
-    :url => adapt_user_session_path(current_user) do |f| |
+    :url => session_path(current_user) do |f| |
       = hidden_field_tag 'last_url', url_for
       = f.select :role, Adapt::User::ROLES
       = f.submit :name => 'result', :value => 'Change Role'
