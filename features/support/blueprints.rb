@@ -7,7 +7,7 @@ Before { Sham.reset } # reset Shams in between scenarios
 Sham.name { Faker::Name.name }
 Sham.email { Faker::Internet.email }
 
-Adapt::User.blueprint do
+User.blueprint do
   name
   username { self.name.gsub(' ', '.') }
   role { "contributor" }
@@ -18,7 +18,7 @@ Sham.title { Faker::Company.catch_phrase }
 Sham.abstract { Faker::Lorem.paragraphs }
 
 Adapt::Study.blueprint do
-  owner { Adapt::User.make }
+  owner { User.make }
   title
   abstract
 end

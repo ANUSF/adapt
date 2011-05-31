@@ -8,11 +8,30 @@ feature "User Login", %q{
 
   background do
     create_user 'Alice'
+    create_user 'Bob', :role => 'admin'
+  end
+
+  scenario "Alice has the contributor role" do
+    User.find_by_name('Alice').role.should == 'contributor'
   end
 
   scenario "Log in as Alice" do
     login_as 'Alice'
     page.should have_content 'Add study'
+    page.should have_content 'Name: Alice'
+    page.should have_content 'Role: contributor'
+  end
+
+  scenario "Bob has the admin role" do
+    User.find_by_name('Bob').role.should == 'admin'
+    User.find_by_name('Bob').should be_admin
+  end
+
+  scenario "Log in as Bob" do
+    login_as 'Bob'
+    page.should have_content 'Add study'
+    page.should have_content 'Name: Bob'
+    page.should have_content 'Role: admin'
   end
 end
 

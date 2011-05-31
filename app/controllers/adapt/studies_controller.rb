@@ -184,7 +184,7 @@ Submit this study now?
       reopen
     else
       begin
-        @study.approve Adapt::User.archivists.
+        @study.approve User.archivists.
           find(params[:adapt_study][:archivist])
       rescue Exception => ex
         log_and_notify_of_error ex
@@ -216,7 +216,7 @@ Submit this study now?
         if params[:adapt_study][:archivist].blank?
           flash[:error] = "Please select a new archivist to hand over to."
         else
-          @study.handover Adapt::User.archivists.
+          @study.handover User.archivists.
             find(params[:adapt_study][:archivist])
           flash[:notice] = "Study handover successful!"
         end

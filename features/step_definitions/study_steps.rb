@@ -1,5 +1,5 @@
 Given /^(.*) has a study entitled "(.*)"$/ do |name, title|
-  user = Adapt::User.find_by_name(name)
+  user = User.find_by_name(name)
   Adapt::Study.make(:owner => user, :title => title)
 end
 
@@ -9,7 +9,7 @@ end
 
 Given /^the study "([^\"]*)" has been assigned to (.*)$/ do |title, name|
   study = Adapt::Study.find_by_title(title)
-  study.archivist = Adapt::User.find_by_name(name)
+  study.archivist = User.find_by_name(name)
   study.temporary_identifier = "deposit_99999" # Hack to make store go through!
   study.save!
 end

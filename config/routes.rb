@@ -1,10 +1,10 @@
 Adapt::Application.routes.draw do
-  devise_for :user_accounts, :controllers => { :sessions => "sessions" } do
+  devise_for :users, :controllers => { :sessions => "sessions" } do
     get "login",  :to => "sessions#new"
     get "logout", :to => "sessions#destroy"
   end
 
-  devise_scope :user_account do
+  devise_scope :user do
     resources :sessions
   end
 

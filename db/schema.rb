@@ -48,12 +48,12 @@ ActiveRecord::Schema.define(:version => 20101114232040) do
     t.datetime "updated_at"
   end
 
-  create_table "adapt_users", :force => true do |t|
-    t.string   "openid_identifier"
+  create_table "users", :force => true do |t|
+    t.string   "identity_url"
     t.string   "username"
     t.string   "name"
-    t.string   "role"
     t.string   "email"
+    t.string   "role"
     t.text     "address"
     t.string   "telephone"
     t.string   "fax"
@@ -61,13 +61,6 @@ ActiveRecord::Schema.define(:version => 20101114232040) do
     t.datetime "updated_at"
   end
 
-  create_table "user_accounts", :force => true do |t|
-    t.string "identity_url"
-    t.string "name"
-    t.string "email"
-    t.string "role"
-  end
-
-  add_index "user_accounts", ["identity_url"], :name => "index_user_accounts_on_identity_url", :unique => true
+  add_index "users", ["identity_url"], :name => "index_users_on_identity_url", :unique => true
 
 end

@@ -6,8 +6,8 @@ class SessionsController < OpenidClient::SessionsController
 
   def update
     @user = current_user
-    if @user and params[:adapt_user][:role]
-      @user.role = params[:adapt_user][:role]
+    if @user and params[:user][:role]
+      @user.role = params[:user][:role]
       if @user.save
         flash[:notice] = "Successfully changed role."
       else

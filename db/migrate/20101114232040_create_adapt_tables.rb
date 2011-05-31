@@ -32,24 +32,11 @@ class CreateAdaptTables < ActiveRecord::Migration
       t.boolean  :skip_licence
       t.timestamps
     end
-
-    create_table :adapt_users do |t|
-      t.string   :openid_identifier
-      t.string   :username
-      t.string   :name
-      t.string   :role
-      t.string   :email
-      t.text     :address
-      t.string   :telephone
-      t.string   :fax
-      t.timestamps
-    end
   end
 
   def self.down
     drop_table :adapt_attachments
     drop_table :adapt_licences
     drop_table :adapt_studies
-    drop_table :adapt_users
   end
 end

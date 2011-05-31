@@ -2,15 +2,16 @@ module HelperMethods
   # Put helper methods you need to be available in all tests here.
 
   def login_as(name)
-    visit "/user_accounts/sign_in?user=#{name}"
+    visit "/users/sign_out"
+    visit "/users/sign_in?name=#{name}"
   end
 
   def create_user(name, options = {})
-    Adapt::User.make :name => name, :role => options[:role] || 'contributor'
+    User.make :name => name, :role => options[:role] || 'contributor'
   end
 
   def create_study(title, options = {})
-    user = Adapt::User.find_by_name(options[:owner]) || Adapt::User.first
+    user = User.find_by_name(options[:owner]) || User.first
     Adapt::Study.make(:owner => user, :title => title)
   end
 
@@ -20,7 +21,7 @@ module HelperMethods
 
   def set_archivist_for(title, options = {})
     study = Adapt::Study.find_by_title(title)
-    study.archivist = Adapt::User.find_by_name(options[:to])
+    study.archivist = User.find_by_name(options[:to])
     study.temporary_identifier = "deposit_99999" # Hack to make store go through!
     study.save!
   end

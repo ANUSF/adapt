@@ -1,11 +1,14 @@
 class OpenidClient::SessionsController
   def new
-    resource_class = resource_name.to_s.classify.constantize
-    resource = resource_class.find_or_create_by_identity_url(params[:user])
-
+    resource = User.find_by_name(params[:name])
     session[:openid_checked] = true
-    set_flash_message :notice, :signed_in
-    sign_in_and_redirect(resource_name, resource)
+
+    if resource
+      set_flash_message :notice, :signed_in
+      sign_in_and_redirect(resource_name, resource)
+    else
+      redirect_to root_url
+    end
   end
 
   def destroy

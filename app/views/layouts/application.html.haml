@@ -36,7 +36,7 @@
         #navigation
           = image_tag "/images/minifantopleft.png"
           %ul
-            - if user_account_signed_in?
+            - if user_signed_in?
               %li= link_to "View deposits", adapt_studies_path
               %li= link_to "Add study", new_adapt_study_path
             - else
@@ -75,11 +75,11 @@
         - unless @exception
           = link_to "Printer style preview", url_for(:printer_friendly => 1), |
                     :method => request.method |
-          - if in_demo_mode and user_account_signed_in?
+          - if in_demo_mode and user_signed_in?
             = form_for current_user, |
               :url => session_path(current_user) do |f| |
               = hidden_field_tag 'last_url', url_for
-              = f.select :role, Adapt::User::ROLES
+              = f.select :role, User::ROLES
               = f.submit :name => 'result', :value => 'Change Role'
 
     - if params.has_key?('printer_friendly')
