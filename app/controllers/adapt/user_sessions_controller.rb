@@ -1,4 +1,4 @@
-class Adapt::UserSessionsController < Adapt::Controller
+class Adapt::UserSessionsController < ApplicationController
   permit :update do users_may_change_roles and logged_in end
 
   def update

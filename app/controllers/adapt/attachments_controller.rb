@@ -1,4 +1,4 @@
-class Adapt::AttachmentsController < Adapt::Controller
+class Adapt::AttachmentsController < ApplicationController
   # ----------------------------------------------------------------------------
   # Authorization and other filtering.
   # ----------------------------------------------------------------------------

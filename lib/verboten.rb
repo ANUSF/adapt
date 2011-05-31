@@ -86,7 +86,11 @@ module Verboten
         else
           message = options[:message] || "Access denied."
         end
-        flash_error(message) unless allowed
+        unless allowed
+          Rails.logger.error "Denied access to #{current_user || 'guest'}: " +
+            "'#{message}'"
+          flash_error(message)
+        end
       end
     end
 

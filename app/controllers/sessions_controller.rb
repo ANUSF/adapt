@@ -1,6 +1,8 @@
 class SessionsController < OpenidClient::SessionsController
   DEFAULT_SERVER=ADAPT::CONFIG['ada.openid.server']
 
+  permit :new, :create, :destroy
+
   protected
 
   def force_default?

@@ -11,8 +11,11 @@ class ApplicationController < ActionController::Base
     rescue_from ActionController::UnknownAction,     :with => :render_not_found
   end
 
+  # -- forbids all access not explicitly granted ('verboten' plugin)
+  include Verboten
+
   # -- makes some controller methods available in views
-  helper_method :current_user_account, :in_demo_mode, :users_may_change_roles
+  helper_method :current_user, :in_demo_mode, :users_may_change_roles
 
   # -- makes all helpers available in controllers
   helper :all
@@ -22,6 +25,7 @@ class ApplicationController < ActionController::Base
 
   # -- before filters
   before_filter :handle_authentication
+  before_filter :store_session_info
 
   
   private
@@ -54,6 +58,36 @@ class ApplicationController < ActionController::Base
   # Whether users may assume arbitrary roles.
   def users_may_change_roles
     in_demo_mode
+  end
+
+  # The logged in user for the current session, or nil if none.
+  def current_user
+    if not defined?(@current_user) and user_account_signed_in? and
+        current_user_account.identity_url
+      # -- create an ADAPT user entry from scratch
+      identifier = current_user_account.identity_url
+      username = identifier.sub(/^#{ADAPT::CONFIG['ada.openid.server']}/, '')
+      user = Adapt::User.find_by_username(username)
+      unless user
+        user = Adapt::User.new(:name  => current_user_account.name,
+                               :email => current_user_account.email)
+        user.openid_identifier = identifier
+        user.username = username
+        user.role = case current_user_account.role
+                    when 'publisher'     then 'archivist'
+                    when 'administrator' then 'admin'
+                    else                      'contributor'
+                    end
+        user.save!
+      end
+      @current_user = user
+    end
+    @current_user
+  end
+
+  def store_session_info
+    Adapt::SessionInfo.current_user = current_user
+    Adapt::SessionInfo.request_host = request.host_with_port
   end
 
   # Redirects to a requested page after authentication; checks whether
