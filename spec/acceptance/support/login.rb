@@ -1,25 +1,22 @@
-class OpenidClient::SessionsController
+class SessionsController
   def new
-    resource = User.find_by_name(params[:name])
     session[:openid_checked] = true
 
-    if resource
+    if user = User.find_by_name(params[:name])
       set_flash_message :notice, :signed_in
-      sign_in_and_redirect(resource_name, resource)
+      sign_in_and_redirect :user, user
     else
       redirect_to root_url
     end
   end
 
   def destroy
-    if signed_in?(resource_name)
-      sign_out(resource_name)
+    if signed_in? :user
+      sign_out :user
       set_flash_message :notice, :signed_out
     end
     
-    if (params[resource_name] || {})[:immediate]
-      session[:openid_checked] = true
-    end
+    session[:openid_checked] = true if (params[:user] || {})[:immediate]
     redirect_to root_url
   end
 end

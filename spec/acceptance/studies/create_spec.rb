@@ -63,7 +63,7 @@ feature "List", %q{
   end
     
   scenario "One cannot create a study without loggin in" do
-    click_link 'Add study'
+    visit '/adapt/studies/new'
     
     there_should_be_an_error_message "Must be logged in"
   end

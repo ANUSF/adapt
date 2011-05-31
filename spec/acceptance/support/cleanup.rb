@@ -10,5 +10,8 @@ RSpec.configure do |config|
       FileUtils.mkpath(dirname)
       system("rm -rf #{dirname}/*")
     end
+
+    # Make sure no one is logged in
+    visit "/users/sign_out"
   end
 end

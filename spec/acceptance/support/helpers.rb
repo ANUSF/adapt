@@ -2,7 +2,6 @@ module HelperMethods
   # Put helper methods you need to be available in all tests here.
 
   def login_as(name)
-    visit "/users/sign_out"
     visit "/users/sign_in?name=#{name}"
   end
 
