@@ -41,8 +41,6 @@ end
 group :development, :test do
   gem 'test-unit'
   gem 'capybara'
-  gem 'cucumber-rails'
-  gem 'cucumber'
   gem 'rspec-rails', '~> 2.3.1'
   gem 'steak'
   gem 'simplecov', :require => false
