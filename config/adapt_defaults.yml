@@ -31,10 +31,8 @@ deploy: &deploy
 
 devs:
   <<: *deploy
-  adapt.database:         adapt_devs
 
 staff:
   <<: *deploy
-  adapt.database:         adapt_staff
 #  adapt.asset.path:       /projects/d10/assda/publish/ANU/Adapt/Production
 #  adapt.archive.path:     /projects/d10/assda/publish/ANU/Archive
