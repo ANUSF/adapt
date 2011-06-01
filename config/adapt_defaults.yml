@@ -14,11 +14,6 @@ common: &common
 development:
   <<: *common
 
-production:
-  <<: *common
-  adapt.home:             /data/httpd/Rails/Adapt/shared
-  adapt.config.path:      ""
-
 stage:
   <<: *common
   adapt.home: adapt_stage
@@ -27,5 +22,19 @@ test: &test
   <<: *common
   adapt.asset.path:       tmp/test_assets
 
-cucumber:
-  <<: *test
+deploy: &deploy
+  <<: *common
+  adapt.home:             /data/httpd/Rails/Adapt/shared
+  adapt.config.path:      ""
+  adapt.db.adapter:       postgresql
+  adapt.file.ownership:   .d10
+
+devs:
+  <<: *deploy
+  adapt.database:         adapt_devs
+
+staff:
+  <<: *deploy
+  adapt.database:         adapt_staff
+#  adapt.asset.path:       /projects/d10/assda/publish/ANU/Adapt/Production
+#  adapt.archive.path:     /projects/d10/assda/publish/ANU/Archive

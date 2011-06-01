@@ -4,7 +4,8 @@
     File.exist?(cred_file) && YAML::load(File.open(cred_file))[Rails.env] || {}
 %>
 template: &template
-  database: <%= ADAPT::CONFIG['adapt.db.path'] %>
+  database: <%= ADAPT::CONFIG['adapt.database'] ||
+                ADAPT::CONFIG['adapt.db.path'] %>
   adapter:  <%= (defined?(JRUBY_VERSION) ? 'jdbc' : '') +
                 ADAPT::CONFIG['adapt.db.adapter'] %>
   timeout:  5000
@@ -21,8 +22,15 @@ production:
 development:
   <<: *template
 
-test: &TEST
+test:
   <<: *template
-  
-cucumber:
-  <<: *TEST
+
+devs:
+  <<: *template
+  host: pdb2.anu.edu.au
+  port: 5432
+
+staff:
+  <<: *template
+  host: pdb2.anu.edu.au
+  port: 5432
