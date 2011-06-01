@@ -89,7 +89,7 @@ module ADAPT
   if is_blank? config['adapt.db.path']
     adapter = config['adapt.db.adapter']
     config['adapt.db.path'] =
-      if %{mysql postgresql}.include?(adapter)
+      if %w{mysql postgresql}.include?(adapter)
         "adapt_#{Rails.env}"
       else
         suffix = (Rails.env == 'production') ? '' : "_#{Rails.env}"
