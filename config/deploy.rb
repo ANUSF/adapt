@@ -16,10 +16,8 @@ ssh_options[:forward_agent] = true
 ssh_options[:compression] = false
 
 namespace :deploy do
-  task :start do
-  end
-  task :stop do
-  end
+  task :start do ; end
+  task :stop do ; end
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "touch #{File.join(current_path,'tmp','restart.txt')}"
   end
@@ -30,6 +28,7 @@ set(:branch) do
 end
 
 after 'deploy:setup', :create_extra_dirs
+after 'deploy:setup', :copy_database_yml
 
 before 'deploy:update_code', :echo_ruby_env
 
@@ -39,8 +38,13 @@ after 'deploy:update', :deploy_log
 desc "create additional shared directories during setup"
 task :create_extra_dirs, :roles => :app do
   run "mkdir -p #{shared_path}/assets"
-  run "mkdir -p #{shared_path}/db"
-  run "mkdir -p #{shared_path}/config"
+end
+
+desc "copy the database configuration to the server"
+task :copy_database_yml, :roles => :app do
+  prompt = "Specify a database configuration file to copy to the server:"
+  path = Capistrano::CLI.ui.ask prompt
+  put File.read("#{path}"), "#{shared_path}/database.yml", :mode => 0600
 end
 
 task :echo_ruby_env do
@@ -50,7 +54,7 @@ task :echo_ruby_env do
 end
 
 task :symlinks, :roles => :app do
-  #run "ln -nfs #{shared_path}/db/* #{current_path}/db/"
+  run "ln -nfs #{shared_path}/database.yml #{current_path}/config/"  
 end
 
 task :deploy_log, :roles => :app do
