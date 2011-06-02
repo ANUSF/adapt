@@ -52,7 +52,7 @@ class ApplicationController < ActionController::Base
 
   # Whether the application is being run in a special demo mode.
   def in_demo_mode
-    Rails.env != 'production'
+    not %w{production staff stage}.include? Rails.env
   end
 
   # Whether users may assume arbitrary roles.
