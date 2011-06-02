@@ -7,7 +7,7 @@ role :web, "web2-nci.anu.edu.au"
 role :app, "web2-nci.anu.edu.au"
 role :db,  "web2-nci.anu.edu.au", :primary => true
 
-set :user,        "adaweb"
+set :user,        "d10web"
 set :use_sudo,    false
 set :deploy_to,   "/data/httpd/Rails/Adapt"
 
