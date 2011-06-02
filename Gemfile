@@ -21,23 +21,15 @@ gem 'rubyzip',      :require => 'zip/zip'
 gem 'formtastic'
 
 gem 'devise'
-
+gem 'devise_openid_authenticatable', '~> 1.0.0'
 
 if ENV['GEMS_LOCAL'] and File.exist? ENV['GEMS_LOCAL']
   path = ENV['GEMS_LOCAL']
-  gem 'devise_openid_authenticatable',
-      :path => "#{path}/devise_openid_authenticatable"
-  gem 'openid_client',
-      :path => "#{path}/openid_client"
-  gem 'themenap', '~> 0.1.4',
-      :path => "#{path}/themenap"
+  gem 'openid_client', :path => "#{path}/openid_client"
+  gem 'themenap', '~> 0.1.4', :path => "#{path}/themenap"
 else
-  gem 'devise_openid_authenticatable',
-      :git => "git://github.com/ANUSF/devise_openid_authenticatable.git"
-  gem 'openid_client',
-      :git => "git://github.com/ANUSF/OpenID-Client-Engine.git"
-  gem 'themenap', '~> 0.1.4',
-      :git => "git://github.com/ANUSF/themenap.git"
+  gem 'openid_client', :git => "git://github.com/ANUSF/OpenID-Client-Engine.git"
+  gem 'themenap', '~> 0.1.4', :git => "git://github.com/ANUSF/themenap.git"
 end
 
 group :development, :test do
