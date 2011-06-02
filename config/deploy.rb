@@ -37,7 +37,9 @@ after 'deploy:update', :deploy_log
 
 desc "create additional shared directories during setup"
 task :create_extra_dirs, :roles => :app do
-  run "mkdir -p #{shared_path}/assets"
+  run "mkdir -m 0755 -p #{shared_path}/assets/Archive"
+  run "mkdir -m 0755 -p #{shared_path}/assets/Submission"
+  run "mkdir -m 0755 -p #{shared_path}/assets/Temporary"
 end
 
 desc "copy the database configuration to the server"
