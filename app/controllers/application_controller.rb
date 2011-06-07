@@ -24,7 +24,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   # -- before filters
-  before_filter :handle_authentication
+  #before_filter :handle_authentication
+  before_filter :check_session
   before_filter :store_session_info
 
   
@@ -68,9 +69,8 @@ class ApplicationController < ActionController::Base
   # Redirects to a requested page after authentication; checks whether
   # user is already authenticated against a single-sign-on server
   # otherwise.
-  def handle_authentication
-    if session[:openid_checked]
-      cookies[:_adapt_checking_openid] = false
+  def check_session
+    if openid_current?
       unless cookies[:_adapt_requested_url].blank?
         requested_url = cookies[:_adapt_requested_url]
         cookies[:_adapt_requested_url] = nil
@@ -83,19 +83,22 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # Checks expiration and other potential problems with the current
-  # session.
-  def check_current_session
-    session[:ip] ||= request.remote_ip
-    if request.remote_ip != session[:ip]
-      'Your network connection seems to have changed.'
-    elsif !session[:expires_at] or session[:expires_at] < Time.now
-      'Your session has expired.'
+  def openid_current?
+    Rails.logger.error "@@@ session[:openid_checked] = #{session[:openid_checked]}"
+    Rails.logger.error "@@@ cookies[:_openid_session_timestamp] = #{cookies[:_openid_session_timestamp]}"
+    Rails.logger.error "@@@ cookies[:_adapt_openid_timestamp] = #{cookies[:_adapt_openid_timestamp]}"
+    if not session[:openid_checked].blank?
+      cookies[:_adapt_checking_openid] = nil
+      oid_timestamp = cookies[:_openid_session_timestamp]
+      our_timestamp = cookies[:_adapt_openid_timestamp]
+      if oid_timestamp.blank? or oid_timestamp == our_timestamp
+        true
+      else
+        cookies[:_adapt_openid_timestamp] = oid_timestamp
+        false
+      end
     else
-      session[:expires_at] = 2.hours.since
-      nil
+      false
     end
-  rescue ActiveRecord::RecordNotFound
-    'You seem to have a stale session cookie.'
   end
 end
