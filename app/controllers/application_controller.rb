@@ -24,7 +24,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   # -- before filters
-  #before_filter :handle_authentication
   before_filter :check_session
   before_filter :store_session_info
 
@@ -79,14 +78,12 @@ class ApplicationController < ActionController::Base
     elsif cookies[:_adapt_checking_openid].blank?
       cookies[:_adapt_requested_url] = request.url
       cookies[:_adapt_checking_openid] = true
+      reset_session
       redirect_to new_user_session_path(:user => { :immediate => true })
     end
   end
 
   def openid_current?
-    Rails.logger.error "@@@ session[:openid_checked] = #{session[:openid_checked]}"
-    Rails.logger.error "@@@ cookies[:_openid_session_timestamp] = #{cookies[:_openid_session_timestamp]}"
-    Rails.logger.error "@@@ cookies[:_adapt_openid_timestamp] = #{cookies[:_adapt_openid_timestamp]}"
     if not session[:openid_checked].blank?
       cookies[:_adapt_checking_openid] = nil
       oid_timestamp = cookies[:_openid_session_timestamp]
@@ -95,6 +92,7 @@ class ApplicationController < ActionController::Base
         true
       else
         cookies[:_adapt_openid_timestamp] = oid_timestamp
+        session[:openid_checked] = nil
         false
       end
     else
