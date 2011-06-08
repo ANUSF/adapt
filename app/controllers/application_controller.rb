@@ -69,34 +69,49 @@ class ApplicationController < ActionController::Base
   # user is already authenticated against a single-sign-on server
   # otherwise.
   def check_session
-    if openid_current?
-      unless cookies[:_adapt_requested_url].blank?
-        requested_url = cookies[:_adapt_requested_url]
-        cookies[:_adapt_requested_url] = nil
-        redirect_to requested_url
+    state = load_oid_state
+    Rails.logger.error "@@@ oid_state = #{state.inspect}"
+    if openid_current?(state)
+      unless state['request_url'].blank?
+        request_url = state['request_url']
+        state['request_url'] = nil
+        save_oid_state state
+        redirect_to request_url
       end
-    elsif cookies[:_adapt_checking_openid].blank?
-      cookies[:_adapt_requested_url] = request.url
-      cookies[:_adapt_checking_openid] = true
+    elsif state['checking'].blank?
+      state['request_url'] = request.url
+      state['checking'] = true
       reset_session
+      save_oid_state state
       redirect_to new_user_session_path(:user => { :immediate => true })
+    else
+      save_oid_state state
     end
   end
 
-  def openid_current?
+  def openid_current?(state)
     if not session[:openid_checked].blank?
-      cookies[:_adapt_checking_openid] = nil
-      oid_timestamp = cookies[:_openid_session_timestamp]
-      our_timestamp = cookies[:_adapt_openid_timestamp]
-      if oid_timestamp.blank? or oid_timestamp == our_timestamp
+      state['checking'] = nil
+      timestamp = cookies[:_openid_session_timestamp]
+      if timestamp.blank? or timestamp == state['server_timestamp']
         true
       else
-        cookies[:_adapt_openid_timestamp] = oid_timestamp
+        state['server_timestamp'] = timestamp
         session[:openid_checked] = nil
         false
       end
     else
       false
     end
+  end
+
+  OID_STATE_KEY = "_#{Rails.root.sub(/^.*\//, '')}_oid_state"
+
+  def load_oid_state
+    JSON::load(cookies[OID_STATE_KEY] || '{}')
+  end
+
+  def save_oid_state(state)
+    cookies[OID_STATE_KEY] = state.to_json
   end
 end
