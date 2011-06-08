@@ -17,3 +17,4 @@
 
 Gemfile.lock.save
 config/database-deploy.yml
+.bundle/
