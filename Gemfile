@@ -25,11 +25,12 @@ gem 'devise_openid_authenticatable', '~> 1.0.0'
 
 if ENV['GEMS_LOCAL'] and File.exist? ENV['GEMS_LOCAL']
   path = ENV['GEMS_LOCAL']
-  gem 'openid_client', :path => "#{path}/openid_client"
-  gem 'themenap', '~> 0.1.4', :path => "#{path}/themenap"
+  gem 'openid_client', '~> 0.1.1', :path => "#{path}/openid_client"
+  gem 'themenap',      '~> 0.1.4', :path => "#{path}/themenap"
 else
-  gem 'openid_client', :git => "git://github.com/ANUSF/OpenID-Client-Engine.git"
-  gem 'themenap', '~> 0.1.4', :git => "git://github.com/ANUSF/themenap.git"
+  git = 'git://github.com/ANUSF'
+  gem 'openid_client', '~> 0.1.1', :git => "#{git}/OpenID-Client-Engine.git"
+  gem 'themenap',      '~> 0.1.4', :git => "#{git}/themenap.git"
 end
 
 group :development, :test do

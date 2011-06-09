@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   layout 'ada' unless ADAPT::CONFIG['adapt.theme.old']
 
   include Devise::Controllers::Helpers
+  include OpenidClient::Helpers
 
   unless Rails.application.config.consider_all_requests_local
     rescue_from Exception,                           :with => :render_error
@@ -24,10 +25,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   # -- before filters
-  before_filter :check_session
+  before_filter :update_authentication
   before_filter :store_session_info
 
-  
+
   private
 
   def render_not_found(exception)
@@ -63,55 +64,5 @@ class ApplicationController < ActionController::Base
   def store_session_info
     Adapt::SessionInfo.current_user = current_user
     Adapt::SessionInfo.request_host = request.host_with_port
-  end
-
-  # Redirects to a requested page after authentication; checks whether
-  # user is already authenticated against a single-sign-on server
-  # otherwise.
-  def check_session
-    state = load_oid_state
-    Rails.logger.error "@@@ oid_state = #{state.inspect}"
-    if openid_current?(state)
-      unless state['request_url'].blank?
-        request_url = state['request_url']
-        state['request_url'] = nil
-        save_oid_state state
-        redirect_to request_url
-      end
-    elsif state['checking'].blank?
-      state['request_url'] = request.url
-      state['checking'] = true
-      reset_session
-      save_oid_state state
-      redirect_to new_user_session_path(:user => { :immediate => true })
-    else
-      save_oid_state state
-    end
-  end
-
-  def openid_current?(state)
-    if not session[:openid_checked].blank?
-      state['checking'] = nil
-      timestamp = cookies[:_openid_session_timestamp]
-      if timestamp.blank? or timestamp == state['server_timestamp']
-        true
-      else
-        state['server_timestamp'] = timestamp
-        session[:openid_checked] = nil
-        false
-      end
-    else
-      false
-    end
-  end
-
-  OID_STATE_KEY = "_#{Rails.root.sub(/^.*\//, '')}_oid_state"
-
-  def load_oid_state
-    JSON::load(cookies[OID_STATE_KEY] || '{}')
-  end
-
-  def save_oid_state(state)
-    cookies[OID_STATE_KEY] = state.to_json
   end
 end
