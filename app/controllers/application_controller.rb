@@ -32,7 +32,8 @@ class ApplicationController < ActionController::Base
   private
 
   def set_asset_host
-    ActionController::Base.asset_host = root_url
+    ActionController::Base.asset_host =
+      "#{request.protocol}#{request.host_with_port}"
   end
 
   def render_not_found(exception)
