@@ -27,9 +27,13 @@ class ApplicationController < ActionController::Base
   # -- before filters
   before_filter :update_authentication
   before_filter :store_session_info
-
+  before_filter :set_asset_host
 
   private
+
+  def set_asset_host
+    ActionController::Base.asset_host = root_url
+  end
 
   def render_not_found(exception)
     Rails.logger.error(exception)
