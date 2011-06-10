@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/ANUSF/OpenID-Client-Engine.git
-  revision: 691b072882786b52f0aec9abf2878bc905ec592c
+  revision: 108ca8be4b7603e4dbc9336980fdaa85967a1708
   specs:
     openid_client (0.1.1)
       devise
