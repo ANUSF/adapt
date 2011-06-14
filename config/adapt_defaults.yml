@@ -8,8 +8,8 @@ common: &common
   adapt.dir.mode:         0775
   adapt.file.mode:        0660
   adapt.file.ownership:   ""
-  ada.openid.server:      http://users.ada.edu.au
-  ada.registration.url:   http://users.ada.edu.au/users/new
+  ada.openid.server:      https://users.ada.edu.au
+  ada.registration.url:   https://users.ada.edu.au/users/new
 
 development:
   <<: *common
@@ -31,6 +31,8 @@ deploy: &deploy
 
 devs:
   <<: *deploy
+  ada.openid.server:      https://users-test.ada.edu.au
+  ada.registration.url:   https://users-test.ada.edu.au/users/new
 
 staff:
   <<: *deploy
