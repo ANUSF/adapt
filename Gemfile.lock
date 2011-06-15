@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/ANUSF/OpenID-Client-Engine.git
-  revision: 108ca8be4b7603e4dbc9336980fdaa85967a1708
+  revision: 1585769d23fc0b911394f68e34ba4f1c9293b559
   specs:
     openid_client (0.1.1)
       devise
@@ -8,9 +8,9 @@ GIT
 
 GIT
   remote: git://github.com/ANUSF/themenap.git
-  revision: a8aceb9026c355c5dfb92d95195e5b8ff86c8b04
+  revision: fea4411e1b945189ebf1b473b80019c9bc8af2bf
   specs:
-    themenap (0.1.4)
+    themenap (0.1.5)
       highline
       httparty
       nokogiri
@@ -209,4 +209,4 @@ DEPENDENCIES
   sqlite3-ruby (~> 1.2.5)
   steak
   test-unit
-  themenap (~> 0.1.4)!
+  themenap (~> 0.1.5)!
