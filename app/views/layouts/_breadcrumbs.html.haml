@@ -1,0 +1,5 @@
+%p
+  %strong YOU ARE HERE:
+  %a{ :href => request.path }
+    = request.path
+    = yield(:breadcrumbs)
