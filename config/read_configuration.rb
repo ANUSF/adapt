@@ -23,15 +23,6 @@ module ADAPT
     end
   end
 
-  # Converts its parameter to a boolean (true or false).
-  def self.make_boolean(val)
-    if val.is_a?(String)
-      %w{true yes ok 1}.include? val.downcase
-    else
-      val && val != 0
-    end
-  end
-
   # Normalizes a path value, using a default for empty values, and a
   # base directory for relative paths.
   def self.make_path(val, default, base)
@@ -80,29 +71,10 @@ module ADAPT
                                          config['adapt.home'])
   config['adapt.archive.path'] = make_path(config['adapt.archive.path'],
                                            'Archive', config['adapt.asset.path'])
-  config['adapt.config.path'] = make_path(config['adapt.config.path'], 'config',
-                                         config['adapt.home'])
-  config['adapt.db.path'] = make_path(config['adapt.db.path'], '',
-                                      config['adapt.home'])
-
-  # -- the default database path depends on the adapter
-  if is_blank? config['adapt.db.path']
-    adapter = config['adapt.db.adapter']
-    config['adapt.db.path'] =
-      if %w{mysql postgresql}.include?(adapter)
-        "adapt_#{Rails.env}"
-      else
-        suffix = (Rails.env == 'production') ? '' : "_#{Rails.env}"
-        File.join(config['adapt.home'], 'db', "db#{suffix}.#{adapter}")
-      end
-  end
 
   # -- normalize numerical values
   config['adapt.dir.mode'] = make_integer(config['adapt.dir.mode'])
   config['adapt.file.mode'] = make_integer(config['adapt.file.mode'])
-
-  # -- normalize boolean values
-  config['adapt.is.local'] = make_boolean(config['adapt.is.local'])
 
   # -- make the configuration accessible as a constant
   CONFIG = config

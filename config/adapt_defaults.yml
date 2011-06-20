@@ -1,10 +1,6 @@
 common: &common
   adapt.home:             ""
-  adapt.is.local:         false
-  adapt.db.adapter:       sqlite3
-  adapt.db.path:          ""
   adapt.asset.path:       assets
-  adapt.config.path:      /home/olaf/etc/adapt/config
   adapt.dir.mode:         0775
   adapt.file.mode:        0660
   adapt.file.ownership:   ""
@@ -25,8 +21,6 @@ test: &test
 deploy: &deploy
   <<: *common
   adapt.home:             /data/httpd/Rails/Adapt/shared
-  adapt.config.path:      ""
-  adapt.db.adapter:       postgresql
   adapt.file.ownership:   .d10
 
 devs:
