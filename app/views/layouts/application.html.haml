@@ -75,7 +75,7 @@
         - unless @exception
           = link_to "Printer style preview", url_for(:printer_friendly => 1), |
                     :method => request.method |
-          - if in_demo_mode and user_signed_in?
+          - if users_may_change_roles and user_signed_in?
             = form_for current_user, |
               :url => session_path(current_user) do |f| |
               = hidden_field_tag 'last_url', url_for

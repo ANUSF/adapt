@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   include Verboten
 
   # -- makes some controller methods available in views
-  helper_method :current_user, :in_demo_mode, :users_may_change_roles
+  helper_method :users_may_change_roles
 
   # -- makes all helpers available in controllers
   helper :all
@@ -56,14 +56,9 @@ class ApplicationController < ActionController::Base
     Date.today.strftime("%d %B %Y")
   end
 
-  # Whether the application is being run in a special demo mode.
-  def in_demo_mode
-    not %w{production staff stage}.include? Rails.env
-  end
-
   # Whether users may assume arbitrary roles.
   def users_may_change_roles
-    in_demo_mode
+    not %w{production staff stage}.include? Rails.env
   end
 
   def store_session_info
