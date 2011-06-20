@@ -1,35 +1,27 @@
-<%
-  cred_file = File.join(ADAPT::CONFIG['adapt.config.path'], 'credentials.yml')
-  @credentials =
-    File.exist?(cred_file) && YAML::load(File.open(cred_file))[Rails.env] || {}
-%>
-template: &template
-  database: <%= ADAPT::CONFIG['adapt.db.path'] %>
-  adapter:  <%= (defined?(JRUBY_VERSION) ? 'jdbc' : '') +
-                ADAPT::CONFIG['adapt.db.adapter'] %>
-  timeout:  5000
-  encoding: utf8
-  username: <%= @credentials['username'] || 'dbuser' %>
-  password: <%= @credentials['password'] || 'dbpass' %>
-
-stage:
-  <<: *template
-
-production:
-  <<: *template
-
 development:
-  <<: *template
+  adapter:  sqlite3
+  database: db/db_development.sqlite3
 
 test:
-  <<: *template
+  adapter:  sqlite3
+  database: db/db_test.sqlite3
+
+# Our three deployment environments are devs, staff and public
+deploy: &deploy
+  adapter: postgresql
+  port:     5432
+  host:     <%= Secrets::DATABASE_HOST %>
+  username: <%= Secrets::DATABASE_USERNAME %>
+  password: <%= Secrets::DATABASE_PASSWORD %>
 
 devs:
-  <<: *template
-  host: pdb2.anu.edu.au
-  port: 5432
+  <<: *deploy
+  database: adapt_devs
 
 staff:
-  <<: *template
-  host: pdb2.anu.edu.au
-  port: 5432
+  <<: *deploy
+  database: adapt_staff
+
+public:
+  <<: *deploy
+  database: adapt_public

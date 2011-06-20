@@ -10,6 +10,10 @@ Bundler.require(:default, Rails.env) if defined?(Bundler)
 
 module Adapt
   class Application < Rails::Application
+    # Secrets are required for database.yml, which is
+    # loaded before the config/initializers directory.
+    require File.expand_path('../initializers/secrets', __FILE__)
+
     # -- reads configuration parameters from various places
     require File.join(File.dirname(__FILE__), 'read_configuration')
 
