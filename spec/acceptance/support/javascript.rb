@@ -1,9 +1,7 @@
 RSpec.configure do |config|
-  javascript_driver = defined?(JRUBY_VERSION) ? :celerity : :selenium
+  javascript_driver = :selenium
 
-  config.filter_run :js_advanced => lambda { |val|
-    !val or defined?(JRUBY_VERSION)
-  }
+  config.filter_run :js_advanced => lambda { |val| !val }
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction

@@ -2,15 +2,9 @@ source 'http://rubygems.org'
 
 gem 'rails'
 
-if defined?(JRUBY_VERSION)
-  gem 'jruby-openssl'
-  gem 'activerecord-jdbcsqlite3-adapter'
-  gem 'activerecord-jdbcpostgresql-adapter'
-else
-  gem 'mongrel', '~> 1.2.0.pre2'
-  gem 'sqlite3-ruby', '~> 1.2.5', :require => 'sqlite3'
-  gem 'pg'
-end
+gem 'mongrel', '~> 1.2.0.pre2'
+gem 'sqlite3-ruby', '~> 1.2.5', :require => 'sqlite3'
+gem 'pg'
 
 gem 'capistrano-ext'
 gem 'haml'

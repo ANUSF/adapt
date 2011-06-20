@@ -13,11 +13,9 @@ module Adapt::ApplicationHelper
 
   # Translates some formatting into HTML
   def format_text(text)
-    #TODO We'd like to do something more extensive like this:
+    #TODO This did not work with jruby, but should now in production:
     #
     #     sanitize(RedCloth.new(text).to_html)
-    #
-    # (but RedCloth on jruby apparently chokes on non-ASCII characters)
 
     chunks = text.split("\n").reject(&:blank?)
     sanitize(chunks.map { |p| "<p>#{p}</p>" }.join("\n"))

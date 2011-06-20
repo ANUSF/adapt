@@ -1,5 +1,3 @@
-require 'java' if defined?(JRUBY_VERSION)
-
 # The body of this module reads configuration parameters from various
 # sources and collects them in the constant ADAPT::CONFIG. This code
 # is meant to be loaded once during the Rails initialization process.
@@ -36,24 +34,6 @@ module ADAPT
                                             "adapt_defaults.yml")))
   config = defaults[Rails.env] || {}
   user_home = Rails.root.to_s
-
-  # -- override with servlet context if any
-  if defined?(JRUBY_VERSION) && defined?($servlet_context)
-    $servlet_context.get_init_parameter_names.each do |name|
-      config[name] = $servlet_context.get_init_parameter(name)
-    end
-  end
-
-  # -- override with Java system settings
-  if defined?(JRUBY_VERSION)
-    java.lang.System.getProperties.propertyNames.each do |name|
-      if name.start_with?('adapt.') or name.start_with?('ada.')
-        config[name] = java.lang.System.getProperty(name)
-      end
-    end
-    tmp = java.lang.System.getProperty('user.home')
-    user_home = tmp unless is_blank?(tmp)
-  end
 
   # -- override with runtime environment settings
   ENV.keys.each do |name|
