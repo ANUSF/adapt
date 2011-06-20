@@ -14,38 +14,45 @@ feature "Approve", %q{
     login_as 'Bob'
   end
 
-  scenario "Bob can see submitted studies" do
-    set_study_status_for 'First Study', :to => 'submitted'
-    visit adapt_studies_path
+  context "The study is submitted" do
+    background do
+      set_study_status_for 'First Study', :to => 'submitted'
+    end
 
-    column_contents('Title').should include('First Study')
-    column_contents('Status').should include('submitted')
+    scenario "Bob can see submitted studies" do
+      visit adapt_studies_path
+
+      column_contents('Title').should include('First Study')
+      column_contents('Status').should include('submitted')
+    end
+
+    scenario "Bob can approve submitted studies" do
+      visit study_page_for('First Study')
+      select 'Celine', :from => 'Archivist'
+      click_button 'Approve'
+
+      page.should have_content 'approved'
+      an_archivist_notification_should_be_sent_for 'First Study'
+    end
   end
 
-  scenario "Bob cannot see unsubmitted studies" do
-    set_study_status_for 'First Study', :to => 'incomplete'
-    visit adapt_studies_path
+  context "The study is incomplete" do
+    background do
+      set_study_status_for 'First Study', :to => 'incomplete'
+    end
 
-    column_contents('Title').should_not include('First Study')
+    scenario "Bob cannot see unsubmitted studies" do
+      visit adapt_studies_path
+
+      column_contents('Title').should_not include('First Study')
+    end
+
+    scenario "Bob cannot approve unsubmitted studies" do
+      visit study_page_for('First Study')
+
+      page.should have_no_content 'Approve'
+    end
   end
-
-  scenario "Bob can approve submitted studies" do
-    set_study_status_for 'First Study', :to => 'submitted'
-    visit study_page_for('First Study')
-    select 'Celine', :from => 'Archivist'
-    click_button 'Approve'
-
-    page.should have_content 'approved'
-    an_archivist_notification_should_be_sent_for 'First Study'
-  end
-
-  scenario "Bob cannot approve unsubmitted studies" do
-    set_study_status_for 'First Study', :to => 'incomplete'
-    visit study_page_for('First Study')
-
-    page.should have_no_content 'Approve'
-  end
-
 
   def an_archivist_notification_should_be_sent_for(title)
     study = Adapt::Study.find_by_title(title)
