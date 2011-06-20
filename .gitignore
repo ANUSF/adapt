@@ -1,20 +1,11 @@
-*.war
 *~
 
 /.rvmrc
+/.bundle/
 
-/coverage/*
-/db/db_*
-
-/log/*
-/tmp/*
+/log/
+/tmp/
 /assets
+/coverage/
 
-/rerun.txt
-/.sass-cache/*
-/public/stylesheets/swell
-/public/stylesheets/images
-
-Gemfile.lock.save
-config/database-deploy.yml
-.bundle/
+/db/db_*
