@@ -11,6 +11,10 @@ RSpec.configure do |config|
       system("rm -rf #{dirname}/*")
     end
 
+    # Create files to be uploaded in tests
+    File.open(File.join(asset_path, 'vapour.c'), "wb") { |fp| fp.write "A" }
+    File.open(File.join(asset_path, 'warez.c'), "wb") { |fp| fp.write "B" }
+
     # Make sure no one is logged in
     visit "/users/sign_out"
   end

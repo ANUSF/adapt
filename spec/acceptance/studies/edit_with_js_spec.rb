@@ -1,5 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../acceptance_helper')
 
+ASSET_PATH = ADAPT::CONFIG['adapt.asset.path']
+
 feature "Edit With Js", %q{
   In order to save time and keystrokes and get better feedback
   As a contributor
@@ -30,14 +32,14 @@ feature "Edit With Js", %q{
 
   scenario "Alice selects a file to attach" do
     click_link 'Attached Files'
-    attach_file 'Upload', '/home/olaf/vapour.c'
+    attach_file 'Upload', File.join(ASSET_PATH, 'vapour.c')
     page.should have_content 'vapour.c'
   end
 
   scenario "Alice selects multiple files to attach", :js_advanced => true do
     click_link 'Attached Files'
-    attach_file 'Upload', '/home/olaf/vapour.c'
-    attach_file 'Upload', '/home/olaf/warez.c'
+    attach_file 'Upload', File.join(ASSET_PATH, 'vapour.c')
+    attach_file 'Upload', File.join(ASSET_PATH, 'warez.c')
     page.should have_content 'vapour.c'
     page.should have_content 'warez.c'
   end

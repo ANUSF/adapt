@@ -31,14 +31,6 @@ feature "Submit", %q{
     there_should_be_an_error_message 'not yet ready for submission'
   end
 
-  scenario "Alice submits a study that's been tagged as submitted" do
-    set_study_status_for 'First Study', :to => 'submitted'
-    submit_study 'First Study'
-
-    page_heading_should_be 'Study Summary'
-    there_should_be_an_error_message 'study has already been submitted'
-  end
-
   scenario "Alice accepts the licence" do
     prepare_study_for_submission 'First Study'
     visit study_edit_page_for 'First Study'
@@ -99,11 +91,5 @@ feature "Submit", %q{
 
     # save
     study.save!
-  end
-
-  def submit_study(title)
-    study = Adapt::Study.find_by_title(title)
-    Capybara.current_session.driver.process(:post,
-                                            submit_adapt_study_path(study))
   end
 end

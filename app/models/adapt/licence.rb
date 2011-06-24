@@ -54,13 +54,15 @@ class Adapt::Licence < ActiveRecord::Base
 
   def text(html = true)
     text = full_text(access_mode)
-    unless html
-      text.gsub!(/<\/?[^>]*>/, "")  # strips html tags
-      text.gsub!(/&[^;]*;/, "")     # strips html entities
-      text.gsub!(/^ +/, "")         # removes leading blanks
-      text.gsub!(/\n\n\n*/, "\n\n") # removed multiple empty lines
+    if html
+      text
+    else
+      text.
+        gsub(/<\/?[^>]*>/, ""). # strips html tags
+        gsub(/&[^;]*;/, "").    # strips html entities
+        gsub(/^ +/, "").        # removes leading blanks
+        gsub(/\n\n\n*/, "\n\n") # removed multiple empty lines
     end
-    text
   end
 
   def access_phrase
