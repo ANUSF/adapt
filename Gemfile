@@ -1,9 +1,9 @@
 source 'http://rubygems.org'
 
-gem 'rails'
+gem 'rails', '~> 3.1.0.rc4'
 
 gem 'mongrel', '~> 1.2.0.pre2'
-gem 'sqlite3-ruby', '~> 1.2.5', :require => 'sqlite3'
+gem 'sqlite3-ruby'
 gem 'pg'
 
 gem 'capistrano-ext'
@@ -30,7 +30,7 @@ end
 group :development, :test do
   gem 'test-unit'
   gem 'capybara'
-  gem 'rspec-rails', '~> 2.3.1'
+  gem 'rspec-rails'
   gem 'steak'
   gem 'simplecov', :require => false
   gem 'database_cleaner'

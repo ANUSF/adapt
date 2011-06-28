@@ -256,7 +256,7 @@ class Adapt::Study < ActiveRecord::Base
   end
 
   def ddi(with_id = nil)
-    av = ActionView::Base.new(*Rails.configuration.paths.app.views)
+    av = ActionView::Base.new(*Rails.configuration.paths["app/views"])
     av.extend Adapt::StudiesHelper
     av.assign :study => self, :identifier => (with_id || self.identifier)
     av.render 'adapt/studies/ddi.xml'

@@ -1,7 +1,7 @@
 module Adapt::JsonAccessors
   def self.included(base)
     base.class_eval do
-      class_inheritable_accessor :json_column_name
+      class_attribute :json_column_name
       self.json_column_name = :json_data
       
       extend Adapt::JsonAccessors::ClassMethods
