@@ -25,5 +25,7 @@ Adapt::Application.configure do
 
   # Get rid of SQL logs
   config.log_level = :info
-end
 
+  # Do not compress assets
+  config.assets.compress = false
+end

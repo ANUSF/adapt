@@ -3,12 +3,18 @@ source 'http://rubygems.org'
 gem 'rails', '~> 3.1.0.rc4'
 
 gem 'mongrel', '~> 1.2.0.pre2'
-gem 'sqlite3-ruby'
+gem 'sqlite3'
 gem 'pg'
+
+# Asset template engines
+gem 'sass-rails', "~> 3.1.0.rc"
+gem 'coffee-script'
+gem 'uglifier'
+
+gem 'jquery-rails'
 
 gem 'capistrano-ext'
 gem 'haml'
-gem 'sass'
 gem 'RedCloth'
 gem 'ruby-openid',  :require => 'openid'
 gem 'rubyzip',      :require => 'zip/zip'
