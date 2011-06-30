@@ -20,7 +20,7 @@ $(document).ready ->
   $('.tab-container').
     prepend('<input name=active_tab type=hidden />').
     tabContainer(
-      tags_to_propagate: ['error'],
+      tagsToPropagate: ['error'],
       patterns: { body: '> fieldset' }
     ).
     find('> fieldset legend span').css({ display: 'none' }).end().
