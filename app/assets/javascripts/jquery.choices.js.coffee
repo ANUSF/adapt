@@ -68,10 +68,9 @@ handlers =
 
 $.fn.extend
   addPulldown: (pulldown) ->
-    this.each ->
-      element = pulldown.get 0
-      allPulldowns.push element if $.inArray(element, allPulldowns) < 0
-      $(this).data('pulldown', element).bind(handlers.field)
-      pulldown.bind(handlers.pulldown).appendTo('body')
+    pulldown.bind(handlers.pulldown).appendTo('body')
+    element = pulldown.get 0
+    allPulldowns.push element if $.inArray(element, allPulldowns) < 0
+    this.each -> $(this).data('pulldown', element).bind(handlers.field)
 
 $(document).ready -> $('body').click hideAllPulldowns
