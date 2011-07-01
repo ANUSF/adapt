@@ -47,8 +47,8 @@
 
      $(document).ready(function() {
        $('.tabs')
-         .tabContainer({ tags_to_propagate: ['error'],
-                         current_tab_class: 'open-tab' })
+         .tabContainer({ tagsToPropagate: ['error'],
+                         currentTabClass: 'open-tab' })
          .find('> div').bind('tab-opened', tab_change_handler);
      }
 
