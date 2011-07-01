@@ -38,32 +38,35 @@
 
 $ = jQuery
 
-hCheck = not ($.browser.msie or $.browser.opera)
+goodBrowser = not ($.browser.msie or $.browser.opera)
 
 clip = (val, min, max) -> Math.min max, Math.max min, val
 
 resizeTextarea = ->
   item = $(this)
 
-  # find content length and box width
-  vlen   = this.value.length
-  ewidth = this.offsetWidth
+  # find the memorised and the current length and box width
+  oldLen   = item.data 'valLength'
+  oldWidth = item.data 'boxWidth'
+  newLen   = item.val().length
+  newWidth = this.offsetWidth
 
-  # workaround for IE and Opera idiosyncrasy
-  if hCheck and (vlen < this.valLength or ewidth != this.boxWidth)
+  # if possible, set height to 0 so that browser recomputes it (?)
+  if goodBrowser and (newLen < oldLen or newWidth != oldWidth)
     item.css
       height: '0px'
 
   # update the height and the overflow property
-  if vlen != this.valLength or ewidth != this.boxWidth
-    h = clip this.scrollHeight, item.data('hMin'), item.data('hMax')
+  if newLen != oldLen or newWidth != oldWidth
+    newHeight = this.scrollHeight;
+    clippedHeight = clip newHeight, item.data('hMin'), item.data('hMax')
     item.css
-      overflow: if this.scrollHeight > h then "auto" else "hidden"
-      height: h + "px"
+      overflow: if clippedHeight < newHeight then "auto" else "hidden"
+      height:   "#{clippedHeight}px"
 
   # memorise the current values
-  this.valLength = vlen
-  this.boxWidth = ewidth
+  item.data 'valLength', newLen
+  item.data 'boxWidth', newWidth
 
   # return true so that normal callbacks still run
   true
