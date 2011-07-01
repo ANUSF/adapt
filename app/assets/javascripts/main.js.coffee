@@ -36,6 +36,6 @@ $(document).ready ->
     setTimeout (=> $(this).animate { opacity: 0 }, 'slow'), 5000
 
   # -- turn inline hints in formtastic into nice mouseover tooltips
-  $(document).enableTooltips { tooltip_id: 'adapt-tooltip', delay: 3000 }
+  $(document).enableTooltips { tooltipId: 'adapt-tooltip', delay: 3000 }
   $('.inline-hints').each ->
     $(this).css({ display: 'none' }).parent().addTooltip $(this).text()
