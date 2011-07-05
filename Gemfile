@@ -7,8 +7,6 @@ gem 'pg'
 
 # Asset template engines
 gem 'sass-rails', "~> 3.1.0.rc"
-gem 'coffee-script'
-gem 'uglifier'
 
 gem 'jquery-rails'
 
@@ -33,6 +31,8 @@ else
 end
 
 group :development, :test do
+  gem 'coffee-script'
+  gem 'uglifier'
   gem 'sqlite3'
   gem 'test-unit'
   gem 'capybara'
