@@ -15,6 +15,8 @@ class Adapt::Attachment < ActiveRecord::Base
 
   attr_reader :extracted, :checking, :content
 
+  scope :data_files, :conditions => { :category => 'Data File' }
+
   after_create :write_data
   before_destroy :delete_file
 
@@ -46,6 +48,10 @@ class Adapt::Attachment < ActiveRecord::Base
 
   def data
     read_file(stored_path)
+  end
+
+  def file_type
+    name.sub /.*\./, '' if name.index '.'
   end
 
   def metadata

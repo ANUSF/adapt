@@ -146,3 +146,10 @@
             %titlStmt
               %titl= ref['citation']
             %holdings{ :URI => ref['link'] }
+
+  - @study.attachments.data_files.each_with_index do |attachment, i|
+    %fileDscr
+      %fileTxt
+        %fileName{ :ID => "F#{i+1}" }= attachment.name
+        %fileCont= attachment.description
+        %fileType= attachment.file_type
