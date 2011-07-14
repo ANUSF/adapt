@@ -7,7 +7,7 @@
     %p
       %em
         (Please select a category for each file and provide a short
-        description where necessary. At least on data file is required.)
+        description where necessary. At least one data file is required.)
 
     %table
       %thead
@@ -16,6 +16,7 @@
           %th Size
           %th Description
           %th Category
+          %th Restricted?
           %th
             - if @study.attachments.any? { |a| a.name.ends_with?('.zip') }
               Extract
@@ -32,6 +33,7 @@
             %td
               = f.select :category, categories
               = f.errors_on :category
+            %td.boolean= f.check_box :restricted
             %td.boolean
               - if attachment.name.ends_with?('.zip')
                 = f.check_box :extract

@@ -153,3 +153,5 @@
         %fileName{ :ID => "F#{i+1}" }= attachment.name
         %fileCont= attachment.description
         %fileType= attachment.file_type
+        - if attachment.restricted?
+          %notes Access Level A, Access Level B

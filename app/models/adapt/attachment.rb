@@ -11,7 +11,8 @@ class Adapt::Attachment < ActiveRecord::Base
 
   belongs_to :study
 
-  attr_accessible :content, :category, :format, :description, :extract
+  attr_accessible :content, :category, :restricted, :format, :description,
+    :extract
 
   attr_reader :extracted, :checking, :content
 

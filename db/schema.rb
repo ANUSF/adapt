@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101114232040) do
+ActiveRecord::Schema.define(:version => 20110714025350) do
 
   create_table "adapt_attachments", :force => true do |t|
     t.integer  "study_id"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20101114232040) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "restricted"
   end
 
   create_table "adapt_licences", :force => true do |t|
