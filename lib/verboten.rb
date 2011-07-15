@@ -22,7 +22,12 @@
 module Verboten
   def self.included(base)
     base.class_eval do
-      class_inheritable_accessor :permission_settings
+      def self.inherited(child)
+        super(child)
+        child.permission_settings = self.permission_settings.clone
+      end
+
+      class_attribute :permission_settings
       self.permission_settings = {}
 
       extend Verboten::ClassMethods
