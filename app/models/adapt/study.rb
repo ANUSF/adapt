@@ -184,31 +184,29 @@ class Adapt::Study < ActiveRecord::Base
       archivist and person.id == archivist.id
   end
 
+  def is_owned_or_curated_by(person)
+    is_owned_by(person) or is_curated_by(person)
+  end
+
   def can_be_viewed_by(person)
     person and (person.is_archivist or is_owned_by(person))
   end
 
   def is_listed_for(person)
-    person and (is_owned_by(person) or
-                (person.is_archivist and is_curated_by(person)) or
-                (person.is_admin and is_submitted))
+    is_owned_or_curated_by(person) or
+      (person and person.is_admin and is_submitted)
   end
 
   def can_be_edited_by(person)
-    if person and person.is_archivist
-      #TODO change this when editing of approved studies works correctly
-      is_curated_by(person) and not is_submitted
-    else
-      is_owned_by(person) and not is_submitted
-    end
+    is_owned_or_curated_by(person) and not is_submitted
   end
 
   def can_be_destroyed_by(person)
-    can_be_edited_by(person) and not is_submitted
+    can_be_edited_by(person)
   end
 
   def can_be_submitted_by(person)
-    person and (is_owned_by(person) or is_curated_by(person))
+    can_be_edited_by(person)
   end
   
   def can_be_approved_by(person)
