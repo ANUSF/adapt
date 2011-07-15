@@ -55,6 +55,10 @@ class Adapt::Attachment < ActiveRecord::Base
     name.sub /.*\./, '' if name.index '.'
   end
 
+  def description_for_ddi
+    description.blank? ? name : description
+  end
+
   def metadata
     { "Filename" => name,
       "Filesize" => number_to_human_size(data.size),
