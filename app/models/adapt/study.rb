@@ -135,8 +135,26 @@ class Adapt::Study < ActiveRecord::Base
     false
   end
 
+  class UploadContent
+    def initialize(path, name)
+      @name = name
+    end
+
+    def original_filename
+      name
+    end
+
+    def read
+      read_file path, name
+    end
+  end
+
   def update_from_manual=(val)
-    #TODO make something happen here
+    if val
+      Dir.foreach(manual_upload_path) do |name|
+        #TODO make something happen here
+      end
+    end
   end
 
   def subfields_for_nesting(attr)
