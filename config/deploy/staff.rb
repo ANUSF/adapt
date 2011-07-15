@@ -3,14 +3,9 @@ require 'rvm/capistrano'
 
 set :rvm_ruby_string, 'ruby-1.9.2-p180'
 
-role :web, "web3-nci.anu.edu.au"
-role :app, "web3-nci.anu.edu.au"
-role :db,  "web3-nci.anu.edu.au", :primary => true
-
-# --- USE THIS ONCE CNAMES ARE FIXED: ---
-#role :web, "web3.nci.org.au"
-#role :app, "web3.nci.org.au"
-#role :db,  "web3.nci.org.au", :primary => true
+role :web, "web3.nci.org.au"
+role :app, "web3.nci.org.au"
+role :db,  "web3.nci.org.au", :primary => true
 
 set :user,        "d10web"
 set :use_sudo,    false
