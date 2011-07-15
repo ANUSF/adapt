@@ -2,6 +2,7 @@
 - tab_id = 'adapt-attachment-fields'
 
 = @form.inputs 'Attached Files', :id => tab_id, :class => 'tab' do
+  %h3 Files uploaded so far:
   %p= @form.errors_on(:attachments)
   - unless @study.attachments.empty?
     %p
@@ -39,7 +40,12 @@
                 = f.check_box :extract
             %td.boolean= f.check_box :_destroy
 
-  %h3 Select files to upload:
+  = @form.inputs :class => 'inline' do
+    %li.boolean
+      = @form.check_box :update_from_manual
+      = @form.label :update_from_manual, 'Update from manual uploads'
+
+  %h3 Select more files to upload:
   %p
     %em
       (You can upload files either separately or in batches packaged

@@ -33,6 +33,7 @@ class Adapt::Study < ActiveRecord::Base
                     [:title,
                      :abstract,
                      :uploads_attributes,
+                     :update_from_manual,
                      :attachments_attributes,
                      :licence_attributes,
                      :skip_licence,
@@ -128,6 +129,14 @@ class Adapt::Study < ActiveRecord::Base
         attachments.create(params)
       end
     end
+  end
+
+  def update_from_manual
+    false
+  end
+
+  def update_from_manual=(val)
+    #TODO make something happen here
   end
 
   def subfields_for_nesting(attr)
@@ -258,6 +267,15 @@ class Adapt::Study < ActiveRecord::Base
     av.extend Adapt::StudiesHelper
     av.assign :study => self, :identifier => (with_id || self.identifier)
     av.render 'adapt/studies/ddi.xml'
+  end
+
+  def manual_upload_path
+    unless defined? @manual_upload_path
+      parts = [ADAPT::CONFIG['adapt.asset.path'], 'Temporary',
+               owner.username, id.to_s, 'ManualUploads']
+      @manual_upload_path = File.join *parts
+      make_directory *parts
+    end
   end
 
   def submit(licence_text)
