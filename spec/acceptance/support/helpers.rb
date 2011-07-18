@@ -28,7 +28,14 @@ module HelperMethods
   def manually_upload_attachment_for(title, options = {})
     study = Adapt::Study.find_by_title(title)
     path = File.join(study.manual_upload_path, options[:name])
-    File.open(path, "wb") { |fp| fp.write options[:content] }
+    File.open(path, "wb") { |fp| fp.write options[:data] }
+  end
+
+  def there_should_be_an_attachment_for(title, options = {})
+    study = Adapt::Study.find_by_title title
+    attachment = study.attachments.find_by_name options[:name]
+    attachment.should be_true
+    attachment.data.should == options[:data] if options[:data]
   end
 
   def path_should_be(path)

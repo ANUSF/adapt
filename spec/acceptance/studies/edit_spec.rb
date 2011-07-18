@@ -53,11 +53,14 @@ feature "Edit", %q{
   end
 
   scenario "The attachments list can be updated from the file store." do
-    manually_upload_attachment_for 'First Study', :name => 'test.txt',
-      :content => 'This is just a test.'
+    name = 'test.txt'
+    data = 'This is just a test.'
+
+    manually_upload_attachment_for 'First Study', :name => name, :data => data
     check 'Update from manual uploads'
     click_button 'Apply'
 
-    page.should have_content 'test.txt'
+    page.should have_content name
+    there_should_be_an_attachment_for 'First Study', :name => name, :data => data
   end
 end
