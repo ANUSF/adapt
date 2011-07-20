@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   # -- before filters
-  before_authentication_filter :update_authentication
+  before_authorization_filter :update_authentication
   before_filter :store_session_info
   before_filter :set_asset_host
 
