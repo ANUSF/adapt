@@ -6,7 +6,7 @@ Themenap::Config.configure do |c|
         :text => '<%= yield :title %>'
       },
       { :css  => 'head',
-        :text => '<%= render "layouts/css_includes" %>',
+        :text => '<%= render "layouts/css_includes" %><%= csrf_meta_tag %>',
         :mode => :append
       },
       { :css  => 'meta[name=csrf-param]',

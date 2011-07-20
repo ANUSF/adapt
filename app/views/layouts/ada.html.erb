@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <title><%= yield :title %></title>
 <!-- Include this BEFORE the body to ensure older browsers can read new html5 elements --><script src="https://ada.edu.au/javascripts/modernizr-1.5.min.js?1307340756" type="text/javascript"></script><link href="https://ada.edu.au/stylesheets/import.css?1307340756" media="screen" rel="stylesheet" type="text/css">
-<link href="https://ada.edu.au/stylesheets/theme.css?1307340756" media="screen" rel="stylesheet" type="text/css"><%= render "layouts/css_includes" %></head>
+<link href="https://ada.edu.au/stylesheets/theme.css?1307340756" media="screen" rel="stylesheet" type="text/css"><%= render "layouts/css_includes" %><%= csrf_meta_tag %></head>
 <body class="social_science">
 		<header><div class="login"><%= render "layouts/login" %></div>
 			

@@ -20,7 +20,7 @@
           - else
             = link_to "Summary", adapt_study_path(study)
         %td.noprint
-          - if study.can_be_edited_by(current_user)
+          - if study.can_be_destroyed_by(current_user)
             = link_to "Delete", adapt_study_path(study), |
                       'data-confirm' => 'Really delete this study?', |
                       'data-method' => :delete |
