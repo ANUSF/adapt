@@ -24,8 +24,8 @@ Themenap::Config.configure do |c|
         :text => '<%= render "layouts/js_includes" %>',
         :mode => :append
       },
-      { :css  => 'section.content nav',
-        :text => ''
+      { :css => 'nav.archive_menu',
+        :mode => :remove
       },
       { :css  => 'article',
         :text => '<%= render "layouts/body" %>'
