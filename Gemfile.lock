@@ -1,8 +1,8 @@
 GIT
   remote: git://github.com/ANUSF/OpenID-Client-Engine.git
-  revision: 7b109915b4dc7aaf9e7084030c4bc28a77301e89
+  revision: ae337e02c0f5b4dd090f7f8a63863392f839e4cf
   specs:
-    openid_client (0.1.4)
+    openid_client (0.1.5)
       devise
       devise_openid_authenticatable
 
@@ -226,7 +226,7 @@ DEPENDENCIES
   launchy
   machinist
   mongrel (~> 1.2.0.pre2)
-  openid_client (~> 0.1.4)!
+  openid_client (~> 0.1.5)!
   pg
   rails (~> 3.1.0.rc4)
   rspec-rails
