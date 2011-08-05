@@ -18,7 +18,7 @@ gem 'rubyzip',      :require => 'zip/zip'
 gem 'formtastic'
 
 gem 'devise'
-gem 'devise_openid_authenticatable'
+gem 'devise_openid_authenticatable', '~> 1.0.0'
 
 if ENV['GEMS_LOCAL'] and File.exist? ENV['GEMS_LOCAL']
   path = ENV['GEMS_LOCAL']
@@ -32,6 +32,7 @@ end
 
 group :development, :test do
   gem 'coffee-script'
+  gem 'coffee-script-source', '1.1.1'
   gem 'uglifier'
   gem 'sqlite3'
   gem 'test-unit'

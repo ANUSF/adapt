@@ -52,8 +52,7 @@
            .find('> div').bind('tab-opened', tab_change_handler);
        }
   
-  */
-  var $, defaultPatterns, propagateTags, select;
+  */  var $, defaultPatterns, propagateTags, select;
   $ = jQuery;
   defaultPatterns = {
     header: '> ul',

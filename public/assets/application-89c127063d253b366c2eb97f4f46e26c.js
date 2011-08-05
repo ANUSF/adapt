@@ -9308,8 +9308,7 @@ window.jQuery = window.$ = jQuery;
        $('input:text[data-pulldown-id]').each(function () {
          $(this).addPulldown($('#' + $(this).attr('data-pulldown-id')));
        }
-  */
-  var $, allPulldowns, handlers, hideAllPulldowns;
+  */  var $, allPulldowns, handlers, hideAllPulldowns;
   $ = jQuery;
   allPulldowns = [];
   hideAllPulldowns = function() {
@@ -9448,8 +9447,7 @@ window.jQuery = window.$ = jQuery;
        <input class='multi' size='0' type='file'
               id='article_uploads_attributes_0_content'
               name='article[uploads_attributes][0][content]' />
-  */
-  var $, fileSelected;
+  */  var $, fileSelected;
   $ = jQuery;
   fileSelected = function() {
     var checkbox, elem, hidden, id, n, name, newElem;
@@ -9529,8 +9527,7 @@ window.jQuery = window.$ = jQuery;
            .find('> div').bind('tab-opened', tab_change_handler);
        }
   
-  */
-  var $, defaultPatterns, propagateTags, select;
+  */  var $, defaultPatterns, propagateTags, select;
   $ = jQuery;
   defaultPatterns = {
     header: '> ul',
@@ -9632,8 +9629,7 @@ window.jQuery = window.$ = jQuery;
   # http://www.sitepoint.com/blogs/2009/07/29/build-auto-expanding-textarea-1/
   #
   # Please use as you wish at your own risk.
-  */
-  var $, clip, goodBrowser, resizeTextarea;
+  */  var $, clip, goodBrowser, resizeTextarea;
   $ = jQuery;
   goodBrowser = !($.browser.msie || $.browser.opera);
   clip = function(val, min, max) {
@@ -9722,8 +9718,7 @@ window.jQuery = window.$ = jQuery;
   #       text-align:       left;
   #       width:            20em;
   #     }
-  */
-  var $, fadeInDelay, findTooltip, handlers, hideTooltip, tooltipId;
+  */  var $, fadeInDelay, findTooltip, handlers, hideTooltip, tooltipId;
   $ = jQuery;
   tooltipId = 'tooltip';
   fadeInDelay = 3000;
@@ -9917,4 +9912,3 @@ window.jQuery = window.$ = jQuery;
 // It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
 // the compiled file.
 //
-;
