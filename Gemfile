@@ -1,12 +1,12 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.1.0.rc4'
+gem 'rails', '~> 3.1.0.rc5'
 
 gem 'mongrel', '~> 1.2.0.pre2'
 gem 'pg'
 
 # Asset template engines
-gem 'sass-rails', "~> 3.1.0.rc"
+gem 'sass-rails'
 
 gem 'jquery-rails'
 
@@ -18,7 +18,7 @@ gem 'rubyzip',      :require => 'zip/zip'
 gem 'formtastic'
 
 gem 'devise'
-gem 'devise_openid_authenticatable', '~> 1.0.0'
+gem 'devise_openid_authenticatable'
 
 if ENV['GEMS_LOCAL'] and File.exist? ENV['GEMS_LOCAL']
   path = ENV['GEMS_LOCAL']
