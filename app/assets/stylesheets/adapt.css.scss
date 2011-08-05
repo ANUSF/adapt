@@ -514,6 +514,12 @@ section.main {
     border: solid 1px #cc6666;
 }
 
+.formtastic {
+    #enter_button, #register_button, #logout_button, #profile_button {
+	text-decoration: none;
+    }
+}
+
 #adapt {
     float: left;
     background: none;
