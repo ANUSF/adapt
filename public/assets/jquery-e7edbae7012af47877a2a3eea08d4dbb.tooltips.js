@@ -47,7 +47,8 @@
   #       text-align:       left;
   #       width:            20em;
   #     }
-  */  var $, fadeInDelay, findTooltip, handlers, hideTooltip, tooltipId;
+  */
+  var $, fadeInDelay, findTooltip, handlers, hideTooltip, tooltipId;
   $ = jQuery;
   tooltipId = 'tooltip';
   fadeInDelay = 3000;

@@ -34,7 +34,8 @@
        $('input:text[data-pulldown-id]').each(function () {
          $(this).addPulldown($('#' + $(this).attr('data-pulldown-id')));
        }
-  */  var $, allPulldowns, handlers, hideAllPulldowns;
+  */
+  var $, allPulldowns, handlers, hideAllPulldowns;
   $ = jQuery;
   allPulldowns = [];
   hideAllPulldowns = function() {

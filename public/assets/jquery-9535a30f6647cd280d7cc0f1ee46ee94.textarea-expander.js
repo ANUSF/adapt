@@ -34,7 +34,8 @@
   # http://www.sitepoint.com/blogs/2009/07/29/build-auto-expanding-textarea-1/
   #
   # Please use as you wish at your own risk.
-  */  var $, clip, goodBrowser, resizeTextarea;
+  */
+  var $, clip, goodBrowser, resizeTextarea;
   $ = jQuery;
   goodBrowser = !($.browser.msie || $.browser.opera);
   clip = function(val, min, max) {

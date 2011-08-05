@@ -68,7 +68,8 @@
        <input class='multi' size='0' type='file'
               id='article_uploads_attributes_0_content'
               name='article[uploads_attributes][0][content]' />
-  */  var $, fileSelected;
+  */
+  var $, fileSelected;
   $ = jQuery;
   fileSelected = function() {
     var checkbox, elem, hidden, id, n, name, newElem;
