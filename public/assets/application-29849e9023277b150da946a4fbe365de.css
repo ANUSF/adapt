@@ -489,80 +489,81 @@
 .adapt-pulldown {
   margin-top: 0;
   margin-left: -1px;
+  border: none;
   -moz-box-shadow: 3px 3px 4px gray;
   -webkit-box-shadow: 3px 3px 4px gray;
   box-shadow: 3px 3px 4px gray;
 }
-/* line 475, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 476, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 .adapt-pulldown legend {
   display: none;
 }
-/* line 478, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 479, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 .adapt-pulldown ol {
   max-height: 200px;
   overflow: auto;
   padding-left: 0;
 }
-/* line 483, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 484, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 .adapt-pulldown li:hover {
   background-color: #ffffcc;
 }
 
-/* line 489, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 490, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 header .login {
   position: relative;
 }
 
-/* line 493, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 494, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 article {
   padding-left: 0;
 }
 
-/* line 497, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 498, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 section.main {
   margin-left: 40px;
 }
 
-/* line 501, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 502, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 .flash-notice, .flash-error, .flash-alert {
   position: absolute;
   right: 40px;
   padding: 5px 8px;
 }
 
-/* line 507, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 508, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 .flash-notice {
   background-color: #ffffcc;
   border: solid 1px #cccc66;
 }
 
-/* line 512, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 513, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 .flash-error, .flash-alert {
   background-color: #ffcccc;
   border: solid 1px #cc6666;
 }
 
-/* line 518, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 519, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 .formtastic #enter_button, .formtastic #register_button, .formtastic #logout_button, .formtastic #profile_button {
   text-decoration: none;
 }
 
-/* line 523, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 524, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 #adapt {
   float: left;
   background: none;
   padding-bottom: 0;
 }
-/* line 528, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 529, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 #adapt .tab-container fieldset.tab {
   border-bottom-width: 2px;
   margin-bottom: 12px;
 }
-/* line 533, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 534, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 #adapt .tab-container ul.tab-index li.tab-entry {
   margin-right: 0;
 }
-/* line 535, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 536, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 #adapt .tab-container ul.tab-index li.tab-entry a {
   color: white;
   background: #333;
@@ -570,104 +571,104 @@ section.main {
   border-right-color: #aaa;
   border-width: 1px 1px 0 1px;
 }
-/* line 541, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 542, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 #adapt .tab-container ul.tab-index li.tab-entry a span {
   background-image: none;
 }
-/* line 545, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 546, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 #adapt .tab-container ul.tab-index li.tab-entry a:hover {
   color: white;
   background: black;
   border-color: black;
   border-right-color: #aaa;
 }
-/* line 550, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 551, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 #adapt .tab-container ul.tab-index li.tab-entry a:hover span {
   background-image: none;
 }
-/* line 554, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 555, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 #adapt .tab-container ul.tab-index li.tab-entry a.current-tab {
   color: black;
   background: white;
   border-color: white;
   border-top-color: #aaa;
 }
-/* line 559, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 560, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 #adapt .tab-container ul.tab-index li.tab-entry a.current-tab span {
   background-image: none;
 }
-/* line 563, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 564, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 #adapt .tab-container ul.tab-index li.tab-entry a.current-tab:hover {
   color: black;
   background: #e8e8e8;
   border-color: #e8e8e8;
   border-top-color: #aaa;
 }
-/* line 568, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 569, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 #adapt .tab-container ul.tab-index li.tab-entry a.current-tab:hover span {
   background-image: none;
 }
-/* line 572, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 573, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 #adapt .tab-container ul.tab-index li.tab-entry a {
   outline: none;
 }
-/* line 577, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 578, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 #adapt .tab-container ul.tab-index li.tab-entry:first-child a.current-tab, #adapt .tab-container ul.tab-index li.tab-entry:first-child a.current-tab:hover {
   border-left-color: #aaa;
 }
-/* line 582, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 583, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 #adapt .tab-container ul.tab-index li.tab-entry:last-child a {
   border-right-color: #333;
 }
-/* line 585, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 586, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 #adapt .tab-container ul.tab-index li.tab-entry:last-child a:hover {
   border-right-color: black;
 }
-/* line 588, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 589, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 #adapt .tab-container ul.tab-index li.tab-entry:last-child a.current-tab, #adapt .tab-container ul.tab-index li.tab-entry:last-child a.current-tab:hover {
   border-right-color: #aaa;
 }
-/* line 593, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 594, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 #adapt p {
   text-align: justify;
   margin: 0;
 }
-/* line 598, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 599, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 #adapt em {
   font-style: italic;
 }
-/* line 600, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 601, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 #adapt em em {
   font-style: normal;
 }
-/* line 605, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 606, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 #adapt strong {
   font-weight: bolder;
 }
-/* line 609, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 610, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 #adapt ul, #adapt ol {
   padding-left: 0;
 }
-/* line 613, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 614, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 #adapt ul li:last-child {
   padding-bottom: 0;
 }
-/* line 617, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 618, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 #adapt li {
   list-style: inherit;
   margin-top: 0.3em;
   margin-left: 3em;
 }
-/* line 623, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 624, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 #adapt dt {
   font-weight: bold;
   margin: 1em 0 0.5em 0;
 }
-/* line 628, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 629, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 #adapt dd {
   margin-left: 3em;
 }
-/* line 632, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 633, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 #adapt hr {
   height: 0;
   border: none;
@@ -675,11 +676,11 @@ section.main {
   margin-right: 20%;
   padding-top: 1em;
 }
-/* line 640, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 641, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 #adapt dfn {
   font-style: italic;
 }
-/* line 644, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
+/* line 645, /home/olaf/Rails/adapt/app/assets/stylesheets/adapt.css.scss */
 #adapt tt {
   font-family: courier;
 }
