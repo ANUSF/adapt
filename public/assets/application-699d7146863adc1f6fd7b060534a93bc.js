@@ -9900,7 +9900,7 @@ window.jQuery = window.$ = jQuery;
       return ev.keyCode !== 13;
     });
     $('<div id="adapt-overlay">').append('<div class="blanket">').appendTo('body');
-    return $('form').submit(function() {
+    return $('form.adapt_study').submit(function() {
       $('<div id="alert" class="dialog">').append('<span class="busy-indicator" />').append('Adapt is synchronizing your data...').appendTo('#adapt-overlay');
       return $('#adapt-overlay').css('display', 'block');
     });
