@@ -18,7 +18,7 @@ Themenap::Config.configure do |c|
       { :css  => 'body',
         :mode => :setattr,
         :key => 'class',
-        :value => 'social_science'
+        :value => 'default'
       },
       { :css  => 'html',
         :text => '<%= render "layouts/js_includes" %>',
@@ -29,6 +29,11 @@ Themenap::Config.configure do |c|
       },
       { :css  => 'article',
         :text => '<%= render "layouts/body" %>'
+      },
+      { :css  => '#search-form',
+        :mode => :setattr,
+        :key  => 'action',
+        :value => "#{c.server}/search"
       },
       { :css  => 'nav.subnav',
         :text => '<%= render "layouts/links" %>'

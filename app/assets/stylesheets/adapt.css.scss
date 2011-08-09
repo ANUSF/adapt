@@ -471,6 +471,7 @@ $dfn_width:       13em;
 .adapt-pulldown {
     margin-top: 0;
     margin-left: -1px;
+    border: none;
     @include shadowed(3px, 4px, #808080);
     legend {
 	display: none;

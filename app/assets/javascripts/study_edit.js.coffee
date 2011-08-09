@@ -67,7 +67,7 @@ $(document).ready ->
   $('<div id="adapt-overlay">').append('<div class="blanket">').appendTo('body')
 
   # -- show overlayed message whenever the form is submitted
-  $('form').submit ->
+  $('form.adapt_study').submit ->
     $('<div id="alert" class="dialog">').
       append('<span class="busy-indicator" />').
       append('Adapt is synchronizing your data...').
