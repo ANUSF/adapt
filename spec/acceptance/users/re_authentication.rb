@@ -15,16 +15,39 @@ feature "Re-authentication", %q{
       login_as 'Alice'
     end
 
-    scenario "Before cookie expiration, page visits work directly" do
-      visit "/adapt/studies"
-      path_should_be "/adapt/studies"
-      page.status_code.should == 200
+    context "The client state cookie is still valid" do
+
+      scenario "She can visit the study index page" do
+        visit "/adapt/studies"
+        path_should_be "/adapt/studies"
+        page.status_code.should == 200
+      end
     end
 
-    scenario "After cookie expiration, page visits go through redirection" do
-      visit "/adapt/studies"
-      path_should_be "/adapt/studies"
-      page.status_code.should == 302
+    context "The client state cookie is expired" do
+
+      background do
+        key = OpenidClient::Config.client_state_key
+        set_cookie key, ''
+        get_cookie(key).should == ''
+      end
+
+      scenario "She can still visit the study index page" do
+        visit "/adapt/studies"
+        path_should_be "/adapt/studies"
+      end
     end
+  end
+
+  def jar
+    @jar ||= Capybara.current_session.driver.browser.rack_mock_session.cookie_jar
+  end
+  
+  def set_cookie(key, value)
+    jar.merge "#{key.to_s}=#{value};domain=www.example.com;path=/"
+  end
+
+  def get_cookie(key)
+    jar[key.to_s]
   end
 end
