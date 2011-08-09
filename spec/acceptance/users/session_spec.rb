@@ -18,8 +18,7 @@ feature "User Login", %q{
   scenario "Log in as Alice" do
     login_as 'Alice'
     page.should have_content 'Add study'
-    page.should have_content 'Name: Alice'
-    page.should have_content 'Role: contributor'
+    page.should have_content "contributor: #{User.find_by_name('Alice').email}"
   end
 
   scenario "Bob has the admin role" do
@@ -30,8 +29,7 @@ feature "User Login", %q{
   scenario "Log in as Bob" do
     login_as 'Bob'
     page.should have_content 'Add study'
-    page.should have_content 'Name: Bob'
-    page.should have_content 'Role: admin'
+    page.should have_content "admin: #{User.find_by_name('Bob').email}"
   end
 end
 
