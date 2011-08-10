@@ -15,7 +15,7 @@ feature "Re-authentication", %q{
       login_as 'Alice'
     end
 
-    context "The client state cookie is still valid" do
+    context "The authentication state is still valid" do
 
       scenario "She can visit the study index page" do
         visit "/adapt/studies"
@@ -24,12 +24,10 @@ feature "Re-authentication", %q{
       end
     end
 
-    context "The client state cookie is expired" do
+    context "The authentication state is outdated" do
 
       background do
-        key = OpenidClient::Config.client_state_key
-        set_cookie key, ''
-        get_cookie(key).should == ''
+        invalidate_authentication_state
       end
 
       scenario "She can still visit the study index page" do
@@ -39,15 +37,34 @@ feature "Re-authentication", %q{
     end
   end
 
-  def jar
-    @jar ||= Capybara.current_session.driver.browser.rack_mock_session.cookie_jar
+
+  def invalidate_authentication_state
+    key = OpenidClient::Config.server_timestamp_key
+    timestamp = Time.now.to_f.to_s
+    set_cookie key, timestamp
+
+    # Making sure the cookie got set correctly.
+    get_cookie(key).should == timestamp
   end
-  
+
   def set_cookie(key, value)
-    jar.merge "#{key.to_s}=#{value};domain=www.example.com;path=/"
+    # This is how one needs to set cookies in Rack::Test.
+    jar.merge "#{key.to_s}=#{value};domain=#{domain};path=/"
   end
 
   def get_cookie(key)
     jar[key.to_s]
+  end
+
+  def jar
+    # Sorry Selenium!
+    driver = Capybara.current_session.driver
+    driver.class.should == Capybara::RackTest::Driver
+
+    @jar ||= driver.browser.rack_mock_session.cookie_jar
+  end
+  
+  def domain
+    @domain ||= current_host.sub /\A (?:https?:\/\/)? (.*) (?::\d+)? \z/x, '\\1'
   end
 end
