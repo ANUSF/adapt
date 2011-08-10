@@ -11,13 +11,16 @@ feature "Re-authentication", %q{
     scenario "She can visit the study index page." do
       invalidate_authentication_state if @with_re_authentication
       visit "/adapt/studies"
+
       path_should_be "/adapt/studies"
     end
 
     scenario "She can visit the study edit page." do
       edit_page = study_edit_page_for 'First Study'
+
       invalidate_authentication_state if @with_re_authentication
       visit edit_page
+
       path_should_be edit_page
       page_heading_should_be 'Edit Study'
     end
@@ -25,8 +28,10 @@ feature "Re-authentication", %q{
     scenario "Study editing works properly." do
       edit_page = study_edit_page_for 'First Study'
       visit edit_page
+
       invalidate_authentication_state if @with_re_authentication
       click_button 'Apply'
+
       path_should_be edit_page
       page_heading_should_be 'Edit Study'
     end
@@ -80,14 +85,19 @@ feature "Re-authentication", %q{
   end
 
   def jar
-    # Sorry Selenium!
     driver = Capybara.current_session.driver
-    driver.class.should == Capybara::RackTest::Driver
 
-    @jar ||= driver.browser.rack_mock_session.cookie_jar
+    if Capybara::VERSION.starts_with? '1.'
+      driver.class.should == Capybara::RackTest::Driver
+      @jar ||= driver.browser.rack_mock_session.cookie_jar
+    else
+      driver.class.should == Capybara::Driver::RackTest
+      @jar ||= driver.current_session.instance_variable_get(:@rack_mock_session).
+        cookie_jar
+    end
   end
   
   def domain
-    @domain ||= current_host.sub /\A (?:https?:\/\/)? (.*) (?::\d+)? \z/x, '\\1'
+    @domain ||= URI.parse(current_url).host
   end
 end
