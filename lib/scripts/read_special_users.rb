@@ -19,7 +19,7 @@ User.transaction do
     
     name = [e['fname'], e['sname']].compact.join ' '
     u.name = if name.blank?
-               u.username.split('.').map(&:capitalize).join ' '
+               u.email
              else
                name
              end
