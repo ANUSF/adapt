@@ -30,11 +30,6 @@ Themenap::Config.configure do |c|
       { :css  => 'article',
         :text => '<%= render "layouts/body" %>'
       },
-      { :css  => '#search-form',
-        :mode => :setattr,
-        :key  => 'action',
-        :value => "#{c.server}/search"
-      },
       { :css  => 'nav.subnav',
         :text => '<%= render "layouts/links" %>'
       },

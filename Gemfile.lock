@@ -8,9 +8,9 @@ GIT
 
 GIT
   remote: git://github.com/ANUSF/themenap.git
-  revision: 0897da56a4a0fc28c5aeece519670834dfed7f2c
+  revision: eea0a7a517565cda7cdc34a8cb2b29c62ee5ecc9
   specs:
-    themenap (0.1.6)
+    themenap (0.1.7)
       highline
       httparty
       nokogiri
@@ -239,5 +239,5 @@ DEPENDENCIES
   sqlite3
   steak
   test-unit
-  themenap (~> 0.1.6)!
+  themenap (~> 0.1.7)!
   uglifier
