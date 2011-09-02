@@ -25,10 +25,10 @@ User.transaction do
              end
       
     u.email = e['email']
-    u.role = case e['user_role']
-             when 'publisher'     then 'archivist'
-             when 'administrator' then 'admin'
-             else                      'contributor'
+    u.role = case e['role_cms']
+             when 'manager', 'archivist', 'approver' then 'archivist'
+             when 'administrator'                    then 'admin'
+             else                                         'contributor'
              end
     u.save!
   }
