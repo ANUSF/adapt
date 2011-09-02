@@ -15,21 +15,14 @@ User.transaction do
   data.each { |e|
     url = "#{SERVER_BASE}/user/#{e['user']}"
     u = User.find_or_create_by_identity_url url
-    u.username = e['user']
-    
+
     name = [e['fname'], e['sname']].compact.join ' '
-    u.name = if name.blank?
-               u.email
-             else
-               name
-             end
-      
-    u.email = e['email']
-    u.role = case e['role_cms']
-             when 'manager', 'archivist', 'approver' then 'archivist'
-             when 'administrator'                    then 'admin'
-             else                                         'contributor'
-             end
-    u.save!
+
+    u.username = e['user']
+    u.name     = if name.blank? then e['email'] else name end
+    u.email    = e['email']
+    u.role     = User.map_role e['role_cms']
+
+    u.save! if u.changed?
   }
 end

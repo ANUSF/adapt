@@ -55,6 +55,14 @@ class User < ActiveRecord::Base
      'http://users.ada.edu.au/role']
   end
 
+  def self.map_role(role)
+    case role
+    when 'publisher', 'archivist', 'approver' then 'archivist'
+    when 'administrator', 'manager'           then 'admin'
+    else                                           'contributor'
+    end
+  end
+
   def openid_fields=(fields)
     name = {}
 
@@ -69,11 +77,7 @@ class User < ActiveRecord::Base
       when 'http://axschema.org/namePerson/suffix' then name[:suffix] = value
       when 'http://axschema.org/contact/email'     then self.email    = value
       when 'http://users.ada.edu.au/role'
-        self.role = case value
-                    when 'publisher'     then 'archivist'
-                    when 'administrator' then 'admin'
-                    else                      'contributor'
-                    end
+        self.role = self.class.map_role value
       else
         Rails.logger.error "Unknown OpenID field: #{key} => #{value}"
       end
@@ -83,5 +87,7 @@ class User < ActiveRecord::Base
 
     self.name = [name[:prefix], name[:first], name[:last], name[:suffix]
                 ].compact.join ' '
+
+    save! if self.changed?
   end
 end

@@ -4,8 +4,6 @@ Bugs:
 High priority:
 -------------
 
-- read roles directly from ADAUsers on logging in
-- use CMS rather than Nesstar role
 - DDI fixes (*)
 
 Medium priority:
