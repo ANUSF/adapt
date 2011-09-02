@@ -75,19 +75,28 @@
       %useStmt
         - access = @study.licence && @study.licence.access_mode
 
-        %confDec{ :required => "yes", :URI => "/accessing.jsp" }
+        %confDec{ :required => "yes", :URI => "http://users.ada.edu.au" }
 
-          A copy of the User Undertaking Form must be signed before
-          the data can be accessed.
+          To request download access for this study, please submit a
+          "Request for Access to General Datasets" from your ADA user
+          account at http://users.ada.edu.au (Note: you need
+          to be a registered user and logged in to make an access
+          request). You will also need to complete a signed General
+          Undertaking form if this is the first time you will be
+          downloading data from the Australian Data Archive.
 
         - if access == 'B'
-          %specPerm{ :required => "yes", |
-                     :URI => "/ASSDAData/forms/ASSDA.FORM.ACCESSB.pdf" } |
+          %specPerm{ :required => "yes", :URI => "http://users.ada.edu.au" }
 
-            The depositor has requested that the user apply for
-            permission to access these data. Please complete the
-            Application to Access Restricted Data Form and return it
-            to ADA who will contact the depositor on your behalf.
+            To request download access for this study, please submit a
+            "Request for Access to Restricted Datasets" from your ADA
+            user account at http://users.ada.edu.au (Note: you need to
+            be a registered user and logged in to make an access
+            request). You will also need to complete a signed General
+            Undertaking form
+            (http://www.ada.edu.au/ada/ada-undertaking-forms) once
+            your access to this data has been approved by the
+            depositor.
 
         - if access == 'S'
           %conditions
@@ -122,9 +131,9 @@
           In order to assemble essential information about archival
           resources and to facilitate the exchange of information
           about users’ research activities, individuals are required
-          to email ADA (assda@anu.edu.au) with the bibliographic
-          details and, where available, online links to any published
-          work (including journal articles, books or book chapters,
+          to email ADA (ada@anu.edu.au) with the bibliographic details
+          and, where available, online links to any published work
+          (including journal articles, books or book chapters,
           conference presentations, theses or any other publications
           or outputs) based wholly or in part on the material.
 
