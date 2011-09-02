@@ -4,17 +4,20 @@ Bugs:
 High priority:
 -------------
 
+- read roles directly from ADAUsers on logging in
+- use CMS rather than Nesstar role
+- change study ids to use "au.edu.anu.ada.ddi.xxxxx"
+- other DDI fixes (*)
+
 Medium priority:
 ---------------
 - set up a context help system
 - provide automatic virus scanning
 - implement some kind up quota policy for uploading files
 - copy attached files to processing folder with standard naming
-- fill in "Related Materials" with info on attached files (?)
 
 Lower priority:
 --------------
-- allow admins to add or remove archivists (also admins?)
 - allow depositors to describe files they will submit by other means
 - allow depositors to use an existing study as template (?)
 - add a tagging system to support studies with multiple parts
@@ -23,4 +26,43 @@ Help and documentation:
 ----------------------
 - in attachment tab, say what kind of documentation is needed
 - instruct depositors to describe parts if study has multiple
-- more prominent help (how?)
+
+
+
+(*) [via email from Kristen Granata]
+
+4. </confDec> is incorrect:
+<confDec URI="/accessing.jsp" required="yes">
+A copy of the User Undertaking Form must be signed before the data can be
+accessed.
+</confDec>
+Should be:
+       <confDec required="yes" URI="http://users.ada.edu.au">
+         To request download access for this study, please submit a
+"Request for Access to General Datasets" from your ADA user account at
+&lt;http://users.ada.edu.au&gt; (Note: you need to be a registered user and
+logged in to make an access request). You will also need to complete a
+signed General Undertaking form if this is the first time you will be
+downloading data from the Australian Data Archive.
+       </confDec>
+
+5. Special Permissions is also incorrect:
+<specPerm URI="/ASSDAData/forms/ASSDA.FORM.ACCESSB.pdf" required="yes">
+The depositor has requested that the user apply for permission to access
+these data. Please complete the Application to Access Restricted Data Form
+and return it to ADA who will contact the depositor on your behalf.
+</specPerm>
+ Should be:
+    <specPerm required="yes" URI="http://users.ada.edu.au">
+         To request download access for this study, please submit a
+"Request for Access to Restricted Datasets" from your ADA user account at
+http://users.ada.edu.au (Note: you need to be a registered user and logged
+in to make an access request). You will also need to complete a signed
+General Undertaking form (http://www.ada.edu.au/ada/ada-undertaking-forms)
+once your access to this data has been approved by the depositor."
+       </specPerm>
+
+
+6. Email address incorrect in deposit requirements <deposReq>
+Current: ADA (assda@anu.edu.au)
+Change to: ADA (ada@anu.edu.au)
