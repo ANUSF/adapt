@@ -6,8 +6,7 @@ High priority:
 
 - read roles directly from ADAUsers on logging in
 - use CMS rather than Nesstar role
-- change study ids to use "au.edu.anu.ada.ddi.xxxxx"
-- other DDI fixes (*)
+- DDI fixes (*)
 
 Medium priority:
 ---------------

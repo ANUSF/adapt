@@ -4,7 +4,7 @@ class Adapt::Study < ActiveRecord::Base
   Attachment = Adapt::Attachment
   Licence = Adapt::Licence
 
-  ID_PREFIX = "au.edu.ada.ddi."
+  ID_PREFIX = "au.edu.anu.ada.ddi."
 
   include Adapt::ModelSupport
   include Adapt::FileHandling
