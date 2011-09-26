@@ -18,7 +18,7 @@
     %li
       %label
         Access conditions:
-        = fields.errors_on(:access_mode)
+        = fields.semantic_errors(:access_mode)
       %p
         = fields.radio_button :access_mode, 'A', :label => ''
         Unrestricted – available to ADA registered users (see &nbsp;

@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0.rc4'
+gem 'rails', '3.1.0'
 
 gem 'mongrel', '~> 1.2.0.pre2'
 gem 'pg'
@@ -22,12 +22,12 @@ gem 'devise_openid_authenticatable', '~> 1.0.0'
 
 if ENV['GEMS_LOCAL'] and File.exist? ENV['GEMS_LOCAL']
   path = ENV['GEMS_LOCAL']
-  gem 'openid_client', '~> 0.2.0', :path => "#{path}/openid_client"
-  gem 'themenap',      '~> 0.1.7', :path => "#{path}/themenap"
+  gem 'openid_client', :path => "#{path}/openid_client"
+  gem 'themenap',      :path => "#{path}/themenap"
 else
   git = 'git://github.com/ANUSF'
-  gem 'openid_client', '~> 0.2.0', :git => "#{git}/OpenID-Client-Engine.git"
-  gem 'themenap',      '~> 0.1.7', :git => "#{git}/themenap.git"
+  gem 'openid_client', :git => "#{git}/OpenID-Client-Engine.git"
+  gem 'themenap',      :git => "#{git}/themenap.git"
 end
 
 group :development, :test do
