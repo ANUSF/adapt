@@ -68,7 +68,7 @@ module Adapt::StudiesHelper
         unless hint.blank?
           concat(content_tag('p', hint, :class => 'inline-hints'))
         end
-        concat(content_tag('li', form.semantic_errors(attr)))
+        concat(content_tag('li', form.errors_on(attr)))
       end)
     end
   end

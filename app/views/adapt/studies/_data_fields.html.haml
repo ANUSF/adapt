@@ -15,7 +15,7 @@
     %li.boolean
       = @form.check_box :data_is_quantitative
       = @form.label :data_is_quantitative, "Quantitative"
-    %li= @form.semantic_errors("Data Category")
+    %li= @form.errors_on("Data Category")
 
   = @form.input :data_relation, :as => :text, |
                                 :input_html => { :cols => 60, :rows => 4 }
@@ -42,11 +42,11 @@
   = @form.inputs :class => 'inline' do
     = @form.input :period_start, :input_html => { :size => 12 }
     = @form.input :period_end, :input_html => { :size => 12 }
-    %li= @form.semantic_errors("period")
+    %li= @form.errors_on("period")
   = @form.inputs :class => 'inline' do
     = @form.input :collection_start, :input_html => { :size => 12 }
     = @form.input :collection_end, :input_html => { :size => 12 }
-    %li= @form.semantic_errors("collection")
+    %li= @form.errors_on("collection")
 
   - %w{data_kind time_method sampling_procedure collection_method}.each do |a|
     - s = "Choices for #{a.humanize}"

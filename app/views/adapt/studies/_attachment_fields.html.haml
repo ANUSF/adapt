@@ -3,7 +3,7 @@
 
 = @form.inputs 'Attached Files', :id => tab_id, :class => 'tab' do
   %h3 Files uploaded so far:
-  %p= @form.semantic_errors(:attachments)
+  %p= @form.errors_on(:attachments)
   - unless @study.attachments.empty?
     %p
       %em
@@ -33,7 +33,7 @@
             %td.text= f.text_area :description, text
             %td
               = f.select :category, categories
-              = f.semantic_errors :category
+              = f.errors_on :category
             %td.boolean= f.check_box :restricted
             %td.boolean
               - if attachment.name.ends_with?('.zip')
