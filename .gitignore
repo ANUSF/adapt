@@ -11,3 +11,4 @@
 /db/db_*
 
 /config/initializers/secrets.rb
+.sass-cache/

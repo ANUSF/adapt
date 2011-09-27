@@ -5,8 +5,12 @@ gem 'rails', '3.1.0'
 gem 'mongrel', '~> 1.2.0.pre2'
 gem 'pg'
 
-# Asset template engines
-gem 'sass-rails'
+# Gems used only for assets.
+group :assets do
+  gem 'sass-rails', " ~> 3.1.0"
+  gem 'coffee-rails', " ~> 3.1.0"
+  gem 'uglifier'
+end
 
 gem 'jquery-rails'
 
@@ -31,9 +35,6 @@ else
 end
 
 group :development, :test do
-  gem 'coffee-script'
-  gem 'coffee-script-source', '1.1.1'
-  gem 'uglifier'
   gem 'sqlite3'
   gem 'test-unit'
   gem 'capybara'
