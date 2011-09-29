@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '3.1.0'
 
 gem 'mongrel', '~> 1.2.0.pre2'
-gem 'sqlite3'
+gem 'sqlite3-ruby', '~> 1.2.5', :require => 'sqlite3' # for CentOS 5.5
 gem 'pg'
 
 # Gems used only for assets.
