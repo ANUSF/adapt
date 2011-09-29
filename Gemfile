@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '3.1.0'
 
 gem 'mongrel', '~> 1.2.0.pre2'
+gem 'sqlite3'
 gem 'pg'
 
 # Gems used only for assets.
@@ -35,7 +36,6 @@ else
 end
 
 group :development, :test do
-  gem 'sqlite3'
   gem 'test-unit'
   gem 'capybara'
   gem 'rspec-rails'

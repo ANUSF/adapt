@@ -19,8 +19,10 @@ devs:
   database: adapt_devs
 
 staff:
-  <<: *deploy
-  database: adapt_staff
+  adapter:  sqlite3
+  database: db/db_production.sqlite3
+#  <<: *deploy
+#  database: adapt_staff
 
 public:
   <<: *deploy

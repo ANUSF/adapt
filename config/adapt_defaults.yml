@@ -30,5 +30,5 @@ devs:
 
 staff:
   <<: *deploy
-#  adapt.asset.path:       /projects/d10/assda/publish/ANU/Adapt/Production
-#  adapt.archive.path:     /projects/d10/assda/publish/ANU/Archive
+  adapt.asset.path:       /projects_qfs/d10/assda/publish/ANU/Adapt/Production
+  adapt.archive.path:     /projects_qfs/d10/assda/publish/ANU/Archive
