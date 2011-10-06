@@ -36,7 +36,7 @@
           - unless agency['grant_number'].blank?
             %grantNo{ :agency => agency['agency'] }= agency['grant_number']
       %distStmt
-        %distrbtr{ :abbr => "ADA", URI => "http://ada.anu.edu.au", |
+        %distrbtr{ :abbr => "ADA", URI => "http://ada.edu.au", |
                    :affiliation => "The Australian National University" } |
           Australian Data Archive
         -unless @study.depositors.blank?
