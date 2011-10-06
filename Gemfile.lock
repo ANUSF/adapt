@@ -1,8 +1,8 @@
 GIT
   remote: git://github.com/ANUSF/OpenID-Client-Engine.git
-  revision: beff29b584e73556f93f54cd2dca7ddbf7c68528
+  revision: 7ddac8c7c3cd69163ce4b74190cc95a20bf3e797
   specs:
-    openid_client (0.2.0)
+    openid_client (0.2.1)
       devise
       devise_openid_authenticatable
 
@@ -97,7 +97,7 @@ GEM
     haml (3.1.3)
     highline (1.6.2)
     hike (1.2.1)
-    httparty (0.8.0)
+    httparty (0.8.1)
       multi_json
       multi_xml
     i18n (0.6.0)
@@ -117,7 +117,7 @@ GEM
       daemons (~> 1.0.10)
       gem_plugin (~> 0.2.3)
     multi_json (1.0.3)
-    multi_xml (0.4.0)
+    multi_xml (0.4.1)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
