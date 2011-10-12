@@ -56,5 +56,8 @@ module Adapt
 
     # Version of your assets, change this if you want to expire all your assets  
     config.assets.version = '1.0'
+
+    # Set ActionMailer host
+    config.action_mailer.default_url_options = { :host => "ada.edu.au" }
   end
 end

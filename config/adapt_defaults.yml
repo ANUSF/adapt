@@ -6,13 +6,11 @@ common: &common
   adapt.file.ownership:   ""
   ada.openid.server:      https://users.ada.edu.au
   ada.registration.url:   https://users.ada.edu.au/users/new
+  ada.email.admin:        assda@anu.edu.au
+  ada.email.webmaster:    olaf.delgado-friedrichs@anu.edu.au
 
 development:
   <<: *common
-
-stage:
-  <<: *common
-  adapt.home: adapt_stage
 
 test: &test
   <<: *common

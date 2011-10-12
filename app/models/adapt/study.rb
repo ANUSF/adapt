@@ -316,14 +316,7 @@ class Adapt::Study < ActiveRecord::Base
     save!
 
     unless owner.is_archivist
-      begin
-        Adapt::UserMailer.submission_notification(self).deliver
-      rescue Exception => ex
-        Rails.logger.info 'Failed to send notification email.'
-        Rails.logger.error(ex.to_s + "\n" + ex.backtrace[0..50].join("\n"))
-      else
-        Rails.logger.info 'Notification email was sent.'
-      end
+      send_email { Adapt::UserMailer.submission_notification(self).deliver }
     end
   end
 
@@ -333,13 +326,7 @@ class Adapt::Study < ActiveRecord::Base
     self.archivist = assigned_archivist
     save!
 
-    begin
-      Adapt::UserMailer.archivist_assignment(self).deliver
-    rescue
-      Rails.logger.info 'Failed to send notification email.'
-    else
-      Rails.logger.info 'Notification email was sent.'
-    end
+    send_email { Adapt::UserMailer.archivist_assignment(self).deliver }
   end
 
   def handover(new_archivist)
@@ -348,13 +335,9 @@ class Adapt::Study < ActiveRecord::Base
     self.archivist = new_archivist
     save!
 
-    begin
+    send_email {
       Adapt::UserMailer.handover_notification(self, former_archivist).deliver
-    rescue
-      Rails.logger.info 'Failed to send notification email.'
-    else
-      Rails.logger.info 'Notification email was sent.'
-    end
+    }
   end
 
   def store(range = '0')
@@ -377,13 +360,7 @@ class Adapt::Study < ActiveRecord::Base
     save!
 
     unless identifier.starts_with?('test')
-      begin
-        Adapt::UserMailer.approval_notification(self).deliver
-      rescue
-        Rails.logger.info 'Failed to send notification email.'
-      else
-        Rails.logger.info 'Notification email was sent.'
-      end
+      send_email { Adapt::UserMailer.approval_notification(self).deliver }
     end
   end
 
@@ -393,6 +370,17 @@ class Adapt::Study < ActiveRecord::Base
   end
 
   protected
+
+  def send_email(&block)
+    begin
+      block.call
+    rescue Exception => ex
+      Rails.logger.info 'Failed to send notification email.'
+      Rails.logger.error(ex.to_s + "\n" + ex.backtrace[0..50].join("\n"))
+    else
+      Rails.logger.info 'Notification email was sent.'
+    end
+  end
 
   def create_permanent_id(range)
     if range == 'T'

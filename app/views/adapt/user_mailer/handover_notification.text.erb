@@ -4,7 +4,9 @@ A study entitled
 
 by <%= h @study.owner.username %>
 
+<% if @former_archivist.present? %>
 formerly assigned to <%= h @former_archivist.username %>
+<% end %>
 
 has been handed over to you.
 

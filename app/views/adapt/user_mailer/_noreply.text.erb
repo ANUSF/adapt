@@ -1,6 +1,6 @@
 
 THIS IS AN AUTOMATIC NOTIFICATION. PLEASE DO NOT REPLY TO THIS MESSAGE!
-<%- if Rails.env != 'production' %>
+<%- if Rails.env.starts_with? 'dev' %>
 (You received this message because you are testing ADAPT. It would
 otherwise have been sent to the adress indicated in the subject line.)
 <%- end %>

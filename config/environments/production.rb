@@ -45,6 +45,14 @@ Adapt::Application.configure do
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
 
+  # Mailer configuration
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address => "sf.anu.edu.au",
+    :port    => 25,
+    :domain  => 'ada.edu.au'
+  }
+
   # Enable threaded mode
   # config.threadsafe!
 
