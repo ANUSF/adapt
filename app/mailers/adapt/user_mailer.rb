@@ -30,7 +30,7 @@ class Adapt::UserMailer < ActionMailer::Base
     @study = study
     @url   = adapt_study_url(study, :host => request_host)
 
-    my_mail(:to      => reveiver,
+    my_mail(:to      => study.owner.email,
             :subject => "Your submission via ADAPT has been approved")
   end
 

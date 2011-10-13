@@ -359,9 +359,7 @@ class Adapt::Study < ActiveRecord::Base
     self.status = 'stored'
     save!
 
-    unless identifier.starts_with?('test')
-      send_email { Adapt::UserMailer.approval_notification(self).deliver }
-    end
+    send_email { Adapt::UserMailer.approval_notification(self).deliver }
   end
 
   def reopen
