@@ -303,6 +303,14 @@ class Adapt::Study < ActiveRecord::Base
     @manual_upload_path
   end
 
+  def manual_upload_path_display
+    if manual_upload_path.starts_with? '/projects_qfs/d10/assda/'
+      manual_upload_path.sub(/\/projects_qfs\/d10\/assda/, 'L:').gsub(/\//, '\\')
+    else
+      manual_upload_path
+    end
+  end
+
   def submit(licence_text)
     Rails.logger.info 'Creating a temporary study id'
     ident = create_unique_id_and_directory(submission_path, "deposit_", 1..99999)
