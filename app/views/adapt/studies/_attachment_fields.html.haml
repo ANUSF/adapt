@@ -44,6 +44,8 @@
     %li.boolean
       = @form.check_box :update_from_manual
       = @form.label :update_from_manual, 'Update from manual uploads'
+    %li
+      %em== (For files placed on #{@study.manual_upload_path} via (s)ftp.)
 
   %h3 Select more files to upload:
   %p
