@@ -1,4 +1,6 @@
 module Adapt::FileHandling
+  BUFSIZE=2**10
+
   def write_file(data, base, *path_parts)
     make_parent(base, *path_parts)
     path = File.expand_path(File.join(base, *path_parts))
@@ -6,7 +8,13 @@ module Adapt::FileHandling
     with_lock_on(File.dirname(path)) do
       path = non_conflicting(path)
       File.open(path, "wb", ADAPT::CONFIG['adapt.file.mode']) do |fp|
-        fp.write(data)
+        if data.public_methods.include? :read
+          while (chunk = data.read(BUFSIZE)) != nil
+            fp.write(chunk)
+          end
+        else
+          fp.write(data)
+        end
       end
       set_ownership(path)
       path
