@@ -51,6 +51,10 @@ class Adapt::Attachment < ActiveRecord::Base
     read_file(stored_path)
   end
 
+  def size
+    File.size stored_path
+  end
+
   def file_type
     name.sub /.*\./, '' if name.index '.'
   end
@@ -61,7 +65,7 @@ class Adapt::Attachment < ActiveRecord::Base
 
   def metadata
     { "Filename" => name,
-      "Filesize" => number_to_human_size(data.size),
+      "Filesize" => number_to_human_size(size),
       "Category" => category,
       "Comments" => description }
   end
