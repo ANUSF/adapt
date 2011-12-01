@@ -14,11 +14,11 @@ class Adapt::Attachment < ActiveRecord::Base
   attr_accessible :content, :category, :restricted, :format, :description,
     :extract
 
-  attr_reader :extracted, :checking, :content
+  attr_reader :extracted, :checking
 
   scope :data_files, :conditions => { :category => 'Data File' }
 
-  after_create :write_data
+  after_create :move_tmp_file
   before_destroy :delete_file
 
   validates_inclusion_of :category, :if => :checking, :in => VALID_CATEGORIES,
@@ -26,9 +26,6 @@ class Adapt::Attachment < ActiveRecord::Base
 
   validates :name, :on => :create,
   :presence => { :message => "Please select a file." }
-
-  validates :content, :on => :create,
-  :presence => { :message => "The selected file '#{self.name}' seems empty." }
 
   def empty_selection(column)
     column.to_sym == :category ? '-- Please select --' : nil
@@ -44,7 +41,9 @@ class Adapt::Attachment < ActiveRecord::Base
 
   def content=(uploaded)
     self.name = uploaded.original_filename
-    @content = uploaded.read
+    info = write_file(uploaded, ASSET_PATH, "Temporary", "adapt_upload")
+    @tmp_path = info[:path]
+    self.stored_as = "#{info[:hash]}__#{name}"
   end
 
   def data
@@ -98,23 +97,16 @@ class Adapt::Attachment < ActiveRecord::Base
 
   protected
 
-  def path_components
-    [ASSET_PATH, "Temporary",
-     study.owner.username, study.id.to_s, "files", stored_as]
-  end
-
   def stored_path
-    File.join(*path_components)
-  end
-
-  def write_data
-    self.stored_as = "#{self.id}__#{self.name}"
-    self.save!
-    info = write_file(@content, *path_components)
-    Rails.logger.warn "@@@ info for saved file: #{info.inspect}"
+    File.join(ASSET_PATH, "Temporary", study.owner.username, study.id.to_s,
+              "files", stored_as)
   end
 
   def delete_file
     File.unlink stored_path if File.exist? stored_path
+  end
+
+  def move_tmp_file
+    File.rename @tmp_path, stored_path
   end
 end
