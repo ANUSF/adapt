@@ -50,8 +50,8 @@ class Adapt::Attachment < ActiveRecord::Base
     self.stored_as = "#{info[:hash]}__#{name}"
   end
 
-  def data
-    read_file(stored_path)
+  def open(&block)
+    File.open(stored_path, 'rb', &block)
   end
 
   def size
@@ -110,12 +110,12 @@ class Adapt::Attachment < ActiveRecord::Base
     result
   end
 
-  protected
-
   def stored_path
     File.join(ASSET_PATH, "Temporary", study.owner.username, study.id.to_s,
               "files", stored_as)
   end
+
+  protected
 
   def delete_file
     File.unlink stored_path if File.exist? stored_path

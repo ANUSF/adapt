@@ -400,7 +400,9 @@ class Adapt::Study < ActiveRecord::Base
     write_file(ddi, base, "Study.xml")
 
     attachments.each do |a|
-      write_file(a.data, base, a.category.gsub(/\s/, '').pluralize, a.name)
+      a.open do |fp|
+        write_file(fp, base, a.category.gsub(/\s/, '').pluralize, a.name)
+      end
     end
     write_file(attachments.map { |a| a.metadata.to_yaml }.join("\n"),
                base, "FileDescriptions.txt")
@@ -413,7 +415,7 @@ class Adapt::Study < ActiveRecord::Base
 
     filedata = attachments.map do |a|
       path = non_conflicting(File.join(base, a.name))
-      write_file(a.data, path)
+      a.open { |fp| write_file(fp, path) }
       a.metadata.merge("Filename" => File.basename(path), "Original" => a.name
                        ).to_yaml
     end
