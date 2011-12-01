@@ -26,10 +26,9 @@ module Adapt::FileHandling
         end
       end
       set_ownership(path)
-      path
     end
 
-    { :size => size, :hash => hash.hexdigest }
+    { :size => size, :hash => hash.hexdigest, :path => path }
   end
 
   def read_file(*path_parts)
