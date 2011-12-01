@@ -135,29 +135,14 @@ class Adapt::Study < ActiveRecord::Base
     false
   end
 
-  class UploadContent
-    include Adapt::FileHandling
-
-    def initialize(path, name)
-      @path = path
-      @name = name
-    end
-
-    def original_filename
-      @name
-    end
-
-    def read
-      read_file @path, @name
-    end
-  end
-
   def update_from_manual=(val)
     if val == "1"
       Dir.foreach(manual_upload_path) do |name|
         unless name == '.' or name == '..'
-          content = UploadContent.new manual_upload_path, name
-          attachments.create :content => content, :category => 'Data File'
+          File.open(File.join(manual_upload_path, name), 'rb') do |fp|
+            content = Adapt::Attachment::StreamContent.new(fp, name)
+            attachments.create :content => content, :category => 'Data File'
+          end
         end
       end
     end
