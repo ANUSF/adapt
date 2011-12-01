@@ -27,6 +27,10 @@ class Adapt::Attachment < ActiveRecord::Base
   validates :name, :on => :create,
   :presence => { :message => "Please select a file." }
 
+  validates :stored_as, :on => :create, :uniqueness => {
+    :scope => :study_id,
+    :message => "This attachment already exists." }
+
   def empty_selection(column)
     column.to_sym == :category ? '-- Please select --' : nil
   end
