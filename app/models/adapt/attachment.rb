@@ -110,7 +110,8 @@ class Adapt::Attachment < ActiveRecord::Base
   def write_data
     self.stored_as = "#{self.id}__#{self.name}"
     self.save!
-    write_file(@content, *path_components)
+    info = write_file(@content, *path_components)
+    Rails.logger.warn "@@@ info for saved file: #{info.inspect}"
   end
 
   def delete_file

@@ -2,8 +2,13 @@ module Adapt::FileHandling
   BUFSIZE=2**10
 
   def write_file(data, base, *path_parts)
+    require 'digest/md5'
+
     make_parent(base, *path_parts)
     path = File.expand_path(File.join(base, *path_parts))
+
+    size = 0
+    hash = Digest::MD5.new
 
     with_lock_on(File.dirname(path)) do
       path = non_conflicting(path)
@@ -11,14 +16,20 @@ module Adapt::FileHandling
         if data.public_methods.include? :read
           while (chunk = data.read(BUFSIZE)) != nil
             fp.write(chunk)
+            size += chunk.length
+            hash.update chunk
           end
         else
           fp.write(data)
+          size = data.length
+          hash.update data
         end
       end
       set_ownership(path)
       path
     end
+
+    { :size => size, :hash => hash.hexdigest }
   end
 
   def read_file(*path_parts)
