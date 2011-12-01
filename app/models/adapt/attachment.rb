@@ -69,6 +69,21 @@ class Adapt::Attachment < ActiveRecord::Base
       "Comments" => description }
   end
   
+  class StreamContent
+    def initialize(stream, name)
+      @name = name
+      @stream = stream
+    end
+
+    def original_filename
+      @name
+    end
+
+    def read(*args)
+      @stream.read *args
+    end
+  end
+
   def extract
   end
 
@@ -77,15 +92,11 @@ class Adapt::Attachment < ActiveRecord::Base
       Zip::ZipInputStream::open(stored_path) do |io|
         while (entry = io.get_next_entry)
           name = File.basename(entry.name)
-          study.attachments << Adapt::Attachment.make(name, io.read)
+          study.attachments.create(:content => StreamContent.new(io, name))
         end
       end
       @extracted = true
     end
-  end
-
-  def self.make(name, data)
-    self.new(:content => Struct.new(:original_filename, :read).new(name, data))
   end
 
   def ready_for_submission?
