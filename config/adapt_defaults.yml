@@ -23,6 +23,7 @@ deploy: &deploy
 
 devs:
   <<: *deploy
+  adapt.asset.path:       /projects_qfs/d10/assda/publish/ANU/Adapt/Test
   ada.openid.server:      https://users-test.ada.edu.au
   ada.registration.url:   https://users-test.ada.edu.au/users/new
 
