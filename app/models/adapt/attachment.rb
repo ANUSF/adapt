@@ -111,17 +111,21 @@ class Adapt::Attachment < ActiveRecord::Base
   end
 
   def stored_path
-    File.join(ASSET_PATH, "Temporary", study.owner.username, study.id.to_s,
-              "files", stored_as)
+    File.join(*path_components)
   end
 
   protected
+
+  def path_components
+    [ASSET_PATH, "Temporary", study.owner.username, study.id.to_s, "files",
+     stored_as]
+  end
 
   def delete_file
     File.unlink stored_path if File.exist? stored_path
   end
 
   def move_tmp_file
-    File.rename @tmp_path, stored_path
+    move_file @tmp_path, *path_components
   end
 end
