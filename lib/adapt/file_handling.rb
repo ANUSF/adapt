@@ -31,6 +31,16 @@ module Adapt::FileHandling
     { :size => size, :hash => hash.hexdigest, :path => path }
   end
 
+  def move_file(original, base, *path_parts)
+    make_parent(base, *path_parts)
+    path = File.expand_path(File.join(base, *path_parts))
+
+    with_lock_on(File.dirname(path)) do
+      File.rename original, path
+      set_ownership(path)
+    end
+  end
+
   def read_file(*path_parts)
     path = File.join(*path_parts)
     File.open(path, "rb") { |fp| fp.read } if File.exist?(path)
