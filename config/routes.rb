@@ -1,4 +1,18 @@
 Adapt::Application.routes.draw do
+  match 'ADAData/*path', :to => lambda { |env|
+    root = '/Users/olafdelgado-friedrichs'
+    req = Rack::Request.new env
+    expanded = File.expand_path(File.join root, req.path)
+    if expanded.starts_with? "#{root}/ADAData"
+      Rack::File.new(root).call(env)
+    else
+      [ 404,
+        { 'Content-Type' => 'text/plain' },
+        [ "No file #{req.path}" ]
+      ]
+    end
+  }
+
   devise_for :users, :controllers => { :sessions => "sessions" } do
     get "login",  :to => "sessions#new"
     get "logout", :to => "sessions#destroy"
