@@ -10,7 +10,7 @@ test:
 deploy: &deploy
   adapter: postgresql
   port:     5432
-  pool:	    20
+  pool:     20
   host:     <%= Secrets::DATABASE_HOST %>
   username: <%= Secrets::DATABASE_USERNAME %>
   password: <%= Secrets::DATABASE_PASSWORD %>
