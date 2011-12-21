@@ -30,13 +30,10 @@ class Adapt::AttachmentsController < ApplicationController
 
   # This custom action provides a file download for the referenced attachment.
   def download
-    use_xsendfile = false # use in production when it's working on our server
-
     send_file(@attachment.stored_path,
               :filename => @attachment.name,
               :disposition => "attachment",
               :stream => true,
-              :buffer_size => 1024 * 1024,
-              :x_sendfile => use_xsendfile)
+              :buffer_size => 1024 * 1024)
   end
 end
