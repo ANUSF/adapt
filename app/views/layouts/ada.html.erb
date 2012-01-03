@@ -4,8 +4,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <script type="text/javascript">var NREUMQ=[];NREUMQ.push(["mark","firstbyte",new Date().getTime()]);</script><meta charset="UTF-8">
 <script type="text/javascript">var NREUMQ=[];NREUMQ.push(["mark","firstbyte",new Date().getTime()]);</script><title><%= yield :title %></title>
-<link href="https://ada.edu.au/stylesheets/ada.css?1314077733" media="screen" rel="stylesheet" type="text/css">
-<script src="https://ada.edu.au/javascripts/ada.js?1314077733" type="text/javascript"></script><meta name="keywords" content="">
+<link href="https://ada.edu.au/stylesheets/reset.css?1325561413" media="screen" rel="stylesheet" type="text/css">
+<link href="https://ada.edu.au/stylesheets/common.css?1325561413" media="screen" rel="stylesheet" type="text/css">
+<link href="https://ada.edu.au/stylesheets/structure.css?1325561413" media="screen" rel="stylesheet" type="text/css">
+<link href="https://ada.edu.au/stylesheets/navigation.css?1325561413" media="screen" rel="stylesheet" type="text/css">
+<link href="https://ada.edu.au/stylesheets/clearfix.css?1325561413" media="screen" rel="stylesheet" type="text/css">
+<link href="https://ada.edu.au/stylesheets/formtastic.css?1325561413" media="screen" rel="stylesheet" type="text/css">
+<link href="https://ada.edu.au/stylesheets/formtastic_changes.css?1325561413" media="screen" rel="stylesheet" type="text/css">
+<link href="https://ada.edu.au/stylesheets/dropdown.css?1325561413" media="screen" rel="stylesheet" type="text/css">
+<link href="https://ada.edu.au/stylesheets/colour.css?1325561413" media="screen" rel="stylesheet" type="text/css">
+<link href="https://ada.edu.au/stylesheets/jquery-explr-1.3.min.css?1325561413" media="screen" rel="stylesheet" type="text/css">
+<link href="https://ada.edu.au/stylesheets/jquery-ui-1.8.9.custom/jquery-ui-1.8.9.ada.css?1325561413" media="screen" rel="stylesheet" type="text/css">
+<link href="https://ada.edu.au/stylesheets/theme.css?1325561413" media="screen" rel="stylesheet" type="text/css">
+<script src="https://ada.edu.au/javascripts/modernizr-1.5.min.js?1325561413" type="text/javascript"></script><script src="https://ada.edu.au/javascripts/jquery.min.js?1325561413" type="text/javascript"></script><script src="https://ada.edu.au/javascripts/rails.js?1325561413" type="text/javascript"></script><script src="https://ada.edu.au/javascripts/jquery.effects.core.js?1325561413" type="text/javascript"></script><script src="https://ada.edu.au/javascripts/scripts.js?1325561413" type="text/javascript"></script><script src="https://ada.edu.au/javascripts/application.js?1325561413" type="text/javascript"></script><script src="https://ada.edu.au/javascripts/jquery-explr-1.3.min.js?1325561413" type="text/javascript"></script><script src="https://ada.edu.au/javascripts/jquery.multi-open-accordion-1.0.1-ada.js?1325561413" type="text/javascript"></script><meta name="keywords" content="">
 <!-- Google analytics integration --><script type="text/javascript">var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-25243708-1']);_gaq.push(['_setDomainName', '.ada.edu.au']);_gaq.push(['_trackPageview']);
  (function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();
   </script><%= render "layouts/css_includes" %><%= csrf_meta_tag %></head>
@@ -16,50 +27,48 @@
 
 			<div class="masthead"><a href="https://ada.edu.au/ada/home">Australian Data Archive</a></div>
 	</header><nav class="mainnav clearfix"><ul>
-<li> <a href="https://ada.edu.au/ada/home" class="current">Home</a>
+<li> <a href="https://ada.edu.au/ada/home" class="current" title="Home">Home</a>
 				</li>
-				<li> <a href="https://ada.edu.au/ada/subarchives" class="">Subarchives</a>
+				<li> <a href="https://ada.edu.au/ada/subarchives" class="" title="Subarchives">Subarchives</a>
 						<ul>
-<li> <a href="https://ada.edu.au/crime-and-justice/home">Crime &amp; Justice</a> </li>
-								<li> <a href="https://ada.edu.au/qualitative/home">Qualitative</a> </li>
-								<li> <a href="https://ada.edu.au/international/home">International</a> </li>
-								<li> <a href="https://ada.edu.au/social-science/home">Social Science</a> </li>
-								<li> <a href="https://ada.edu.au/longitudinal/home">Longitudinal</a> </li>
-								<li> <a href="https://ada.edu.au/historical/home">Historical</a> </li>
-								<li> <a href="https://ada.edu.au/indigenous/home">Indigenous</a> </li>
+<li> <a href="https://ada.edu.au/crime-and-justice/home" title="Crime &amp; Justice">Crime &amp; Justice</a> </li>
+								<li> <a href="https://ada.edu.au/qualitative/home" title="Qualitative">Qualitative</a> </li>
+								<li> <a href="https://ada.edu.au/international/home" title="International">International</a> </li>
+								<li> <a href="https://ada.edu.au/social-science/home" title="Social Science">Social Science</a> </li>
+								<li> <a href="https://ada.edu.au/longitudinal/home" title="Longitudinal">Longitudinal</a> </li>
+								<li> <a href="https://ada.edu.au/historical/home" title="Historical">Historical</a> </li>
+								<li> <a href="https://ada.edu.au/indigenous/home" title="Indigenous">Indigenous</a> </li>
 						</ul>
 </li>
-				<li> <a href="https://ada.edu.au/ada/data-access" class="">Data Access</a>
+				<li> <a href="https://ada.edu.au/ada/data-access" class="" title="Data Access">Data Access</a>
 						<ul>
-<li> <a href="https://ada.edu.au/ada/ada-undertaking-forms">ADA Undertaking Forms</a> </li>
-								<li> <a href="https://users.ada.edu.au/users/new">Register for ADA</a> </li>
-								<li> <a href="https://ada.edu.au/ada/search-ada">Search ADA</a> </li>
-								<li> <a href="https://ada.edu.au/ada/access-requests">Access Requests</a> </li>
-								<li> <a href="https://ada.edu.au/ada/access-conditions">Access conditions</a> </li>
-								<li> <a href="https://ada.edu.au/ada/browse">Browse ADA Catalogue</a> </li>
+<li> <a href="https://users.ada.edu.au/users/new" title="Register for ADA">Register for ADA</a> </li>
+								<li> <a href="https://ada.edu.au/ada/ada-undertaking-forms" title="ADA Undertaking Forms">ADA Undertaking Forms</a> </li>
+								<li> <a href="https://ada.edu.au/ada/search-ada" title="Search ADA">Search ADA</a> </li>
+								<li> <a href="https://ada.edu.au/ada/browse" title="Browse ADA Catalogue">Browse ADA Catalogue</a> </li>
+								<li> <a href="https://ada.edu.au/ada/access-requests" title="Access Requests">Access Requests</a> </li>
+								<li> <a href="https://ada.edu.au/ada/access-conditions" title="Access conditions">Access conditions</a> </li>
 						</ul>
 </li>
-				<li> <a href="https://ada.edu.au/ada/data-deposit" class="">Data Deposit</a>
+				<li> <a href="https://ada.edu.au/ada/data-deposit" class="" title="Data Deposit">Data Deposit</a>
 						<ul>
-<li> <a href="https://ada.edu.au/ada/deposit-forms">Deposit forms</a> </li>
-								<li> <a href="https://ada.edu.au/ada/how-to-deposit-data">How to deposit data</a> </li>
-								<li> <a href="https://ada.edu.au/ada/setting-access-conditions">Setting access conditions</a> </li>
-								<li> <a href="https://ada.edu.au/ada/preferred-formats">Preferred formats</a> </li>
-								<li> <a href="https://ada.edu.au/ada/why-deposit-data-">Why Deposit Data?</a> </li>
+<li> <a href="https://ada.edu.au/ada/setting-access-conditions" title="Setting access conditions">Setting access conditions</a> </li>
+								<li> <a href="https://ada.edu.au/ada/deposit-forms" title="Deposit forms">Deposit forms</a> </li>
+								<li> <a href="https://ada.edu.au/ada/how-to-deposit-data" title="How to deposit data">How to deposit data</a> </li>
+								<li> <a href="https://ada.edu.au/ada/why-deposit-data-" title="Why Deposit Data?">Why Deposit Data?</a> </li>
+								<li> <a href="https://ada.edu.au/ada/preferred-formats" title="Preferred formats">Preferred formats</a> </li>
 						</ul>
 </li>
-				<li> <a href="https://ada.edu.au/ada/user-guides" class="">User Guides</a>
+				<li> <a href="https://ada.edu.au/ada/user-guides" class="" title="User Guides">User Guides</a>
 				</li>
-				<li> <a href="https://ada.edu.au/ada/ada-news" class="">ADA News</a>
+				<li> <a href="https://ada.edu.au/ada/ada-news" class="" title="ADA News">ADA News</a>
 				</li>
-				<li> <a href="https://ada.edu.au/ada/about" class="">About</a>
+				<li> <a href="https://ada.edu.au/ada/about" class="" title="About">About</a>
 						<ul>
-<li> <a href="https://ada.edu.au/ada/about">About ADA</a> </li>
-								<li> <a href="https://ada.edu.au/ada/contact-ada">Contact ADA</a> </li>
+<li> <a href="https://ada.edu.au/ada/about" title="About ADA">About ADA</a> </li>
+								<li> <a href="https://ada.edu.au/ada/contact-ada" title="Contact ADA">Contact ADA</a> </li>
 						</ul>
 </li>
-				<li> <a href="http://users.ada.edu.au" class="">My Account</a>
-				</li>
      </ul>
 <div class="searchContainer">
 		    <form action="https://ada.edu.au/search" method="get" id="search-form" class="formtastic">
@@ -82,29 +91,28 @@
 		<footer class="footer_small"><p>General Enquiries: <a href="https://ada.edu.au/#">ada@anu.edu.au</a></p>
 		  <p>Web Enquiries: <a href="https://ada.edu.au/mailto:webmaster.ada@anu.edu.au?Subject=Website+enquiry">webmaster.adae@anu.edu.au</a></p> 
 		  <p> &#169; Australian Data Archive</p>
-      <p><em>Deployed 5cdb54f4da24afafdf4cdaa7c2133b2514fa8edb at 2011-08-23 03:35
+      <p><em>Deployed HEAD at 2012-01-03 02:31
 </em></p>
     </footer></section><script type="text/javascript">if (!NREUMQ.f) NREUMQ.f=function() {
 NREUMQ.push(["load",new Date().getTime()]);
 var e=document.createElement("script");
-e.type="text/javascript";e.async=true;e.src="https://d1ros97qkrwjf5.cloudfront.net/19/eum/rum.js";
+e.type="text/javascript";e.async=true;e.src="https://d1ros97qkrwjf5.cloudfront.net/28/eum/rum-staging.js";
 document.body.appendChild(e);
 if(NREUMQ.a)NREUMQ.a();
 };
 if(window.onload!==NREUMQ.f){NREUMQ.a=window.onload;window.onload=NREUMQ.f;};
-NREUMQ.push(["nrf2","beacon-1.newrelic.com","5b09f5d928",212937,"J1ZZRUENVFpWQhlJVgNcRB5ACldBbFJPZkQITFA=",0,60,new Date().getTime()])</script><script type="text/javascript">if (!NREUMQ.f) NREUMQ.f=function() {
+NREUMQ.push(["nrf2","beacon-1.newrelic.com","5b09f5d928",212937,"J1ZZRUENVFpWQhlJVgNcRB5ACldBbFJPZkQITFA=",0,111,new Date().getTime()])</script><script type="text/javascript">if (!NREUMQ.f) NREUMQ.f=function() {
 NREUMQ.push(["load",new Date().getTime()]);
 var e=document.createElement("script");
-e.type="text/javascript";e.async=true;e.src="https://d1ros97qkrwjf5.cloudfront.net/19/eum/rum.js";
+e.type="text/javascript";e.async=true;e.src="https://d1ros97qkrwjf5.cloudfront.net/28/eum/rum-staging.js";
 document.body.appendChild(e);
 if(NREUMQ.a)NREUMQ.a();
 };
 if(window.onload!==NREUMQ.f){NREUMQ.a=window.onload;window.onload=NREUMQ.f;};
-NREUMQ.push(["nrf2","beacon-1.newrelic.com","5b09f5d928",212937,"J1ZZRUENVFpWQhlJVgNcRB5ACldBbFJPZkQITFA=",0,60,new Date().getTime()])</script>
+NREUMQ.push(["nrf2","beacon-1.newrelic.com","5b09f5d928",212937,"J1ZZRUENVFpWQhlJVgNcRB5ACldBbFJPZkQITFA=",0,112,new Date().getTime()])</script>
 </body>
-<head>
 <script type="text/javascript">
       $(document).ready(function(){
       
      });
-    </script><%= render "layouts/css_includes" %><%= csrf_meta_tag %></head><%= render "layouts/js_includes" %></html>
+    </script><%= render "layouts/js_includes" %></html>
