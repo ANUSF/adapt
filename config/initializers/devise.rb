@@ -3,7 +3,7 @@
 Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in DeviseMailer.
-  config.mailer_sender = "assda@anu.edu.au"
+  config.mailer_sender = "ada@anu.edu.au"
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
