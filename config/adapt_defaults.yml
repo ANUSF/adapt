@@ -7,7 +7,7 @@ common: &common
   ada.openid.server:      https://users.ada.edu.au
   ada.registration.url:   https://users.ada.edu.au/users/new
   ada.email.admin:        ada@anu.edu.au
-  ada.email.webmaster:    olaf.delgado-friedrichs@anu.edu.au
+  ada.email.webmaster:    olaf.delgado@gmail.com
 
 development:
   <<: *common
