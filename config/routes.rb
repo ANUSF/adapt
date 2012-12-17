@@ -24,6 +24,10 @@ Adapt::Application.routes.draw do
     resources :licences do
       post 'accept', :on => :member
     end
+
+    resources :dois do
+      post 'upload', :on => :member
+    end
   end
 
   root :to => 'adapt/studies#index'

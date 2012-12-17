@@ -1,0 +1,17 @@
+- title "New DOI"
+
+= semantic_form_for @doi, :url => adapt_dois_path do |f|
+  = f.inputs do
+    %p
+      %em
+        You can upload the DDI XML file for the study here in order to have
+        most of the fields below filled in automatically.
+    = f.input :ddi, :label => "DDI file", :as => :file, :required => true
+
+    = f.input :title, :input_html => { :rows => 4, :cols => 80 }
+    = f.input :creators, :input_html => { :rows => 4, :cols => 80 }
+    = f.input :publisher, :input_html => { :size => 60 }
+    = f.input :year
+  = f.buttons do
+    - ['Upload', 'Cancel'].each do |value|
+      = f.commit_button value, :button_html => { :name => 'result' }
