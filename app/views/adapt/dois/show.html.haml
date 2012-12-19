@@ -1,0 +1,22 @@
+- title "DOI Metadata"
+
+.properties
+  %ul
+    %li
+      %dfn Title:
+      %em=h @doi.title
+    %li
+      %dfn Creators:
+      =h @doi.creators
+    %li
+      %dfn Publisher:
+      =h @doi.publisher
+    %li
+      %dfn Year:
+      =h @doi.year
+
+= semantic_form_for @doi, :url => transmit_adapt_doi_path(@doi), |
+                          :html => { :method => :post } do |f|
+  = f.buttons do
+    - ['Create DOI', 'Cancel', 'Edit'].each do |value|
+      = f.commit_button value, :button_html => { :name => 'result' }
