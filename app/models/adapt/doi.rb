@@ -6,6 +6,9 @@ class Adapt::Doi < ActiveRecord::Base
   validates_presence_of :publisher, :message => 'May not be blank.'
   validates_presence_of :year
 
-  def ddi=(uploaded)
+  def data_cite
+    av = ActionView::Base.new(*Rails.configuration.paths["app/views"])
+    av.assign :doi => self
+    av.render 'adapt/dois/datacite.xml'
   end
 end

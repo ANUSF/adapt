@@ -44,6 +44,10 @@ class Adapt::DoisController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html
+      format.xml
+    end
   end
 
   def edit

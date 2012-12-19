@@ -1,0 +1,15 @@
+!!! XML
+%resource{ :xmlns => "http://datacite.org/schema/kernel-2.2", |
+           :'xmlns:xsi' => "http://www.w3.org/2001/XMLSchema-instance", |
+           :'xsi:schemaLocation' => "http://datacite.org/schema/kernel-2.2 " |
+           "http://schema.datacite.org/meta/kernel-2.2/metadata.xsd" } |
+  %identifier{ :identifierType => "DOI" }
+    = @doi.doi || "--"
+  %creators
+    - @doi.creators.split(',').each do |name|
+      %creator
+        %creatorName= name
+  %titles
+    %title= @doi.title
+  %publisher= @doi.publisher
+  %publicationYear= @doi.year
