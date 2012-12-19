@@ -1,6 +1,6 @@
 en:
   formtastic:
-    titles:
+    titles:     
         data_kind:               "Kind of data"
         time_method:             "Time dimensions"
         sampling_procedure:      "Sampling procedures"
@@ -25,6 +25,12 @@ en:
         period_start:            "Time period data refers to:"
         period_end:              "&mdash;"
         response_rate:           "Response rate:"
+      'adapt/doi':
+        ddi:                     "DDI XML file"
+        title:                   "Study title"
+        creators:                "Study creator(s)"
+        publisher:               "Study publisher"
+        year:                    "Year of publication"
     hints:
       'adapt/study':
         title:                   "The full title of this study."
@@ -61,3 +67,5 @@ en:
   presentations, theses or any other publications or outputs) based
   wholly or in part on the material. The link and description fields
   are optional."
+      'adapt/doi':
+        creators:                "Please separate names by commas."

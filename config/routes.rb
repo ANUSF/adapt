@@ -26,7 +26,7 @@ Adapt::Application.routes.draw do
     end
 
     resources :dois do
-      post 'upload', :on => :member
+      post 'transmit', :on => :member
     end
   end
 
