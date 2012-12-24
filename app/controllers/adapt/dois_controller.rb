@@ -1,3 +1,5 @@
+require 'httparty'
+
 class Adapt::DoisController < ApplicationController
   before_authorization_filter :find_doi, :except => [ :index, :new, :create ]
 
@@ -79,7 +81,18 @@ class Adapt::DoisController < ApplicationController
     elsif params[:result] == "Edit"
       redirect_to edit_adapt_doi_url(@doi)
     else
-      flash[:notice] = 'DOI creation would have been initiated at this point.'
+      xml = @doi.data_cite
+      app_id = "00000000" # TODO read real app_id from secrets.rb
+      ada_url = "http://ada.edu.au/ada/#{@doi.ddi_id}"
+      service_url = "https://services.ands.org.au/doi/1.1/mint.json/"
+
+      response = HTTParty.post(service_url,
+                               :query => { :app_id => app_id, :url => ada_url },
+                               :body => { :xml => "#{xml}" },
+                               :limit => 10)
+      Rails.logger.warn response
+      # TODO analyse the response here, store new DOI or report error
+
       redirect_to adapt_doi_url(@doi)
     end
   end

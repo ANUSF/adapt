@@ -27,6 +27,7 @@ en:
         response_rate:           "Response rate:"
       'adapt/doi':
         ddi:                     "DDI XML file"
+        ddi_id:                  "Study ID"
         title:                   "Study title"
         creators:                "Study creator(s)"
         publisher:               "Study publisher"

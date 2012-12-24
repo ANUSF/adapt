@@ -7,6 +7,7 @@
           most of the fields below filled in automatically.
       = f.input :ddi, :as => :file
 
+    = f.input :ddi_id, :required => true
     = f.input :title, :required => true, :input_html => { :rows => 4, :cols => 80 }
     = f.input :creators, :required => true, :input_html => { :rows => 4, :cols => 80 }
     = f.input :publisher, :required => true, :input_html => { :size => 60 }
